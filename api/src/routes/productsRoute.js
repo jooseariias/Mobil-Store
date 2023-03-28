@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
             include : [ 
                 { 
                   model:Brand, 
-                  attributes : [ 'brand'] ,
+                  attributes : [ 'name', 'logo'] ,
                   through:{
                     attributes:[]
                   }
@@ -67,13 +67,11 @@ router.post("/", async (req, res) => {
         });
   
         const brand = await Brand.findAll({
-          where: {
-            brand: brandName,
-          },
-        });
+            where: {
+              name: brandName,
+            },
+          });
         
-
-      
         createProduct.addBrand(brand);
         
         res.status(200).send("Product created successfully!");
