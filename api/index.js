@@ -40,7 +40,7 @@ const initiateTables = async () => {
         {
             where: {
                 name: marcas[index].name,
-                logo: marcar[index].logo
+                logo: marcas[index].logo
             }
         }
     )
@@ -48,8 +48,11 @@ const initiateTables = async () => {
 }
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+
+conn.sync({ force: false }).then(() => {
+
   initiateTables()
+
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
