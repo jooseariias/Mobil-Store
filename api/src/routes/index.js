@@ -1,7 +1,7 @@
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-
+const  productsRoute = require('./productsRoute')
 
 const router = Router();
 
@@ -10,5 +10,8 @@ const router = Router();
 router.get('/', (req, res)=>{
     res.send("hola mundo")
 })
+
+router.use('/product', productsRoute)
+
 
 module.exports = router;
