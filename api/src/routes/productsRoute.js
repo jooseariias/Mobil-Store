@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/", async (req, res) => {
     try {
+        let { name } = req.query;
         const products = await Product.findAll({
             include : [ 
                 { 
@@ -17,14 +18,20 @@ router.get("/", async (req, res) => {
                  
               ] 
         })
-        if(products){
-            res.send(products).status(200)
-        }else{
-            res.json({msg: "products not found"}).status(404)
+        if(name){
+            let result = products.filter((e) =>
+                e.name.toLowerCase().includes(name.toLowerCase())
+            );
+          
+            result.length
+                ? res.status(200).send(result)
+                : res.status(404).send('name not found');
+        } else {
+            
+            return res.status(200).send(products);
         }
-       
     } catch (error) {
-        return error.message
+        console.log(error);
     }
 
 })
