@@ -4,10 +4,14 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
     sequelize.define('brand', {
-        brand: {
+        name: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+        },
+        logo: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
     },
     {
