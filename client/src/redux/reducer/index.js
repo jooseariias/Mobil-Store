@@ -1,4 +1,4 @@
-import { Action } from "@remix-run/router";
+
 import{
     GET_PHONES, 
     GET_DETAIL,
@@ -21,6 +21,7 @@ function rootReducer(state = initialState, action) {
     switch (action.type) {
   
       case GET_PHONES:
+        console.log(action.paylod)
         return {
           ...state,
           Phones: action.payload,
