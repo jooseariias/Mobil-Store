@@ -50,7 +50,6 @@ router.post("/", async (req, res) => {
       image,
     } = req.body;
    
-    
     try {
       if (
         !name ||
