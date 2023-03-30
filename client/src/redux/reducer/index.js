@@ -42,7 +42,7 @@ function rootReducer(state = initialState, action) {
           details: action.payload
         }
   
-  
+
     //   case POST_PHONE:
     //     return {
     //       ...state,
