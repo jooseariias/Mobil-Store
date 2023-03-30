@@ -43,7 +43,7 @@ router.get("/", async (req, res) => {
   });
   
 
-//   post-user
+//   post
 
 router.post("/", async (req, res) => {
     const { id, name, surname, password, email, rol, enable, image } = req.body;

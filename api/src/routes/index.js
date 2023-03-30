@@ -15,7 +15,6 @@ router.get('/', (req, res)=>{
 router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
 router.use('/user', userRoute);
-
 router.use('/login', loginRoute);
 
 
