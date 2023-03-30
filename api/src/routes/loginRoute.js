@@ -4,7 +4,7 @@ const router = Router();
 const bcrypt = require("bcryptjs");
 const { generateToken } = require('../utils/generateToken')
 
-
+// post login 
 router.post('/', async(req, res)=>{
     const { email, password } = req.body;
 

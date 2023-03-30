@@ -3,6 +3,7 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const  productsRoute = require('./productsRoute')
 const brandRoute=require('./brandRoute');
+const loginRoute= require('./loginRoute')
 const userRoute= require('./userRoute')
 const router = Router();
 
@@ -14,7 +15,8 @@ router.get('/', (req, res)=>{
 
 router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
-router.use('/user', userRoute)
+router.use('/user', userRoute);
+router.use('/login', loginRoute)
 
 
 module.exports = router;
