@@ -8,6 +8,7 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const ORDER_BY_RELEASED = "ORDER_BY_RELEASED";
 export const TIDY_PRICE = "TIDY_PRICE";
 export const FILTER_BRANDS = "FILTER_BRANDS";
+export const CLEAN_DETAIL = "CLEAN_DETAIL";
 
 export function getPhones(){
     return async function (dispatch) {
@@ -69,5 +70,12 @@ export function getPhones(){
     return {
       type: FILTER_BRANDS,
       payload,
+    };
+  }
+
+  export function cleanDetail(payload) {
+    return {
+      type: CLEAN_DETAIL,
+      payload: [],
     };
   }
