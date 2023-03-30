@@ -10,14 +10,14 @@ router.get("/", async (req, res) => {
             include : [ 
                 { 
                   model:Brand, 
-                
+ 
                 }, 
                  
               ] ,
               include : [ 
                 { 
                   model:Feature, 
-                
+              
                 }, 
                  
               ] 
@@ -50,9 +50,10 @@ router.post("/", async (req, res) => {
       price,
       stock,
       year,
-      brand,
+      brandid,
       image,
-      featureId
+      featureId,
+      
       
     } = req.body;
    
@@ -63,7 +64,7 @@ router.post("/", async (req, res) => {
         !price ||
         !stock ||
         !year ||
-        !brand||
+        !brandid||
         !image||
         !featureId
         
@@ -72,6 +73,7 @@ router.post("/", async (req, res) => {
        res.status(400).send("you must complete all fields");
       } else {
         const createProduct = await Product.create({
+         
           image,
           name,
           description,
@@ -79,21 +81,20 @@ router.post("/", async (req, res) => {
           stock,
           year,
           enabled: true,
-          brandId:brand
+         // brandId:brand
         });
-  
-    
-         const feature = await Feature.findAll({
-                where:{
-                  id:featureId
-                }
-          
-          }); 
+        const brand = await Brand.findOne({
+          where :{
+            id:brandid
+          }
+        })
+        await createProduct.setBrand(brand);
+         const feature = await Feature.findByPk(featureId)
         
-      //  createProduct.addBrand(brand);
-        createProduct.addFeature(feature); 
-       res.send(createProduct)
-       // res.status(200).send("Product created successfully!");
+         await createProduct.addFeature(feature); 
+      
+      // res.send(createProduct)
+       res.status(200).send("Product created successfully!");
       }
     } catch (error) {
       res.status(400).json({ message: error.message });
