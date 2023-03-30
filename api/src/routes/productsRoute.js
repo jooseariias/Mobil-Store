@@ -10,10 +10,10 @@ router.get("/", async (req, res) => {
             include : [ 
                 { 
                   model:Brand, 
-                  attributes : [ 'name', 'logo'] ,
-                  through:{
-                    attributes:[]
-                  }
+                  // attributes : [ 'name', 'logo'] ,
+                  // through:{
+                  //   attributes:[]
+                  // }
                 }, 
                  
               ] 
