@@ -1,52 +1,49 @@
 const { Router } = require("express");
-const { Op } = require("sequelize");
 const { User } = require("../db.js");
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcryptjs');
-const { SECRET }= process.env
-
 const router = Router();
+const bcrypt = require('bcryptjs');
+const { Op } = require("sequelize");
+// Importar todos los routers;
+
 
 router.get("/", async (req, res) => {
-    const { email, name } = req.query;
-  
-    try {
-      const users = await User.findAll()
-      if (name) {
-        let result = users.filter((e) =>
-          e.name.toLowerCase().includes(name.toLowerCase())
-        );
-        result.length
-          ? res.status(200).send(result)
-          : res.status(404).send('name not found');
-      }
-  
-      else if (email) {
-        const users = await User.findAll({
-          where: {
-            email: {
-              [Op.like]: `${email}%`
-            }
-          },
-        });
-        users.length > 0
-          ? res.status(200).send(users)
-          : res.status(400).send(`User ${email} not found`);
-      } else {
-        const users = await User.findAll();
-        res.status(200).send(users);
-      }
-  
-    } catch (error) {
-      res.status(400).json({ message: error.message });
+  const { email, name } = req.query;
+
+  try {
+    const users = await User.findAll()
+    if (name) {
+      let result = users.filter((e) =>
+        e.name.toLowerCase().includes(name.toLowerCase())
+      );
+      result.length
+        ? res.status(200).send(result)
+        : res.status(404).send('name not found');
     }
-  });
-  
 
-//   post
+    else if (email) {
+      const users = await User.findAll({
+        where: {
+          email: {
+            [Op.like]: `${email}%`
+          }
+        },
+      });
+      users.length > 0
+        ? res.status(200).send(users)
+        : res.status(400).send(`User ${email} not found`);
+    } else {
+      const users = await User.findAll();
+      res.status(200).send(users);
+    }
 
-router.post("/", async (req, res) => {
-    const { name, surname, password, email, rol, enable, image } = req.body;
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.post("/", async (req, res, next) => {
+    const { id, name, surname, password, email, rol, enable, image } = req.body;
   
     try {
       const validate = await User.findOne({
@@ -56,71 +53,69 @@ router.post("/", async (req, res) => {
       });
   
       if (validate) {
-        return res.status(200).send({ msg: "User or Email already registered" });
-      }else{
-
-        const newUser = await User.create({
-            name,
-            surname,
-            password: bcrypt.hashSync(password, 8),
-            email,
-            rol,
-            enable,
-            image,
-          });
-      
-          if (!newUser) {
-            return res.status(500).json({ error: "Failed to create user" });
-    
-          }else{
-            const token = jwt.sign({ email }, SECRET);
-      
-          return res.status(201).json({ token, newUser, msg: "User registered" });
-          }
+        return res.status(200).json({ msg: "User or Email already registered" });
       }
   
-      
+      const newUser = await User.create({
+        id,
+        name,
+        surname,
+        password: bcrypt.hashSync(password, 8),
+        email,
+        rol,
+        enable,
+        image,
+      });
+  
+      if (!newUser) {
+        return res.status(500).json({ error: "Failed to create user" });
+      }
+  
+      const token = jwt.sign({ email }, "secret");
+  
+      return res.status(201).json({ token, newUser, msg: "User registered" });
   
     } catch (error) {
-      
-      return res.status(500).json({ error: error });
+      console.error(error);
+      return res.status(500).json({ error: "Something went wrong" });
     }
   });
-  
+
+
 
 router.get('/:id', async (req, res) => {
-  const user = await User.findOne({
+  const selectedUser = await User.findOne({
     where: {
       id: req.params.id
     },
   })
-  if (user) {
-    res.status(200).send(user)
+  if (selectedUser) {
+    res.status(200).send(selectedUser)
   } else {
-    res.send("user not found").status(404)
+    res.sendStatus(404)
   }
 })
 
 router.put('/:id', async (req, res) => {
-  const user = await User.findOne({
+  const selectedUser = await User.findOne({
     where: {
       id: req.params.id
     }
 
   });
 
-  if (user) {
+  if (selectedUser) {
     let data = { ...req.body }
 
     let keys = Object.keys(data);
 
     keys.forEach(k => {
-     user[k] = data[k]
+      selectedUser[k] = data[k]
     });
 
-    await user.save()
+    await selectedUser.save()
 
-    res.status(200).send(user)
+    res.status(200).send(selectedUser)
   } else {
     res.status(404)
   }
@@ -129,12 +124,12 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findOne({
+    const deletedUser = await User.findOne({
       where: {
         id: req.params.id
       }
     })
-    if (user) {
+    if (deletedUser) {
       await User.destroy({ where: { id: id } });
       return res.status(200).json("User deleted");
     } else {
@@ -147,7 +142,4 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-
-
-module.exports= router;
-
+module.exports = router;
