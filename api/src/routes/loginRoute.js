@@ -34,4 +34,5 @@ router.post('/', async(req, res)=>{
   res.status(400).send({ msg: "Invalid email or password" });
 });
 
+
 module.exports= router;

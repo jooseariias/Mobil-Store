@@ -16,7 +16,7 @@ router.get('/', (req, res)=>{
 router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
 router.use('/user', userRoute);
-router.use('/login', loginRoute)
+router.use('/login', loginRoute);
 
 
 module.exports = router;
