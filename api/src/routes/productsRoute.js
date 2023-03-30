@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Product, Brand} = require("../db.js");
+const { Product, Brand,Feature} = require("../db.js");
 const router = Router();
 
 
@@ -10,10 +10,14 @@ router.get("/", async (req, res) => {
             include : [ 
                 { 
                   model:Brand, 
-                  attributes : [ 'name', 'logo'] ,
-                  through:{
-                    attributes:[]
-                  }
+                
+                }, 
+                 
+              ] ,
+              include : [ 
+                { 
+                  model:Feature, 
+                
                 }, 
                  
               ] 
@@ -46,8 +50,10 @@ router.post("/", async (req, res) => {
       price,
       stock,
       year,
-      brandName,
+      brand,
       image,
+      featureId
+      
     } = req.body;
    
     try {
@@ -57,10 +63,13 @@ router.post("/", async (req, res) => {
         !price ||
         !stock ||
         !year ||
-        !brandName ||
-        !image
+        !brand||
+        !image||
+        !featureId
+        
+       
       ) {
-        res.status(400).send("you must complete all fields");
+       res.status(400).send("you must complete all fields");
       } else {
         const createProduct = await Product.create({
           image,
@@ -70,17 +79,21 @@ router.post("/", async (req, res) => {
           stock,
           year,
           enabled: true,
+          brandId:brand
         });
   
-        const brand = await Brand.findAll({
-            where: {
-              name: brandName,
-            },
-          });
+    
+         const feature = await Feature.findAll({
+                where:{
+                  id:featureId
+                }
+          
+          }); 
         
-        createProduct.addBrand(brand);
-        
-        res.status(200).send("Product created successfully!");
+      //  createProduct.addBrand(brand);
+        createProduct.addFeature(feature); 
+       res.send(createProduct)
+       // res.status(200).send("Product created successfully!");
       }
     } catch (error) {
       res.status(400).json({ message: error.message });
