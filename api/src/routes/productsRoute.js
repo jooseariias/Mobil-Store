@@ -83,18 +83,25 @@ router.post("/", async (req, res) => {
           enabled: true,
          // brandId:brand
         });
+        console.log("createProduct es: ", createProduct)
         const brand = await Brand.findOne({
           where :{
             id:brandid
           }
         })
+        console.log("brand es: ", brand)
         await createProduct.setBrand(brand);
-         const feature = await Feature.findByPk(featureId)
+        const feature = await Feature.findOne({
+          where: {
+            id: featureId
+          }
+        })
         
+         console.log("feature es: ", feature)
          await createProduct.addFeature(feature); 
       
       // res.send(createProduct)
-       res.status(200).send("Product created successfully!");
+       res.status(200).json(createProduct);
       }
     } catch (error) {
       res.status(400).json({ message: error.message });
