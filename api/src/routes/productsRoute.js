@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Product, Brand} = require("../db.js");
+const { Product, Brand,Feature} = require("../db.js");
 const router = Router();
 
 
@@ -10,10 +10,14 @@ router.get("/", async (req, res) => {
             include : [ 
                 { 
                   model:Brand, 
-                  // attributes : [ 'name', 'logo'] ,
-                  // through:{
-                  //   attributes:[]
-                  // }
+ 
+                }, 
+                 
+              ] ,
+              include : [ 
+                { 
+                  model:Feature, 
+              
                 }, 
                  
               ] 
@@ -46,8 +50,11 @@ router.post("/", async (req, res) => {
       price,
       stock,
       year,
-      brandName,
+      brandid,
       image,
+      featureId,
+      
+      
     } = req.body;
    
     try {
@@ -57,12 +64,16 @@ router.post("/", async (req, res) => {
         !price ||
         !stock ||
         !year ||
-        !brandName ||
-        !image
+        !brandid||
+        !image||
+        !featureId
+        
+       
       ) {
-        res.status(400).send("you must complete all fields");
+       res.status(400).send("you must complete all fields");
       } else {
         const createProduct = await Product.create({
+         
           image,
           name,
           description,
@@ -70,17 +81,27 @@ router.post("/", async (req, res) => {
           stock,
           year,
           enabled: true,
+         // brandId:brand
         });
-  
-        const brand = await Brand.findAll({
-            where: {
-              name: brandName,
-            },
-          });
+        console.log("createProduct es: ", createProduct)
+        const brand = await Brand.findOne({
+          where :{
+            id:brandid
+          }
+        })
+        console.log("brand es: ", brand)
+        await createProduct.setBrand(brand);
+        const feature = await Feature.findOne({
+          where: {
+            id: featureId
+          }
+        })
         
-        createProduct.addBrand(brand);
-        
-        res.status(200).send("Product created successfully!");
+         console.log("feature es: ", feature)
+         await createProduct.addFeature(feature); 
+      
+      // res.send(createProduct)
+       res.status(200).json(createProduct);
       }
     } catch (error) {
       res.status(400).json({ message: error.message });
