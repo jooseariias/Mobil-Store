@@ -12,7 +12,6 @@ const router = Router();
 router.get('/', (req, res)=>{
     res.send("hola mundo")
 })
-
 router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
 router.use('/user', userRoute);
