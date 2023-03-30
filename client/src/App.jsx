@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Home from "./components/home/home";
@@ -12,8 +13,10 @@ export default function App() {
   }, [])
 
   return (
-    <div>
-      <Home />
-    </div>
+    <div className="App">
+    <Routes>
+      <Route exact path="/" element={<Home />} />
+    </Routes>
+  </div>
   );
 }
