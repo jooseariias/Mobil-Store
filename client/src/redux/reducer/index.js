@@ -50,7 +50,7 @@ function rootReducer(state = initialState, action) {
     //       PhonesCopy: action.payload,
     //     };
   
-  
+
       case GET_BRANDS:
         return {
           ...state,
