@@ -17,5 +17,17 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    spectrum: {
+      type: DataTypes.ENUM("high", "medium", "low"),
+      allowNull: false
+    },
+    backCameraDefinition: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    frontCameraDefinition: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, { timestamps: false });
 };
