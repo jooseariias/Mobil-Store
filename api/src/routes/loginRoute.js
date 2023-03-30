@@ -8,8 +8,6 @@ const { generateToken } = require('../utils/generateToken')
 router.post('/', async(req, res)=>{
     const { email, password } = req.body;
 
-  console.log('SERVER', email, password);
-
   const user = await User.findOne({
     where: {
       email: email,
