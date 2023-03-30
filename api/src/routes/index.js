@@ -16,7 +16,6 @@ router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
 router.use('/user', userRoute);
 
-// post login
 router.use('/login', loginRoute);
 
 
