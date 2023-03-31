@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
+
 import { getPhones } from "./redux/actions";
 
 
-import { CreateProduct } from "./FormCreateProduct/CreateProduct";
+import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 
 
 

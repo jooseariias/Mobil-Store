@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { PostPhone, getBrands, getCapacity,getColores } from "../redux/actions/index.js";
+import { PostPhone, getBrands, getCapacity,getColores } from "../../redux/actions/index.js";
 import axios from "axios";
 import swal from "sweetalert";
 
@@ -19,7 +19,7 @@ export const CreateProduct = () => {
     stock: "",
     year: "",
   
-    image:""
+   // image:""
   });
   const [image, setImage] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -28,13 +28,18 @@ export const CreateProduct = () => {
   ////*upload image
 
   const handleImage = async (e) => {
-    const file = e.target.files[0];
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "cloudinary"); //carpeta donde se guardan las imagenes
-    await axios
-      .post(`https://api.cloudinary.com/v1_1/dl0betelp/image/upload`, data)
-      .then((response) => setImage(response.data.secure_url));
+    try {
+      const file = e.target.files[0];
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "store_phones"); //carpeta donde se guardan las imagenes
+      await axios
+        .post(`https://api.cloudinary.com/v1_1/dwfhsitwe/image/upload`, data)
+        .then((response) => setImage(response.data.secure_url) );
+      
+    } catch (error) {
+      console.log(error.message)
+    }
   };
   /////////
   const [errors, setErrors] = useState({});
@@ -59,18 +64,24 @@ export const CreateProduct = () => {
       errors.year = "Description is required";
     }
 
-   /*  if (!image) {
+     if (!image.length) {
       errors.image = "Image is required";
-    } */
+    } 
     if (!form.price.trim()) {
       errors.price = "Price is required";
     }
     if (!form.stock.trim()) {
       errors.stock = "Stock is required";
     }
- /*    if (!selectedBrand.trim()) {
+   if (!selectedBrand.trim()) {
       errors.brand = "Brand is required";
-    } */
+    }
+    if (!selectedColor.trim()) {
+      errors.color = "Color is required";
+    }  
+    if (!selectedCapacity.trim()) {
+      errors.capacity = "Capacity is required";
+    } 
     return errors;
   };
 
@@ -87,7 +98,7 @@ export const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (Object.keys(errors).length) {
+    if (Object.keys(errors).length || !form.name|| !form.description|| !form.price|| !form.stock|| !form.year ||!image.length||!selectedBrand.length||!selectedCapacity.length|| !selectedColor.length) {
       swal({
         title: "Error",
         text: "You must complete all fields",
@@ -100,7 +111,7 @@ export const CreateProduct = () => {
         brandid: selectedBrand,
         colorId: selectedColor, 
         storageCapacityId: selectedCapacity,
-        //image: image,
+        image: image,
       };
 
       dispatch(PostPhone(updatedFormData));
@@ -109,12 +120,13 @@ export const CreateProduct = () => {
        description:"",
        stock:"",
        price:"",
-       image:"",
+     
        year:""
       })
-      setSelectedBrand("")
-      setSelectedCapacity("")
-      setSelectedColor("")
+      setSelectedBrand({selectedBrand:""})
+      setSelectedCapacity({selectedCapacity:""})
+      setSelectedColor({selectedColor:""})
+      setImage({image:""})
       console.log(updatedFormData);
       swal({
         title: "Success",
@@ -192,16 +204,7 @@ export const CreateProduct = () => {
         <label className="letas" htmlFor="image">
           Image:
         </label>
-        <input
-            type="text"
-            id="image"
-            name="image"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={form.image}
-          />
-       {/*  <div>
+        <div>
           <input
             type="file"
             name="file"
@@ -212,7 +215,7 @@ export const CreateProduct = () => {
           {errors.image && (
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.image}</p>
           )}
-        </div> */}
+        </div>
         <label className="letas" htmlFor="stock">
           Stock:
         </label>
@@ -258,36 +261,45 @@ export const CreateProduct = () => {
 
         <div className="selects-check">
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedBrand(e.target.value)}>
-        <option hidden>brand</option>
+        <option hidden>choose a brand</option>
           {brands?.map((b) => (
           
             <option key={b.id} value={b.id}>{b.name}</option>
             ))}
             </select>
+            {errors.brand && (
+            <p style={{ color: "red", fontWeight: "bold" }}>{errors.brand}</p>
+          )}
         </div>
         <div>
         <label htmlFor="color" className="letas">
           Color:{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedColor(e.target.value)}>
-        <option hidden>color</option>
+        <option hidden>choose a color</option>
           {colors?.map((c) => (
           
             <option key={c.id} value={c.id}>{c.color}</option>
             ))}
             </select>
+            {errors.color && (
+            <p style={{ color: "red", fontWeight: "bold" }}>{errors.color}</p>
+          )}
         </div>
         <div>
         <label htmlFor="capacity" className="letas">
           Capacity:{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedCapacity(e.target.value)}>
-          <option hidden>capacity</option>
+          <option hidden>choose a capacity</option>
           {capacity?.map((c) => (
           
             <option key={c.id} value={c.id}>{c.capacity}</option>
             ))}
             </select>
+            {errors.capacity && (
+            <p style={{ color: "red", fontWeight: "bold" }}>{errors.capacity}</p>
+          )}
         </div>
         <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-6" type="submit">
           Submit
