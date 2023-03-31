@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { PostPhone, getBrands, getFeatures } from "../redux/actions/index.js";
+import { PostPhone, getBrands, getCapacity,getColores } from "../redux/actions/index.js";
 import axios from "axios";
 import swal from "sweetalert";
 
@@ -10,17 +10,21 @@ export const CreateProduct = () => {
 
   const brands = useSelector((state) => state.Brands);
   const phones = useSelector((state) => state.Phones);
-  const features = useSelector((state) => state.Features);
+  const colors = useSelector((state) => state.Color);
+  const capacity = useSelector((state) => state.Capacity);
   const [form, setForm] = useState({
     name: "",
     description: "",
     price: "",
     stock: "",
     year: "",
-    brandid:""
+  
+    image:""
   });
   const [image, setImage] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedCapacity, setSelectedCapacity] = useState("");
   ////*upload image
 
   const handleImage = async (e) => {
@@ -64,9 +68,9 @@ export const CreateProduct = () => {
     if (!form.stock.trim()) {
       errors.stock = "Stock is required";
     }
-    if (!selectedBrand.trim()) {
+ /*    if (!selectedBrand.trim()) {
       errors.brand = "Brand is required";
-    }
+    } */
     return errors;
   };
 
@@ -94,11 +98,23 @@ export const CreateProduct = () => {
       const updatedFormData = {
         ...form,
         brandid: selectedBrand,
-        /*  platformName: selectedPlatforms, */
-        image: image,
+        colorId: selectedColor, 
+        storageCapacityId: selectedCapacity,
+        //image: image,
       };
 
       dispatch(PostPhone(updatedFormData));
+      setForm({
+       name:"",
+       description:"",
+       stock:"",
+       price:"",
+       image:"",
+       year:""
+      })
+      setSelectedBrand("")
+      setSelectedCapacity("")
+      setSelectedColor("")
       console.log(updatedFormData);
       swal({
         title: "Success",
@@ -112,12 +128,13 @@ export const CreateProduct = () => {
 
   useEffect(() => {
     dispatch(getBrands());
-    dispatch(getFeatures());
+    dispatch(getCapacity());
+    dispatch(getColores());
   }, [dispatch]);
 
   return (
     <div className="card rounded-none p-6 w-1/2 mx-auto">
-      {console.log(features)}
+     
       <form  className="bg-white p-10 rounded-lg shadow-md bg-blue-200 flex flex-col  h-full "  onSubmit={handleSubmit}>
         <label className="letas" htmlFor="name">
           Name:
@@ -175,7 +192,16 @@ export const CreateProduct = () => {
         <label className="letas" htmlFor="image">
           Image:
         </label>
-        <div>
+        <input
+            type="text"
+            id="image"
+            name="image"
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={form.image}
+          />
+       {/*  <div>
           <input
             type="file"
             name="file"
@@ -186,7 +212,7 @@ export const CreateProduct = () => {
           {errors.image && (
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.image}</p>
           )}
-        </div>
+        </div> */}
         <label className="letas" htmlFor="stock">
           Stock:
         </label>
@@ -227,19 +253,41 @@ export const CreateProduct = () => {
         </div>
 
         <label htmlFor="brand" className="letas">
-          Brands:{" "}
+          Brand:{" "}
         </label>
 
         <div className="selects-check">
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedBrand(e.target.value)}>
+        <option hidden>brand</option>
           {brands?.map((b) => (
           
-            <option value={b.id}>{b.name}</option>
+            <option key={b.id} value={b.id}>{b.name}</option>
             ))}
             </select>
         </div>
         <div>
-     
+        <label htmlFor="color" className="letas">
+          Color:{" "}
+        </label>
+        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedColor(e.target.value)}>
+        <option hidden>color</option>
+          {colors?.map((c) => (
+          
+            <option key={c.id} value={c.id}>{c.color}</option>
+            ))}
+            </select>
+        </div>
+        <div>
+        <label htmlFor="capacity" className="letas">
+          Capacity:{" "}
+        </label>
+        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedCapacity(e.target.value)}>
+          <option hidden>capacity</option>
+          {capacity?.map((c) => (
+          
+            <option key={c.id} value={c.id}>{c.capacity}</option>
+            ))}
+            </select>
         </div>
         <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-6" type="submit">
           Submit

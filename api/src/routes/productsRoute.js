@@ -106,15 +106,15 @@ router.post("/", async (req, res) => {
        //  console.log("color es: ", color)
         await createProduct.setColor(color); 
      
-        // const storageCapacity = await StorageCapacity.findOne({
-        //   where: {
-        //     id: storageCapacityId
-        //   }
-        // })
+        const storageCapacity = await StorageCapacity.findOne({
+          where: {
+            id: storageCapacityId
+          }
+        })
 
         
         // //  console.log("storageCapacity es: ", storageCapacity)
-        //  await createProduct.setStorageCapacity(storageCapacity); 
+          await createProduct.setStorageCapacity(storageCapacity); 
       
       // res.send(createProduct)
        res.status(200).json(createProduct);
