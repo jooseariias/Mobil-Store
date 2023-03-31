@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo se relaciona con usuarios y productos
   sequelize.define('orders', { 
   id: {
-    type: DataTypes.TEXT,
+    type: DataTypes.INTEGER,
     // autoIncrement: true ,
     primaryKey: true,
   },
@@ -13,15 +13,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    // quantity: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: true,
-    // },
-    // price: {
-    //   type: DataTypes.DECIMAL,
-    //   allowNull: true,
-    // },
-    
     total: {
       type: DataTypes.DECIMAL,
       allowNull: false,

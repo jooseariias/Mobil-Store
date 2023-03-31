@@ -8,7 +8,8 @@ import{
     ORDER_BY_NAME,
     ORDER_BY_RELEASED,
     TIDY_PRICE,
-    FILTER_BRANDS
+    FILTER_BRANDS,
+    CLEAN_DETAIL
 }from"../actions/index"
 
 const initialState = {
@@ -34,8 +35,15 @@ function rootReducer(state = initialState, action) {
           ...state,
           details: action.payload
         }
+
+      case CLEAN_DETAIL:
+        return{
+          ...state,
+          details: action.payload
+        }
   
-  
+
+        
     //   case POST_PHONE:
     //     return {
     //       ...state,
@@ -43,7 +51,7 @@ function rootReducer(state = initialState, action) {
     //       PhonesCopy: action.payload,
     //     };
   
-  
+
       case GET_BRANDS:
         return {
           ...state,
