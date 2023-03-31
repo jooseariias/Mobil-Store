@@ -3,6 +3,7 @@ import Cards from "../../components/cards/cards";
 import { useDispatch , useSelector} from "react-redux";
 import {  TidyAlphabetically , TidyPrice , TidyReleased, FilterBrands, getBrands, getPhones} from "../../redux/actions/index"
 import { useEffect } from 'react'
+import Header from '../../components/Header/Header';
 
 
 
@@ -43,8 +44,15 @@ export default function Store(){
 
     return(
 
-        <div>
+        <div className='bg-gray-100'>
+
             <div>
+              <Header/>
+            </div>
+
+            <div>
+
+
             <select
               className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center  "
               onChange={(e) => handleFilterTidy(e)}
@@ -56,7 +64,7 @@ export default function Store(){
               <option value="descendente">Z to A</option>
             </select>
 
-            <select
+            {/* <select
               className="px-3 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center "
               onChange={(e) => handleFilterTidyPrice(e)}
             >
@@ -65,7 +73,7 @@ export default function Store(){
               </option>
               <option value="min"> Minor to Major Price </option>
               <option value="Maximo">Major to Minor Price</option>
-            </select>
+            </select> */}
 
            
             {/* <select
@@ -97,7 +105,9 @@ export default function Store(){
 
 
             </div>
-            {phones?.map((el, index) => {
+
+              <div className='grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mx-10 mt-5 mb-4'>
+              {phones?.map((el, index) => {
           return (
             <Cards
               key={el.id}
@@ -108,6 +118,7 @@ export default function Store(){
             />
           );
         })}
+              </div>
         </div>
     )
 

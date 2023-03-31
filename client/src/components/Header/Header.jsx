@@ -121,8 +121,8 @@ export default function Header(){
 			</div>
 
 			<div className='flex bg-slate-900 w-full p-2 justify-between px-14 text-md cursor-pointer'>
-				<h1>HOME</h1>
-				<h1>STORE</h1>
+				<Link to={'/'}><h1>HOME</h1></Link>
+				<Link to={'/Store'}><h1>STORE</h1></Link>
 				<h1>SOPORTE</h1>
 				<h1>SOBRE PHONEZONE</h1>
 			</div>
