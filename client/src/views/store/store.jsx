@@ -94,7 +94,7 @@ export default function Store(){
             </div>
             {currentGames?.map((el, index) => {
           return (
-            <Card
+            <Cards
               key={el.id}
               id={el.id}
               imgage={el.image}
