@@ -4,14 +4,16 @@ import { Link, useNavigate } from "react-router-dom"; //maneja todas las rutas d
 import icons from '../../assets/icons-header/icons.js'
 import { BsFillDisplayFill, BsSun, BsMoon } from "react-icons/bs";
 import { RiComputerLine } from "react-icons/ri";
+import Swal from 'sweetalert2'
+
+import SearchBar from '../SearchBar/SearchBar.jsx';
 
 export default function Header(){
 	
-	const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem("theme") : "system");
+	const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem("theme") : "dark");
 	const element = document.documentElement;
 	const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-  
 	const iconComponents = [
 	  {
 		text: 'light',
@@ -21,10 +23,6 @@ export default function Header(){
 		  text: 'dark',
 		  icon:  <BsMoon />
 		},
-		{
-
-		text: 'system',
-		icon: <RiComputerLine />},
 	]
 
 	  useEffect(() => {
@@ -67,6 +65,19 @@ export default function Header(){
 	  }
 	  onWindowMatch();
 
+	  const handleFavorites = () => {
+
+		if(!window.localStorage.getItem('user-log')){
+			return Swal.fire({
+				icon: 'error',
+				title: 'Something went wrong',
+				text: 'Unvalidated users cannot have a favorites list',
+				confirmButtonText: 'Continue'
+			  })
+
+		}
+	  }
+
   	return(
     	<header className="bg-slate-300 dark:bg-slate-800 text-gray-100 flex flex-col duration-300 ">
 
@@ -76,10 +87,14 @@ export default function Header(){
 					<img src={icons.logo} className="h-10 w-28" alt="" />
 				</div>
 
+				<div>
+					<SearchBar />
+				</div>
+
 	
 				<div className="items-center flex-shrink-0 hidden lg:flex mt-5">
 
-				<div className="duration-300 rounded-full bg-gray-400 dark:bg-gray-400 mr-2">
+				<div className="duration-300 rounded-full bg-gray-400 dark:bg-gray-400 mr-4">
                 {
                   iconComponents?.map((element) => {
                     return (
@@ -92,11 +107,17 @@ export default function Header(){
                 }
               	</div> 
 
+				  
+				<img src={icons.favoritos} className='h-8 w-8 mr-4 cursor-pointer' onClick={() => handleFavorites()} />
 
-					<img src={icons.favoritos} className="h-8 w-8 mr-4 cursor-pointer" alt="" />
-					<img src={icons.carrito} className="h-8 w-8 mr-5 cursor-pointer" alt="" />
-					<img src={icons.usuario} className="h-8 w-8 mr-2 cursor-pointer" alt="" />
+				<Link to={'/Cart'}>
+					<img src={icons.carrito} className='h-8 w-8 mr-4 cursor-pointer' />
+				</Link>
+
+				<img src={icons.usuario} className="h-8 w-8 mr-2 cursor-pointer" alt="" />
+				 
 				</div>
+
 			</div>
 
 			<div className='flex bg-slate-900 w-full p-2 justify-between px-14 text-md cursor-pointer'>

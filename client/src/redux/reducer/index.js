@@ -1,5 +1,6 @@
 import{
     GET_PHONES, 
+    GET_PHONE,
     GET_DETAIL,
     GET_BRANDS,
     POST_PHONE,
@@ -7,13 +8,20 @@ import{
     ORDER_BY_RELEASED,
     TIDY_PRICE,
     FILTER_BRANDS,
+
+    GET_COLORES,
+    GET_CAPACITY
+
     CLEAN_DETAIL
+
 }from"../actions/index"
 
 const initialState = {
     Phones: [],
     PhonesCopy: [],
     Brands: [],
+    Color:[],
+    Capacity:[],
     details: []
 };
 
@@ -22,6 +30,16 @@ function rootReducer(state = initialState, action) {
   
       case GET_PHONES:
         console.log(action.paylod)
+        return {
+          ...state,
+          Phones: action.payload,
+          PhonesCopy: action.payload,
+        };
+      
+      case GET_PHONE:
+
+        console.log("telefono: ", action.payload);
+
         return {
           ...state,
           Phones: action.payload,
@@ -55,7 +73,17 @@ function rootReducer(state = initialState, action) {
           ...state,
           Brands: action.payload,
         };
-  
+
+        case GET_COLORES:
+          return {
+            ...state,
+            Color: action.payload,
+          };
+          case GET_CAPACITY:
+            return {
+              ...state,
+              Capacity: action.payload,
+            };
  
   
       case POST_PHONE:

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Product, Brand,Feature} = require("../db.js");
+const { Product, Brand, Color, StorageCapacity} = require("../db.js");
 const router = Router();
 
 
@@ -16,11 +16,15 @@ router.get("/", async (req, res) => {
               ] ,
               include : [ 
                 { 
-                  model:Feature, 
+                  model:Color, 
               
                 }, 
                  
-              ] 
+              ],
+              include: [
+                {
+                  model:StorageCapacity
+              } ]
         })
         if(name){
             let result = products.filter((e) =>
@@ -44,6 +48,7 @@ router.get("/", async (req, res) => {
 // post
 
 router.post("/", async (req, res) => {
+  try {
     const {
       name,
       description,
@@ -52,12 +57,12 @@ router.post("/", async (req, res) => {
       year,
       brandid,
       image,
-      featureId,
+      storageCapacityId,
+      colorId
       
       
     } = req.body;
    
-    try {
       if (
         !name ||
         !description ||
@@ -66,7 +71,8 @@ router.post("/", async (req, res) => {
         !year ||
         !brandid||
         !image||
-        !featureId
+        !storageCapacityId ||
+        !colorId
         
        
       ) {
@@ -83,22 +89,32 @@ router.post("/", async (req, res) => {
           enabled: true,
          // brandId:brand
         });
-        console.log("createProduct es: ", createProduct)
+        // console.log("createProduct es: ", createProduct)
         const brand = await Brand.findOne({
           where :{
             id:brandid
           }
         })
-        console.log("brand es: ", brand)
+        // console.log("brand es: ", brand)
         await createProduct.setBrand(brand);
-        const feature = await Feature.findOne({
+
+        const color = await Color.findOne({
+         where: {
+           id: colorId
+         }
+       })
+       //  console.log("color es: ", color)
+        await createProduct.setColor(color); 
+     
+        const storageCapacity = await StorageCapacity.findOne({
           where: {
-            id: featureId
+            id: storageCapacityId
           }
         })
+
         
-         console.log("feature es: ", feature)
-         await createProduct.addFeature(feature); 
+         console.log("storageCapacity es: ", storageCapacity)
+        await createProduct.setStorageCapacity(storageCapacity); 
       
       // res.send(createProduct)
        res.status(200).json(createProduct);
