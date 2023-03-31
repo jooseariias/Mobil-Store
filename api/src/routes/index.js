@@ -31,7 +31,7 @@ const brandRoute=require('./brandRoute');
 const userRoute= require('./userRoute');
 const dbRoute = require('./dbChargeRoute');
 const loginRoute= require('./loginRoute')
-
+const FeatureRoute= require('./routeFeatures')
 
 const router = Router();
 
@@ -45,8 +45,8 @@ router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
 router.use('/user', userRoute);
 router.use('/dbCharge', dbRoute);
-
-router.use('/login', loginRoute);
+router.use('/dbCharge', dbRoute);
+router.use('/features', FeatureRoute);
 
 
 

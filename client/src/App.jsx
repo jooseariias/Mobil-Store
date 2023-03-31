@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Home from "./components/home/home";
 import { getPhones } from "./redux/actions";
-
+import { CreateProduct } from "./FormCreateProduct/CreateProduct";
 export default function App() {
 
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ export default function App() {
     <div className="App">
     <Routes>
       <Route exact path="/" element={<Home />} />
+      <Route exact path="/form-product" element={<CreateProduct />} />
     </Routes>
   </div>
   );
