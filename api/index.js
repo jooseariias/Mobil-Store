@@ -18,7 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { conn ,Brand } = require('./src/db.js');
+const { conn ,Brand, Color, StorageCapacity } = require('./src/db.js');
 
 
 const initiateTables = async () => {
@@ -45,6 +45,49 @@ const initiateTables = async () => {
         }
     )
   }
+
+  let colors = [
+    {id: 1, color: "Blue"},
+    {id: 2, color: "Red"},
+    {id: 3, color: "White"},
+    {id: 4, color: "Coral"},
+    {id: 5, color: "Black"},
+    {id: 6, color: "Green"},
+    {id: 7, color: "Grey"},
+    {id: 8, color: "Blue"},
+    {id: 9, color: "Pink"},
+    {id: 10, color: "Pink"}
+  ];
+
+  colors.forEach(async (element) => {
+    await Color.findOrCreate({
+      where: {
+        id:  element.id,
+        color: element.color
+      }
+    })
+  })
+
+  let capacidades = [
+    {id: 1, capacity: 8},
+    {id: 2, capacity: 16},
+    {id: 3, capacity: 32},
+    {id: 4, capacity: 64},
+    {id: 5, capacity: 128},
+    {id: 6, capacity: 256},
+    {id: 7, capacity: 512},
+    {id: 8, capacity: 1024},
+    {id: 9, capacity: 2048}
+  ];
+
+  capacidades.forEach(async (element) => {
+    await StorageCapacity.findOrCreate({
+      where: {
+        id:  element.id,
+        capacity: element.capacity
+      }
+    })
+  })
 }
 
 // Syncing all the models at once.
