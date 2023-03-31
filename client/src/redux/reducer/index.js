@@ -1,5 +1,3 @@
-
-
 import{
     GET_PHONES, 
     GET_DETAIL,
@@ -43,7 +41,7 @@ function rootReducer(state = initialState, action) {
         }
   
 
-        
+
     //   case POST_PHONE:
     //     return {
     //       ...state,
@@ -98,19 +96,19 @@ function rootReducer(state = initialState, action) {
         let orderByReleased =
           action.payload === "asc"
             ? state.PhonesCopy.sort(function (a, b) {
-                if (a.year.toLowerCase() > b.year.toLowerCase()) {
+                if (a.year > b.year) {
                   return 1;
                 }
-                if (b.year.toLowerCase() > a.year.toLowerCase()) {
+                if (b.year > a.year) {
                   return -1;
                 }
                 return 0;
               })
             : state.PhonesCopy.sort(function (a, b) {
-                if (a.year.toLowerCase() > b.year.toLowerCase()) {
+                if (a.year> b.year) {
                   return -1;
                 }
-                if (b.year.toLowerCase() > a.year.toLowerCase()) {
+                if (b.year > a.year) {
                   return 1;
                 }
                 return 0;
@@ -154,7 +152,7 @@ function rootReducer(state = initialState, action) {
         const TypePhonesFilter =
           action.payload === "all"
             ? Allbran
-            : Allbran?.filter((t) => t.brand.includes(action.payload));
+            : Allbran?.filter((t) => t.brandName.includes(action.payload));
         return {
           ...state,
           PhonesCopy: TypePhonesFilter,
