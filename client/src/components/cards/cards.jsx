@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 function Cards({ id, name, image, price }) {
 
-
   // const availablesPhones = phones.filter((phone) => phone.enabled === true);
   const navigate = useNavigate();
 
