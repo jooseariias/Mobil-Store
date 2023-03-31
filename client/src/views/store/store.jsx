@@ -91,8 +91,8 @@ export default function Store(){
               <option selected hidden>
                 Released
               </option>
-              <option value="asc"> recent </option>
-              <option value="descendente"> oldest recent</option>
+              <option value="asc"> oldest </option>
+              <option value="descendente">  recent</option>
             </select>
 
 

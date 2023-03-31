@@ -6,6 +6,7 @@ import Home from "./views/Home/Home";
 import { getPhones } from "./redux/actions";
 import Store from "./views/store/store";
 
+
 export default function App() {
   const dispatch = useDispatch();
 
