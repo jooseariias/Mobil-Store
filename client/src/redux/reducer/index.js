@@ -2,6 +2,7 @@
 
 import{
     GET_PHONES, 
+    GET_PHONE,
     GET_DETAIL,
     GET_BRANDS,
     POST_PHONE,
@@ -24,6 +25,16 @@ function rootReducer(state = initialState, action) {
   
       case GET_PHONES:
         console.log(action.paylod)
+        return {
+          ...state,
+          Phones: action.payload,
+          PhonesCopy: action.payload,
+        };
+      
+      case GET_PHONE:
+
+        console.log("telefono: ", action.payload);
+
         return {
           ...state,
           Phones: action.payload,
