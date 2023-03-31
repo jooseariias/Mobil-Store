@@ -22,7 +22,7 @@ function Cards({ id, name, image, price }) {
                   <div className="flex flex-col justify-center item-center">
                   {/* <button onClick={() => handleClick(id)}>+ Details</button> */}
                   <p className="text-xl font-bolt text-center">Model: {name}</p> 
-                  <p className="text-xl font-bolt text-center text-green-500">Price: ${price}</p>
+                  <p className="text-2xl font-bolt text-center text-green-500">Price: ${price}</p>
                   </div>
 
             
