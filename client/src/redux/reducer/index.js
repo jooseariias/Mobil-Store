@@ -152,7 +152,7 @@ function rootReducer(state = initialState, action) {
         const TypePhonesFilter =
           action.payload === "all"
             ? Allbran
-            : Allbran?.filter((t) => t.brandName.includes(action.payload));
+            : Allbran?.filter((t) => t.brand.includes(action.payload));
         return {
           ...state,
           PhonesCopy: TypePhonesFilter,
