@@ -63,19 +63,19 @@ export default function Store(){
             </select>
 
            
-            <select
+            {/* <select
               className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
               onChange={HandlerFilterTypeFerBrands}
             >
               <option selected hidden value="all">
-                TypesGames
+                All Phones
               </option>
               {Allbrand?.map((value, index) => (
                 <option key={index} value={value}>
                   {value}
                 </option>
               ))}
-            </select>
+            </select> */}
 
             
         
