@@ -7,6 +7,7 @@ function Cards() {
 
   console.log(phones);
 
+  
   return (
     <>
       <div>
