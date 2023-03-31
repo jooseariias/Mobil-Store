@@ -1,13 +1,5 @@
-// import Cards from "../cards/cards";
-
-
-// export default function Store(){
-
-//     return(
-//         <div>
-          
-//         </div>
-//     )
-
-
-// }
+export default function Store() {
+  return (
+    <div>Store</div>
+  )
+}
