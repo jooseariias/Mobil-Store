@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Brand, Product } = require("../db.js");
+const { Brand, Product, Color, StorageCapacity } = require("../db.js");
 const router = Router();
 
 router.post('/', async (req, res) => {
@@ -19,7 +19,11 @@ try {
             id: 6,
             name: "Motorola",
             "logo": "https://www.cordobadigital.net/wp-content/uploads/2017/08/Motorola-logo-C3DDCBA822-seeklogo.com_.png"
-          }
+          },
+          colorId: 1,
+          storageCapacityId: 3
+
+
         },
         {
           id: 2,
@@ -35,7 +39,9 @@ try {
             id: 1,
             name: "Samsung",
             "logo": "https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/360_197_1.png?$FB_TYPE_B_PNG$"
-          }
+          },
+          colorId: 2,
+          storageCapacityId: 4
         },
         {
           id: 3,
@@ -51,7 +57,9 @@ try {
             id: 1,
             name: "Samsung",
             "logo": "https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/360_197_1.png?$FB_TYPE_B_PNG$"
-          }
+          },
+          colorId: 3,
+          storageCapacityId: 5
         },
         {
           id: 4,
@@ -67,7 +75,9 @@ try {
             id: 6,
             name: "Motorola",
             "logo": "https://www.cordobadigital.net/wp-content/uploads/2017/08/Motorola-logo-C3DDCBA822-seeklogo.com_.png"
-          }
+          },
+          colorId: 6,
+          storageCapacityId: 2
         },
         {
           id: 5,
@@ -83,7 +93,9 @@ try {
             id: 7,
             name: "Apple",
             "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
-          }
+          },
+          colorId: 7,
+          storageCapacityId: 7
         },
         {
           id: 6,
@@ -99,7 +111,9 @@ try {
             id: 1,
             name: "Samsung",
             "logo": "https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/360_197_1.png?$FB_TYPE_B_PNG$"
-          }
+          },
+          colorId: 3,
+          storageCapacityId: 6
         },
         {
           id: 7,
@@ -115,12 +129,16 @@ try {
             id: 7,
             name: "Apple",
             "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
-          }
+          },
+          colorId: 6,
+          storageCapacityId: 8
         },
       ]
     let newProduct = "";
     let created;
     let brand = "";
+    let colorete = "";
+    let capacidad = "";
 
     for(let index in telefonos){
       [newProduct, created] = await Product.findOrCreate({
@@ -142,9 +160,24 @@ try {
           id: telefonos[index].brandId,
         },
       });
-      console.log(brand)
+      // console.log(brand)
       // console.log("brand es: ", brand.id)
       await newProduct.setBrand(brand);
+
+      colorete = await Color.findOne({
+        where: {
+          id: telefonos[index].colorId
+        }
+      })
+      await newProduct.setColor(colorete)
+
+      capacidad = await StorageCapacity.findOne({
+        where: {
+          id: telefonos[index].storageCapacityId
+        }
+      })
+      await newProduct.setStorageCapacity(capacidad)
+
     }else {
       console.log('no creado')
     }
