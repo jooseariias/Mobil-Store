@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Cards from "../../components/cards/cards";
 import { useDispatch , useSelector} from "react-redux";
-import {  TidyAlphabetically , TidyPrice , TidyReleased, FilterBrands} from "../../redux/actions/index"
+import {  TidyAlphabetically , TidyPrice , TidyReleased, FilterBrands, getBrands, getPhones} from "../../redux/actions/index"
 import { useEffect } from 'react'
 
 
@@ -35,6 +35,11 @@ export default function Store(){
         dispatch(FilterBrands(e.target.value))
         setOrder(`ordenado ${e.target.value}`)
       }
+
+      useEffect(() => {
+        dispatch(getPhones());
+        dispatch(getBrands());
+    }, [dispatch])
 
     return(
 

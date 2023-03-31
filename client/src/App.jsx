@@ -2,16 +2,9 @@ import { Route, Routes } from "react-router-dom"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
-import { getPhones } from "./redux/actions";
-
-import { CreateProduct } from "./FormCreateProduct/CreateProduct";
-export default function App() {
-
-import Store from "./views/store/store";
-
 import Home from "./views/Home/Home";
-import Cart from "./views/Cart/Cart";
-
+import { getPhones } from "./redux/actions";
+import Store from "./views/store/store";
 
 
 export default function App() {
@@ -22,21 +15,12 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
-    <Routes>
-
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/form-product" element={<CreateProduct />} />
-    </Routes>
-  </div>
-
+    <div>
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="details/:id" element={<Details />} />
         <Route path="Store" element={<Store />} />
-        <Route path="/Cart" element={<Cart />} />
-
       </Routes>
     </div>
-
   );
 }
