@@ -4,23 +4,38 @@ import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
 import { getPhones } from "./redux/actions";
+
+
+import { CreateProduct } from "./FormCreateProduct/CreateProduct";
+
+
+
+
 import Store from "./views/store/store";
+
 
 
 export default function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getPhones());
   }, []);
 
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="details/:id" element={<Details />} />
-        <Route path="Store" element={<Store />} />
-      </Routes>
-    </div>
+
+    <div className="App">
+    <Routes>
+      <Route exact path="/" element={<Home />} />
+      <Route exact path="/form-product" element={<CreateProduct />} />
+      <Route path="/" element={<Home />} />
+      <Route path="details/:id" element={<Details />} />
+      <Route path="Store" element={<Store />} />
+      <Route path="/Cart" element={<Cart />} />
+    </Routes>
+  </div>
+
+
+
+
   );
 }
