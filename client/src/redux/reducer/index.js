@@ -11,6 +11,7 @@ import{
 
     GET_COLORES,
     GET_CAPACITY,
+
     CLEAN_DETAIL
 
 }from"../actions/index"
@@ -149,19 +150,19 @@ function rootReducer(state = initialState, action) {
         let TidyPrice =
           action.payload === "min"
             ? state.Phones.sort(function (a, b) {
-                if (a.price > b.price) {
+                if (a.price.toLowerCase() > b.price.toLowerCase()) {
                   return 1;
                 }
-                if (b.price > a.price) {
+                if (b.price.toLowerCase() > a.price.toLowerCase()) {
                   return -1;
                 }
                 return 0;
               })
             : state.Phones.sort(function (a, b) {
-                if (a.price > b.price) {
+                if (a.price.toLowerCase() > b.price.toLowerCase()) {
                   return -1;
                 }
-                if (b.price > a.price) {
+                if (b.price.toLowerCase() > a.price.toLowerCase()) {
                   return 1;
                 }
                 return 0;
