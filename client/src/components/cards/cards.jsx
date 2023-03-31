@@ -1,25 +1,23 @@
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function Cards() {
-  const phones = useSelector((state) => state.Phones);
+function Cards({ id, name, image, price }) {
 
-  const availablesPhones = phones.filter((phone) => phone.enabled === true);
 
-  console.log(phones);
+  // const availablesPhones = phones.filter((phone) => phone.enabled === true);
+  const navigate = useNavigate();
+
+
+  const handleClick = (id) => {
+    navigate(`/details/${id}`);
+  };
 
   return (
     <>
       <div>
-        {availablesPhones &&
-          availablesPhones.map((phone) => {
-            return (
-              <div key={phone.id}>
-                <img src={phone.image} alt={phone.name} />
-                <p>Model: {phone.name}</p>
-                <p>Price: ${phone.price}</p>
-              </div>
-            );
-          })}
+        <img src={image} alt={name} />
+        <button onClick={() => handleClick(id)}>+ Details</button>
+        <p>Model: {name}</p>
+        <p>Price: ${price}</p>
       </div>
     </>
   );
