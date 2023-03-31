@@ -113,8 +113,10 @@ router.post("/", async (req, res) => {
         })
 
         
-        // //  console.log("storageCapacity es: ", storageCapacity)
-          await createProduct.setStorageCapacity(storageCapacity); 
+
+         console.log("storageCapacity es: ", storageCapacity)
+        await createProduct.setStorageCapacity(storageCapacity); 
+
       
       // res.send(createProduct)
        res.status(200).json(createProduct);
