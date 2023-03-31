@@ -11,6 +11,7 @@ function Cards({ id, name, image, price }) {
     navigate(`/details/${id}`);
   };
 
+  
   return (
     <>
       <div>
