@@ -10,8 +10,7 @@ import{
     FILTER_BRANDS,
 
     GET_COLORES,
-    GET_CAPACITY
-
+    GET_CAPACITY,
     CLEAN_DETAIL
 
 }from"../actions/index"
