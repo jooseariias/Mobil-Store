@@ -1,7 +1,6 @@
-
-
 import{
     GET_PHONES, 
+    GET_PHONE,
     GET_DETAIL,
     GET_BRANDS,
     POST_PHONE,
@@ -9,9 +8,12 @@ import{
     ORDER_BY_RELEASED,
     TIDY_PRICE,
     FILTER_BRANDS,
-    GET_FEATURES,
+
     GET_COLORES,
     GET_CAPACITY
+
+    CLEAN_DETAIL
+
 }from"../actions/index"
 
 const initialState = {
@@ -33,14 +35,31 @@ function rootReducer(state = initialState, action) {
           Phones: action.payload,
           PhonesCopy: action.payload,
         };
+      
+      case GET_PHONE:
+
+        console.log("telefono: ", action.payload);
+
+        return {
+          ...state,
+          Phones: action.payload,
+          PhonesCopy: action.payload,
+        };
   
       case GET_DETAIL:
         return{
           ...state,
           details: action.payload
         }
+
+      case CLEAN_DETAIL:
+        return{
+          ...state,
+          details: action.payload
+        }
   
-  
+
+
     //   case POST_PHONE:
     //     return {
     //       ...state,
@@ -48,7 +67,7 @@ function rootReducer(state = initialState, action) {
     //       PhonesCopy: action.payload,
     //     };
   
-  
+
       case GET_BRANDS:
         return {
           ...state,
@@ -105,19 +124,19 @@ function rootReducer(state = initialState, action) {
         let orderByReleased =
           action.payload === "asc"
             ? state.PhonesCopy.sort(function (a, b) {
-                if (a.year.toLowerCase() > b.year.toLowerCase()) {
+                if (a.year > b.year) {
                   return 1;
                 }
-                if (b.year.toLowerCase() > a.year.toLowerCase()) {
+                if (b.year > a.year) {
                   return -1;
                 }
                 return 0;
               })
             : state.PhonesCopy.sort(function (a, b) {
-                if (a.year.toLowerCase() > b.year.toLowerCase()) {
+                if (a.year> b.year) {
                   return -1;
                 }
-                if (b.year.toLowerCase() > a.year.toLowerCase()) {
+                if (b.year > a.year) {
                   return 1;
                 }
                 return 0;

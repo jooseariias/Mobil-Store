@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const GET_PHONES = "GET_PHONES";
+export const GET_PHONE = "GET_PHONE";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_BRANDS = "GET_BRANDS";
 export const POST_PHONE = "POST_PHONE";
@@ -8,10 +9,14 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const ORDER_BY_RELEASED = "ORDER_BY_RELEASED";
 export const TIDY_PRICE = "TIDY_PRICE";
 export const FILTER_BRANDS = "FILTER_BRANDS";
+
 export const GET_COLORES = "GET_COLORES";
 export const GET_CAPACITY = "GET_CAPACITY";
 
-export function getPhones(){
+export const CLEAN_DETAIL = "CLEAN_DETAIL";
+
+
+ export function getPhones(){
     return async function (dispatch) {
       let Json = await axios.get(`http://localhost:3001/product`);
       dispatch({
@@ -19,7 +24,19 @@ export function getPhones(){
         payload: Json.data,
       });
     }
+}
+
+  export function getPhone(payload){
+    return async function(dispatch){
+      let json = await axios.get(`http://localhost:3001/product/?name=${payload}`)
+      return dispatch({
+        type: 'GET_PHONE',
+        payload: json.data
+      })
+    }
   }
+
+
 
   export function getDetail(id) {
     return async function(dispatch) {
@@ -93,5 +110,12 @@ export function getPhones(){
     return {
       type: FILTER_BRANDS,
       payload,
+    };
+  }
+
+  export function cleanDetail(payload) {
+    return {
+      type: CLEAN_DETAIL,
+      payload: [],
     };
   }
