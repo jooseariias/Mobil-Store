@@ -67,13 +67,14 @@ export default function Store(){
               className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
               onChange={HandlerFilterTypeFerBrands}
             >
-                <option selected hidden value="all"> phones </option>
-                <option value="Americas">Americas</option>
-                <option value="Antarctic">Antarctic</option>
-                <option value="Asia">Asia</option>
-                <option value="Africa">Africa</option>
-                <option value="Europe">Europe</option>
-                <option value="Oceania">Oceania</option>
+              <option selected hidden value="all">
+                TypesGames
+              </option>
+              {Allbrand?.map((value, index) => (
+                <option key={index} value={value}>
+                  {value}
+                </option>
+              ))}
             </select>
 
             
@@ -91,7 +92,19 @@ export default function Store(){
 
 
             </div>
-          <Cards />
+            {currentGames?.map((el, index) => {
+          return (
+            <Card
+              key={el.id}
+              id={el.id}
+              imgage={el.image}
+              name={el.name}
+              price={el.price}
+              genre={el.genre}
+              calification={el.calification}
+            />
+          );
+        })}
         </div>
     )
 
