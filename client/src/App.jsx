@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
-import Home from "./components/home/home";
+import Home from "./views/Home/Home";
 import { getPhones } from "./redux/actions";
 import Store from "./views/store/store";
 
