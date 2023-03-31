@@ -6,7 +6,6 @@ function Cards({ id, name, image, price }) {
   // const availablesPhones = phones.filter((phone) => phone.enabled === true);
   const navigate = useNavigate();
 
-  console.log(phones);
 
   const handleClick = (id) => {
     navigate(`/details/${id}`);

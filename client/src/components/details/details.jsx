@@ -9,18 +9,19 @@ function Details() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getDetail(id))
+    dispatch(getDetail(id));
   }, []);
 
   console.log(details);
-  return <div>
-    <h1>{details.name}</h1>
-    <img src={details.image} alt={details.name}/>
-    <span>Price: ${details.price}</span>
-    <span>Stock: {details.stock}</span>
-    <p>Description: {details.description}</p>
-    
-  </div>;
+  return (
+    <div>
+      <h1>{details.name}</h1>
+      <img src={details.image} alt={details.name} />
+      <span>Price: ${details.price}</span>
+      <span>Stock: {details.stock}</span>
+      <p>Description: {details.description}</p>
+    </div>
+  );
 }
 
 export default Details;
