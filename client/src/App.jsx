@@ -1,24 +1,25 @@
 import { Route, Routes } from "react-router-dom"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import Details from "./components/details/details";
 import Home from "./components/home/home";
 import { getPhones } from "./redux/actions";
 import Store from "./views/store/store";
 
 export default function App() {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPhones())
-  }, [])
+    dispatch(getPhones());
+  }, []);
 
   return (
-    <div className="App">
-    <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/Store" element={<Store />} />
-    </Routes>
-  </div>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="details/:id" element={<Details />} />
+      </Routes>
+    </div>
   );
 }
