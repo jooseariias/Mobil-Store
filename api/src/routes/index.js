@@ -31,8 +31,8 @@ const brandRoute=require('./brandRoute');
 const userRoute= require('./userRoute');
 const dbRoute = require('./dbChargeRoute');
 const loginRoute= require('./loginRoute')
-const FeatureRoute= require('./routeFeatures')
-
+const ColoreRoute= require('./routeColor')
+const CapacityRoute= require('./routeCapacity')
 const router = Router();
 
 // Configurar los routers
@@ -46,7 +46,8 @@ router.use('/brand', brandRoute);
 router.use('/user', userRoute);
 router.use('/dbCharge', dbRoute);
 router.use('/dbCharge', dbRoute);
-router.use('/features', FeatureRoute);
+router.use('/color', ColoreRoute);
+router.use('/capacity' ,CapacityRoute)
 
 
 

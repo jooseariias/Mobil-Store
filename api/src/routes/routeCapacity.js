@@ -1,13 +1,13 @@
 const { Router } = require("express");
-const {  Feature} = require("../db.js");
+const {  StorageCapacity} = require("../db.js");
 const router = Router();
 
 router.get('/', async(req, res)=>{
     try {
-        const feature= await Feature.findAll();
+        const capacity= await StorageCapacity.findAll();
 
-        if(feature){
-            res.send(feature).status(200)
+        if(capacity){
+            res.send(capacity).status(200)
         }else{
             res.status(400).json({msg:"not found"})
         }
