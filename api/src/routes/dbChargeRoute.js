@@ -94,6 +94,7 @@ try {
           stock: 10,
           year: 2022,
           enabled: true,
+          brandId: 1,
           brand: {
             id: 1,
             name: "Samsung",
@@ -115,41 +116,40 @@ try {
             name: "Apple",
             "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
           }
-        }
+        },
       ]
     let newProduct = "";
     let created;
     let brand = "";
 
-    telefonos.forEach(async (telefono, index) => {
-        // console.log(telefono)
-        // console.log(index)
-        
-        [newProduct, created] = await Product.findOrCreate({
-            where: {
-                id: telefono.id,
-                name: telefono.name,
-                description: telefono.description,
-                price: telefono.price,
-                image: telefono.image,
-                stock: telefono.stock,
-                year: telefono.year,
-                enabled: telefono.enabled,
-            }
-        });
-
-        // console.log("new product es: ", newProduct)
-        if (created) {
-            // console.log("telefono brand", telefono.brand)
-            brand = await Brand.findOne({
-              where: {
-                name: telefono.brand.name,
-              },
-            });
-            // console.log("brand es: ", brand.id)
-            await newProduct.setBrand(brand);
+    for(let index in telefonos){
+      [newProduct, created] = await Product.findOrCreate({
+        where: {
+          name: telefonos[index].name,
+          description: telefonos[index].description,
+          price: telefonos[index].price,
+          image: telefonos[index].image,
+          stock: telefonos[index].stock,
+          year: telefonos[index].year,
+          enabled: telefonos[index].enabled
         }
-    })
+    });
+
+    if (created) {
+      // console.log("telefono brand", telefonos[index])
+      brand = await Brand.findOne({
+        where: {
+          id: telefonos[index].brandId,
+        },
+      });
+      console.log(brand)
+      // console.log("brand es: ", brand.id)
+      await newProduct.setBrand(brand);
+    }else {
+      console.log('no creado')
+    }
+
+  }
     res.status(200).json(newProduct)
 }catch(error){
     res.status(500).json({error: error.message})
