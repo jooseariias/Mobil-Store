@@ -93,7 +93,11 @@ export default function Home(){
 
       <div class="bg-cover bg-no-repeat">
         <Slider data={data} tittle={"Tendencies"} />
+        <Slider data={data} tittle={"Best sellers"} />
+        <Slider data={data} tittle={"Offers of the month"} />
       </div>
+
+      <Footer />
 
     </div>
   )
