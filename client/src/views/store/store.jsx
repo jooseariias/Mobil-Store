@@ -14,7 +14,8 @@ import { useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Pagination from "../Pagination/pagination";
 
-export default function Store() {
+export default function Store(){
+
   const [order, setOrder] = useState("");
   const dispatch = useDispatch();
 
@@ -84,7 +85,7 @@ export default function Store() {
           <option value="descendente">Z to A</option>
         </select>
 
-        {/* <select
+         <select
               className="px-3 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center "
               onChange={(e) => handleFilterTidyPrice(e)}
             >
@@ -93,21 +94,21 @@ export default function Store() {
               </option>
               <option value="min"> Minor to Major Price </option>
               <option value="Maximo">Major to Minor Price</option>
-            </select> */}
+            </select>
 
-        {/* <select
+         <select
               className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
-              onChange={HandlerFilterTypeFerBrands}
+              onChange={(e) => HandlerFilterTypeFerBrands(e)}
             >
               <option selected hidden value="all">
                 All Phones
               </option>
               {Allbrand?.map((value, index) => (
-                <option key={index} value={value}>
-                  {value}
+                <option index={index} value={value.name}>
+                  {value.name}
                 </option>
               ))}
-            </select> */}
+            </select>
 
         <select
           className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center "

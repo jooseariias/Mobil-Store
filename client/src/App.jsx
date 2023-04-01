@@ -7,10 +7,10 @@ import { getPhones } from "./redux/actions";
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 
+export default function App(){
 
-
-export default function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPhones());
   }, []);
@@ -18,16 +18,14 @@ export default function App() {
   return (
 
     <div className="App">
-    <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/form-product" element={<CreateProduct />} />
-      <Route path="details/:id" element={<Details />} />
-      <Route path="Store" element={<Store />} />
-      {/* <Route path="/Cart" element={<Cart />} /> */}
-    </Routes>
-  </div>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/form-product" element={<CreateProduct />} />
+        <Route path="details/:id" element={<Details />} />
+        <Route path="Store" element={<Store />} />
 
-
-
-  );
+        {/* <Route path="/Cart" element={<Cart />} /> */}
+      </Routes>
+    </div>
+  )
 }
