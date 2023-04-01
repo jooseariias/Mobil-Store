@@ -8,13 +8,20 @@ import{
     ORDER_BY_RELEASED,
     TIDY_PRICE,
     FILTER_BRANDS,
+
+    GET_COLORES,
+    GET_CAPACITY,
+
     CLEAN_DETAIL
+
 }from"../actions/index"
 
 const initialState = {
     Phones: [],
     PhonesCopy: [],
     Brands: [],
+    Color:[],
+    Capacity:[],
     details: []
 };
 
@@ -66,7 +73,17 @@ function rootReducer(state = initialState, action) {
           ...state,
           Brands: action.payload,
         };
-  
+
+        case GET_COLORES:
+          return {
+            ...state,
+            Color: action.payload,
+          };
+          case GET_CAPACITY:
+            return {
+              ...state,
+              Capacity: action.payload,
+            };
  
   
       case POST_PHONE:
@@ -80,7 +97,7 @@ function rootReducer(state = initialState, action) {
         console.log("1");
         let order =
           action.payload === "asc"
-            ? state.PhonesCopy.sort(function (a, b) {
+            ? state.Phones.sort(function (a, b) {
                 if (a.name.toLowerCase() > b.name.toLowerCase()) {
                   return 1;
                 }
@@ -89,7 +106,7 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
               })
-            : state.PhonesCopy.sort(function (a, b) {
+            : state.Phones.sort(function (a, b) {
                 if (a.name.toLowerCase() > b.name.toLowerCase()) {
                   return -1;
                 }
@@ -106,7 +123,7 @@ function rootReducer(state = initialState, action) {
       case ORDER_BY_RELEASED:
         let orderByReleased =
           action.payload === "asc"
-            ? state.PhonesCopy.sort(function (a, b) {
+            ? state.Phones.sort(function (a, b) {
                 if (a.year > b.year) {
                   return 1;
                 }
@@ -115,7 +132,7 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
               })
-            : state.PhonesCopy.sort(function (a, b) {
+            : state.Phones.sort(function (a, b) {
                 if (a.year> b.year) {
                   return -1;
                 }
@@ -132,20 +149,20 @@ function rootReducer(state = initialState, action) {
       case TIDY_PRICE:
         let TidyPrice =
           action.payload === "min"
-            ? state.PhonesCopy.sort(function (a, b) {
-                if (a.price > b.price) {
+            ? state.Phones.sort(function (a, b) {
+                if (a.price.toLowerCase() > b.price.toLowerCase()) {
                   return 1;
                 }
-                if (b.price > a.price) {
+                if (b.price.toLowerCase() > a.price.toLowerCase()) {
                   return -1;
                 }
                 return 0;
               })
-            : state.PhonesCopy.sort(function (a, b) {
-                if (a.price > b.price) {
+            : state.Phones.sort(function (a, b) {
+                if (a.price.toLowerCase() > b.price.toLowerCase()) {
                   return -1;
                 }
-                if (b.price > a.price) {
+                if (b.price.toLowerCase() > a.price.toLowerCase()) {
                   return 1;
                 }
                 return 0;
