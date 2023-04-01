@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Cards from "../../components/cards/cards";
 import { useDispatch , useSelector} from "react-redux";
-import {  TidyAlphabetically , TidyPrice , TidyReleased, FilterBrands, getBrands, getPhones} from "../../redux/actions/index"
+import {  TidyAlphabetically , TidyPrice , TidyReleased, FilterBrands, getBrands, getPhones, CleanPhones} from "../../redux/actions/index"
 import { useEffect } from 'react'
 import Header from '../../components/Header/Header';
 
@@ -15,6 +15,11 @@ export default function Store(){
 
     const phones = useSelector((state) => state.PhonesCopy);
     const Allbrand = useSelector((state) => state.Brands);
+
+    useEffect(() => {
+      dispatch(getPhones());
+      dispatch(getBrands());
+  }, [dispatch])
 
     const handleFilterTidy = (e) => {
         dispatch(TidyAlphabetically(e.target.value))
@@ -37,10 +42,12 @@ export default function Store(){
         setOrder(`ordenado ${e.target.value}`)
       }
 
-      useEffect(() => {
-        dispatch(getPhones());
-        dispatch(getBrands());
-    }, [dispatch])
+
+    const handleClick = (e) => {
+      e.preventDefault();
+      dispatch(CleanPhones(dispatch))
+      dispatch(GetGames())
+    }
 
     return(
 
@@ -102,6 +109,8 @@ export default function Store(){
               <option value="asc"> oldest </option>
               <option value="descendente">  recent</option>
             </select>
+
+            {/* <button onClick={e => {handleClick(e)}} className="px-3 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white">Clear Filters</button> */}
 
 
             </div>
