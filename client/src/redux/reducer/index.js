@@ -12,7 +12,8 @@ import{
     GET_COLORES,
     GET_CAPACITY,
 
-    CLEAN_DETAIL
+    CLEAN_DETAIL,
+    CLEAN_PHONES
 
 }from"../actions/index"
 
@@ -56,6 +57,12 @@ function rootReducer(state = initialState, action) {
         return{
           ...state,
           details: action.payload
+        }
+
+      case CLEAN_PHONES:
+        return{
+          ...state,
+          PhonesCopy: action.payload
         }
   
 
