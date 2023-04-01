@@ -26,12 +26,13 @@ const initialState = {
     details: []
 };
 
-function rootReducer(state = initialState, action) {
+function rootReducer(state = initialState, action){
+
     switch (action.type) {
   
       case GET_PHONES:
-        console.log(action.paylod)
-        return {
+       
+        return{
           ...state,
           Phones: action.payload,
           PhonesCopy: action.payload,
@@ -39,9 +40,7 @@ function rootReducer(state = initialState, action) {
       
       case GET_PHONE:
 
-        console.log("telefono: ", action.payload);
-
-        return {
+        return{
           ...state,
           Phones: action.payload,
           PhonesCopy: action.payload,
@@ -157,19 +156,19 @@ function rootReducer(state = initialState, action) {
         let TidyPrice =
           action.payload === "min"
             ? state.Phones.sort(function (a, b) {
-                if (a.price.toLowerCase() > b.price.toLowerCase()) {
+                if ( parseInt(a.price.toLowerCase()) > parseInt(b.price.toLowerCase())) {
                   return 1;
                 }
-                if (b.price.toLowerCase() > a.price.toLowerCase()) {
+                if (parseInt(b.price.toLowerCase()) > parseInt(a.price.toLowerCase())) {
                   return -1;
                 }
                 return 0;
               })
             : state.Phones.sort(function (a, b) {
-                if (a.price.toLowerCase() > b.price.toLowerCase()) {
+                if (parseInt(a.price.toLowerCase()) > parseInt(b.price.toLowerCase())) {
                   return -1;
                 }
-                if (b.price.toLowerCase() > a.price.toLowerCase()) {
+                if (parseInt(b.price.toLowerCase()) > parseInt(a.price.toLowerCase())) {
                   return 1;
                 }
                 return 0;
@@ -183,11 +182,14 @@ function rootReducer(state = initialState, action) {
   
   
       case FILTER_BRANDS:
+
         const Allbran = state.PhonesCopy;
+        console.log("marca: ", action.payload);
         const TypePhonesFilter =
           action.payload === "all"
             ? Allbran
-            : Allbran?.filter((t) => t.brand.includes(action.payload));
+            : Allbran?.filter((t) => (state.Brands[t.brandId-1]?.name)?.includes(action.payload));
+
         return {
           ...state,
           PhonesCopy: TypePhonesFilter,

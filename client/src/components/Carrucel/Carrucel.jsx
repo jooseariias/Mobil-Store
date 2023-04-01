@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import photos from "../../assets/photos-carrucel/photos";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -28,13 +29,13 @@ export default function App() {
         className="mySwiper"
       >
         <SwiperSlide>
-          <img className="w-full h-[340px] object-cover" src="https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1679670731938-home-sliderdesktop-bambino.jpg" alt="" />
+          <img className="w-full h-[480px] object-fill" src={photos.foto1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img className="w-full h-[340px]" src="https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1679715878509-home-sliderdesktop-samarhogar.jpg" alt="" />
+          <img className="w-full h-[480px] object-fill" src={photos.foto2} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img className="w-full h-[340px]" src="https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1679716023098-home-sliderdesktop-generalimport.jpg" alt="" />
+          <img className="w-full h-[480px] object-fill" src={photos.foto3} alt="" />
         </SwiperSlide>
         
       </Swiper>
