@@ -4,9 +4,6 @@ import { useDispatch , useSelector} from "react-redux";
 import {  TidyAlphabetically , TidyPrice , TidyReleased, FilterBrands} from "../../redux/actions/index"
 import { useEffect } from 'react'
 
-
-
-
 export default function Store(){
 
     const[order,setOrder] =useState('') 
@@ -63,7 +60,7 @@ export default function Store(){
             </select>
 
            
-            {/* <select
+            <select
               className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
               onChange={HandlerFilterTypeFerBrands}
             >
@@ -75,7 +72,7 @@ export default function Store(){
                   {value}
                 </option>
               ))}
-            </select> */}
+            </select>
 
             
         

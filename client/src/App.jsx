@@ -16,14 +16,13 @@ export default function App() {
     dispatch(getPhones());
   }, []);
 
-  return (
+  return(
     <div className="App">
-    <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="details/:id" element={<Details />} />
         <Route path="Store" element={<Store />} />
         <Route path="/Cart" element={<Cart />} />
-
       </Routes>
     </div>
   );
