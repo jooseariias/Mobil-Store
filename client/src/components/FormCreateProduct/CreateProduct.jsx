@@ -145,13 +145,17 @@ export const CreateProduct = () => {
   }, [dispatch]);
 
   return (
-    <div className="card rounded-none p-6 w-1/2 mx-auto">
+      <div className="bg-gray-100  h-full  item-center">
+
+      <div className="card rounded-none p-6 w-1/2 mx-auto bg-gray-100 ">
      
-      <form  className="bg-white p-10 rounded-lg shadow-md bg-blue-200 flex flex-col  h-full "  onSubmit={handleSubmit}>
-        <label className="letas" htmlFor="name">
+     <form  className="bg-white p-10 rounded-lg shadow-md bg-blue-200 flex flex-col  h-full space-y-1"  onSubmit={handleSubmit}>
+        <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
+   
+        <div>
+        <label className="letas font-bold" htmlFor="name">
           Name:
         </label>
-        <div>
           <input
             type="text"
             id="name"
@@ -166,10 +170,11 @@ export const CreateProduct = () => {
           )}
         </div>
 
-        <label className="letas" htmlFor="description">
-          Description:
-        </label>
+
         <div>
+          <label className="letas font-bold" htmlFor="description">
+            Description:
+          </label>
           <textarea
             id="description"
             name="description"
@@ -184,10 +189,12 @@ export const CreateProduct = () => {
             </p>
           )}
         </div>
-        <label className="letas" htmlFor="price">
+
+        <div>
+        <label className="letas font-extrabold" htmlFor="price">
           Price:
         </label>
-        <div>
+
           <input
             type="number"
             id="price"
@@ -201,10 +208,12 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.price}</p>
           )}
         </div>
-        <label className="letas" htmlFor="image">
+
+        <div>
+        <label className="letas font-bold" htmlFor="image">
           Image:
         </label>
-        <div>
+
           <input
             type="file"
             name="file"
@@ -216,10 +225,12 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.image}</p>
           )}
         </div>
-        <label className="letas" htmlFor="stock">
+
+        <div>
+        <label className="letas font-bold" htmlFor="stock">
           Stock:
         </label>
-        <div>
+
           <input
             type="number"
             id="stock"
@@ -235,10 +246,11 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.stock}</p>
           )}
         </div>
-        <label className="letas" htmlFor="year">
+
+        <div>
+        <label className="letas font-bold" htmlFor="year">
           Year:
         </label>
-        <div>
           <input
             type="number"
             id="year"
@@ -255,11 +267,11 @@ export const CreateProduct = () => {
           )}
         </div>
 
-        <label htmlFor="brand" className="letas">
+        <div className="selects-check">
+        <label htmlFor="brand" className="letas font-bold">
           Brand:{" "}
         </label>
 
-        <div className="selects-check">
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedBrand(e.target.value)}>
         <option hidden>choose a brand</option>
           {brands?.map((b) => (
@@ -271,8 +283,9 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.brand}</p>
           )}
         </div>
+
         <div>
-        <label htmlFor="color" className="letas">
+        <label htmlFor="color" className="letas font-bold">
           Color:{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedColor(e.target.value)}>
@@ -286,8 +299,9 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.color}</p>
           )}
         </div>
+
         <div>
-        <label htmlFor="capacity" className="letas">
+        <label htmlFor="capacity" className="letas font-bold">
           Capacity:{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedCapacity(e.target.value)}>
@@ -301,10 +315,13 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.capacity}</p>
           )}
         </div>
+
         <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-6" type="submit">
           Submit
         </button>
-      </form>
-    </div>
+        </div>
+     </form>
+   </div>
+      </div>
   );
 };

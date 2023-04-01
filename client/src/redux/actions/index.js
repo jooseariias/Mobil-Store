@@ -14,6 +14,7 @@ export const GET_COLORES = "GET_COLORES";
 export const GET_CAPACITY = "GET_CAPACITY";
 
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
+export const CLEAN_PHONES = "CLEAN_PHONES"
 
 
  export function getPhones(){
@@ -119,3 +120,11 @@ export const CLEAN_DETAIL = "CLEAN_DETAIL";
       payload: [],
     };
   }
+
+  export function CleanPhones(){
+
+    return{
+        type: CLEAN_PHONES,
+        payload: [],
+    }
+}
