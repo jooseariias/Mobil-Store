@@ -73,9 +73,9 @@ export default function Store(){
         <Header />
       </div>
 
-      <div>
+      <div className="flex  justify-center justify-between flex-wrap px-0">
         <select
-          className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center  "
+          className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center  "
           onChange={(e) => handleFilterTidy(e)}
         >
           <option selected hidden>
@@ -86,7 +86,7 @@ export default function Store(){
         </select>
 
          <select
-              className="px-3 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center "
+              className="px-1 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center "
               onChange={(e) => handleFilterTidyPrice(e)}
             >
               <option selected hidden>
@@ -97,7 +97,7 @@ export default function Store(){
             </select>
 
          <select
-              className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
+              className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
               onChange={(e) => HandlerFilterTypeFerBrands(e)}
             >
               <option selected hidden value="all">
@@ -111,7 +111,7 @@ export default function Store(){
             </select>
 
         <select
-          className="px-3 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center "
+          className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center "
           onChange={(e) => handleFilterTidyReleased(e)}
         >
           <option selected hidden>
@@ -121,7 +121,8 @@ export default function Store(){
           <option value="descendente"> recent</option>
         </select>
 
-        {/* <button onClick={e => {handleClick(e)}} className="px-3 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white">Clear Filters</button> */}
+        <button onClick={e => {handleClick(e)}} className="px-1 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white">Clear Filters</button>
+        
       </div>
 
       <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mx-10 mt-5 mb-4">

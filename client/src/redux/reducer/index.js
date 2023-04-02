@@ -13,7 +13,8 @@ import{
     GET_CAPACITY,
 
     CLEAN_DETAIL,
-    CLEAN_PHONES
+    CLEAN_PHONES,
+    FILTER_CAPACITY
 
 }from"../actions/index"
 
@@ -61,7 +62,7 @@ function rootReducer(state = initialState, action){
       case CLEAN_PHONES:
         return{
           ...state,
-          PhonesCopy: action.payload
+          PhonesCopy: state.Phones
         }
   
 
@@ -193,6 +194,19 @@ function rootReducer(state = initialState, action){
         return {
           ...state,
           PhonesCopy: TypePhonesFilter,
+        };
+
+      case FILTER_CAPACITY:
+
+          const AllCap = state.PhonesCopy;
+          console.log("Cpacidad: ", action.payload);
+          const TypePhonesFilterCapacidad =
+          action.payload === "all"
+            ? AllCap
+            : AllCap?.filter((t) => (state.Capacity[storageCapacityId-1]?.name)?.includes(action.payload));
+                  return {
+          ...state,
+          PhonesCopy: TypePhonesFilterCapacidad,
         };
 
   
