@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getDetail } from "../../redux/actions";
+import { getCapacity, getDetail, cleanDetail } from "../../redux/actions";
 
 import Header from "../Header/Header";
 
@@ -12,6 +12,9 @@ function Details() {
 
   useEffect(() => {
     dispatch(getDetail(id));
+    return ()=>{
+      dispatch(cleanDetail())
+    } 
   }, []);
 
   console.log(details);
@@ -35,6 +38,11 @@ function Details() {
             <span className= 'mt-6 text-2xl font-extrabold '>Price: ${details.price}</span>
             {/* <span className="mt-6 text-2xl font-bold ">Stock: {details.stock}</span> */}
             <p className="my-6 text 2x1 font-bold">Description: {details.description}</p>
+
+            <h2 className="my-6 text 2x1 font-bold" > {details.description} </h2>
+
+
+
 
         </div>
 

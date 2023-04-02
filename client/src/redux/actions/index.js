@@ -14,7 +14,8 @@ export const GET_COLORES = "GET_COLORES";
 export const GET_CAPACITY = "GET_CAPACITY";
 
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
-export const CLEAN_PHONES = "CLEAN_PHONES"
+export const CLEAN_PHONES = "CLEAN_PHONES";
+export const FILTER_CAPACITY = "FILTER_CAPACITY"
 
 
  export function getPhones(){
@@ -110,6 +111,13 @@ export const CLEAN_PHONES = "CLEAN_PHONES"
   export function FilterBrands(payload) {
     return {
       type: FILTER_BRANDS,
+      payload,
+    };
+  }
+
+  export function FilterCapacity(payload) {
+    return {
+      type: FILTER_CAPACITY,
       payload,
     };
   }
