@@ -10,6 +10,8 @@ import {
   getBrands,
   getPhones,
   CleanPhones,
+  FilterCapacity,
+  getCapacity
 } from "../../redux/actions/index";
 import { useEffect } from "react";
 import Header from "../../components/Header/Header";
@@ -22,6 +24,7 @@ export default function Store(){
 
   const phones = useSelector((state) => state.PhonesCopy);
   const Allbrand = useSelector((state) => state.Brands);
+  const AllCap = useSelector((state)=> state.Capacity);
 
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,6 +34,7 @@ export default function Store(){
   useEffect(() => {
     dispatch(getPhones());
     dispatch(getBrands());
+    dispatch(getCapacity());
   }, [dispatch]);
 
   const handleFilterTidy = (e) => {
@@ -61,6 +65,14 @@ export default function Store(){
     setStart(0)
     setCurrentPage(1)
   };
+
+  const HandlerFilterTypeFercapabilities = (e) => {
+    e.preventDefault();
+    dispatch(FilterCapacity(e.target.value));
+    setOrder(`ordenado ${e.target.value}`);
+    setStart(0)
+    setCurrentPage(1)
+  }
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -105,6 +117,20 @@ export default function Store(){
                 All Phones
               </option>
               {Allbrand?.map((value, index) => (
+                <option index={index} value={value.name}>
+                  {value.name}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
+              onChange={(e) => HandlerFilterTypeFercapabilities(e)}
+            >
+              <option selected hidden value="all">
+                All capabilities
+              </option>
+              {AllCap?.map((value, index) => (
                 <option index={index} value={value.name}>
                   {value.name}
                 </option>
