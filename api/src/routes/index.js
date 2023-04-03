@@ -33,6 +33,7 @@ const dbRoute = require('./dbChargeRoute');
 const loginRoute= require('./loginRoute')
 const ColoreRoute= require('./routeColor')
 const CapacityRoute= require('./routeCapacity')
+const orderRouter = require('./routeOrders');
 const router = Router();
 
 // Configurar los routers
@@ -48,6 +49,8 @@ router.use('/dbCharge', dbRoute);
 router.use('/dbCharge', dbRoute);
 router.use('/color', ColoreRoute);
 router.use('/capacity' ,CapacityRoute)
+router.use('/orders', orderRouter)
+
 
 
 
