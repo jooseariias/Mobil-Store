@@ -10,7 +10,8 @@ import {
   getBrands,
   getPhones,
   CleanPhones,
-  FilterCapacity
+  FilterCapacity,
+  getCapacity
 } from "../../redux/actions/index";
 import { useEffect } from "react";
 import Header from "../../components/Header/Header";
@@ -33,6 +34,7 @@ export default function Store(){
   useEffect(() => {
     dispatch(getPhones());
     dispatch(getBrands());
+    dispatch(getCapacity());
   }, [dispatch]);
 
   const handleFilterTidy = (e) => {
