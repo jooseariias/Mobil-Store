@@ -34,12 +34,10 @@ const loginRoute= require('./loginRoute')
 const ColoreRoute= require('./routeColor')
 const CapacityRoute= require('./routeCapacity')
 const router = Router();
+const routerAuth = require("./auth")
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.get('/', (req, res)=>{
-    res.send("hola mundo")
-})
 
 router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
@@ -48,7 +46,7 @@ router.use('/dbCharge', dbRoute);
 router.use('/dbCharge', dbRoute);
 router.use('/color', ColoreRoute);
 router.use('/capacity' ,CapacityRoute)
-
+router.use("/",routerAuth)
 
 
 module.exports=router;
