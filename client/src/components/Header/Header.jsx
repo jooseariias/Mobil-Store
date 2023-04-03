@@ -107,24 +107,16 @@ export default function Header(){
                 }
               	</div> 
 
-				  
-				<img src={icons.favoritos} className='h-8 w-8 mr-4 cursor-pointer' onClick={() => handleFavorites()} />
 
-				<Link to={'/Cart'}>
-					<img src={icons.carrito} className='h-8 w-8 mr-4 cursor-pointer' />
-				</Link>
-
-				<img src={icons.usuario} className="h-8 w-8 mr-2 cursor-pointer" alt="" />
+				
 				 
 				</div>
 
 			</div>
 
-			<div className='flex bg-slate-900 w-full p-2 justify-between px-14 text-md cursor-pointer'>
+			<div className='flex bg-slate-900 w-full p-2 justify-between px-20 text-md cursor-pointer'>
 				<Link to={'/'}><h1>HOME</h1></Link>
 				<Link to={'/Store'}><h1>STORE</h1></Link>
-				<h1>SOPORTE</h1>
-				<h1>SOBRE PHONEZONE</h1>
 			</div>
 		</header>
   	)
