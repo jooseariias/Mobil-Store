@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCapacity, getDetail, cleanDetail } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 import Header from "../Header/Header";
 
@@ -25,7 +26,12 @@ function Details() {
           <Header/>
       </div>
 
+
       <div className="flex min-height-full justify-center ">
+
+      <div>
+       <Link to={'/Store'}  className="px-2 flex mt-4 ml-4 bg-gray-300 text-black  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white">back to store</Link>
+      </div>
 
         <div className="hidden lg:block relative h-full bg-white">
             <img  class='w-[550px] object-cover border-white p-0 m-20' src={details.image} alt={details.name} />
