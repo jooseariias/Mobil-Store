@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Cards from "../../components/cards/cards";
+import Footer from "../../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   TidyAlphabetically,
@@ -73,7 +74,7 @@ export default function Store(){
         <Header />
       </div>
 
-      <div className="flex  justify-center justify-between flex-wrap px-0">
+      <div className="flex  justify-center justify-between flex-wrap px-0 mt-2 mx-4">
         <select
           className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center  "
           onChange={(e) => handleFilterTidy(e)}
@@ -121,7 +122,7 @@ export default function Store(){
           <option value="descendente"> recent</option>
         </select>
 
-        <button onClick={e => {handleClick(e)}} className="px-1 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white">Clear Filters</button>
+        <button onClick={e => {handleClick(e)}} className="px-3 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white">Clear Filters</button>
         
       </div>
 
@@ -134,10 +135,11 @@ export default function Store(){
               image={el.image}
               name={el.name}
               price={el.price}
-            />
-          );
-        })}
+              />
+              );
+            })}
       </div>
+
       <Pagination
           quantity={quantity}
           start={start}
@@ -145,6 +147,7 @@ export default function Store(){
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
+            <Footer />
     </div>
   );
 }

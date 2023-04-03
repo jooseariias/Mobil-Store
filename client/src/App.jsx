@@ -6,6 +6,7 @@ import Home from "./views/Home/Home";
 import { getPhones } from "./redux/actions";
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
+import About from "./views/About/About";
 
 export default function App(){
 
@@ -22,7 +23,8 @@ export default function App(){
         <Route exact path="/" element={<Home />} />
         <Route exact path="/form-product" element={<CreateProduct />} />
         <Route path="details/:id" element={<Details />} />
-        <Route path="Store" element={<Store />} />
+        <Route path="/Store" element={<Store />} />
+        <Route path="/About" element={<About />} />
 
         {/* <Route path="/Cart" element={<Cart />} /> */}
       </Routes>
