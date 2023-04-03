@@ -189,7 +189,7 @@ function rootReducer(state = initialState, action){
         const TypePhonesFilter =
           action.payload === "all"
             ? Allbran
-            : Allbran?.filter((t) => (state.Brands[t.brandId-1]?.name)?.includes(action.payload));
+            : Allbran?.filter((t) => (state.Brands[t.id-1]?.capacity)?.includes(action.payload));
 
         return {
           ...state,
@@ -199,14 +199,16 @@ function rootReducer(state = initialState, action){
       case FILTER_CAPACITY:
 
           const AllCap = state.PhonesCopy;
-          console.log("Cpacidad: ", action.payload);
+          console.log("Cacidad: ", action.payload);
           const TypePhonesFilterCapacidad =
           action.payload === "all"
             ? AllCap
             : AllCap?.filter((t) => (state.Capacity[storageCapacityId-1]?.name)?.includes(action.payload));
-                  return {
+
+        return {
           ...state,
-          PhonesCopy: TypePhonesFilterCapacidad,
+          PhonesCopy: TypePhonesFilterCapacidad
+          ,
         };
 
   
