@@ -15,7 +15,7 @@ export default function About(){
         </div>
 
 
-		<div className='flex w-full h-full'>
+		<div className='flex w-full h-full bg-white dark:bg-slate-900'>
 
             
 
@@ -36,8 +36,8 @@ export default function About(){
 						<div className="space-y-4">
 							<img alt="img1" className="object-cover h-56 w-52 shadow-xl shadow-slate-500 mx-auto mb-4 bg-center rounded-sm bg-gray-500" src={element.image} />
 							<div className="flex flex-col items-center">
-							<h4 className="text-xl font-semibold text-slate-100">{element.name}</h4>
-							<p className="text-md font-medium text-slate-200">Full Stack Developer</p>
+							<h4 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{element.name}</h4>
+							<p className="text-md font-medium text-slate-700 dark:text-slate-200">Full Stack Developer</p>
 							<div className="flex mt-2 space-x-2 w-14">
 								<a rel="noopener noreferrer" href={element.Linkedin} title="LinkedIn" className="text-gray-400">
 									<img src={icons.Linkedin} alt="" />
@@ -54,7 +54,6 @@ export default function About(){
 	</div>
 </section>
 
-        
       </div>
 
       <div>
