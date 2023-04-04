@@ -131,7 +131,7 @@ export default function Store(){
                 All capabilities
               </option>
               {AllCap?.map((value, index) => (
-                <option index={index} value={value.name}>
+                <option index={index} value={value.capacity}>
                   {value.name}
                 </option>
               ))}
