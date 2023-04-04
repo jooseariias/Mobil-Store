@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       }
     },
     orderId: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       references: {
         model: 'orders',
         key: 'id'
