@@ -39,11 +39,11 @@ function Details() {
 
         <div className="justify-center flex-1 flex flex-col py-10 px-0 sm:px-8 lg:px-20 sm:py-9 md:py-9  xl:px-24 ">
 
-            <h1 class='mt-6 text-3xl font-extrabold ' >{details.name}</h1>
+            <h1 class='mt-6 text-3xl font-extrabold m-1' >{details.name}</h1>
           
-            <span className= 'mt-6 text-2xl font-extrabold '>Price: ${details.price}</span>
+            <span className= 'mt-6 text-2xl font-extrabold m-1'>Price: ${details.price}</span>
             {/* <span className="mt-6 text-2xl font-bold ">Stock: {details.stock}</span> */}
-            <p className="my-6 text 2x1 leading-loose font-bold">Description: {details.description}</p>
+            <p className="my-6 text 2x1 leading-loose font-bold m-1">Description: {details.description}</p>
 
         </div>
 
