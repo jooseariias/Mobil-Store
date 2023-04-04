@@ -86,7 +86,7 @@ function rootReducer(state = initialState, action){
             ...state,
             Color: action.payload,
           };
-          
+
           case GET_CAPACITY:
             return {
               ...state,
@@ -204,12 +204,13 @@ function rootReducer(state = initialState, action){
           const TypePhonesFilterCapacidad =
           action.payload === "all"
             ? AllCap
-            : AllCap?.filter((t) => (state.Capacity[t.id-1]?.capacity)?.includes(action.payload));
+            : AllCap?.filter((t) => (state.Capacity[t.storageCapacityId-1]?.capacity)?.includes(action.payload));
 
         return {
           ...state,
           PhonesCopy: TypePhonesFilterCapacidad,
         };
+
 
   
       default: {
