@@ -12,6 +12,9 @@ import{
     GET_COLORES,
     GET_CAPACITY,
 
+    GET_USERS,
+    POST_USER,
+
     CLEAN_DETAIL,
     CLEAN_PHONES,
     FILTER_CAPACITY
@@ -24,7 +27,8 @@ const initialState = {
     Brands: [],
     Color:[],
     Capacity:[],
-    details: []
+    details: [],
+    Users: [],
 };
 
 function rootReducer(state = initialState, action){
@@ -51,7 +55,13 @@ function rootReducer(state = initialState, action){
         return{
           ...state,
           details: action.payload
-        }
+        };
+
+      case GET_USERS:
+        return{
+          ...state,
+          Users: action.payload
+        };
 
       case CLEAN_DETAIL:
         return{
@@ -86,7 +96,7 @@ function rootReducer(state = initialState, action){
             ...state,
             Color: action.payload,
           };
-          
+
           case GET_CAPACITY:
             return {
               ...state,
@@ -96,6 +106,11 @@ function rootReducer(state = initialState, action){
   
       case POST_PHONE:
         return {
+          ...state,
+        };
+
+      case POST_USER:
+        return{
           ...state,
         };
   
@@ -204,12 +219,13 @@ function rootReducer(state = initialState, action){
           const TypePhonesFilterCapacidad =
           action.payload === "all"
             ? AllCap
-            : AllCap?.filter((t) => (state.Capacity[t.id-1]?.capacity)?.includes(action.payload));
+            : AllCap?.filter((t) => (state.Capacity[t.storageCapacityId-1]?.capacity)?.includes(action.payload));
 
         return {
           ...state,
           PhonesCopy: TypePhonesFilterCapacidad,
         };
+
 
   
       default: {

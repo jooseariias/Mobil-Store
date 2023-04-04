@@ -15,7 +15,10 @@ export const GET_CAPACITY = "GET_CAPACITY";
 
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
 export const CLEAN_PHONES = "CLEAN_PHONES";
-export const FILTER_CAPACITY = "FILTER_CAPACITY"
+export const FILTER_CAPACITY = "FILTER_CAPACITY";
+export const POST_USER = "POST_USER";
+export const  GET_USERS = " GET_USERS";
+
 
 
  export function getPhones(){
@@ -135,4 +138,21 @@ export const FILTER_CAPACITY = "FILTER_CAPACITY"
         type: CLEAN_PHONES,
         payload: [],
     }
+}
+
+//rutas user
+
+export function PostUser(payload) {
+  var json = axios.post(`http://localhost:3001/user`, payload);
+  return { type: POST_USER, payload: json };
+}
+
+export function GetUsers(){
+  return async function (dispatch) {
+    let Json = await axios.get(`http://localhost:3001/user`);
+    dispatch({
+      type: GET_USERS,
+      payload: Json.data,
+    });
+  }
 }
