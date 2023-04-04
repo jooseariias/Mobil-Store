@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo se relaciona con usuarios y productos
   sequelize.define('orders', { 
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     // autoIncrement: true ,
     primaryKey: true,
   },
