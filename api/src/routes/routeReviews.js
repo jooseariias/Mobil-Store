@@ -49,6 +49,7 @@ router.get("/",async(req,res)=>{
 
 router.get('/:idProduct', async (req, res) => {
     try {
+        let reviewRes;
         const { idProduct } = req.params;
 
         const review = await Review.findAll({
@@ -69,8 +70,14 @@ router.get('/:idProduct', async (req, res) => {
         }else if(roundedDecimalPart < 0.5) {
            Promedio = Math.floor(Promedio)
         }
-        const reviewRes= review.concat({promedio:Promedio})
-        res.status(200).json(reviewRes)
+        if(Promedio){
+            reviewRes= review.concat({promedio:Promedio})
+            res.status(200).json(reviewRes)
+        }else{
+         
+            res.status(200).json("This product has no review ")
+        }
+         
     }catch(error){
         res.status(400).json({error: error.message})
     }
