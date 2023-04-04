@@ -7,7 +7,7 @@ const path = require('path');
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const { ACCESS_TOKEN_MP } = process.env;
-
+const { crearOrden } = require("../utils/ordersSave")
 const router = Router();
 router.use(bodyParser.urlencoded({ extended: false }));
 //agrega credenciales
@@ -162,7 +162,35 @@ router.get("/pago-confirmado", async (req, res) => {
             merchant_account_id,//: 'null'
           } = req.query;
 
-        console.log("req query es: ", req.query)
+        // console.log("req query es: ", req.query)
+        
+        let cadenaCantidades = quantity.split(','); // ['1','2','1']
+        let cadenaPrecios = price.split(','); // ['20.5','12....]
+        let cadenaProductos = idProduct.split(',');
+        let cadenaTitulos = title.split(',');
+        let cadenaPicture = picture_url.split(',');
+    
+        let totalDeRegistros = cadenaCantidades.length;
+
+        crearOrden(
+            cadenaCantidades,
+            cadenaPrecios,
+            cadenaProductos,
+            cadenaTitulos,
+            cadenaPicture,
+            totalDeRegistros,
+            address,
+            collection_id,
+            preference_id,
+            quantity,
+            price,
+            idUser,
+            total,
+            title,
+            picture_url,
+            description
+          );
+
         res.status(200).json({msg: 'pago confirmado'})
     }catch(error){
         res.status(400).json({error: error.message})
