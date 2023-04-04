@@ -105,7 +105,7 @@ function rootReducer(state = initialState, action){
         console.log("1");
         let order =
           action.payload === "asc"
-            ? state.Phones.sort(function (a, b) {
+            ? state.PhonesCopy.sort(function (a, b) {
                 if (a.name.toLowerCase() > b.name.toLowerCase()) {
                   return 1;
                 }
@@ -114,7 +114,7 @@ function rootReducer(state = initialState, action){
                 }
                 return 0;
               })
-            : state.Phones.sort(function (a, b) {
+            : state.PhonesCopy.sort(function (a, b) {
                 if (a.name.toLowerCase() > b.name.toLowerCase()) {
                   return -1;
                 }
@@ -131,7 +131,7 @@ function rootReducer(state = initialState, action){
       case ORDER_BY_RELEASED:
         let orderByReleased =
           action.payload === "asc"
-            ? state.Phones.sort(function (a, b) {
+            ? state.PhonesCopy.sort(function (a, b) {
                 if (a.year > b.year) {
                   return 1;
                 }
@@ -140,7 +140,7 @@ function rootReducer(state = initialState, action){
                 }
                 return 0;
               })
-            : state.Phones.sort(function (a, b) {
+            : state.PhonesCopy.sort(function (a, b) {
                 if (a.year> b.year) {
                   return -1;
                 }
@@ -157,7 +157,7 @@ function rootReducer(state = initialState, action){
       case TIDY_PRICE:
         let TidyPrice =
           action.payload === "min"
-            ? state.Phones.sort(function (a, b) {
+            ? state.PhonesCopy.sort(function (a, b) {
                 if ( parseInt(a.price.toLowerCase()) > parseInt(b.price.toLowerCase())) {
                   return 1;
                 }
@@ -166,7 +166,7 @@ function rootReducer(state = initialState, action){
                 }
                 return 0;
               })
-            : state.Phones.sort(function (a, b) {
+            : state.PhonesCopy.sort(function (a, b) {
                 if (parseInt(a.price.toLowerCase()) > parseInt(b.price.toLowerCase())) {
                   return -1;
                 }
