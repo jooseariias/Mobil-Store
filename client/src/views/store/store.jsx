@@ -44,6 +44,7 @@ export default function Store(){
     setCurrentPage(1)
   };
 
+  console.log(AllCap);
   const handleFilterTidyPrice = (e) => {
     dispatch(TidyPrice(e.target.value));
     setOrder(`ordenado ${e.target.value}`);
@@ -67,7 +68,6 @@ export default function Store(){
   };
 
   const HandlerFilterTypeFercapabilities = (e) => {
-    e.preventDefault();
     dispatch(FilterCapacity(e.target.value));
     setOrder(`ordenado ${e.target.value}`);
     setStart(0)
@@ -132,7 +132,7 @@ export default function Store(){
               </option>
               {AllCap?.map((value, index) => (
                 <option index={index} value={value.capacity}>
-                  {value.name}
+                  {value.capacity}
                 </option>
               ))}
             </select>
