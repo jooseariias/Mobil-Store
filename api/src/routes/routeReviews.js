@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const {Product,Review, Orders} = require("../db.js");
-const { getAllProducts } = require('../utils/getProducts.js');
+
 
 const router = Router();
 //#region POST
