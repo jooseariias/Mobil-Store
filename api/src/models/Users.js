@@ -21,7 +21,7 @@ const { DataTypes } = require('sequelize');
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     email: {
       type: DataTypes.STRING,
