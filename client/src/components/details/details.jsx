@@ -45,7 +45,6 @@ function Details() {
             {/* <span className="mt-6 text-2xl font-bold ">Stock: {details.stock}</span> */}
             <p className="my-6 text 2x1 leading-loose font-bold">Description: {details.description}</p>
 
-
         </div>
 
 
