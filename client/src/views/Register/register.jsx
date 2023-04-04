@@ -60,7 +60,6 @@ export const Register = () => {
     if (!form.password.trim()) {
       errors.password = "password is required";
     }
-
      if (!image.length) {
       errors.image = "Image is required";
     } 
