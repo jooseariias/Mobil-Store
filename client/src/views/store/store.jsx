@@ -175,5 +175,6 @@ export default function Store(){
         />
             <Footer />
     </div>
+    
   );
 }
