@@ -35,6 +35,7 @@ const ColoreRoute= require('./routeColor')
 const CapacityRoute= require('./routeCapacity')
 const orderRouter = require('./routeOrders');
 const reviewsRoute= require("./routeReviews.js")
+const wishlistRoute = require('./routeWishlist')
 const router = Router();
 const routerAuth = require("./auth")
 
@@ -49,9 +50,10 @@ router.use('/dbCharge', dbRoute);
 router.use('/color', ColoreRoute);
 router.use('/capacity' ,CapacityRoute)
 router.use('/reviews', reviewsRoute);
+router.use('/wishlist', wishlistRoute);
 
 router.use("/",routerAuth)
-
+router.use('/', loginRoute)
 router.use('/orders', orderRouter)
 
 

@@ -43,7 +43,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res, next) => {
-    const { id, name, surname, password, email, rol, enable, image } = req.body;
+    const { name, surname, password, email, image } = req.body;
   
     try {
       const validate = await User.findOne({
@@ -57,13 +57,11 @@ router.post("/", async (req, res, next) => {
       }
   
       const newUser = await User.create({
-        id,
+        
         name,
         surname,
         password: bcrypt.hashSync(password, 8),
         email,
-        rol,
-        enable,
         image,
       });
   
