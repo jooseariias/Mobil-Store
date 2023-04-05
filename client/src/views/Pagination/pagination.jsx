@@ -97,11 +97,12 @@ function Pagination({
     }
     setPageButtons(numberOfPages);
   }, [currentPage, total]);
-
+ 
+  
   return (
     <>
       <div className={style.paginate}>
-        <a onClick={handlePrev} className={style.prev}>
+        <a onClick={handlePrev} className={currentPage === 1 ? style.disabled : style.prev}>
           Prev
         </a>
         {pageButtons.map((page, i) => {
@@ -118,7 +119,7 @@ function Pagination({
             </a>
           );
         })}
-        <a onClick={handleNext} className={style.next}>
+        <a onClick={handleNext} className={currentPage === pageButtons.length ? style.disabled : style.next}>
           Next
         </a>
       </div>
