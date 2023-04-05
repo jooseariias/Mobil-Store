@@ -53,7 +53,7 @@ router.use('/reviews', reviewsRoute);
 router.use('/wishlist', wishlistRoute);
 
 router.use("/",routerAuth)
-
+router.use('/', loginRoute)
 router.use('/orders', orderRouter)
 
 
