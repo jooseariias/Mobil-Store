@@ -8,6 +8,8 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const { ACCESS_TOKEN_MP } = process.env;
 const { crearOrden } = require("../utils/ordersSave")
+const { sendConfirmedPaymentEmail, sendEmailOrderSent } = require('../utils/notifications')
+
 const router = Router();
 router.use(bodyParser.urlencoded({ extended: false }));
 //agrega credenciales
@@ -172,7 +174,7 @@ router.get("/pago-confirmado", async (req, res) => {
     
         let totalDeRegistros = cadenaCantidades.length;
 
-        crearOrden(
+        await crearOrden(
             cadenaCantidades,
             cadenaPrecios,
             cadenaProductos,
@@ -190,7 +192,15 @@ router.get("/pago-confirmado", async (req, res) => {
             picture_url,
             description
           );
-
+        
+          await sendConfirmedPaymentEmail(
+            idUser,
+            cadenaCantidades,
+            cadenaPrecios,
+            cadenaTitulos
+        )
+        // const filePath = path.join(__dirname, '../utils/success.html');
+        // res.sendFile(filePath);
         res.status(200).json({msg: 'pago confirmado'})
     }catch(error){
         res.status(400).json({error: error.message})
@@ -200,6 +210,43 @@ router.get("/pago-confirmado", async (req, res) => {
 
 router.get('/', async (req, res) => {
     res.status(200).json({msg: "todo ok"})
+})
+
+router.put('/sendOrder/:idOrder', async (req, res) => {
+    try {
+        const {idOrder} = req.params;
+
+        const selectedOrder = await Orders.findOne({
+            where: {
+                id: idOrder
+            }
+        })
+
+        if(selectedOrder){
+            const statusOfSelectOrder = await OrderStatus.findOne({
+                where: {
+                orderId: idOrder
+                }
+        })
+
+        if(statusOfSelectOrder.status === 'pending'){
+            statusOfSelectOrder.status = "sent";
+            await statusOfSelectOrder.save()
+            sendEmailOrderSent(selectedOrder.userId)
+        }
+        
+        res.status(200).json(statusOfSelectOrder)
+        
+        }else {
+        
+        res.status(404).json({msg: `Orden ${idOrder} inexistente`})
+        
+        }
+    }catch(error){ 
+        
+        res.status(400).json({error: error.message})
+
+    }
 })
 
 
