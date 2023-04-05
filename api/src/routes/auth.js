@@ -34,19 +34,19 @@ router.get('/', (req, res) => {
       })    
 
       if(data){
-        res.send(`Hello ${req.user.displayName} , ${req.user.email}`);
+        res.json(data);
       }else{
 
-   await User.create({
+   const data= await User.create({
           name: req.user.displayName,
           surname:req.user.displayName,
           email:req.user.email,   
          image:req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null
         });
   
-        res.send(`Hello ${req.user.displayName} , ${req.user.email}, ${req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null} `);
-  }})
-  
+        res.json(data)
+      }
+    })
   router.get('/logout', (req, res) => {
     req.logout();
     req.session.destroy();
@@ -57,4 +57,4 @@ router.get('/', (req, res) => {
     res.send('Failed to authenticate..');
   });
   
-  module.exports = router;
+  module.exports=router;
