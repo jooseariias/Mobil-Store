@@ -11,7 +11,6 @@ import Cart from "./views/Cart/Cart";
 import Login from "./components/Login/login";
 import { Register } from "./views/Register/register";
 
-
 export default function App(){
 
   const dispatch = useDispatch();
