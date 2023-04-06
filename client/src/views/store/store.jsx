@@ -79,7 +79,7 @@ export default function Store() {
         <Header />
       </div>
 
-      <div className="flex  justify-center justify-between flex-wrap px-0 mt-2 mx-4">
+      <div className="flex justify-between flex-wrap px-0 mt-2 mx-4">
         <select
           className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center  "
           onChange={(e) => handleFilterTidy(e)}
