@@ -8,7 +8,7 @@ import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
 import Cart from "./views/Cart/Cart";
-import Login from "./components/Login/login";
+import Login from "./views/Login/login"
 import { Register } from "./views/Register/register";
 
 export default function App(){
