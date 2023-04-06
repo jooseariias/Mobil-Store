@@ -104,10 +104,8 @@ export const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const{errors, ...sinErrors} = this.state
 
-    const result = validateInput(sinErrors)
-    if (!Object.keys(result).length) {
+    if (Object.keys(errors).length || !form.name|| !form.surname|| !form.password|| !form.email||!image.length) {
       swal({
         title: "Error",
         text: "You must complete all fields",
