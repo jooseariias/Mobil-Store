@@ -1,7 +1,6 @@
 import Card from './Card'
 import Slider from 'react-slick'
 
-
 export default function Slider2({data, tittle}){
 
     const settings = {
@@ -11,7 +10,7 @@ export default function Slider2({data, tittle}){
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpped: 2000,
+        autoplaySpped: 5000,
         pauseOnHover: false,
         responsive: [
             {

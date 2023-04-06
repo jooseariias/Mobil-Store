@@ -2,12 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"; //maneja todas las rutas de la aplicacion
 import icons from '../../assets/icons-header/icons.js'
-import { BsFillDisplayFill, BsSun, BsMoon, BsFillCartCheckFill, BsFillBagHeartFill, BsFillHeartFill, BsFillPersonFill } from "react-icons/bs"
-import { BiUserCircle } from 'react-icons/bi'
-import { FaUserCircle } from 'react-icons/fa'
-
+import { BsFillDisplayFill, BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill } from "react-icons/bs"
 import Swal from 'sweetalert2'
-
 import SearchBar from '../SearchBar/SearchBar.jsx';
 
 export default function Header(){
@@ -15,6 +11,7 @@ export default function Header(){
 	const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem("theme") : "dark");
 	const element = document.documentElement;
 	const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+	const navigate = useNavigate();
 
 
 	const iconComponents = [
@@ -81,6 +78,10 @@ export default function Header(){
 		}
 	  }
 
+	  const handleCart = () => {
+		navigate('/Cart')
+	  }
+
   	return(
     	<header className="bg-slate-100 dark:bg-gray-900 text-gray-100 flex flex-col duration-300 ">
 
@@ -112,8 +113,8 @@ export default function Header(){
 
 				  {/*<img className='h-[30px] w-[30px] cursor-pointer mr-2' src={theme === "light" ? icons['corazon-negro'] : icons['corazon-blanco']} alt="color" />*/}
 
-				  <BsFillHeartFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-0.5 hover:transform hover:scale-110' />
-				  <BsFillCartCheckFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 hover:transform hover:scale-110' />
+				  <BsFillHeartFill onClick={() => handleFavorites()} className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-0.5 hover:transform hover:scale-110' />
+				  <BsFillCartCheckFill onClick={() => handleCart()} className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 hover:transform hover:scale-110' />
 				  <BsFillPersonFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' />
 				
 				
