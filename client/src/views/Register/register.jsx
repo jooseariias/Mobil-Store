@@ -48,7 +48,7 @@ export const Register = () => {
     let errors = {};
 
     const expresiones = {
-      regPassword : /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{1,50}$/,
+      regPassword : /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{1,150}$/,
       regEmail:  /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
     } 
 
