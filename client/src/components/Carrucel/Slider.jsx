@@ -1,7 +1,6 @@
 import Card from './Card'
 import Slider from 'react-slick'
 
-
 export default function Slider2({data, tittle}){
 
     const settings = {
@@ -11,7 +10,7 @@ export default function Slider2({data, tittle}){
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpped: 2000,
+        autoplaySpped: 5000,
         pauseOnHover: false,
         responsive: [
             {
@@ -44,7 +43,7 @@ export default function Slider2({data, tittle}){
             <h1 className="text-2xl mb-4 mt-10 ml-4 font-extrabold leading-none text-left text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">{tittle}</h1>
       
             <Slider {...settings}>
-                {data.map((el,index) => <Card key={index} id={el.id} img={el.img} name={el.name} price={el.price} genre={el.genre} calification={el.calification} />)}
+                {data.map((e,index) => <Card key={index} id={e.id} image={e.image} name={e.name} price={e.price} brandId={e.brandId} colorId={e.colorId} />)}
             </Slider>
          </div>
 

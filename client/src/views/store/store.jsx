@@ -30,12 +30,6 @@ export default function Store() {
   const quantity = 10;
   const phonesDisplayed = phones.slice(start, start + quantity);
 
-  useEffect(() => {
-    dispatch(getPhones());
-    dispatch(getBrands());
-    dispatch(getCapacity());
-  }, [dispatch]);
-
   const handleFilterTidy = (e) => {
     dispatch(TidyAlphabetically(e.target.value));
     setOrder(`ordenado ${e.target.value}`);

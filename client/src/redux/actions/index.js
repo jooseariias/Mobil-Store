@@ -19,9 +19,7 @@ export const FILTER_CAPACITY = "FILTER_CAPACITY";
 export const POST_USER = "POST_USER";
 export const  GET_USERS = " GET_USERS";
 
-
-
- export function getPhones(){
+  export function getPhones(){
     return async function (dispatch) {
       let Json = await axios.get(`http://localhost:3001/product`);
       dispatch({
@@ -29,7 +27,7 @@ export const  GET_USERS = " GET_USERS";
         payload: Json.data,
       });
     }
-}
+  }
 
   export function getPhone(payload){
     return async function(dispatch){
