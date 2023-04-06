@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
-import { getPhones } from "./redux/actions";
+import { getPhones, getBrands, getCapacity } from "./redux/actions";
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
@@ -16,6 +16,8 @@ export default function App(){
 
   useEffect(() => {
     dispatch(getPhones());
+    dispatch(getBrands());
+    dispatch(getCapacity());
   }, []);
 
   return (

@@ -11,7 +11,6 @@ export const PostProductLocalStorage = (obj) => {
         for(let i=0; i<carrito.productcarts.length; i++){
 
             if(obj.id === carrito.productcarts[i].id){
-                console.log("llegué")
                 return{
                     icon: "error",
                     title: 'Something went wrong',
@@ -43,7 +42,7 @@ export const PostProductLocalStorage = (obj) => {
 
         const carrito = {
             totalValue: obj.price,
-            quantity: 1,
+            quantity: 1,            
             productcarts: [obj]
         }
 
@@ -68,8 +67,6 @@ export const DeleteProductLocalStorage = (id) => {
     for(let i=0; i<carrito.productcarts.length; i++){
         if(id === carrito.productcarts[i].id){
 
-            console.log("entré")
-
             // AHORA MODIFICAMOS LOS PARÁMETROS DE BORRAR UN PRODUCTO
             carrito.quantity = carrito.quantity - 1;
             carrito.totalValue = carrito.totalValue - carrito.productcarts[i].price;
@@ -85,5 +82,34 @@ export const DeleteProductLocalStorage = (id) => {
         title: 'Congratulations',
         text: 'The product was deleted to your cart'
     }
+}
+
+export const UpdateStockProductLocalStorage = (operator, id) => {
+
+    console.log("valor", operator)
+
+    const carrito = JSON.parse(window.localStorage.getItem('carrito-ls'));
+
+    // PRIMERO COMPROBAMOS SI EL OPERADOR ES UN '+' O ES UN '-'.
+
+    if(operator === '+'){
+        
+        for(let i=0; i<carrito.productcarts.length; i++){
+            if(id === carrito.productcarts[i].id){
+                carrito.productcarts[i].quantity = carrito.productcarts[i].quantity + 1;
+            }
+        }
+    }
+
+    if(operator === '-'){
+        
+        for(let i=0; i<carrito.productcarts.length; i++){
+            if(id === carrito.productcarts[i].id){
+                carrito.productcarts[i].quantity = carrito.productcarts[i].quantity - 1;
+            }
+        }
+    }
+
+    window.localStorage.setItem('carrito-ls', JSON.stringify(carrito));
 }
 

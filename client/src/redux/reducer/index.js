@@ -25,8 +25,8 @@ const initialState = {
     Phones: [],
     PhonesCopy: [],
     Brands: [],
-    Color:[],
     Capacity:[],
+    Color:[],
     details: [],
     Users: [],
 };
