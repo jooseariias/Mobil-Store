@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -9,6 +10,7 @@ require('./db.js');
 require("../src/routes/auth.js")
 const server = express();
 
+server.use(cors());
 server.name = 'API';
 server.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
 server.use(passport.initialize());
