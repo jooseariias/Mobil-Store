@@ -8,8 +8,9 @@ function isLoggedIn(req, res, next) {
   }
 
 const router = Router();
+
 router.get('/', (req, res) => {
-    res.send('<a href="/auth/google">Authenticate with Google</a>');
+    res.send('<a href="http://localhost:3001/auth/google">Authenticate with Google</a>');
   });
   
   router.get('/auth/google',
