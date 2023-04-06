@@ -78,10 +78,6 @@ export default function Header(){
 		}
 	  }
 
-	  const handleCart = () => {
-		navigate('/Cart')
-	  }
-
   	return(
     	<header className="bg-slate-100 dark:bg-gray-900 text-gray-100 flex flex-col duration-300 ">
 
@@ -114,8 +110,14 @@ export default function Header(){
 				  {/*<img className='h-[30px] w-[30px] cursor-pointer mr-2' src={theme === "light" ? icons['corazon-negro'] : icons['corazon-blanco']} alt="color" />*/}
 
 				  <BsFillHeartFill onClick={() => handleFavorites()} className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-0.5 hover:transform hover:scale-110' />
-				  <BsFillCartCheckFill onClick={() => handleCart()} className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 hover:transform hover:scale-110' />
-				  <BsFillPersonFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' />
+
+				  <Link to='/Cart'>
+				  	<BsFillCartCheckFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 hover:transform hover:scale-110' />
+				  </Link>
+
+				  <Link to='/login'>
+				  	<BsFillPersonFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' />
+				  </Link>
 				
 				
 				 
