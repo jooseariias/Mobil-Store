@@ -12,7 +12,7 @@ const {
   Op,
 } = require("../db");
 
-const crearOrden = (cadenaCantidades,
+const crearOrden = async (cadenaCantidades,
     cadenaPrecios,
     cadenaProductos,
     cadenaTitulos,
