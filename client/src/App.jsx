@@ -8,6 +8,7 @@ import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
 import Cart from "./views/Cart/Cart";
+import { Register } from "./views/Register/register";
 
 export default function App(){
 
@@ -27,6 +28,7 @@ export default function App(){
         <Route path="/Store" element={<Store />} />
         <Route path="/About" element={<About />} />
         <Route path="/Cart" element={<Cart />} />
+        <Route path="/Register" element={<Register />} />
       </Routes>
     </div>
   )

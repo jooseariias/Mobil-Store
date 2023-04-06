@@ -43,3 +43,10 @@
   background-color: hsl(252, 85%, 55%);
   color: white;
 }
+
+.disabled {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  color: rgb(187, 186, 186)
+}
