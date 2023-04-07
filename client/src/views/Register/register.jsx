@@ -147,12 +147,12 @@ export const Register = () => {
 
 
     
-      <div className="flex flex-col min-height-full justify-center card rounded-none p-6 w-1/2 mx-auto h-full m-20 bg-gray-100 objet-cover bg-white m-20">
+      <div className="flex flex-col min-height-full justify-center card rounded-none p-6 w-1/2 mx-auto h-full objet-cover bg-white m-20">
         <div className="text-center item-center flex justify-center m-8">
               <h1 className="text-center m-1 text-2xl font-bold">Register</h1>
         </div>
 
-     <form  className="bg-white p-10 rounded-lg  bg-blue-200 flex flex-col m-1 h-full space-y-1"  onSubmit={handleSubmit}>
+     <form  className="bg-white p-10 rounded-l flex flex-col m-1 h-full space-y-1"  onSubmit={handleSubmit}>
         <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
 
         <div>
