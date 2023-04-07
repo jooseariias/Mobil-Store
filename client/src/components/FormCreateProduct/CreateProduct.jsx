@@ -154,7 +154,7 @@ export const CreateProduct = () => {
    
         <div>
         <label className="letas font-bold" htmlFor="name">
-          Name:
+          Name
         </label>
           <input
             type="text"
@@ -173,7 +173,7 @@ export const CreateProduct = () => {
 
         <div>
           <label className="letas font-bold" htmlFor="description">
-            Description:
+            Description
           </label>
           <textarea
             id="description"
@@ -192,7 +192,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-extrabold" htmlFor="price">
-          Price:
+          Price
         </label>
 
           <input
@@ -211,7 +211,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="image">
-          Image:
+          Image
         </label>
 
           <input
@@ -228,7 +228,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="stock">
-          Stock:
+          Stock
         </label>
 
           <input
@@ -249,7 +249,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="year">
-          Year:
+          Year
         </label>
           <input
             type="number"
@@ -269,7 +269,7 @@ export const CreateProduct = () => {
 
         <div className="selects-check">
         <label htmlFor="brand" className="letas font-bold">
-          Brand:{" "}
+          Brand{" "}
         </label>
 
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedBrand(e.target.value)}>
@@ -286,7 +286,7 @@ export const CreateProduct = () => {
 
         <div>
         <label htmlFor="color" className="letas font-bold">
-          Color:{" "}
+          Color{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedColor(e.target.value)}>
         <option hidden>choose a color</option>
@@ -302,7 +302,7 @@ export const CreateProduct = () => {
 
         <div>
         <label htmlFor="capacity" className="letas font-bold">
-          Capacity:{" "}
+          Capacity{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedCapacity(e.target.value)}>
           <option hidden>choose a capacity</option>
