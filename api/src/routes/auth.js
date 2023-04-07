@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const passport = require("passport")
 const {User} = require("../db")
- 
+ const CLIENT = "http://localhost:5173/"
 require("../utils/passport")
 function isLoggedIn(req, res, next) {
     req.user ? next() : res.sendStatus(401);
@@ -18,14 +18,31 @@ router.get('/', (req, res) => {
     
   ));
   
-  router.get( '/auth/google/callback',
+router.get( '/auth/google/callback',
   
     passport.authenticate( 'google', {
-      successRedirect: '/protected',
+      successRedirect: CLIENT,
       failureRedirect: '/auth/google/failure'
     })
   );
-  
+  router.get("/login/success", (req, res) => {
+  if (req.user) {
+    res.status(200).json({
+      success: true,
+      message: "successfull",
+      user: req.user,
+      //   cookies: req.cookies
+    });
+  }
+});
+
+router.get("/login/failed", (req, res) => {
+    res.status(401).json({
+      success: false,
+      message: "failure",
+    });
+  })
+
   
   router.get('/protected',  isLoggedIn, async(req, res) => {
 
