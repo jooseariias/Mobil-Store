@@ -198,7 +198,7 @@ export const Register = () => {
           Password
         </label>
 
-         <div className="  flex item-center border justify-between flex-wrap bg-white shadow appearance-none focus:outline-none focus:shadow-outline  p-4 rounded w-full py-2 px-3 text-gray-700 leading-tight ">
+         <div className="  flex item-center border justify-between flex-wrap bg-white  appearance-none focus:outline-none focus:shadow-outline  p-4 rounded w-full py-2 px-3 text-gray-700 leading-tight ">
          <input 
            type={showPwd ? "text" : "password"}
             id="password"
