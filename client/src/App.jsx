@@ -3,13 +3,14 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
-import { getPhones } from "./redux/actions";
+import { getPhones, getBrands, getCapacity } from "./redux/actions";
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
+import Cart from "./views/Cart/Cart";
+import Login from "./views/Login/login"
 import { Register } from "./views/Register/register";
 import Login from "./views/Login/login";
-
 
 export default function App(){
 
@@ -17,6 +18,8 @@ export default function App(){
 
   useEffect(() => {
     dispatch(getPhones());
+    dispatch(getBrands());
+    dispatch(getCapacity());
   }, []);
 
   return (
@@ -28,9 +31,9 @@ export default function App(){
         <Route path="details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
         <Route path="/About" element={<About />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/Cart" element={<Cart />} />
         <Route path="/Register" element={<Register />} />
-        {/* <Route path="/Cart" element={<Cart />} /> */}
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   )
