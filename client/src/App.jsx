@@ -10,7 +10,7 @@ import About from "./views/About/About";
 import Cart from "./views/Cart/Cart";
 import Login from "./views/Login/login"
 import { Register } from "./views/Register/register";
-import Login from "./views/Login/login";
+
 
 export default function App(){
 
