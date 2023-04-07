@@ -147,7 +147,7 @@ export const CreateProduct = () => {
   return (
       <div className="bg-gray-100  h-full  item-center">
 
-      <div className="card rounded-none p-6 w-1/2 mx-auto bg-gray-100 objet-cover">
+      <div className="card rounded-none p-6 w-1/2 mx-auto bg-gray-100 objet-cover m-40">
      
      <form  className="bg-white p-10 rounded-lg shadow-md bg-blue-200 flex flex-col  h-full space-y-1"  onSubmit={handleSubmit}>
         <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
