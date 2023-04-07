@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Op, where } = require("sequelize");
-const mercadopago = require("mercadopago"); 
+const mercadopago = require("mercadopago");
 // const {sendEmail, sendEmailOrderSent} = require("../utils/notifications");
 const axios = require("axios");
 const path = require('path');
@@ -23,7 +23,7 @@ const {
     Product,
     OrderStatus,
     Detail
-    
+
   } = require("../db.js");
 
 
@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
         };
         // {
         //     "idUser": 3,
-        //     "address": "Direccion de envio, 1",  
+        //     "address": "Direccion de envio, 1",
         //     "total": 200,
         //     "productAndQuantity": [
         //       {"idProduct": 6,"quantity": 2},
@@ -101,7 +101,7 @@ router.post('/', async (req, res) => {
             //     );
             // }).join(',');
 
-        
+
             // let idProducts = arrayOfOrders.productAndQuantity.map(order => order.idProduct).join(',') // 1,2,3
 
             // let cantidades2 = preference.items.map(product => product.quantity).join(',') // 2,4,1
@@ -135,7 +135,7 @@ router.get('/pago-fallido', async (req, res) => {
 router.get('/pago-pendiente', async (req, res) => {
     res.status(200).json({msg: 'pago pendiente'})
 })
-  
+
 
 router.get("/pago-confirmado", async (req, res) => {
     try {
@@ -143,14 +143,14 @@ router.get("/pago-confirmado", async (req, res) => {
         const {
             idUser,
             quantity, // este
-            price, // este 
+            price, // este
             total,
-            idProduct, // este 
+            idProduct, // este
             address,
             title, // este
-            picture_url, // este 
+            picture_url, // este
             description, // este
-      
+
             collection_id,//: '56501258558',
             collection_status,//: 'approved',
             payment_id,//: '56501258558',
@@ -165,13 +165,13 @@ router.get("/pago-confirmado", async (req, res) => {
           } = req.query;
 
         // console.log("req query es: ", req.query)
-        
+
         let cadenaCantidades = quantity.split(','); // ['1','2','1']
         let cadenaPrecios = price.split(','); // ['20.5','12....]
         let cadenaProductos = idProduct.split(',');
         let cadenaTitulos = title.split(',');
         let cadenaPicture = picture_url.split(',');
-    
+
         let totalDeRegistros = cadenaCantidades.length;
 
         await crearOrden(
@@ -192,7 +192,7 @@ router.get("/pago-confirmado", async (req, res) => {
             picture_url,
             description
           );
-        
+
           await sendConfirmedPaymentEmail(
             idUser,
             cadenaCantidades,
@@ -234,20 +234,86 @@ router.put('/sendOrder/:idOrder', async (req, res) => {
             await statusOfSelectOrder.save()
             sendEmailOrderSent(selectedOrder.userId)
         }
-        
+
         res.status(200).json(statusOfSelectOrder)
-        
+
         }else {
-        
+
         res.status(404).json({msg: `Orden ${idOrder} inexistente`})
-        
+
         }
-    }catch(error){ 
-        
+    }catch(error){
+
         res.status(400).json({error: error.message})
 
     }
 })
 
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      if (id) {
+        // const order = await Orders.findAll({
+        //     where: {
+        //         include: [
+        //             {model: User},
+        //             {model: Product},
+        //             {model: Detail},
+        //         ]
+        //     },
+        //     where: {
+        //         userId: id
+        //     }
+        // })
+        const order = await Orders.findAll({
+            include: {
+                model: User,
+            },
+            // include: {
+            //     model: Detail,
+            // },
+            include: {
+                model: Product,
+            },
+            where: {
+            userId: id,
+            },
+        });
+
+        // console.log("Order es: ", order)
+        // return true;
+        const status = await OrderStatus.findAll();
+
+        const detail = await Detail.findAll({
+            where: {
+                orderId: order[0].id
+            }
+        });
+
+        // console.log(detail)
+        const data = await order.map((p) => {
+          return {
+            Nro: p.id,
+            date: p.date,
+            address: p.address,
+            status: p.orderStatus,
+            image: p.products.map((e) => e.image),
+            name: p.products.map((e) => e.name),
+            // quantity: p.products.map((e) => e.Detail.quantity),
+            // price: p.products.map((e) => e.Detail.price),
+            // quantity: detail.quantity,
+            // price: detail.filter((d) => d.orderId == p.id),
+            total: p.total,
+            status: status.filter((s) => s.orderId == p.id).map((e) => e.status),
+          };
+        });
+        data.length
+          ? res.status(200).send(data)
+          : res.status(400).send("This user has no associated purchases");
+      }
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+  });
 
 module.exports = router;
