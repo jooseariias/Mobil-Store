@@ -52,7 +52,7 @@ router.use('/capacity' ,CapacityRoute)
 router.use('/reviews', reviewsRoute);
 router.use('/wishlist', wishlistRoute);
 
-router.use("/",routerAuth)
+//router.use("/Login", routerAuth)
 router.use('/', loginRoute)
 router.use('/orders', orderRouter)
 

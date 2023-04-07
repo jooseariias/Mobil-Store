@@ -10,13 +10,12 @@ router.post("/", async (req, res) => {
   console.log("SERVER", email, password);
 
   const user = await User.findOne({
-    where: {
-      email: email,
-    },
+    where: { email: email, },
   });
 
-  if (user) {
-    if (bcrypt.compareSync(password, user.password)) {
+  if(!user) return res.status(401).send({message: "Email is invalid"});
+
+  if(bcrypt.compareSync(password, user.password)){
       return res.status(200).json({
         msg: "Login success",
         data: {
@@ -24,10 +23,10 @@ router.post("/", async (req, res) => {
           token: generateToken(user),
         },
       });
-    }
-  } else {
-    res.status(400).send({ msg: "Invalid email or password" });
   }
+    
+  else return res.status(401).send({message: "The password is invalid"});
+  
 });
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import AuthService from "../../helpers/Auth"
 
 function Login() {
   const [googleLogin, setGoogleLogin] = useState();
@@ -28,14 +29,17 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!Object.values(user)[0].length) {
       setControl("Please, introduce your login data");
     } else {
-      try {
-        const { data } = await axios.post("http://localhost:3001", user);
-      } catch (error) {
-        setLoginError(error.response.data.msg);
-      }
+      
+      AuthService.Login(user).then((data) => {
+        alert(data.data.msg)
+      }).catch((data) => {
+        alert(data.response.data.message)
+      })
+      
     }
   };
   console.log(user);
