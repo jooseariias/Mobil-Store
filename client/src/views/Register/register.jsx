@@ -147,12 +147,12 @@ export const Register = () => {
 
 
     
-      <div className="flex flex-col min-height-full justify-center card rounded-none p-6 w-1/2 mx-auto h-full bg-gray-100 objet-cover bg-white m-20">
-        <div className="text-center item-center flex justify-center">
+      <div className="flex flex-col min-height-full justify-center card rounded-none p-6 w-1/2 mx-auto h-full m-20 bg-gray-100 objet-cover bg-white m-20">
+        <div className="text-center item-center flex justify-center m-8">
               <h1 className="text-center m-1 text-2xl font-bold">Register</h1>
         </div>
 
-     <form  className="bg-white p-10 rounded-lg shadow-md bg-blue-200 flex flex-col m-1 h-full space-y-1"  onSubmit={handleSubmit}>
+     <form  className="bg-white p-10 rounded-lg  bg-blue-200 flex flex-col m-1 h-full space-y-1"  onSubmit={handleSubmit}>
         <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
 
         <div>
@@ -194,16 +194,16 @@ export const Register = () => {
         </div>
 
         <div>
-        <label className="letas font-extrabold" htmlFor="password">
+        <label className="letas font-bold" htmlFor="password">
           Password
         </label>
 
-         <div className="  flex item-center justify-between flex-wrap bg-white mt-2 shadow appearance-none  p-4 rounded w-full py-2 px-3 text-gray-700 leading-tight ">
+         <div className="  flex item-center border justify-between flex-wrap bg-white shadow appearance-none focus:outline-none focus:shadow-outline  p-4 rounded w-full py-2 px-3 text-gray-700 leading-tight ">
          <input 
            type={showPwd ? "text" : "password"}
             id="password"
             name="password"
-            className="focus:outline-none focus:shadow-outline"
+            className="focus:outline-none focus:shadow-outline "
             onChange={handleChange}
             onBlur={handleBlur}
             value={form.password}
