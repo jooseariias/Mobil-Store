@@ -147,14 +147,14 @@ export const CreateProduct = () => {
   return (
       <div className="bg-gray-100  h-full  item-center">
 
-      <div className="card rounded-none p-6 w-1/2 mx-auto bg-gray-100 objet-cover">
+      <div className="card rounded-none p-6 w-1/2 mx-auto bg-gray-100 objet-cover m-40">
      
      <form  className="bg-white p-10 rounded-lg shadow-md bg-blue-200 flex flex-col  h-full space-y-1"  onSubmit={handleSubmit}>
         <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
    
         <div>
         <label className="letas font-bold" htmlFor="name">
-          Name:
+          Name
         </label>
           <input
             type="text"
@@ -173,7 +173,7 @@ export const CreateProduct = () => {
 
         <div>
           <label className="letas font-bold" htmlFor="description">
-            Description:
+            Description
           </label>
           <textarea
             id="description"
@@ -192,7 +192,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-extrabold" htmlFor="price">
-          Price:
+          Price
         </label>
 
           <input
@@ -211,7 +211,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="image">
-          Image:
+          Image
         </label>
 
           <input
@@ -228,7 +228,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="stock">
-          Stock:
+          Stock
         </label>
 
           <input
@@ -249,7 +249,7 @@ export const CreateProduct = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="year">
-          Year:
+          Year
         </label>
           <input
             type="number"
@@ -269,7 +269,7 @@ export const CreateProduct = () => {
 
         <div className="selects-check">
         <label htmlFor="brand" className="letas font-bold">
-          Brand:{" "}
+          Brand{" "}
         </label>
 
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedBrand(e.target.value)}>
@@ -286,7 +286,7 @@ export const CreateProduct = () => {
 
         <div>
         <label htmlFor="color" className="letas font-bold">
-          Color:{" "}
+          Color{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedColor(e.target.value)}>
         <option hidden>choose a color</option>
@@ -302,7 +302,7 @@ export const CreateProduct = () => {
 
         <div>
         <label htmlFor="capacity" className="letas font-bold">
-          Capacity:{" "}
+          Capacity{" "}
         </label>
         <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedCapacity(e.target.value)}>
           <option hidden>choose a capacity</option>
@@ -315,7 +315,7 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.capacity}</p>
           )}
         </div>
-          { Object.values(errors).length ===0  &&  <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
+          { Object.values(errors).length ===0  &&  <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
           Submit 
         </button>}
         </div>
