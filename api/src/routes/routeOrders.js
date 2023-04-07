@@ -39,16 +39,8 @@ router.post("/", async (req, res) => {
       auto_return: "approved",
       binary_mode: true,
     };
-    // {
-    //     "idUser": 3,
-    //     "address": "Direccion de envio, 1",
-    //     "total": 200,
-    //     "productAndQuantity": [
-    //       {"idProduct": 6,"quantity": 2},
-    //       {"idProduct": 19,"quantity": 4},
-    //       {"idProduct": 7,"quantity": 1},
-    //     ]
-    //   }
+    let stock = true;
+
     await Promise.all(
       arrayOfOrders.productAndQuantity.map(async (product, index) => {
         const producto = await Product.findOne({
@@ -57,7 +49,7 @@ router.post("/", async (req, res) => {
           },
         });
 
-        // console.log(producto)
+     
         preference.items[index] = {
           title: producto.name,
           picture_url: producto.image,
@@ -66,7 +58,7 @@ router.post("/", async (req, res) => {
           quantity: product.quantity,
           unit_price: parseFloat(producto.price),
         };
-        // console.log("Preference items: ", preference.items)
+ 
         let [cantidades, precios, titulos, foto] = preference.items
           .map((product) => [
             product.quantity,
@@ -96,33 +88,39 @@ router.post("/", async (req, res) => {
         successUrl = `${process.env.BACK_URL}/orders/pago-confirmado?idUser=${arrayOfOrders.idUser}&quantity=${cantidades}
                 &price=${precios}&total=${arrayOfOrders.total}&idProduct=${idProducts}&address=${arrayOfOrders.address}
                 &title=${titulos}&picture_url=${foto}`;
-      })
-      //     return (
-      //         cantidades =  product.quantity,
-      //         precios =  product.unit_price,
-      //         titulos = product.title,
-      //         foto = product.picture_url
-      //     );
-      // }).join(',');
+                let cadenaCantidades = cantidades.split(","); // ['1','2','1']
 
-      // let idProducts = arrayOfOrders.productAndQuantity.map(order => order.idProduct).join(',') // 1,2,3
-
-      // let cantidades2 = preference.items.map(product => product.quantity).join(',') // 2,4,1
-      // let precios = preference.items.map(product => product.unit_price).join(',') // 300, 63, 350
-      // let titulos = preference.items.map(product => product.title).join(',') // Galaxy S23 Ultra, P20 , Galaxy Z Flip4
-      // let foto = preference.items.map(product => product.picture_url).join(',') // https://m.media-amazon.com/images/I/71nZ4-uixuL.AC_SY355.jpg, https://m.media-amazon.com/images/I/61V8FqrPIpL.AC_SY550.jpg, https://m.media-amazon.com/images/I/51K7abmErwL.AC_SX425.jpg
-
-      // successUrl = `${process.env.BACK_URL}/orders/pago-confirmado?idUser=${arrayOfOrders.idUser}&quantity=${cantidades}
-      // &price=${precios}&total=${arrayOfOrders.total}&idProduct=${idProducts}&address=${arrayOfOrders.address}
-      // &title=${titulos}&picture_url=${foto}`;
+                let cadenaProductos = idProducts.split(",");
+               
+            
+        for (let i = 0; i < cadenaProductos.length; i++) {
+            const product = await Product.findOne({
+            where: {
+                id: parseInt(cadenaProductos[i]),
+            },
+            });
+            // console.log("Stock es: ", product.stock);
+            // console.log("Cantidades es: ", cadenaCantidades[i]);
+            if (product.stock < cadenaCantidades[i]){
+                stock = false;
+            // res.status(400).json({ error: 'No hay stock para el producto' }); // no hay stock para un producto determinado
+            }
+        }
+      }) 
     );
-    preference.back_urls.success = successUrl;
-    const response = await mercadopago.preferences.create(preference);
 
-    res.status(200).json({
-      init_point: response.body.init_point,
-      items: response.body.items,
-    });
+
+    if(stock){
+        preference.back_urls.success = successUrl;
+        const response = await mercadopago.preferences.create(preference);
+
+        res.status(200).json({
+        init_point: response.body.init_point,
+        items: response.body.items,
+        });
+    }else {
+        res.status(400).json({error: `No hay stock, actualice la pagina para ver el nuevo stock`})
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -172,7 +170,7 @@ router.get("/pago-confirmado", async (req, res) => {
 
     let totalDeRegistros = cadenaCantidades.length;
 
-    await crearOrden(
+    let nuevaOrden = await crearOrden(
       cadenaCantidades,
       cadenaPrecios,
       cadenaProductos,
@@ -190,7 +188,9 @@ router.get("/pago-confirmado", async (req, res) => {
       picture_url,
       description
     );
-
+    if(!nuevaOrden) {
+        res.status(400).json({ error: `No hay stock para el producto` });
+    }
     await sendConfirmedPaymentEmail(
       idUser,
       cadenaCantidades,
