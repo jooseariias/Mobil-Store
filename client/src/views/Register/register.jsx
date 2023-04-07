@@ -157,7 +157,7 @@ export const Register = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="name">
-          Name:
+          Name
         </label>
           <input
             type="text"
@@ -176,7 +176,7 @@ export const Register = () => {
 
         <div>
           <label className="letas font-bold" htmlFor="surname">
-            Surname:
+            Surname
           </label>
           <input
             id="surname"
@@ -195,7 +195,7 @@ export const Register = () => {
 
         <div>
         <label className="letas font-extrabold" htmlFor="password">
-          Password:
+          Password
         </label>
 
          <div className="  flex item-center justify-between flex-wrap bg-white mt-2 shadow appearance-none  p-4 rounded w-full py-2 px-3 text-gray-700 leading-tight ">
@@ -217,7 +217,7 @@ export const Register = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="image">
-          Image:
+          Image
         </label>
 
           <input
@@ -234,7 +234,7 @@ export const Register = () => {
 
         <div>
         <label className="letas font-bold" htmlFor="email">
-            Email:
+            Email
         </label>
 
           <input
@@ -252,7 +252,7 @@ export const Register = () => {
         </div>
 
 
-          <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
+          <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
           Submit 
         </button>
         </div>

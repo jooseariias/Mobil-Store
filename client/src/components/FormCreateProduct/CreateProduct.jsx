@@ -315,7 +315,7 @@ export const CreateProduct = () => {
             <p style={{ color: "red", fontWeight: "bold" }}>{errors.capacity}</p>
           )}
         </div>
-          { Object.values(errors).length ===0  &&  <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
+          { Object.values(errors).length ===0  &&  <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
           Submit 
         </button>}
         </div>
