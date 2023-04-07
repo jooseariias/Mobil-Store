@@ -7,8 +7,8 @@ import { getPhones } from "./redux/actions";
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
-import Login from "./components/Login/login";
 import { Register } from "./views/Register/register";
+import Login from "./views/Login/login";
 
 
 export default function App(){
