@@ -108,4 +108,31 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
+router.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+
+  try {
+    await Product.update(
+      {
+        name: body.name,
+        price: body.price,
+        description: body.description,
+        stock: body.stock,
+        enabled: body.enabled,
+        year: body.year,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+
+    res.status(200).send("Product updated successfully!");
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 module.exports = router;
