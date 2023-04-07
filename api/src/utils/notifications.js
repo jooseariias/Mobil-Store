@@ -98,7 +98,7 @@ const sendConfirmedPaymentEmail = async (
         
 
         // console.log("cantidadesTotales es ", cantidadesTotales)
-        console.log(datos.order)
+        // console.log(datos.order)
         await transporter.sendMail({
             from: process.env.USER_EMAIL_GAMERS_STORE,
             to: `${datos.comprador.email}`,
