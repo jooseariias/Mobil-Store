@@ -147,7 +147,7 @@ export const Register = () => {
 
 
     
-      <div className="flex flex-col min-height-full justify-center card rounded-none p-6 w-1/2 mx-auto h-full bg-gray-100 objet-cover bg-white m-1">
+      <div className="flex flex-col min-height-full justify-center card rounded-none p-6 w-1/2 mx-auto h-full bg-gray-100 objet-cover bg-white m-20">
         <div className="text-center item-center flex justify-center">
               <h1 className="text-center m-1 text-2xl font-bold">Register</h1>
         </div>
