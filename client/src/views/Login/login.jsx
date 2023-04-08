@@ -9,23 +9,13 @@ import Swal from "sweetalert2"
 import Header from "../../components/Header/Header"
 import Footer from '../../components/Footer/Footer'
 
-function Login() {
+export default function Login() {
   const [googleLogin, setGoogleLogin] = useState();
   const [user, setUser] = useState({ email: "", password: "" });
   const [control, setControl] = useState("");
   const [seePassword, setSeePassword] = useState(false);
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate()
-
-  useEffect(() => {
-    async function fetchAnchor() {
-      const { data } = await axios("http://localhost:3001");
-
-      setGoogleLogin(data);
-    }
-    fetchAnchor();
-  }, []);
-
 
   const handleUser = (event) => {
     const name = event.target.name;
@@ -135,6 +125,7 @@ function Login() {
             className="w-full p-2 text-[#17202A] "
           />
         </button>
+
         <p className="text-black py-3">
           Don't have an account?{" "}
           <Link to={"/register"} className="text-blue-300">
@@ -148,5 +139,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;

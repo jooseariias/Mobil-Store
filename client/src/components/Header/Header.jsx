@@ -108,7 +108,7 @@ export default function Header(){
 	  }
 
   	return(
-    	<header className="bg-slate-100 dark:bg-gray-900 text-gray-100 flex flex-col duration-300 ">
+    	<header className="bg-slate-100 dark:bg-gray-800 text-gray-100 flex flex-col duration-300 ">
 
 			<div className=" flex justify-between h-12 mx-auto w-full mb-5 p-2">
 
