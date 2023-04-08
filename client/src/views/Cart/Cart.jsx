@@ -98,8 +98,8 @@ export default function Cart(){
 
             <div class="flex mt-8 mb-5 justify-between dark:text-gray-400">
               <h3 class="font-semibold text-xs uppercase w-2/5 ml-4">Product Details</h3>
-              <h3 class="font-semibold text-center text-xs uppercase w-1/5">Quantity</h3>
-              <h3 class="font-semibold text-center text-xs uppercase w-1/5">Stock</h3>
+              <h3 class="font-semibold text-center text-xs uppercase w-1/5 pr-5">Quantity</h3>
+              <h3 class="font-semibold text-center text-xs uppercase w-1/5 pr-3">Stock</h3>
               <h3 class="font-semibold text-center text-xs uppercase w-1/5">Price</h3>
               <h3 class="font-semibold text-center text-xs uppercase w-1/5">Total</h3>
             </div>

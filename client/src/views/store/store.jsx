@@ -28,7 +28,7 @@ export default function Store() {
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const quantity = 10;
-  const phonesDisplayed = phones.slice(start, start + quantity);
+  const phonesDisplayed = phones.slice(start, start + quantity + 2);
 
   const handleFilterTidy = (e) => {
     dispatch(TidyAlphabetically(e.target.value));
