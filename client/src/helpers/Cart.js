@@ -74,6 +74,17 @@ export const DeleteProductLocalStorage = (id) => {
         }
     }
 
+    // SI AL BORRAR EL CARRITO SE QUEDA VACÍO, ELIMINAMOS LA VARIABLE DEL LOCAL STORAGE
+
+    if(carrito.productcarts.length === 0){
+        window.localStorage.removeItem('carrito-ls');
+        
+        return{ 
+            icon: 'sucess',
+            title: 'Congratulations',
+            text: 'The product was deleted to your cart'
+        }
+    }
 
     window.localStorage.setItem('carrito-ls', JSON.stringify(carrito));
 
