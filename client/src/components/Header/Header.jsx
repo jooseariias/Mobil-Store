@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import icons from '../../assets/icons-header/icons.js'
 import { BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill } from "react-icons/bs"
 import { BiLogOutCircle } from "react-icons/bi"
 import SearchBar from '../SearchBar/SearchBar.jsx';
-import AuthService from '../../helpers/Auth.js'
+import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
+import { LogOut } from '../../redux/actions/index.js'
 
 export default function Header(){
 	
 	const [theme, setTheme] = useState(window.localStorage.getItem('theme') ? window.localStorage.getItem("theme") : "dark")
+	const dispatch = useDispatch();
 	const [user, setUser] = useState({})
 	const [Actualizar, setActualizar] = useState(false)
 	const element = document.documentElement;
@@ -90,20 +92,24 @@ export default function Header(){
 		}
 	  }
 
-	  const LogOut = () => {
+	  const handleLogOut = () => {
 		Swal.fire({
 			icon: 'warning',
 			title: 'Are you sure you want to sign out?',
 			confirmButtonText: 'Yes',
 			showDenyButton: true,
 		}).then((result) => {
-			if (result.isConfirmed){
+			if(result.isConfirmed){
+
+				dispatch(LogOut());
+
 				Swal.fire({
 					icon: 'success',
 					title: 'The session has been closed'
 				})
-				AuthService.LogOut();
+
 				setActualizar(!Actualizar);
+				
 			}})
 	  }
 
@@ -155,7 +161,7 @@ export default function Header(){
 					:
 
 					<Link to={'/Profile'}>
-						<img src={user.dataValues.image} className='w-8 h-8 cursor-pointer rounded-full text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' alt="" />
+						<img src={user.data_user.image} className='w-8 h-8 cursor-pointer rounded-full text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' alt="" />
 					</Link>
 				  }
 
@@ -164,7 +170,7 @@ export default function Header(){
 						<>
 						</>
 						:
-						<BiLogOutCircle onClick={() => LogOut()} className='w-8 h-8 cursor-pointer
+						<BiLogOutCircle onClick={() => handleLogOut()} className='w-8 h-8 cursor-pointer
 							rounded-full text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' alt=""	
 						/>
 				  }
