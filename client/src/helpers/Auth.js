@@ -10,6 +10,10 @@ class AuthService{
     Login(data){
       return axios.post(API_URL, data);
     }
+
+    LogOut(){
+      window.localStorage.removeItem('user-log');
+    }
 }
 
 export default new AuthService;

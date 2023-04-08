@@ -7,17 +7,15 @@ const router = Router();
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
-  console.log("SERVER", email, password);
-
   const user = await User.findOne({
     where: { email: email, },
   });
 
-  if(!user) return res.status(401).send({message: "Email is invalid"});
+  if(!user) return res.status(401).send({message: "Email or Password is invalid"});
 
   if(bcrypt.compareSync(password, user.password)){
       return res.status(200).json({
-        msg: "Login success",
+        message: "You have been successfully validated",
         data: {
           ...user,
           token: generateToken(user),
@@ -25,7 +23,7 @@ router.post("/", async (req, res) => {
       });
   }
     
-  else return res.status(401).send({message: "The password is invalid"});
+  else return res.status(401).send({message: "Email or Password is invalid"});
   
 });
 

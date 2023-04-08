@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { BsEyeSlash } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
+import AuthService from '../../helpers/Auth'
+import Swal from "sweetalert2"
+
+import Header from "../../components/Header/Header"
+import Footer from '../../components/Footer/Footer'
 
 function Login() {
   const [googleLogin, setGoogleLogin] = useState();
@@ -30,46 +35,61 @@ function Login() {
     setControl("");
   };
 
-  
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!Object.values(user)[0].length) {
       setControl("Please, introduce your login data");
     } else {
-      try {
-        const { data } = await axios.post("http://localhost:3001", user);
-        const userLoged = data.data.dataValues
-        localStorage.setItem('user', JSON.stringify(userLoged))
-        navigate('/')
-      } catch (error) {
-        setLoginError(error.response.data.msg);
-      }
+      AuthService.Login(user).then((response) => {
+
+         window.localStorage.setItem('user-log', JSON.stringify(response.data.data))
+
+         Swal.fire({
+          icon: 'success',
+          title: 'Congratulations!',
+          text: response.data.message,
+          confirmButtonText: 'Continue'
+        }).then((result) => {
+          if(result.isConfirmed) {
+            navigate("/");
+          }
+          navigate('/')
+        })
+      }).catch((response => {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Something went wrong',
+          text: response.response.data.message
+        })}))
     }
   };
   console.log(user);
 
   return (
-    <div className="flex justify-center pt-20">
-      <div className="w-1/3 p-4 flex flex-col justify-around items-center rounded-xl bg-white border">
-        <h1 className="text-black text-3xl font-medium">
-          Login to your account
-        </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="w-full flex flex-col justify-around items-center"
-        >
+    <div className="">
+
+      <Header />
+
+
+      <div className="h-[calc(100vh-6.7rem)] bg-gray-200 flex justify-center p-10">
+        <div className="w-1/3 h-4/5 flex flex-col justify-center my-auto items-center rounded-xl bg-white border">
+          <h1 className="text-black text-3xl font-medium mb-8 mt-4">Login to your account</h1>
+
+          <form
+            onSubmit={handleSubmit}
+            className="w-full flex flex-col justify-around items-center"
+          >
+
           <div className="w-4/5"><label className="font-bold">Email</label></div>
-          <input
-            onChange={handleUser}
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={user.email}
-            autoComplete="off"
-            className="w-4/5 rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"
-          />
+            <input
+              onChange={handleUser}
+              type="text"
+              placeholder="Email"
+              name="email"
+              value={user.email}
+              autoComplete="off"
+              className="w-4/5 rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"
+            />
           <p className="h-8 text-red-400">{loginError}</p>
 
           <div className="w-4/5"><label className="font-bold">Password</label></div>
@@ -122,6 +142,9 @@ function Login() {
           </Link>
         </p>
       </div>
+      </div>
+
+      <Footer />
     </div>
   );
 }
