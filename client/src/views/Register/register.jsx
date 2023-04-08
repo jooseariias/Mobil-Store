@@ -52,7 +52,7 @@ export const Register = () => {
       regEmail:  /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
     } 
 
-    if (form.name.trim().length > 0) {
+    if (form.email.trim().length > 0) {
       let UserExist = AllUsers.filter(
         (e) => e.email.toLowerCase() === form.email.toLowerCase()
       );
@@ -106,7 +106,7 @@ export const Register = () => {
     e.preventDefault();
 
     if (Object.keys(errors).length || !form.name|| !form.surname|| !form.password|| !form.email||!image.length) {
-      swal({
+      swal.fire({
         title: "Error",
         text: "You must complete all fields",
         icon: "warning",
@@ -127,14 +127,17 @@ export const Register = () => {
      
       })
 
-      setImage({image:""})
-      console.log(updatedFormData);
-      swal({
+      swal.fire({
         title: "Success",
         text: "The user has been registered!",
         icon: "success",
         buttons: "Ok",
       });
+
+      setImage({image:""})
+      navigate('/')
+      console.log(updatedFormData);
+
       // goBack();
     }
   };
@@ -145,17 +148,16 @@ export const Register = () => {
 
           <Header/>
 
-
     
-      <div className="flex flex-col min-height-full justify-center card rounded-none p-6 w-1/2 mx-auto h-full m-20 bg-gray-100 objet-cover bg-white m-20">
+      <div className="flex flex-col h-3/4 justify-center card rounded-none p-6 w-1/2  mx-auto h-full m-20 bg-gray-100 objet-cover  m-20 objer-cover">
         <div className="text-center item-center flex justify-center m-8">
               <h1 className="text-center m-1 text-2xl font-bold">Register</h1>
         </div>
 
-     <form  className="bg-white p-10 rounded-lg  bg-blue-200 flex flex-col m-1 h-full space-y-1"  onSubmit={handleSubmit}>
-        <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
+     <form  className="bg-white p-10 rounded-lg   flex flex-col m-1 h-full space-y-1  "  onSubmit={handleSubmit}>
+        <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3 m-3'>
 
-        <div>
+        <div className="">
         <label className="letas font-bold" htmlFor="name">
           Name
         </label>
@@ -169,12 +171,12 @@ export const Register = () => {
             value={form.name}
           />
           {errors.name && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.name}</p>
+            <p style={{ color: "red", fontWeight: "normal" }}>{errors.name}</p>
           )}
         </div>
 
 
-        <div>
+        <div  className="">
           <label className="letas font-bold" htmlFor="surname">
             Surname
           </label>
@@ -187,13 +189,13 @@ export const Register = () => {
             value={form.surname}
           />
           {errors.surname && (
-            <p style={{ color: "red", fontWeight: "bold" }}>
+            <p style={{ color: "red", fontWeight: "normal" }}>
               {errors.surname}
             </p>
           )}
         </div>
 
-        <div>
+        <div  className="justify-between  ">
         <label className="letas font-bold" htmlFor="password">
           Password
         </label>
@@ -211,11 +213,11 @@ export const Register = () => {
             <a class="block lg:inline-block lg:mt-0 " onClick={() => setShowPwd(!showPwd)}> <img  class= " z-6 inset-y-0 my-auto h-6 active:bg-gray-600 active:rounded-full"src = {seePassword}/> </a>
          </div>
           {errors.password && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.password}</p>
+            <p style={{ color: "red", fontWeight: "light" }}>{errors.password}</p>
           )}
         </div>
 
-        <div>
+        <div  className="">
         <label className="letas font-bold" htmlFor="image">
           Image
         </label>
@@ -228,11 +230,11 @@ export const Register = () => {
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
           {errors.image && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.image}</p>
+            <p style={{ color: "red", fontWeight: "normal" }}>{errors.image}</p>
           )}
         </div>
 
-        <div>
+        <div  className="">
         <label className="letas font-bold" htmlFor="email">
             Email
         </label>
@@ -247,12 +249,12 @@ export const Register = () => {
             onBlur={handleBlur}
           />
           {errors.email && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.email}</p>
+            <p style={{ color: "red", fontWeight: "normal" }}>{errors.email}</p>
           )}
         </div>
 
 
-          <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
+          <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-3" type="submit"  >
           Submit 
         </button>
         </div>
