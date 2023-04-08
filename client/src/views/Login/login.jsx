@@ -1,15 +1,19 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FcGoogle } from "react-icons/fc";
 import { BsEyeSlash } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from '../../helpers/Auth'
 import Swal from "sweetalert2"
+import { LoginSuccess } from "../../redux/actions";
 
 import Header from "../../components/Header/Header"
 import Footer from '../../components/Footer/Footer'
+import GoogleAuth from '../../components/GoogleAuth/GoogleAuth'
 
-export default function Login() {
+export default function Login(){
+
+  const dispatch = useDispatch();
   const [googleLogin, setGoogleLogin] = useState();
   const [user, setUser] = useState({ email: "", password: "" });
   const [control, setControl] = useState("");
@@ -32,8 +36,15 @@ export default function Login() {
     } else {
       AuthService.Login(user).then((response) => {
 
-         window.localStorage.setItem('user-log', JSON.stringify(response.data.data))
+         // GUARDAMOS SOLO LA DATA QUE NECESITAMOS, LO DEMÁS LO DESCARTAMOS
+        
+        const data = {
+          data_user: response.data.data.dataValues,
+          token: response.data.data.token,
+        }
 
+        dispatch(LoginSuccess(data));
+        
          Swal.fire({
           icon: 'success',
           title: 'Congratulations!',
@@ -53,7 +64,6 @@ export default function Login() {
         })}))
     }
   };
-  console.log(user);
 
   return (
     <div className="">
@@ -118,13 +128,6 @@ export default function Login() {
           <div className="w-full h-px bg-black rounded-full"></div>
         </div>
 
-        <button className="w-fit my-4 bg-white rounded-lg flex items-center justify-between border">
-          <FcGoogle className="text-2xl ml-2" />
-          <span
-            dangerouslySetInnerHTML={{ __html: googleLogin }}
-            className="w-full p-2 text-[#17202A] "
-          />
-        </button>
 
         <p className="text-black py-3">
           Don't have an account?{" "}
@@ -132,6 +135,11 @@ export default function Login() {
             Sign up here
           </Link>
         </p>
+
+        <button className="mt-3 w-full text-center">
+          <GoogleAuth />
+        </button>
+
       </div>
       </div>
 
