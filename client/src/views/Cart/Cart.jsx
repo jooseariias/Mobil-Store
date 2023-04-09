@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 export default function Cart(){
 
   const Phones = useSelector((state) => state.Phones)
+  const User = useSelector((state) => state.User)
   const[carrito, setCarrito] = useState({});
   const[Actualizar, setActualizar] = useState(false);
   
@@ -75,8 +76,14 @@ export default function Cart(){
   }
 
   const handleSubmit = () => {
-    
-    alert("pepe")
+
+    if(Object.keys(User).length === 0){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Something went wrong',
+        text: 'You have to have an account to buy',
+      })
+    }
   }
 
   const RenderEmptyCart = () => {
@@ -170,36 +177,34 @@ export default function Cart(){
       </div>
 
       <div id="summary" class="w-1/4 px-8 py-4 bg-slate-100">
+
         <h1 class="font-semibold text-2xl border-b pb-5 mb-4">Order Summary</h1>
        
-        <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase">Payment method</label>
-          <select class="block p-2 text-gray-600 w-full text-sm">
-            <option>MercadoPago</option>
-            <option>PayPal</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase mt-8">Address</label>
-          <input type="text" className="block p-2 w-full text-sm border border-gray-600 text-gray-600" />
-        </div>
-        
-  
-        <div class="border-t mt-8">
-          <div class="flex font-semibold justify-between py-6 text-sm uppercase">
-            <span>Total cost</span>
-            <span>${carrito.totalValue}.00</span>
+          <div>
+            <label class="font-medium inline-block mb-3 text-sm uppercase">Payment method</label>
+              <select class="block p-2 text-gray-600 w-full text-sm">
+                <option>MercadoPago</option>
+                <option>PayPal</option>
+              </select>
           </div>
 
-          <button
-            onClick={() => handleSubmit()}
-            className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout
-          </button>
+          <div>
+            <label class="font-medium inline-block mb-3 text-sm uppercase mt-8">Address</label>
+            <input type="text" className="block p-2 w-full text-sm border border-gray-600 text-gray-600" />
+          </div>
+        
+          <div class="border-t mt-8">
+            <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+              <span>Total cost</span>
+              <span>${carrito.totalValue}.00</span>
+            </div>
 
-        </div>
+            <button
+              onClick={() => handleSubmit()}
+              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout
+            </button>
+          </div>
       </div>
-
     </div>
   }
   </div>
