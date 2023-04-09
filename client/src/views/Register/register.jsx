@@ -82,7 +82,7 @@ export const Register = () => {
       errors.email = "email is required";
     }
     if (!expresiones.regPassword.test(form.password.trim())) {
-      errors.password = "the password at least one digit, at least one lower case and at least one upper case.";
+      errors.password = "At least one digit, one uppercase character, and one lowercase character is required.";
     }
     if (!expresiones.regEmail.test(form.email.trim())) {
       errors.email = "The email format is incorrect";
@@ -149,8 +149,8 @@ export const Register = () => {
           <Header/>
 
     
-      <div className="flex flex-col h-3/4 justify-center card rounded-none p-6 w-1/2  mx-auto h-full m-20 bg-gray-100 objet-cover  m-20 objer-cover">
-        <div className="text-center item-center flex justify-center m-8">
+      <div className="flex flex-col h-3/4 justify-center card rounded-none p-6 w-1/2  mx-auto h-full m-20 bg-white objet-cover  m-20 objer-cover">
+        <div className="text-center item-center flex justify-center m-8 ">
               <h1 className="text-center m-1 text-2xl font-bold">Register</h1>
         </div>
 
@@ -195,7 +195,7 @@ export const Register = () => {
           )}
         </div>
 
-        <div  className="justify-between  ">
+        <div  className="justify-between">
         <label className="letas font-bold" htmlFor="password">
           Password
         </label>
