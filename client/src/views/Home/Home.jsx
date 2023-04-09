@@ -87,7 +87,7 @@ export default function Home(){
       <Header />
       <Carrucel />
 
-      <div class="bg-cover bg-no-repeat">
+      <div class="bg-cover bg-no-repeat mb-5">
         <Slider data={data} tittle={"Tendencies"} />
         <Slider data={data} tittle={"Best sellers"} />
         <Slider data={data} tittle={"Offers of the month"} />

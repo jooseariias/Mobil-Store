@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Cards from "../../components/cards/cards";
+import Card from "../../components/Carrucel/Card";
 import Footer from "../../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -28,7 +28,7 @@ export default function Store() {
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const quantity = 10;
-  const phonesDisplayed = phones.slice(start, start + quantity);
+  const phonesDisplayed = phones.slice(start, start + quantity + 2);
 
   const handleFilterTidy = (e) => {
     dispatch(TidyAlphabetically(e.target.value));
@@ -154,7 +154,7 @@ export default function Store() {
       <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mx-10 mt-5 mb-4">
         {phonesDisplayed?.map((el) => {
           return (
-            <Cards
+            <Card
               key={el.id}
               id={el.id}
               image={el.image}

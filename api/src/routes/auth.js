@@ -25,7 +25,9 @@ router.get( '/auth/google/callback',
       failureRedirect: '/auth/google/failure'
     })
   );
+
   router.get("/login/success", (req, res) => {
+
   if (req.user) {
     res.status(200).json({
       success: true,
