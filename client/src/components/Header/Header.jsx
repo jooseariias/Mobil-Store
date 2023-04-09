@@ -49,7 +49,27 @@ export default function Header(){
 		}
 	  }, [theme])
 
+	  const getCookieValue = (cookieName) => {
+		const cookieString = document.cookie;
+		const cookies = cookieString.split("% ");
+		for (let i = 0; i < cookies.length; i++) {
+		  const cookie = cookies[i].split("=");
+		  if (cookie[0] === cookieName) {
+			return cookie[1];
+		  }
+		}
+		return null;
+	  };
+	  
+	  // Ejemplo de uso:
 	  useEffect(() => {
+
+			const userDataCookie = getCookieValue("user_data");
+			if (userDataCookie) {
+				const decodedUserDataCookie = decodeURIComponent(userDataCookie);
+  				const userData = JSON.parse(decodedUserDataCookie);
+  				console.log(userData);
+			}
 
 		if(window.localStorage.getItem('user-log')){
 			setUser(JSON.parse(window.localStorage.getItem('user-log')));
