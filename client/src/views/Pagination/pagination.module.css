@@ -46,7 +46,8 @@
 
 .disabled {
   padding: 10px;
+  font-weight: 200;
   border-radius: 5px;
   background-color: white;
-  color: rgb(187, 186, 186)
+  color: hsl(252, 10%, 85%)
 }

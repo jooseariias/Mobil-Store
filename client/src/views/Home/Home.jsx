@@ -104,7 +104,7 @@ export default function Home(){
     ];
 
   return (
-    <div className="bg-slate-100 dark:bg-slate-900">
+    <div className="bg-gray-100 dark:bg-gray-800">
       <Header />
       <Carrucel />
 
