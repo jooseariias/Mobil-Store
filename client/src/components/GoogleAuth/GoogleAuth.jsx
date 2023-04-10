@@ -7,7 +7,7 @@ export default function Auth() {
     }
 
     return (
-        <div className="w-full h-5 text-slate-500 dark:text-slate-500">
+        <div className="w-full h-5 text-gray-400 text-center">
             <button  className="w-5 h-8" onClick={() => handleClick()}>
                 <BsGoogle size={30} style={{margin: '0px 7px'}}/>
             </button>

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { LogOut } from '../../redux/actions/index.js'
 import { useNavigate } from 'react-router-dom'
+import { LoginSuccess } from '../../redux/actions/index.js'
 
 export default function Header(){
 	
@@ -76,6 +77,7 @@ export default function Header(){
 				token: null,
 			  }
 
+			dispatch(LoginSuccess(data));
 			window.localStorage.setItem('user-log', JSON.stringify(data));
 			setUser(JSON.parse(window.localStorage.getItem('user-log')));
 		}
@@ -126,6 +128,9 @@ export default function Header(){
 	  }
 
 	  const handleLogOut = () => {
+
+		document.cookie = "user_data=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
 		Swal.fire({
 			icon: 'warning',
 			title: 'Are you sure you want to sign out?',
@@ -135,6 +140,7 @@ export default function Header(){
 			if(result.isConfirmed){
 
 				dispatch(LogOut());
+				navigate('/')
 
 				Swal.fire({
 					icon: 'success',

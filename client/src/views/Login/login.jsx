@@ -72,16 +72,18 @@ export default function Login(){
       <Header />
 
 
-      <div className="h-[calc(100vh-6.7rem)] bg-gray-200 dark:bg-gray-900 flex justify-center p-10">
-        <div className="w-1/3 h-4/5 flex flex-col justify-center my-auto items-center rounded-xl bg-white dark:bg-gray-400 border">
-          <h1 className="text-black text-3xl font-medium mb-8 mt-4">Login to your account</h1>
+      <div className="h-[calc(100vh-6.7rem)] bg-gray-200 dark:bg-slate-900 flex justify-center p-10">
+        <div className="w-1/3 h-4/5 flex flex-col justify-center my-auto items-center rounded-xl bg-white dark:bg-gray-900 border dark:border-gray-800">
+
+          <h1 className="text-black dark:text-slate-100 fond-bold text-4xl font-medium mb-8 mt-4">Login to your account</h1>
 
           <form
             onSubmit={handleSubmit}
             className="w-full flex flex-col justify-around items-center"
           >
 
-          <div className="w-4/5"><label className="font-bold">Email</label></div>
+          <div className="w-4/5"><label className="font-bold text-slate-900 dark:text-slate-100">Email</label></div>
+
             <input
               onChange={handleUser}
               type="text"
@@ -89,11 +91,12 @@ export default function Login(){
               name="email"
               value={user.email}
               autoComplete="off"
-              className="w-4/5 rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"
+              className="w-4/5 p-1 my-2 focus:outline-none focus:shadow-outline border border-gray-300 dark:border-cyan-900"
             />
           <p className="h-8 text-red-400">{loginError}</p>
 
-          <div className="w-4/5"><label className="font-bold">Password</label></div>
+          <div className="w-4/5"><label className="font-bold text-slate-900 dark:text-slate-100">Password</label></div>
+
           <div className="w-4/5 my-2 flex items-center relative ">
             <input
               onChange={handleUser}
@@ -102,7 +105,7 @@ export default function Login(){
               name="password"
               value={user.password}
               autoComplete="off"
-              className="w-full rounded-lg p-1 focus:outline-none focus:shadow-outline border"
+              className="w-full  p-1 focus:outline-none focus:shadow-outline border border-gray-300"
             />
             <span
               onClick={() => {
@@ -123,16 +126,16 @@ export default function Login(){
           <p className="text-red-400">{control}</p>
         </form>
 
-        <div className="w-4/5 flex justify-between items-center">
-          <div className="w-full h-px bg-black rounded-full"></div>
-          <div className="mx-5 text-black">Or</div>
-          <div className="w-full h-px bg-black rounded-full"></div>
+        <div className="w-4/5 flex justify-between items-center text-center">
+          <div className="w-full h-px bg-black rounded-full dark:bg-slate-100"></div>
+          <div className="mx-5 text-black dark:text-slate-100">Or</div>
+          <div className="w-full h-px bg-black rounded-full dark:bg-slate-100"></div>
         </div>
 
 
-        <p className="text-black py-3">
+        <p className="text-slate-900 dark:text-slate-100 py-3">
           Don't have an account?{" "}
-          <Link to={"/register"} className="text-blue-300">
+          <Link to={"/register"} className="text-blue-900 dark:text-blue-300 underline">
             Sign up here
           </Link>
         </p>

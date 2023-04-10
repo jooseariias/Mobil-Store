@@ -27,12 +27,16 @@ router.get(
       where:{email : req.user.email}
     })    
 
+    
+
 if(datos){
 
     const data = {
+      id: datos.dataValues.id,
       name: req.user.given_name,
       last_name: req.user.family_name,
       email: req.user.email,
+      rol: datos.dataValues.rol,
       image:req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null
     }
 

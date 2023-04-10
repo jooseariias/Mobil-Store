@@ -25,6 +25,9 @@ router.post('/', async (req, res) => {
             }
         })
 
+        console.log("PRODUCT", product);
+        console.log("USER", user);
+
         const [wish, created] = await Wishlist.findOrCreate({
             where: {
                 userId: user.id,

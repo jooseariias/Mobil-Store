@@ -52,16 +52,15 @@ export default function Card({id, name, price, image, stock, brand}){
                 idProduct: id,
             }
 
+
             WishListService.PostProductWishList(data).then((response) => {
-                console.log(response);
                 return Swal.fire({
                     icon: 'success',
                     title: 'Congratulations!',
                     text: response.data.message
                 })
             }).catch((response) => {
-                console.log("PEPEPE")
-                console.log(response);
+                
                 return Swal.fire({
                     icon: 'error',
                     title: 'Something went wrong',
@@ -76,7 +75,7 @@ export default function Card({id, name, price, image, stock, brand}){
         <div class="w-full max-w-xl bg-white border border-gray-400 rounded-lg dark:bg-gray-900 dark:border-gray-700 transform transition duration-500 hover:scale-105 mt-3 mb-3">
 
     <a href="#">
-        <img class="rounded-t-lg w-full h-[300px] text-center px-20" src={image} alt="product image" />
+        <img class="rounded-t-lg w-full h-[300px] text-center" src={image} alt="product image" />
     </a>
 
     <div class="px-3 pb-1">
