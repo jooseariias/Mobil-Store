@@ -181,7 +181,7 @@ export default function Header(){
           </div>
 
           {/*<img className='h-[30px] w-[30px] cursor-pointer mr-2' src={theme === "light" ? icons['corazon-negro'] : icons['corazon-blanco']} alt="color" />*/}
-          <div className="w-fit text-3xl cursor-pointer text-black dark:text-white flex justify-evenly items-center gap-10">
+          <div className="w-fit text-3xl cursor-pointer text-black dark:text-white flex justify-evenly items-center gap-4">
             <BsFillHeartFill
               onClick={() => handleFavorites()}
               className="text-2xl hover:transform hover:scale-110"
@@ -200,7 +200,7 @@ export default function Header(){
                 <img
                   src={user.data_user.image}
                   alt=""
-                  className="hover:transform hover:scale-110"
+                  className="hover:transform hover:scale-110 w-8 h-8 rounded-full"
                 />
               </Link>
             )}
@@ -211,7 +211,7 @@ export default function Header(){
               <BiLogOutCircle
                 onClick={() => handleLogOut()}
                 alt=""
-                className="hover:transform hover:scale-110"
+                className="hover:transform hover:scale-110 w-8 h-8 rounded-full"
               />
             )}
           </div>

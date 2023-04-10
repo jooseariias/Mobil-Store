@@ -1,17 +1,15 @@
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-// import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostUser } from '../../redux/actions';
 import validation from './validation';
-// import s from './form.module.css'
-import swal from 'sweetalert';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import seePassword from "../../assets/icons-register/seePassword.png"
 import { useNavigate } from 'react-router-dom';
 import { BsEyeSlash } from "react-icons/bs";
+import Swal from 'sweetalert2';
 
 
 export default function Register() {
@@ -39,17 +37,24 @@ export default function Register() {
 
 
     const handleRegister = (values) => {
+
         let formData = {...values, image: picture}
-        console.log(formData);
 
-        dispatch(PostUser(formData)).then((rps)=>{
-          swal('User succesfully created')
+        dispatch(PostUser(formData)).then((response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Congratulations!',
+            text: 'The user has successfully registered',
+          })
           navigate('/login')
-        }).catch((rpns)=>{
-          console.log(rpns)
-          swal('user account already exists')
+        }).catch((response) => {
+          console.log(response)
+          Swal.fire({
+            icon: 'error',
+            title: 'Something went wrong',
+            text: response.response.data.message
+          })
         })
-
     }
 
 

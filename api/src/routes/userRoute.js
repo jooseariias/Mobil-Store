@@ -44,8 +44,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res, next) => {
     const { name, surname, password, email, image } = req.body;
-  
-    try {
+
       const validate = await User.findOne({
         where: {
           email: email,
@@ -53,7 +52,7 @@ router.post("/", async (req, res, next) => {
       });
   
       if (validate) {
-        return res.status(200).send( "User or Email already registered");
+        return res.status(400).send({message: "User or Email already registered"});
       }
   
       const newUser = await User.create({
@@ -70,13 +69,9 @@ router.post("/", async (req, res, next) => {
       }
   
       const token = jwt.sign({ email }, "secret");
-  
-      return res.status(201).json({ token, newUser, msg: "User registered" });
-  
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: "Something went wrong" });
-    }
+
+      return res.status(200).send({ message: "User registered" });
+      
   });
 
 
