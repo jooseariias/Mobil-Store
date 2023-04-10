@@ -53,7 +53,7 @@ router.post("/", async (req, res, next) => {
       });
   
       if (validate) {
-        return res.status(200).json({ msg: "User or Email already registered" });
+        return res.status(200).send( "User or Email already registered");
       }
   
       const newUser = await User.create({

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 // import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PostUser } from '../../redux/actions';
 import validation from './validation';
 // import s from './form.module.css'
@@ -10,13 +10,16 @@ import swal from 'sweetalert';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import seePassword from "../../assets/icons-register/seePassword.png"
+import { useNavigate } from 'react-router-dom';
+import { BsEyeSlash } from "react-icons/bs";
 
 
 export default function Register() {
     const dispatch = useDispatch()
     const [picture, setPicture] = useState('')
-    const [showPwd, setShowPwd] = useState(false)
-    
+    const [seePassword, setSeePassword] = useState(false);
+    const navigate = useNavigate()
+    const AllUsers = useSelector((state) => state.Users);
 
     // const history = useHistory()
 
@@ -38,9 +41,15 @@ export default function Register() {
     const handleRegister = (values) => {
         let formData = {...values, image: picture}
         console.log(formData);
-        dispatch(PostUser(formData))
-        swal('User succesfully created')
-        navigateTo('/login')
+
+        dispatch(PostUser(formData)).then((rps)=>{
+          swal('User succesfully created')
+          navigate('/login')
+        }).catch((rpns)=>{
+          console.log(rpns)
+          swal('user account already exists')
+        })
+
     }
 
 
@@ -70,7 +79,7 @@ export default function Register() {
                   <div className='m-1'>                      
                     <label className="font-bold px-20">Name</label>
                     <div className='item-center justify-center flex flex-col px-20'>
-                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border dark:text-white text-red-600"/>
+                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border dark:text-white "/>
                     <ErrorMessage name='name' className='dark:text-white'/>
                     </div> 
                   </div>
@@ -93,18 +102,27 @@ export default function Register() {
 
                   <div className='m-1'>
                     <label className="font-bold px-20">Password</label>
-                    <div className='item-center justify-center flex flex-col px-20'>
-                    <Field name='password' type={showPwd ? "text" : "password"}  placeholder='Password' className="justify-center item-center  rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"/>
-                    <ErrorMessage name='password'/>
-                    <a class="block lg:inline-block lg:mt-0 " onClick={() => setShowPwd(!showPwd)}> <img  class= " z-6 inset-y-0 my-auto h-6 active:bg-gray-600 active:rounded-full"src = {seePassword}/> </a>
+                    <div className='item-center relative justify-center flex flex-col px-20'>
+                    <Field name='password' type={seePassword ? "text" : "password"}  placeholder='Password' className="justify-center item-center  rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"/>
+                    <span
+                    onClick={() => {
+                      setSeePassword(!seePassword);
+                    }}
+                    className="block lg:inline-block lg:mt-0 absolute right-16 p-7 "
+                  >
+                    <BsEyeSlash />
+                  </span>
+      
                     </div>
+                    <ErrorMessage name='password'/>
                   </div>
                     
                     <div className='m-1'>
                       <label className="font-bold px-20">Image</label>
                       <div className='item-center justify-center flex flex-col px-20'>
                           <div  style={{ backgroundImage: `url(${picture})` }}></div>                    
-                          <Field name='image' type='file' placeholder='image'  className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border" onChange={handleImage}/>                       
+                          <Field name='image' type='file' placeholder='image'  className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border" onChange={handleImage}/>  
+                          <ErrorMessage name='image'/>                     
                       </div>
                     </div>
 
@@ -113,6 +131,7 @@ export default function Register() {
                       <button type='submit' className=" bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-3" >Register</button>
                       </div>
                     </div>
+
                 </Form>
 
             </Formik>
