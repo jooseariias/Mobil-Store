@@ -72,6 +72,7 @@ router.get('/:idUser', async (req, res) => {
         // console.log("Products es: ", products)
         let listaDeFavoritos = products.flat().map((element) => {
             return {
+                id: element.id,
                 name: element.name,
                 image: element.image,
                 price: element.price,
@@ -94,7 +95,7 @@ router.delete('/:idUser/:idProduct', async (req, res) => {
                 productId: idProduct
             }
         })
-        res.status(200).json({msg: `Element deleted`})
+        res.status(200).json({message: 'The product has been removed from your wish list'})
     } catch(error){
         res.status(400).json({error: error.message})
     }
