@@ -72,8 +72,8 @@ export default function Login(){
       <Header />
 
 
-      <div className="h-[calc(100vh-6.7rem)] bg-gray-200 flex justify-center p-10">
-        <div className="w-1/3 h-4/5 flex flex-col justify-center my-auto items-center rounded-xl bg-white border">
+      <div className="h-[calc(100vh-6.7rem)] bg-gray-200 dark:bg-gray-900 flex justify-center p-10">
+        <div className="w-1/3 h-4/5 flex flex-col justify-center my-auto items-center rounded-xl bg-white dark:bg-gray-400 border">
           <h1 className="text-black text-3xl font-medium mb-8 mt-4">Login to your account</h1>
 
           <form
