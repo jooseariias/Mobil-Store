@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 // import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PostUser } from '../../redux/actions';
 import validation from './validation';
 // import s from './form.module.css'
@@ -19,6 +19,7 @@ export default function Register() {
     const [picture, setPicture] = useState('')
     const [seePassword, setSeePassword] = useState(false);
     const navigate = useNavigate()
+    const AllUsers = useSelector((state) => state.Users);
 
     // const history = useHistory()
 
@@ -40,9 +41,15 @@ export default function Register() {
     const handleRegister = (values) => {
         let formData = {...values, image: picture}
         console.log(formData);
-        dispatch(PostUser(formData))
-        swal('User succesfully created')
-        navigate('/login')
+
+        dispatch(PostUser(formData)).then((rps)=>{
+          swal('User succesfully created')
+          navigate('/login')
+        }).catch((rpns)=>{
+          console.log(rpns)
+          swal('user account already exists')
+        })
+
     }
 
 
@@ -124,6 +131,7 @@ export default function Register() {
                       <button type='submit' className=" bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-3" >Register</button>
                       </div>
                     </div>
+
                 </Form>
 
             </Formik>

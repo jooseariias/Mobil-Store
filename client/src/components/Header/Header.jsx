@@ -1,164 +1,156 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import icons from "../../assets/icons-header/icons.js"
-import {
-  BsSun,
-  BsMoon,
-  BsFillCartCheckFill,
-  BsFillHeartFill,
-  BsFillPersonFill,
-} from "react-icons/bs";
-import { BiLogOutCircle } from "react-icons/bi";
-import SearchBar from "../SearchBar/SearchBar.jsx";
-import { useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import { LogOut } from "../../redux/actions/index.js";
-import { useNavigate } from "react-router-dom";
-import { LoginSuccess } from "../../redux/actions/index.js";
+import { useEffect, useState } from 'react'
+import { Link } from "react-router-dom"
+import icons from '../../assets/icons-header/icons.js'
+import { BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill } from "react-icons/bs"
+import { BiLogOutCircle } from "react-icons/bi"
+import SearchBar from '../SearchBar/SearchBar.jsx';
+import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
+import { LogOut } from '../../redux/actions/index.js'
+import { useNavigate } from 'react-router-dom'
+import { LoginSuccess } from '../../redux/actions/index.js'
 
-export default function Header() {
-  const [theme, setTheme] = useState(
-    window.localStorage.getItem("theme")
-      ? window.localStorage.getItem("theme")
-      : "dark"
-  );
-  const dispatch = useDispatch();
-  const [user, setUser] = useState({});
-  const [Actualizar, setActualizar] = useState(false);
-  const element = document.documentElement;
-  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  const navigate = useNavigate();
+export default function Header(){
+	
+	const [theme, setTheme] = useState(window.localStorage.getItem('theme') ? window.localStorage.getItem("theme") : "dark")
+	const dispatch = useDispatch();
+	const [user, setUser] = useState({})
+	const [Actualizar, setActualizar] = useState(false)
+	const element = document.documentElement;
+	const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+	const navigate = useNavigate();
 
-  const iconComponents = [
-    {
-      text: "light",
-      icon: <BsSun />,
-    },
-    {
-      text: "dark",
-      icon: <BsMoon />,
-    },
-  ];
+	const iconComponents = [
+	  {
+		text: 'light',
+		icon: <BsSun />
+		},
+		{
+		  text: 'dark',
+		  icon:  <BsMoon />
+		},
+	]
 
-  useEffect(() => {
-    switch (theme) {
-      case "dark":
-        element.classList.add("dark");
-        window.localStorage.setItem("theme", "dark");
-        break;
+	  useEffect(() => {
 
-      case "light":
-        element.classList.remove("dark");
-        window.localStorage.setItem("theme", "light");
-        break;
-    }
-    const getCookieValue = (cookieName) => {
-      const cookieString = document.cookie;
-      const cookies = cookieString.split("% ");
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].split("=");
-        if (cookie[0] === cookieName) {
-          return cookie[1];
-        }
-      }
-      return null;
-    };
-  });
+		switch(theme){
+	
+		  case 'dark':
+			element.classList.add('dark');
+			window.localStorage.setItem('theme', 'dark')
+			break;
+		  
+		  case 'light':
+			element.classList.remove('dark');
+			window.localStorage.setItem('theme', 'light');
+			break;
+		  
+		  default:
+			window.localStorage.removeItem('theme');
+			onWindowMatch();
+			break;    
+		}
+	  }, [theme])
 
-  useEffect(() => {
-    const userDataCookie = getCookieValue("user_data");
+	  const getCookieValue = (cookieName) => {
+		const cookieString = document.cookie;
+		const cookies = cookieString.split("% ");
+		for (let i = 0; i < cookies.length; i++) {
+		  const cookie = cookies[i].split("=");
+		  if (cookie[0] === cookieName) {
+			return cookie[1];
+		  }
+		}
+		return null;
+	  };
+	  
+	  useEffect(() => {
 
-    if (userDataCookie) {
-      const decodedUserDataCookie = decodeURIComponent(userDataCookie);
-      const userData = JSON.parse(decodedUserDataCookie);
+		const userDataCookie = getCookieValue("user_data");
+		
+		if(userDataCookie){
+			const decodedUserDataCookie = decodeURIComponent(userDataCookie);
+  			const userData = JSON.parse(decodedUserDataCookie);
 
-      const data = {
-        data_user: userData,
-        token: null,
-      };
+			  const data = {
+				data_user: userData,
+				token: null,
+			  }
 
-      dispatch(LoginSuccess(data));
-      window.localStorage.setItem("user-log", JSON.stringify(data));
-      setUser(JSON.parse(window.localStorage.getItem("user-log")));
-    }
-  });
+			dispatch(LoginSuccess(data));
+			window.localStorage.setItem('user-log', JSON.stringify(data));
+			setUser(JSON.parse(window.localStorage.getItem('user-log')));
+		}
 
-  // Ejemplo de uso:
-  useEffect(() => {
-    const userDataCookie = getCookieValue("user_data");
-    if (userDataCookie) {
-      const decodedUserDataCookie = decodeURIComponent(userDataCookie);
-      const userData = JSON.parse(decodedUserDataCookie);
-      console.log(userData);
-    }
+		if(window.localStorage.getItem('user-log')){
+			setUser(JSON.parse(window.localStorage.getItem('user-log')));
+		}
 
-    if (window.localStorage.getItem("user-log")) {
-      setUser(JSON.parse(window.localStorage.getItem("user-log")));
-    } else {
-      setUser({});
-    }
-  }, [Actualizar]);
+		else{
+			setUser({});
+		}
+	  }, [Actualizar])
+	  
 
-  darkQuery.addEventListener("change", (e) => {
-    if (!"theme" in localStorage) {
-      if (e.matches) {
-        element.classList.add("dark");
-      } else {
-        element.classList.remove("dark");
-      }
-    }
-  });
+	  darkQuery.addEventListener("change", (e) => {
+		if(!("theme") in localStorage){
+		  if(e.matches){
+			element.classList.add("dark");
+		  }else{
+			element.classList.remove("dark");
+		  }
+		}
+	  })
 
-  function onWindowMatch() {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) && darkQuery.matches)
-    ) {
-      element.classList.add("dark");
-    } else {
-      element.classList.remove("dark");
-    }
-  }
-  onWindowMatch();
+	  function onWindowMatch(){
+		if(localStorage.theme === "dark"  || (!("theme" in localStorage) && darkQuery.matches)){
+		  element.classList.add("dark");
+		}else{
+		  element.classList.remove("dark");
+		}
+	  }
+	  onWindowMatch();
 
-  const handleFavorites = () => {
-    if (!window.localStorage.getItem("user-log")) {
-      return Swal.fire({
-        icon: "error",
-        title: "Something went wrong",
-        text: "Unvalidated users cannot have a favorites list",
-        confirmButtonText: "Continue",
-      });
-    }
+	  const handleFavorites = () => {
 
-    if (Object.keys(user).length === 0) {
-      return Swal.fire({
-        icon: "error",
-        title: "Something went wrong",
-        text: "Unvalidated users cannot have a favorites list",
-        confirmButtonText: "Continue",
-      });
-    } else {
-      navigate("/Wishlist");
-    }
-  };
+		if(Object.keys(user).length === 0){
+			return Swal.fire({
+				icon: 'error',
+				title: 'Something went wrong',
+				text: 'Unvalidated users cannot have a favorites list',
+				confirmButtonText: 'Continue'
+			  })
+		}
 
-  const handleLogOut = () => {
-    document.cookie =
-      "user_data=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		else{
+			navigate('/Wishlist');
+		}
+	  }
 
-    Swal.fire({
-      icon: "warning",
-      title: "Are you sure you want to sign out?",
-      confirmButtonText: "Yes",
-      showDenyButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(LogOut());
-        navigate("/");
-      }
-    });
-  };
+	  const handleLogOut = () => {
+
+		document.cookie = "user_data=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+		Swal.fire({
+			icon: 'warning',
+			title: 'Are you sure you want to sign out?',
+			confirmButtonText: 'Yes',
+			showDenyButton: true,
+		}).then((result) => {
+			if(result.isConfirmed){
+
+				dispatch(LogOut());
+				navigate('/')
+
+				Swal.fire({
+					icon: 'success',
+					title: 'The session has been closed'
+				})
+
+				setActualizar(!Actualizar);
+				
+			}})
+	  }
 
   return (
     <div className="bg-gray-100-100 dark:bg-gray-800 text-gray-100 flex flex-col justify-center duration-300 ">
