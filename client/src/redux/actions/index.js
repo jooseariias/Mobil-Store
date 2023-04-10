@@ -17,7 +17,10 @@ export const CLEAN_DETAIL = "CLEAN_DETAIL";
 export const CLEAN_PHONES = "CLEAN_PHONES";
 export const FILTER_CAPACITY = "FILTER_CAPACITY";
 export const POST_USER = "POST_USER";
-export const  GET_USERS = " GET_USERS";
+export const GET_USERS = "GET_USERS";
+
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
+export const LOG_OUT = "LOGOUT";
 
   export function getPhones(){
     return async function (dispatch) {
@@ -38,8 +41,6 @@ export const  GET_USERS = " GET_USERS";
       })
     }
   }
-
-
 
   export function getDetail(id) {
     return async function(dispatch) {
@@ -152,5 +153,22 @@ export function GetUsers(){
       type: GET_USERS,
       payload: Json.data,
     });
+  }
+}
+
+export function LoginSuccess(data){
+  return async function(dispatch){
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: data
+    })
+  }
+}
+
+export function LogOut(){
+  return async function(dispatch){
+    dispatch({
+      type: LOG_OUT,
+    })
   }
 }

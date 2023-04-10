@@ -31,7 +31,6 @@ const initiateTables = async () => {
     {name: 'Xiaomi', logo: 'https://s1.eestatic.com/2021/03/30/omicrono/hardware/569954632_176909725_1024x576.jpg'},
     {name: 'Motorola', logo:"https://www.cordobadigital.net/wp-content/uploads/2017/08/Motorola-logo-C3DDCBA822-seeklogo.com_.png"},
     {name: 'Apple', logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"}
-    
   ];
   
   for(let index in marcas){

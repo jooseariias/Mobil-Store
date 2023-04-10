@@ -17,8 +17,10 @@ import{
 
     CLEAN_DETAIL,
     CLEAN_PHONES,
-    FILTER_CAPACITY
+    FILTER_CAPACITY,
 
+    LOGIN_SUCCESS,
+    LOG_OUT
 }from"../actions/index"
 
 const initialState = {
@@ -29,6 +31,9 @@ const initialState = {
     Color:[],
     details: [],
     Users: [],
+
+
+    User: {},
 };
 
 function rootReducer(state = initialState, action){
@@ -44,7 +49,6 @@ function rootReducer(state = initialState, action){
         };
       
       case GET_PHONE:
-
         return{
           ...state,
           Phones: action.payload,
@@ -74,8 +78,24 @@ function rootReducer(state = initialState, action){
           ...state,
           PhonesCopy: state.Phones
         }
-  
 
+        case LOGIN_SUCCESS:
+
+          window.localStorage.setItem('user-log', JSON.stringify(action.payload));
+
+          return{
+            ...state,
+            User: action.payload,
+        }
+
+        case LOG_OUT:
+
+          window.localStorage.removeItem('user-log');
+
+          return{
+            ...state,
+            User: {},
+          }
 
     //   case POST_PHONE:
     //     return {

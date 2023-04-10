@@ -99,7 +99,7 @@ export const CreateProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Object.keys(errors).length || !form.name|| !form.description|| !form.price|| !form.stock|| !form.year ||!image.length||!selectedBrand.length||!selectedCapacity.length|| !selectedColor.length) {
-      swal({
+      swal.fire({
         title: "Error",
         text: "You must complete all fields",
         icon: "warning",
@@ -128,7 +128,7 @@ export const CreateProduct = () => {
       setSelectedColor({selectedColor:""})
       setImage({image:""})
       console.log(updatedFormData);
-      swal({
+      swal.fire({
         title: "Success",
         text: "A new product has been created!",
         icon: "success",

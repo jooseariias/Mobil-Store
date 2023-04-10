@@ -1,18 +1,21 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom"; //maneja todas las rutas de la aplicacion
+import { useEffect, useState } from 'react'
+import { Link } from "react-router-dom"
 import icons from '../../assets/icons-header/icons.js'
-import { BsFillDisplayFill, BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill } from "react-icons/bs"
-import Swal from 'sweetalert2'
+import { BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill } from "react-icons/bs"
+import { BiLogOutCircle } from "react-icons/bi"
 import SearchBar from '../SearchBar/SearchBar.jsx';
+import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
+import { LogOut } from '../../redux/actions/index.js'
 
 export default function Header(){
 	
-	const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem("theme") : "dark");
+	const [theme, setTheme] = useState(window.localStorage.getItem('theme') ? window.localStorage.getItem("theme") : "dark")
+	const dispatch = useDispatch();
+	const [user, setUser] = useState({})
+	const [Actualizar, setActualizar] = useState(false)
 	const element = document.documentElement;
 	const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-	const navigate = useNavigate();
-
 
 	const iconComponents = [
 	  {
@@ -46,6 +49,38 @@ export default function Header(){
 		}
 	  }, [theme])
 
+	  const getCookieValue = (cookieName) => {
+		const cookieString = document.cookie;
+		const cookies = cookieString.split("% ");
+		for (let i = 0; i < cookies.length; i++) {
+		  const cookie = cookies[i].split("=");
+		  if (cookie[0] === cookieName) {
+			return cookie[1];
+		  }
+		}
+		return null;
+	  };
+	  
+	  // Ejemplo de uso:
+	  useEffect(() => {
+
+			const userDataCookie = getCookieValue("user_data");
+			if (userDataCookie) {
+				const decodedUserDataCookie = decodeURIComponent(userDataCookie);
+  				const userData = JSON.parse(decodedUserDataCookie);
+  				console.log(userData);
+			}
+
+		if(window.localStorage.getItem('user-log')){
+			setUser(JSON.parse(window.localStorage.getItem('user-log')));
+		}
+
+		else{
+			setUser({});
+		}
+	  }, [Actualizar])
+	  
+
 	  darkQuery.addEventListener("change", (e) => {
 		if(!("theme") in localStorage){
 		  if(e.matches){
@@ -74,17 +109,40 @@ export default function Header(){
 				text: 'Unvalidated users cannot have a favorites list',
 				confirmButtonText: 'Continue'
 			  })
-
 		}
 	  }
 
+	  const handleLogOut = () => {
+		Swal.fire({
+			icon: 'warning',
+			title: 'Are you sure you want to sign out?',
+			confirmButtonText: 'Yes',
+			showDenyButton: true,
+		}).then((result) => {
+			if(result.isConfirmed){
+
+				dispatch(LogOut());
+
+				Swal.fire({
+					icon: 'success',
+					title: 'The session has been closed'
+				})
+
+				setActualizar(!Actualizar);
+				
+			}})
+	  }
+
   	return(
-    	<header className="bg-slate-100 dark:bg-gray-900 text-gray-100 flex flex-col duration-300 ">
+    	<header className="bg-slate-100 dark:bg-gray-800 text-gray-100 flex flex-col duration-300 ">
 
 			<div className=" flex justify-between h-12 mx-auto w-full mb-5 p-2">
 
 				<div className=' flex h-full mt-2 text-xl text-black'>
-					<img src={icons.logo} className="h-10 w-28" alt="" />
+
+					
+				<img src={icons.logo} className="h-10 w-28" alt="" />
+
 				</div>
 
 				<div>
@@ -115,12 +173,28 @@ export default function Header(){
 				  	<BsFillCartCheckFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 hover:transform hover:scale-110' />
 				  </Link>
 
-				  <Link to='/login'>
-				  	<BsFillPersonFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' />
-				  </Link>
+				  {
+					Object.keys(user).length === 0 ?
+				  		<Link to='/login'>
+				  			<BsFillPersonFill className='w-7 h-7 cursor-pointer text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' />
+				  		</Link>
+					:
+
+					<Link to={'/Profile'}>
+						<img src={user.data_user.image} className='w-8 h-8 cursor-pointer rounded-full text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' alt="" />
+					</Link>
+				  }
+
+				  {
+					Object.keys(user).length === 0 ?
+						<>
+						</>
+						:
+						<BiLogOutCircle onClick={() => handleLogOut()} className='w-8 h-8 cursor-pointer
+							rounded-full text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' alt=""	
+						/>
+				  }
 				
-				
-				 
 				</div>
 
 			</div>

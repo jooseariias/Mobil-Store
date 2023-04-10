@@ -5,12 +5,13 @@ const router = Router();
 router.post('/', async (req, res) => {
 try {
   let telefonos = [
+
     {
       id: 1,
       name: "Moto G52",
       description: "It has 6 GB of RAM, 128 GB of internal storage and an ultra-fast Octa Core processor, great performance for gaming and streaming videos..",
       price: 70,
-      image: "https://tienda.movistar.com.ar/media/catalog/product/cache/1d01ed3f1ecf95fcf479279f9ae509ad/g/5/g52-negro-frente_1.png",
+      image: "https://s1.eestatic.com/2022/04/12/elandroidelibre/moviles-android/664444069_223505499_1706x1698.jpg",
       stock: 25,
       year: 2022,
       enabled: true,
@@ -22,15 +23,15 @@ try {
       },
       colorId: 1,
       storageCapacityId: 3
-
     },
+
     {
-      id:2 ,
+      id: 2 ,
       name: "moto G Pure",
       description: "DUAL CAMERA SYSTEM: Get professional-looking portraits with a blur effect using the depth sensor. The 13MP camera with phase detection autofocus (PDAF) captures your subject in the blink of an eye..Form_factor : SlateMORE FUN. LESS LAG: Feel your phone respond instantly to every touch, tap, and swipe using an octa-core processor with HyperEngine.",
       price: 46,
-      image:"https://m.media-amazon.com/images/I/71zGrrAe5NL._AC_SX425_.jpg",
-      stock: 10,
+      image:"https://m.media-amazon.com/images/I/61voYsPhFTL.jpg",
+      stock: 100,
       year: 2022,
       enabled: true,
       brandId: 6,
@@ -42,14 +43,14 @@ try {
       },
       colorId: 5,
       storageCapacityId: 3
-
     },
+
     {
       id: 3,
       name: "Moto G Stylus 5G",
       description: "Carrier compatibility: AT&T: 4G, VoLTE 5G support planned via MR, Verizon: 5G sub6 NSA, VoLTE, T Mobile: 5G sub6 SA/NSA, VoLTE, WiFi Calling, Video Calling, Tracfone: GSM, CDMA, Spectrum: 5G sub6 NSA, VoLTE, WiFi Calling. Does not support: U.S.",
-      price:100 ,
-      image:"https://m.media-amazon.com/images/I/51hT7btpukL._AC_SY355_.jpg",
+      price: 100,
+      image:"https://m.media-amazon.com/images/I/41wKBxAos4L.jpg",
       stock: 7,
       year: 2021,
       enabled: true,
@@ -58,18 +59,17 @@ try {
         id: 6,
         name: "Motorola",
         logo: "https://www.cordobadigital.net/wp-content/uploads/2017/08/Motorola-logo-C3DDCBA822-seeklogo.com_.png"
-        
       },
       colorId: 5,
       storageCapacityId: 5
-
     },
+
     {
-      id:4,
+      id: 4,
       name: "Razr",
       description: "5G - Universal Unlocked - Compatible with all major U.S. carriers, including Verizon, AT&T, Sprint and T-Mobile. Also compatible with prepaid carriers including Cricket Wireless, Metro by T-Mobile, Google Fi, Simple Mobile, Total Wireless, Tracfone, Net10, Mint, and H2O.",
-      price:300 ,
-      image:"https://m.media-amazon.com/images/I/61aGanMnfFL._AC_SY355_.jpg",
+      price: 300 ,
+      image:"https://d500.epimg.net/cincodias/imagenes/2022/08/11/smartphones/1660211132_119851_1660211255_sumario_normal.jpg",
       stock: 10,
       year: 2023,
       enabled: true,
@@ -84,32 +84,32 @@ try {
       storageCapacityId: 6
 
     },
+
     {
       id: 5,
-      name: "Moto G fast",
-      description: "Carrier compatibility: AT&T: VoLTE, Verizon: VoLTE, T Mobile: VoLTE, WiFi Calling, Video Calling, Tracfone: GSM, CDMA. Does not Support: Boost, U.S. Cellular, Xfinity Wireless, Spectrum, Optimum Mobile. For all carrier compatibility details - please check the product images in detail.Form_factor : Slate",
-      price: 120,
-      image:"https://m.media-amazon.com/images/I/81O2fXSlHCL._AC_SY355_.jpg",
+      name: "iPhone SE 2020",
+      description: "",
+      price: 200,
+      image: "https://d1eh9yux7w8iql.cloudfront.net/product_images/347172_c1921907-2134-4618-a53e-e60283bf9fb5.jpg",
       stock: 25,
       year: 2020,
       enabled: true,
-      brandId: 6,
+      brandId: 7,
       brand: {
-        id: 6,
-        name: "Motorola",
-        "logo": "https://www.cordobadigital.net/wp-content/uploads/2017/08/Motorola-logo-C3DDCBA822-seeklogo.com_.png"
-        
+        id: 7,
+        name: "Apple",
+        logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CA",
       },
       colorId: 3,
       storageCapacityId: 3
-
     },
+
     {
       id: 6,
       name: "Galaxy S23 Ultra",
       description: "CAPTURE THE NIGHT IN LOW LIGHT: Whether you’re headed to a concert or romantic night out, there’s no such thing as bad lighting with Night Mode; Galaxy S23 Ultra lets you capture epic content in any setting with stunning Nightography",
       price:300,
-      image:"https://m.media-amazon.com/images/I/71nZ4-uixuL.AC_SY355.jpg",
+      image:"https://www.ivoo.com/media/catalog/product/cache/e49da67936f0c145c5a11cb19f60f5bc/1/2/12000008584_smartphone_samsung_s23_ultra_6.8__amoled_fhd_256_8gb_200mp_3_camaras_rosa-2.png",
       stock: 12,
       year: 2023,
       enabled: true,
@@ -127,7 +127,7 @@ try {
       name: "Galaxy Z Flip4",
       description: "FLEX, POSE, POST: Getting that post-worthy solo shot is easy with a phone that stands on its own; Put Galaxy Z Flip4 in Flex Mode and capture hands-free selfies, record your epic dance moves and never worry about your makeshift tripod falling over again.Form_factor : Flip",
       price: 350,
-      image:"https://m.media-amazon.com/images/I/51K7abmErwL.AC_SX425.jpg",
+      image:"https://www.telstra.com.au/content/dam/tcom/devices/mobile/mhdwhst-zfl4/borapurple/landscape-front.png",
       stock: 8,
       year: 2023,
       enabled: true,
@@ -145,13 +145,14 @@ try {
       id: 8,
       name: "Galaxy A23",
       description: "Carrier: This phone is locked to Total by Verizon, which means this device can only be used on the Total by Verizon wireless network.",
-      price: 30,
-      image:"https://m.media-amazon.com/images/I/81AMfifAsEL.AC_SY355.jpg",
+      price: 120,
+      image:"https://telcentro.com/media-tc/2022/04/Samsung-A23.jpg",
       stock: 3,
       year: 2020,
       enabled: true,
       brandId: 1,
       brand: {
+        id: 1,
         name:'Samsung', 
         logo:'https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/360_197_1.png?$FB_TYPE_B_PNG$'
       },
@@ -159,30 +160,31 @@ try {
       storageCapacityId: 3
 
     },
+
     {
       id: 9,
-      name: "A14 5G",
+      name: "POCO M3",
       description: "LONG LASTING BATTERY: Stay ready for today’s surprises with the fast charging,* long-lasting battery of Galaxy A14 5G; Confidently handle work while on the go and play your favorite games with a battery that gives your charger a break",
-      price:20,
-      image:"https://m.media-amazon.com/images/I/914cXYd0yOL.AC_SY355.jpg",
+      price: 150,
+      image:"https://cdn.shopify.com/s/files/1/0253/6472/5856/products/celular-xiaomi-poco-m3-64gb_600x600.jpg?v=1638200116",
       stock: 30,
       year: 2020,
       enabled: true,
       brandId: 1,
       brand: {
-        name:'Samsung', 
+        name:'Xiaomi', 
         logo:'https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/360_197_1.png?$FB_TYPE_B_PNG$'
       },
       colorId: 5,
       storageCapacityId: 4
-
     },
+
     {
-      id:10 ,
+      id: 10,
       name: "S10+",
       description: "Updated Camera Features: Get the more powerful S10 with a software update that gives you all new features including Single Take AI, Pro Video and more.Form_factor : Smartphone",
-      price: 100,
-      image:"https://m.media-amazon.com/images/I/61IRwSgk0PL.AC_SX522.jpg",
+      price: 150,
+      image:"https://m.media-amazon.com/images/I/616tCVT1qXL.jpg",
       stock: 25,
       year: 2019,
       enabled: true,
@@ -195,12 +197,13 @@ try {
       storageCapacityId: 8
 
     },
+
     {
-      id:11 ,
+      id: 11,
       name: "iPhone 13 Pro",
       description: "Unlocked Tested for battery health and guaranteed to come with a battery that exceeds 90% of original capacity.",
       price: 300,
-      image:"https://m.media-amazon.com/images/I/61eDXs9QFNL._AC_SX300_SY300_QL70_FMwebp.jpg",
+      image:"https://www.macstation.com.ar/img/productos/2599-2.jpg",
       stock: 4,
       year: 2023,
       enabled: true,
@@ -208,19 +211,18 @@ try {
       brand: {
         id:7 ,
         name: 'Apple',
-         logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
+        logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
       },
       colorId: 7,
       storageCapacityId: 7
-
     },
 
     {
-      id:12 ,
+      id: 12,
       name: "iPhone 13 Pro Max",
       description: "Unlocked Tested for battery health and guaranteed to come with a battery that exceeds 90% of original capacity.",
       price: 321,
-      image:"https://m.media-amazon.com/images/I/61i8Vjb17SL.AC_SX425.jpg",
+      image:"https://allstore.com.ve/wp-content/uploads/2022/01/768-iPhone_13_Pro_Max_Silver-1.png",
       stock: 9,
       year: 2021,
       enabled: true,
@@ -235,11 +237,11 @@ try {
 
     },
     {
-      id:13 ,
+      id: 13,
       name: "iPhone 11 Pro",
       description: "This phone is unlocked and compatible with any carrier of choice on GSM and CDMA networks (e.g. AT&T, T-Mobile, Sprint, Verizon, US Cellular, Cricket, Metro, Tracfone, Mint Mobile, etc.).",
       price: 200,
-      image:"https://m.media-amazon.com/images/I/81ldhum0M4L._AC_SX300_SY300_QL70_FMwebp.jpg",
+      image:"https://skytree.com.au/wp-content/uploads/2020/09/apple-iphone-11-pro-256gb-silver.jpg",
       stock: 8,
       year: 2020,
       enabled: true,
@@ -247,37 +249,37 @@ try {
       brand: {
         id:7 ,
         name: 'Apple',
-         logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
+        logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
       },
       colorId: 5,
       storageCapacityId: 4
-
     },
+
     {
-      id:14 ,
+      id: 14,
       name: "iPhone XS",
       description: "This phone is unlocked and compatible with any carrier of choice on GSM and CDMA networks (e.g. AT&T, T-Mobile, Sprint, Verizon, US Cellular, Cricket, Metro, Tracfone, Mint Mobile, etc.).",
-      price:89 ,
-      image:"https://m.media-amazon.com/images/I/61MnFP2j6eL.AC_SX425.jpg",
+      price :89,
+      image:"https://vision5usa.com/wp-content/uploads/2022/07/iphone-xs-silver-main.jpeg",
       stock: 9,
       year: 2019,
       enabled: true,
       brandId: 7,
-      brand: {
+      brand:{
         id:7 ,
         name: 'Apple',
-         logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
+        logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ0oB4mcJKRwvUTySReKWZX5l2kqAXzTxMmRMdBFxucWGX_449WCjGYLAa5SgvzGnesg4&usqp=CAU"
       },
       colorId: 5,
       storageCapacityId: 6
-
     },
+
     {
       id: 15,
       name: "iPhone 12",
       description: "Unlocked and compatible with any carrier of choice on GSM and CDMA networks (e.g. AT&T, T-Mobile, Sprint, Verizon, US Cellular, Cricket, Metro, Tracfone, Mint Mobile, etc.)",
       price: 78,
-      image:"https://m.media-amazon.com/images/I/61if22pWHbL.AC_SY445.jpg",
+      image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-family-select-2021?wid=940&hei=1112&fmt=jpeg&qlt=90&.v=1617135051000",
       stock: 6,
       year: 2019,
       enabled: true,
@@ -289,7 +291,6 @@ try {
       },
       colorId: 2,
       storageCapacityId: 4
-
     },
 
     {
@@ -472,8 +473,8 @@ try {
       id:25 ,
       name: "LG Phoenix 2",
       description: "Products with electrical plugs are designed for use in the US. Outlets and voltage differ internationally and this product may require an adapter or converter for use in your destination.",
-      price:10 ,
-      image:"https://m.media-amazon.com/images/I/61LUlwmDJgL.AC_SX679.jpg",
+      price: 100 ,
+      image:"https://http2.mlstatic.com/D_NQ_NP_435325-MLV25429780281_032017-O.jpg",
       stock: 4,
       year: 2019,
       enabled: true,
@@ -492,14 +493,14 @@ try {
       id: 26,
       name: "Sony Xperia 1",
       description: "4K HDR native 120fps video recording[1] on all rear lenses[2].Form_factor : Bar.Display resolution maximum:1644 x 3840 pixels",
-      price:200 ,
-      image:"https://m.media-amazon.com/images/I/41Lqw+OF15L.AC_SY300_SX300.jpg",
+      price: 200,
+      image: "https://www.manual.com.ve/thumbs/products/l/1181486-sony-xperia-1.jpg",
       stock: 8,
       year: 2022,
       enabled: true,
       brandId: 2,
       brand: {
-        id:2,
+        id: 2,
         name:'Sony', 
         logo:'https://guiaimpresion.com/wp-content/uploads/2020/06/1957-1961.jpg'
       },
@@ -509,7 +510,7 @@ try {
 
     },
     {
-      id:27 ,
+      id: 27 ,
       name: "Sony Xperia 5 III",
       description: "Variable tele lens and Dual PD sensor with Real-time Eye AF 360 Reality Audio through its speakers, 360 Spatial Sound up-mixing",
       price: 96,
@@ -639,8 +640,8 @@ try {
       brand: {
         id:5,
         name: 'Xiaomi',
-         logo: 'https://s1.eestatic.com/2021/03/30/omicrono/hardware/569954632_176909725_1024x576.jpg'
-        
+        logo: 'https://s1.eestatic.com/2021/03/30/omicrono/hardware/569954632_176909725_1024x576.jpg'
+
       },
       colorId: 5,
       storageCapacityId: 5
