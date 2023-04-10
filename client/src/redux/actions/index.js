@@ -154,8 +154,9 @@ export const LOG_OUT = "LOGOUT";
 //rutas user
 
 export function PostUser(payload) {
-  var json = axios.post(`http://localhost:3001/user`, payload);
-  return { type: POST_USER, payload: json };
+  return async function(dispatch){
+    await axios.post(`http://localhost:3001/user`, payload);
+  }
 }
 
 export function GetUsers(){

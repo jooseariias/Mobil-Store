@@ -14,10 +14,14 @@ export default function Wishlist(){
     const [Actualizar, setActualizar] = useState(false)
 
     useEffect(() => {
-        dispatch(GetWishList(user.data_user.id)).then((response) => {
-          setWishList(response.data);
-        });
-    }, [Actualizar]);
+        // Only make the API call if `user` data is available
+        if (user && user.data_user && user.data_user.id) {
+          dispatch(GetWishList(user.data_user.id)).then((response) => {
+            setWishList(response.data);
+          });
+        }
+      }, [Actualizar, user]);
+
       
     const handleDelete = (idUser, idProduct) => {
         dispatch(DeleteWishList(idUser, idProduct)).then((response) => {
