@@ -106,16 +106,16 @@ export default function Login(){
               value={user.password}
               autoComplete="off"
               className="w-full  p-1 focus:outline-none focus:shadow-outline border border-gray-300"
-            />
-            <span
-              onClick={() => {
-                setSeePassword(!seePassword);
-              }}
-              className="absolute right-2"
-            >
-              <BsEyeSlash />
-            </span>
-          </div>
+              />
+              <span
+                onClick={() => {
+                  setSeePassword(!seePassword);
+                }}
+                className="absolute right-2"
+              >
+                <BsEyeSlash />
+              </span>
+            </div>
 
           <button
             type="submit"

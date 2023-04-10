@@ -1,23 +1,35 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Header from "../../components/Header/Header"
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer"
 import { useSelector } from "react-redux"
-import { GetWishList } from "../../redux/actions";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { GetWishList, DeleteWishList } from "../../redux/actions"
+import { useDispatch } from "react-redux"
+import Swal from "sweetalert2"
 
 export default function Wishlist(){
 
     const user = useSelector((state) => state.User);
     const [Wishlist, setWishList] = useState([])
-
     const dispatch = useDispatch();
+    const [Actualizar, setActualizar] = useState(false)
 
     useEffect(() => {
         dispatch(GetWishList(user.data_user.id)).then((response) => {
-            setWishList(response.data);
+          setWishList(response.data);
+        });
+    }, [Actualizar]);
+      
+    const handleDelete = (idUser, idProduct) => {
+        dispatch(DeleteWishList(idUser, idProduct)).then((response) => {
+            console.log(response)
+            Swal.fire({
+                icon: 'success',
+                title: 'Congratulations!',
+                text: response.data.message,
+            })
+            setActualizar(!Actualizar);
         })
-    }, [])
+    }
 
     const RenderEmptyWishlist = () => {
         return (
@@ -50,11 +62,14 @@ export default function Wishlist(){
 
                     Wishlist?.map((element) => {
                         return(
-                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
                             <img src={element.image} alt="Artículo 1" className="w-full h-[300px] object-cover" />
-                            <div class="p-4">
+                            <div className="p-4">
                                 <h2 class="text-lg font-bold mb-2">{element.name}</h2>
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Remove</button>
+                                    <button 
+                                        onClick={() => handleDelete(user.data_user.id, element.id)}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Remove
+                                    </button>
                             </div>
                         </div>
                     )
