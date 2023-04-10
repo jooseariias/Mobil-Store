@@ -5,13 +5,14 @@ const bcrypt = require("bcryptjs");
 const router = Router();
 
 router.post("/", async (req, res) => {
+  
   const { email, password } = req.body;
 
   const user = await User.findOne({
     where: { email: email, },
   });
 
-  if(!user) return res.status(401).send({message: "Email or Password is invalid"});
+  if(!user || !user.password) return res.status(401).send({message: "Email or Password is invalid"});
 
   if(bcrypt.compareSync(password, user.password)){
       return res.status(200).json({

@@ -1,11 +1,9 @@
 export const PostProductLocalStorage = (obj) => {
     
     // PRIMERO COMPROBAMOS SI EL CARRITO EXISTE EN EL LOCAL STORAGE
-
     if(window.localStorage.getItem('carrito-ls')){
 
         // EL CARRITO YA ESTÁ CREADO, DEBEMOS COMPROBAR SI EL PRODUCTO YA ESTÁ EN EL CARRITO
-
         const carrito = JSON.parse(window.localStorage.getItem('carrito-ls'));
 
         for(let i=0; i<carrito.productcarts.length; i++){
@@ -20,12 +18,10 @@ export const PostProductLocalStorage = (obj) => {
         }
 
         // MODIFICAMOS EL TOTAL DE PRODUCTOS EN EL CARRITO Y SU VALOR TOTAL
-
         carrito.quantity = carrito.quantity + 1;
         carrito.totalValue = carrito.totalValue + obj.price
 
         // AGREGAMOS EL NUEVO PRODUCTO AL ARREGLO DE PRODUCTOS EN EL CARRITO Y VOLVEMOS A METERLO EN EL LOCAL STORAGE
-
         carrito.productcarts.push(obj);
         window.localStorage.setItem('carrito-ls', JSON.stringify(carrito));
 
@@ -39,7 +35,6 @@ export const PostProductLocalStorage = (obj) => {
     else{
 
         // EL USUARIO EN ESTE PUNTO NO TIENE CARRITO, PRIMERO LO CREAMOS Y LE METEMOS EL PRIMER PRODUCTO
-
         const carrito = {
             totalValue: obj.price,
             quantity: 1,            
@@ -59,23 +54,20 @@ export const PostProductLocalStorage = (obj) => {
 export const DeleteProductLocalStorage = (id) => {
 
     // PRIMERO NOS TRAEMOS EL CARRITO DE PRODUCTOS
-
     const carrito = JSON.parse(window.localStorage.getItem('carrito-ls'));
 
     // BORRAMOS DE LA LISTA EL PRODUCTO QUE COINCIDA CON EL PARÁMETRO QUE RECIBIMOS
-
     for(let i=0; i<carrito.productcarts.length; i++){
         if(id === carrito.productcarts[i].id){
 
             // AHORA MODIFICAMOS LOS PARÁMETROS DE BORRAR UN PRODUCTO
             carrito.quantity = carrito.quantity - 1;
-            carrito.totalValue = carrito.totalValue - carrito.productcarts[i].price;
+            carrito.totalValue = carrito.totalValue - carrito.productcarts[i].total;
             carrito.productcarts.splice(i, 1);
         }
     }
 
     // SI AL BORRAR EL CARRITO SE QUEDA VACÍO, ELIMINAMOS LA VARIABLE DEL LOCAL STORAGE
-
     if(carrito.productcarts.length === 0){
         window.localStorage.removeItem('carrito-ls');
         
@@ -95,9 +87,7 @@ export const DeleteProductLocalStorage = (id) => {
     }
 }
 
-export const UpdateStockProductLocalStorage = (operator, id) => {
-
-    console.log("valor", operator)
+export const UpdateStockProductLocalStorage = (operator, id, stock) => {
 
     const carrito = JSON.parse(window.localStorage.getItem('carrito-ls'));
 
@@ -106,8 +96,28 @@ export const UpdateStockProductLocalStorage = (operator, id) => {
     if(operator === '+'){
         
         for(let i=0; i<carrito.productcarts.length; i++){
+
             if(id === carrito.productcarts[i].id){
-                carrito.productcarts[i].quantity = carrito.productcarts[i].quantity + 1;
+
+                if(carrito.productcarts[i].quantity < stock){
+                    
+                    // AGREGAMOS 1 A LA CANTIDAD DE ELEMENTOS DEL PRODUCTO SELECCIONADO
+                    carrito.productcarts[i].quantity = carrito.productcarts[i].quantity + 1;
+
+                    // AGREGAMOS SU PRECIO AL VALOR TOTAL DEL PRODUCTO EN GENERAL
+                    carrito.productcarts[i].total = carrito.productcarts[i].total + carrito.productcarts[i].price;
+
+                    // SUMAMOS SU PRECIO AL VALOR TOTAL DEL CARRITO
+                    carrito.totalValue = carrito.totalValue + carrito.productcarts[i].price;
+                } 
+                
+                else{
+                    return{
+                        icon: 'error',
+                        title: 'Something went wrong',
+                        text: 'You cannot add more of this product'
+                    }
+                }
             }
         }
     }
@@ -115,8 +125,28 @@ export const UpdateStockProductLocalStorage = (operator, id) => {
     if(operator === '-'){
         
         for(let i=0; i<carrito.productcarts.length; i++){
+
             if(id === carrito.productcarts[i].id){
-                carrito.productcarts[i].quantity = carrito.productcarts[i].quantity - 1;
+
+                if(carrito.productcarts[i].quantity > 1){
+                    
+                    // AGREGAMOS 1 A LA CANTIDAD DE ELEMENTOS DEL PRODUCTO SELECCIONADO
+                    carrito.productcarts[i].quantity = carrito.productcarts[i].quantity - 1;
+
+                    // AGREGAMOS SU PRECIO AL VALOR TOTAL DEL PRODUCTO EN GENERAL
+                    carrito.productcarts[i].total = carrito.productcarts[i].total - carrito.productcarts[i].price;
+
+                    // SUMAMOS SU PRECIO AL VALOR TOTAL DEL CARRITO
+                    carrito.totalValue = carrito.totalValue - carrito.productcarts[i].price;
+                } 
+                
+                else{
+                    return{
+                        icon: 'error',
+                        title: 'Something went wrong',
+                        text: 'You cannot have a number of negative products'
+                    }
+                }
             }
         }
     }

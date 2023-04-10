@@ -12,7 +12,6 @@ import NotFount from "./views/notFount/NotFount";
 import Login from "./views/Login/login"
 import Register from "./views/Register/register";
 
-
 export default function App(){
 
   const dispatch = useDispatch();

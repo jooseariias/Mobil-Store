@@ -2,18 +2,22 @@ import { PostProductLocalStorage } from "../../helpers/Cart";
 import { BsFillHeartFill } from "react-icons/bs"
 import WishListService from '../../helpers/WishList'
 import Swal from "sweetalert2";
+import { useSelector } from 'react-redux'
 
-export default function Card({image, id, name, price, brandId, colorId}){
+export default function Card({id, name, price, image, stock, brand}){
+
+    const user = useSelector((state) => state.User)
 
     const handleClick = () => {
 
         const product = {
             id: id,
             name: name,
-            price: price,
+            price: parseInt(price),
             image: image,
-            brandId: brandId,
-            colorId: colorId,
+            stock: stock,
+            total: parseInt(price),
+            brand: brand,
             quantity: 1,
         }
 
@@ -33,20 +37,37 @@ export default function Card({image, id, name, price, brandId, colorId}){
 
     const handleFavorites = (id) => {
 
-        WishListService.PostProductWishList().then((response) => {
+        if(Object.keys(user).length === 0){
             return Swal.fire({
                 icon: 'error',
-                title: 'Close Alert!',
-                text: 'ERROR'
+                tittle: 'Something wrong',
+                text: "that"
             })
-        }).then((response) => {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Close Alert!',
-                text: 'ERROR'
-            })
-        })
+        }
 
+        else {
+
+            const data = {
+                idUser: user.data_user.id,
+                idProduct: id,
+            }
+
+
+            WishListService.PostProductWishList(data).then((response) => {
+                return Swal.fire({
+                    icon: 'success',
+                    title: 'all good!',
+                    text: 'GOOD!'
+                })
+            }).then((response) => {
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Close Alert!',
+                    text: 'ERROR'
+                })
+            })
+
+        }
     }
     
     return(

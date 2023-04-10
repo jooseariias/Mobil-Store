@@ -43,7 +43,7 @@ export default function Slider2({data, tittle}){
             <h1 className="text-2xl mb-4 mt-10 ml-4 font-extrabold leading-none text-left text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">{tittle}</h1>
       
             <Slider {...settings}>
-                {data.map((e,index) => <Card key={index} id={e.id} image={e.image} name={e.name} price={e.price} brandId={e.brandId} colorId={e.colorId} />)}
+                {data.map((e,index) => <Card key={index} id={e.id} image={e.image} name={e.name} price={e.price} brand={e.brand} stock={e.stock}/>)}
             </Slider>
          </div>
 
