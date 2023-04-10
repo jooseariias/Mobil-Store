@@ -33,7 +33,7 @@ export default function validation(values) {
     if (!values.password) errors.password = 'The password is required'
     if (values.password.length < 8) errors.password = 'The password must have more than 8 characters'
     if (values.password.length > 15) errors.password = 'The password must have less than 15 characters'
-    if (!regexPassword.test(values.password)) errors.password = 'The password must contain at least one number'
+    if (!regexPassword.test(values.password)) errors.password = 'At least one digit, one uppercase character, and one lowercase character is required'
 
     return errors;
 }
