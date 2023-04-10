@@ -10,7 +10,7 @@ import About from "./views/About/About";
 import Cart from "./views/Cart/Cart";
 import NotFount from "./views/notFount/NotFount";
 import Login from "./views/Login/login"
-import { Register } from "./views/Register/register";
+import Register from "./views/Register/register";
 
 export default function App(){
 
