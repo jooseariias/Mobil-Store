@@ -25,6 +25,9 @@ router.post('/', async (req, res) => {
             }
         })
 
+        console.log("PRODUCT", product);
+        console.log("USER", user);
+
         const [wish, created] = await Wishlist.findOrCreate({
             where: {
                 userId: user.id,
@@ -32,8 +35,8 @@ router.post('/', async (req, res) => {
             }
         })
 
-        created ? res.status(200).json(wish) :
-                  res.status(400).json({msg: "El producto ya esta en favoritos"})
+        created ? res.status(200).json({message: 'The product was successfully added to your wish list'}) :
+                  res.status(400).json({message: 'The product is already in your wish list'})
         
 
     }catch(error){

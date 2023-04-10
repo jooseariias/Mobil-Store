@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 export default function Cart(){
 
   const Phones = useSelector((state) => state.Phones)
+  const User = useSelector((state) => state.User)
   const[carrito, setCarrito] = useState({});
   const[Actualizar, setActualizar] = useState(false);
   
@@ -75,28 +76,29 @@ export default function Cart(){
   }
 
   const handleSubmit = () => {
-    
-    alert("pepe")
+
+    if(Object.keys(User).length === 0){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Something went wrong',
+        text: 'You have to have an account to buy',
+      })
+    }
   }
 
   const RenderEmptyCart = () => {
     return (
-      <section className="flex items-center h-[calc(100vh-6.5rem)] sm:p-16 dark:bg-slate-900 dark:text-gray-100">
-	      <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8 space-y-8 text-center sm:max-w-md">
-		      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-40 h-40 text-gray-600">
-			      <path fill="currentColor" d="M256,16C123.452,16,16,123.452,16,256S123.452,496,256,496,496,388.548,496,256,388.548,16,256,16ZM403.078,403.078a207.253,207.253,0,1,1,44.589-66.125A207.332,207.332,0,0,1,403.078,403.078Z"></path>
-			        <rect width="176" height="32" x="168" y="320" fill="currentColor"></rect>
-			        <polygon fill="currentColor" points="210.63 228.042 186.588 206.671 207.958 182.63 184.042 161.37 162.671 185.412 138.63 164.042 117.37 187.958 141.412 209.329 120.042 233.37 143.958 254.63 165.329 230.588 189.37 251.958 210.63 228.042"></polygon>
-			        <polygon fill="currentColor" points="383.958 182.63 360.042 161.37 338.671 185.412 314.63 164.042 293.37 187.958 317.412 209.329 296.042 233.37 319.958 254.63 341.329 230.588 365.37 251.958 386.63 228.042 362.588 206.671 383.958 182.63"></polygon>
-		      </svg>
-
-		      <p className="text-3xl">Your cart is empty</p>
-
-          <Link to='/'>
-		        <a rel="noopener noreferrer" className="px-8 py-3 bg-blue-700 font-semibold rounded">Back to homepage</a>
-          </Link>
-	      </div>
-      </section>
+      <section className="flex items-center h-[calc(100vh-6.5rem)] p-16 dark:bg-gray-900 dark:text-gray-100">
+	<div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
+		<div className="max-w-md text-center">
+			<h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
+				<span className="sr-only">Error</span>😥
+			</h2>
+			<p className="text-2xl font-semibold md:text-3xl">Sorry, but your cart is empty</p>
+			<p className="mt-4 mb-8 dark:text-gray-400">But don't worry, you can add products from the store</p>
+		</div>
+	</div>
+</section>
     )
   }
 
@@ -138,7 +140,7 @@ export default function Cart(){
                     </div>
 
                     <div class="flex flex-col justify-between ml-4 flex-grow">
-                      <span class="font-bold text-sm">{product?.name}</span>
+                      <span class="font-bold text-xs uppercase">{product?.name}</span>
                       <span class="text-red-500 text-xs">{product.brand?.name}</span>
                       <a onClick={() => DeleteProduct(product.id)} class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer">Remove</a>
                     </div>
@@ -170,36 +172,34 @@ export default function Cart(){
       </div>
 
       <div id="summary" class="w-1/4 px-8 py-4 bg-slate-100">
+
         <h1 class="font-semibold text-2xl border-b pb-5 mb-4">Order Summary</h1>
        
-        <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase">Payment method</label>
-          <select class="block p-2 text-gray-600 w-full text-sm">
-            <option>MercadoPago</option>
-            <option>PayPal</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase mt-8">Address</label>
-          <input type="text" className="block p-2 w-full text-sm border border-gray-600 text-gray-600" />
-        </div>
-        
-  
-        <div class="border-t mt-8">
-          <div class="flex font-semibold justify-between py-6 text-sm uppercase">
-            <span>Total cost</span>
-            <span>${carrito.totalValue}.00</span>
+          <div>
+            <label class="font-medium inline-block mb-3 text-sm uppercase">Payment method</label>
+              <select class="block p-2 text-gray-600 w-full text-sm">
+                <option>MercadoPago</option>
+                <option>PayPal</option>
+              </select>
           </div>
 
-          <button
-            onClick={() => handleSubmit()}
-            className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout
-          </button>
+          <div>
+            <label class="font-medium inline-block mb-3 text-sm uppercase mt-8">Address</label>
+            <input type="text" className="block p-2 w-full text-sm border border-gray-600 text-gray-600" />
+          </div>
+        
+          <div class="border-t mt-8">
+            <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+              <span>Total cost</span>
+              <span>${carrito.totalValue}.00</span>
+            </div>
 
-        </div>
+            <button
+              onClick={() => handleSubmit()}
+              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout
+            </button>
+          </div>
       </div>
-
     </div>
   }
   </div>
