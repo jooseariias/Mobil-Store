@@ -3,10 +3,17 @@ import { BsFillHeartFill } from "react-icons/bs"
 import WishListService from '../../helpers/WishList'
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 export default function Card({id, name, price, image, stock, brand}){
 
     const user = useSelector((state) => state.User)
+    const navigate = useNavigate();
+
+    
+  const handleClickDetail = (id) => {
+    navigate(`/details/${id}`);
+  };
 
     const handleClick = () => {
 
@@ -72,10 +79,10 @@ export default function Card({id, name, price, image, stock, brand}){
     }
     
     return(
-        <div class="w-full max-w-xl bg-white border border-gray-400 rounded-lg dark:bg-gray-900 dark:border-gray-700 transform transition duration-500 hover:scale-105 mt-3 mb-3">
+        <div class="w-full max-w-xl bg-white border border-gray-400 rounded-lg dark:bg-gray-900 dark:border-gray-700 transform transition duration-500 hover:scale-105 mt-3 mb-3" onClick={() => handleClickDetail(id)}>
 
     <a href="#">
-        <img class="rounded-t-lg w-full h-[300px] text-center" src={image} alt="product image" />
+        <img class="rounded-t-lg w-full h-[300px] text-center px-20" src={image} alt="product image" />
     </a>
 
     <div class="px-3 pb-1">
