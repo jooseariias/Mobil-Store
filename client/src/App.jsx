@@ -11,6 +11,7 @@ import Cart from "./views/Cart/Cart";
 import NotFount from "./views/notFount/NotFount";
 import Login from "./views/Login/login"
 import { Register } from "./views/Register/register";
+import Wishlist from "./views/WishList/Wishlist";
 
 export default function App(){
 
@@ -34,6 +35,7 @@ export default function App(){
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/WishList" element={<Wishlist />} />
         <Route path ="*" element={<NotFount />} />
       </Routes>
     </div>

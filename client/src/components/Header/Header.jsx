@@ -7,6 +7,7 @@ import SearchBar from '../SearchBar/SearchBar.jsx';
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { LogOut } from '../../redux/actions/index.js'
+import { useNavigate } from 'react-router-dom'
 
 export default function Header(){
 	
@@ -16,6 +17,7 @@ export default function Header(){
 	const [Actualizar, setActualizar] = useState(false)
 	const element = document.documentElement;
 	const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+	const navigate = useNavigate();
 
 	const iconComponents = [
 	  {
@@ -61,15 +63,22 @@ export default function Header(){
 		return null;
 	  };
 	  
-	  // Ejemplo de uso:
 	  useEffect(() => {
 
-			const userDataCookie = getCookieValue("user_data");
-			if (userDataCookie) {
-				const decodedUserDataCookie = decodeURIComponent(userDataCookie);
-  				const userData = JSON.parse(decodedUserDataCookie);
-  				console.log(userData);
-			}
+		const userDataCookie = getCookieValue("user_data");
+		
+		if(userDataCookie){
+			const decodedUserDataCookie = decodeURIComponent(userDataCookie);
+  			const userData = JSON.parse(decodedUserDataCookie);
+
+			  const data = {
+				data_user: userData,
+				token: null,
+			  }
+
+			window.localStorage.setItem('user-log', JSON.stringify(data));
+			setUser(JSON.parse(window.localStorage.getItem('user-log')));
+		}
 
 		if(window.localStorage.getItem('user-log')){
 			setUser(JSON.parse(window.localStorage.getItem('user-log')));
@@ -102,13 +111,17 @@ export default function Header(){
 
 	  const handleFavorites = () => {
 
-		if(!window.localStorage.getItem('user-log')){
+		if(Object.keys(user).length === 0){
 			return Swal.fire({
 				icon: 'error',
 				title: 'Something went wrong',
 				text: 'Unvalidated users cannot have a favorites list',
 				confirmButtonText: 'Continue'
 			  })
+		}
+
+		else{
+			navigate('/Wishlist');
 		}
 	  }
 
@@ -181,7 +194,7 @@ export default function Header(){
 					:
 
 					<Link to={'/Profile'}>
-						<img src={user.data_user.image} className='w-8 h-8 cursor-pointer rounded-full text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' alt="" />
+						<img src={user.data_user?.image} className='w-8 h-8 cursor-pointer rounded-full text-black dark:text-white mr-4 mt-1 hover:transform hover:scale-110' alt="" />
 					</Link>
 				  }
 

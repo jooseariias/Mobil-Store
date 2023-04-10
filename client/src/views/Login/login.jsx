@@ -38,7 +38,7 @@ export default function Login(){
 
          // GUARDAMOS SOLO LA DATA QUE NECESITAMOS, LO DEMÁS LO DESCARTAMOS
         
-        const data = {
+         const data = {
           data_user: response.data.data.dataValues,
           token: response.data.data.token,
         }

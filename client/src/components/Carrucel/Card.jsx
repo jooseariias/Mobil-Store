@@ -40,7 +40,7 @@ export default function Card({id, name, price, image, stock, brand}){
         if(Object.keys(user).length === 0){
             return Swal.fire({
                 icon: 'error',
-                tittle: 'Something wrong',
+                title: 'Something wrong',
                 text: "that"
             })
         }
@@ -52,18 +52,20 @@ export default function Card({id, name, price, image, stock, brand}){
                 idProduct: id,
             }
 
-
             WishListService.PostProductWishList(data).then((response) => {
+                console.log(response);
                 return Swal.fire({
                     icon: 'success',
-                    title: 'all good!',
-                    text: 'GOOD!'
+                    title: 'Congratulations!',
+                    text: response.data.message
                 })
-            }).then((response) => {
+            }).catch((response) => {
+                console.log("PEPEPE")
+                console.log(response);
                 return Swal.fire({
                     icon: 'error',
-                    title: 'Close Alert!',
-                    text: 'ERROR'
+                    title: 'Something went wrong',
+                    text: response.response.data.message
                 })
             })
 
