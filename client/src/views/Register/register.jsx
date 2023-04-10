@@ -380,7 +380,8 @@ export default function Register() {
                       <label className="font-bold px-20">Image</label>
                       <div className='item-center justify-center flex flex-col px-20'>
                           <div  style={{ backgroundImage: `url(${picture})` }}></div>                    
-                          <Field name='image' type='file' placeholder='image'  className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border" onChange={handleImage}/>                       
+                          <Field name='image' type='file' placeholder='image'  className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border" onChange={handleImage}/>  
+                          <ErrorMessage name='image'/>                     
                       </div>
                     </div>
 
