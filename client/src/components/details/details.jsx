@@ -22,7 +22,7 @@ function Details() {
   }, []);
 
   return (
-    <div className="bg-gray-100 h-full dark:bg-gray-800">
+    <div className="bg-gray-100 h-full dark:bg-gray-800 dark:bg-gray-900">
       <div>
         <Header />
       </div>
