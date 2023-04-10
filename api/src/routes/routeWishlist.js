@@ -25,6 +25,9 @@ router.post('/', async (req, res) => {
             }
         })
 
+        console.log("PRODUCT", product);
+        console.log("USER", user);
+
         const [wish, created] = await Wishlist.findOrCreate({
             where: {
                 userId: user.id,
@@ -32,8 +35,8 @@ router.post('/', async (req, res) => {
             }
         })
 
-        created ? res.status(200).json(wish) :
-                  res.status(400).json({msg: "El producto ya esta en favoritos"})
+        created ? res.status(200).json({message: 'The product was successfully added to your wish list'}) :
+                  res.status(400).json({message: 'The product is already in your wish list'})
         
 
     }catch(error){
@@ -69,6 +72,7 @@ router.get('/:idUser', async (req, res) => {
         // console.log("Products es: ", products)
         let listaDeFavoritos = products.flat().map((element) => {
             return {
+                id: element.id,
                 name: element.name,
                 image: element.image,
                 price: element.price,
@@ -91,7 +95,7 @@ router.delete('/:idUser/:idProduct', async (req, res) => {
                 productId: idProduct
             }
         })
-        res.status(200).json({msg: `Element deleted`})
+        res.status(200).json({message: 'The product has been removed from your wish list'})
     } catch(error){
         res.status(400).json({error: error.message})
     }

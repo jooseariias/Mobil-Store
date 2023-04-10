@@ -13,6 +13,8 @@ import SearchBar from "../SearchBar/SearchBar.jsx";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { LogOut } from "../../redux/actions/index.js";
+import { useNavigate } from "react-router-dom";
+import { LoginSuccess } from "../../redux/actions/index.js";
 
 export default function Header() {
   const [theme, setTheme] = useState(
@@ -25,6 +27,7 @@ export default function Header() {
   const [Actualizar, setActualizar] = useState(false);
   const element = document.documentElement;
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const navigate = useNavigate();
 
   const iconComponents = [
     {
@@ -48,25 +51,37 @@ export default function Header() {
         element.classList.remove("dark");
         window.localStorage.setItem("theme", "light");
         break;
-
-      default:
-        window.localStorage.removeItem("theme");
-        onWindowMatch();
-        break;
     }
-  }, [theme]);
-
-  const getCookieValue = (cookieName) => {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split("% ");
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].split("=");
-      if (cookie[0] === cookieName) {
-        return cookie[1];
+    const getCookieValue = (cookieName) => {
+      const cookieString = document.cookie;
+      const cookies = cookieString.split("% ");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].split("=");
+        if (cookie[0] === cookieName) {
+          return cookie[1];
+        }
       }
+      return null;
+    };
+  });
+
+  useEffect(() => {
+    const userDataCookie = getCookieValue("user_data");
+
+    if (userDataCookie) {
+      const decodedUserDataCookie = decodeURIComponent(userDataCookie);
+      const userData = JSON.parse(decodedUserDataCookie);
+
+      const data = {
+        data_user: userData,
+        token: null,
+      };
+
+      dispatch(LoginSuccess(data));
+      window.localStorage.setItem("user-log", JSON.stringify(data));
+      setUser(JSON.parse(window.localStorage.getItem("user-log")));
     }
-    return null;
-  };
+  });
 
   // Ejemplo de uso:
   useEffect(() => {
@@ -115,9 +130,23 @@ export default function Header() {
         confirmButtonText: "Continue",
       });
     }
+
+    if (Object.keys(user).length === 0) {
+      return Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Unvalidated users cannot have a favorites list",
+        confirmButtonText: "Continue",
+      });
+    } else {
+      navigate("/Wishlist");
+    }
   };
 
   const handleLogOut = () => {
+    document.cookie =
+      "user_data=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     Swal.fire({
       icon: "warning",
       title: "Are you sure you want to sign out?",
@@ -126,19 +155,13 @@ export default function Header() {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(LogOut());
-
-        Swal.fire({
-          icon: "success",
-          title: "The session has been closed",
-        });
-
-        setActualizar(!Actualizar);
+        navigate("/");
       }
     });
   };
 
   return (
-    <header className="bg-gray-100-100 dark:bg-gray-800 text-gray-100 flex flex-col justify-center duration-300 ">
+    <div className="bg-gray-100-100 dark:bg-gray-800 text-gray-100 flex flex-col justify-center duration-300 ">
       <div className=" flex items-center gap-20 h-[80px] px-4 p-2">
         <div className="w-1/6 pl-8">
           <img src={icons.logo} className="h-10 w-28" alt="" />
@@ -167,26 +190,37 @@ export default function Header() {
 
           {/*<img className='h-[30px] w-[30px] cursor-pointer mr-2' src={theme === "light" ? icons['corazon-negro'] : icons['corazon-blanco']} alt="color" />*/}
           <div className="w-fit text-3xl cursor-pointer text-black dark:text-white flex justify-evenly items-center gap-10">
-            <BsFillHeartFill onClick={() => handleFavorites()} className="text-2xl hover:transform hover:scale-110"/>
+            <BsFillHeartFill
+              onClick={() => handleFavorites()}
+              className="text-2xl hover:transform hover:scale-110"
+            />
 
             <Link to="/Cart">
-              <BsFillCartCheckFill className="hover:transform hover:scale-110"/>
+              <BsFillCartCheckFill className="hover:transform hover:scale-110" />
             </Link>
 
             {Object.keys(user).length === 0 ? (
               <Link to="/login">
-                <BsFillPersonFill className="hover:transform hover:scale-110"/>
+                <BsFillPersonFill className="hover:transform hover:scale-110" />
               </Link>
             ) : (
               <Link to={"/Profile"}>
-                <img src={user.data_user.image} alt="" className="hover:transform hover:scale-110"/>
+                <img
+                  src={user.data_user.image}
+                  alt=""
+                  className="hover:transform hover:scale-110"
+                />
               </Link>
             )}
 
             {Object.keys(user).length === 0 ? (
               <></>
             ) : (
-              <BiLogOutCircle onClick={() => handleLogOut()} alt="" className="hover:transform hover:scale-110"/>
+              <BiLogOutCircle
+                onClick={() => handleLogOut()}
+                alt=""
+                className="hover:transform hover:scale-110"
+              />
             )}
           </div>
         </div>
@@ -206,6 +240,6 @@ export default function Header() {
           <h1>About Phonezone</h1>
         </Link>
       </div>
-    </header>
+    </div>
   );
 }

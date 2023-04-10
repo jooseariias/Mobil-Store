@@ -24,16 +24,14 @@ import{
 }from"../actions/index"
 
 const initialState = {
-    Phones: [],
-    PhonesCopy: [],
-    Brands: [],
-    Capacity:[],
-    Color:[],
-    details: [],
-    Users: [],
-
-
-    User: {},
+  Phones: [],
+  PhonesCopy: [],
+  User: {},
+  Brands: [],
+  Capacity:[],
+  Color:[],
+  details: [],
+  Users: [],
 };
 
 function rootReducer(state = initialState, action){

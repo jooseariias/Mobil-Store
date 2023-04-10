@@ -11,14 +11,18 @@ class WishListService{
 
   // const { idUser } = req.params
 
-  GetProductsWishList(id){
-  }
+  /*GetProductsWishList(id){
+    return axios.get(API_URL + `/${id}`)
+      .then(response => alert(response.data))
+      .catch(error => {
+        console.error(error);
+        throw error;
+      });
+  }*/
 
   // const { idUser, idProduct } = req.params;
 
-  DeleteProductWishList(id){
-    return axios.post(API_URL, data);
-  }
+  
 }
 
 export default new WishListService;

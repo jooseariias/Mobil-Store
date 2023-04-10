@@ -42,6 +42,18 @@ export const LOG_OUT = "LOGOUT";
     }
   }
 
+  export function GetWishList(id){
+    return async function(dispatch){
+      return await axios.get(`http://localhost:3001/wishlist/${id}`)
+    }
+  }
+
+  export function DeleteWishList(idUser, idProduct){
+    return async function(){
+      return await axios.delete(`http://localhost:3001/wishlist/${idUser}/${idProduct}`);
+    }
+  }
+
   export function getDetail(id) {
     return async function(dispatch) {
         const json = await axios(`http://localhost:3001/product/${id}`);
