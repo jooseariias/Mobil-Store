@@ -125,7 +125,6 @@
   //      email:"",
      
   //     })
-
   //     swal.fire({
   //       title: "Success",
   //       text: "The user has been registered!",
