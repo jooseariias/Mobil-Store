@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import icons from "../../assets/icons-header/icons.js";
+import icons from "../../assets/icons-header/icons.js"
 import {
   BsSun,
   BsMoon,
