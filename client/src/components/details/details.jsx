@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCapacity, getDetail, cleanDetail } from "../../redux/actions";
 import { Link } from "react-router-dom";
-
+import "./details.css";
 import Header from "../Header/Header";
-
+import Footer from "../Footer/Footer";
+import atras from "../../assets/atras.png"
 function Details() {
-
   const [details] = useSelector((state) => state.details);
   console.log(details);
 
@@ -26,36 +26,58 @@ function Details() {
       <div>
         <Header />
       </div>
-      <div className="flex min-height-full justify-center ">
-        <div>
-          <Link
-            to={"/Store"}
-            className="px-2 flex mt-4 ml-4 bg-gray-300 text-black  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white"
-          >
-            back to store
-          </Link>
-        </div>
+      <div className="cont-back">
+        <div><h3 className="Models dark:text-slate-200  ">Model:{details?.name}</h3></div>
+        <Link
+          to={"/Store"}
+          className="button-back"
+        >  <img className="icono-atras" src={atras} alt="img" />
+         
+        </Link>
+      </div>
 
-        <div className="hidden lg:block relative h-full bg-white">
-          <img
-            class="w-[550px] object-cover border-white p-0 m-20"
-            src={details?.image}
-            alt={details?.name}
-          />
-        </div>
+      <div className="contenedor-detail">
+        <div className="flex min-height-full justify-center ">
+          <div className="hidden lg:block relative h-full bg-white">
+            <div className="image-container">
+              <img
+                className="image-zoom w-[550px] object-cover border-white p-0 m-20"
+                src={details?.image}
+                alt={details?.name}
+              />
+            </div>
+          </div>
 
-        <div className="justify-center flex-1 flex flex-col py-10 px-0 sm:px-8 lg:px-20 sm:py-9 md:py-9  xl:px-24 ">
-          <h1 class="mt-6 text-3xl font-extrabold m-4 dark:text-white">{details?.name}</h1>
+          <div className="justify-center flex-1 flex flex-col py-10 px-0 sm:px-8 lg:px-20 sm:py-9 md:py-9  xl:px-24 ">
+            <h1 class="mt-6 text-3xl font-extrabold m-4 dark:text-white">
+              {details?.name}
+            </h1>
+            {details?.stock > 0 ? (
+              <p className="text-green-500 font-bold mt-6 m-4 dark:text-green-300">
+                In stock
+              </p>
+            ) : (
+              <p className="text-red-500 font-bold mt-6 m-4 dark:text-red-300">
+                Out of stock
+              </p>
+            )}
 
-          <span className="mt-6 text-2xl font-extrabold m-4 dark:text-gray-300">
-            Price: ${details?.price}
-          </span>
-          {/* <span className="mt-6 text-2xl font-bold ">Stock: {details.stock}</span> */}
-          <p className="my-6 text 2x1 leading-loose font-bold m-4 dark:text-gray-400">
-            Description: {details?.description}
-          </p>
+            <span className="mt-6 text-2xl font-extrabold m-4 dark:text-gray-300">
+              ${details?.price}
+            </span>
+
+            <p className="my-6 text 2x1 leading-loose font-bold m-4 dark:text-gray-400 ">
+               {details?.description}
+              <h3>Color Disponible:</h3>
+              <div
+                className="w-7 h-7 rounded-full m-4"
+                style={{ backgroundColor: details?.color?.color }}
+              ></div>
+            </p>
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
