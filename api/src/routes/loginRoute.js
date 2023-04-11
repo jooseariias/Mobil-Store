@@ -26,12 +26,20 @@ router.post("/", async (req, res) => {
     return res.status(401).send({ message: "Email or Password is invalid" });
 
   if (bcrypt.compareSync(password, user.password)) {
-    // Envía el correo electrónico de bienvenida
+    
     const mailOptions = {
       from: "phonezonestoreapp@gmail.com",
       to: user.email,
-      subject: "¡Bienvenido!",
-      text: `Hola ${user.name}, ¡Bienvenido a PHONEZONE!`,
+      subject: `¡Bienvenido! ${user.name}`,
+      html: `
+               <h1>PhoneZone Store</h1>
+               <br>
+               <p> Hola ${user.name}, gracias por unirte a phoneZone tu tienda online, esperamos que tu estancia sea excelente.</p>
+               <br>
+               <small>
+               PHONEZONESTORE
+              </small>
+               `
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
