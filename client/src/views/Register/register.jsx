@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import { BsEyeSlash } from "react-icons/bs";
 import Swal from 'sweetalert2';
 
-
 export default function Register() {
     const dispatch = useDispatch()
     const [picture, setPicture] = useState('')
