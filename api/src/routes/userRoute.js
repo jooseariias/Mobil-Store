@@ -4,6 +4,17 @@ const jwt = require("jsonwebtoken");
 const router = Router();
 const bcrypt = require('bcryptjs');
 const { Op } = require("sequelize");
+
+const nodemailer = require('nodemailer');
+const URI="http://localhost:3001/user"
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_PHONEZONE,
+    pass: process.env.EMAIL_PHONEZONE_AUTHENTICATION,
+  }
+});
 // Importar todos los routers;
 
 
@@ -70,9 +81,58 @@ router.post("/", async (req, res, next) => {
   
       const token = jwt.sign({ email }, "secret");
 
-      return res.status(200).send({ message: "User registered" });
+      return res.status(200).send({ message: "User registered", token });
       
   });
+
+// cambio de contraseña
+
+router.post('/forgotPassword', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) {
+      return res.status(400).json({ msg: 'No user with that email exists.' });
+    }
+
+    // Genera un token de restablecimiento de contraseña
+    const token = jwt.sign({ userId: user.id }, 'secret', { expiresIn: '15m' });
+
+    // Envía un correo electrónico al usuario con el token de restablecimiento de contraseña
+    const mailOptions = {
+      from: "phonezonestoreapp@gmail.com",
+      to: user.email,
+      subject: 'Restablecimiento de contraseña',
+      text: `Para restablecer su contraseña, haga clic en el siguiente enlace: http://localhost:3001/user/resetPassword/${token}`
+    };
+    await transporter.sendMail(mailOptions);
+
+    res.json({ msg: "Email has been sent with instructions to reset your password." });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+});
+
+router.put('/resetPassword/:token', async (req, res) => {
+  try {
+    const { password } = req.body;
+    const { token } = req.params;
+
+    // Verifica el token de restablecimiento de contraseña
+    const decodedToken = jwt.verify(token, 'secret');
+    const userId = decodedToken.userId;
+
+    // Actualiza la contraseña del usuario
+    const passwordHash = await bcrypt.hash(password, 10);
+    await User.update({ password: passwordHash }, { where: { id: userId } });
+
+    res.json({ msg: "Password successfully changed!" });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+});
+
 
 
 
@@ -88,6 +148,23 @@ router.get('/:id', async (req, res) => {
     res.sendStatus(404)
   }
 })
+
+router.put('/resetPassword',  async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    console.log(email, password)
+    const passwordHash = await bcrypt.hash(password, 10)
+
+    await User.update({ password: passwordHash }, { where: { email: email } })
+
+    res.json({ msg: "Password successfully changed!" })
+  } catch (err) {
+    return res.status(500).json({ msg: err.message })
+  }
+
+});
+
+
 
 router.put('/:id', async (req, res) => {
   const selectedUser = await User.findOne({
