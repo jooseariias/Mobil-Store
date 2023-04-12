@@ -4,6 +4,7 @@ import home from "../../../assets/icons-user-dashboard/home.png"
 import phones from "../../../assets/icons-user-dashboard/phones.png"
 import users from "../../../assets/icons-user-dashboard/users.png"
 import userphoto from "../../../assets/icons-user-dashboard/user.png"
+import { Link } from "react-router-dom";
 
 export default function SideBar(){
 
@@ -25,9 +26,11 @@ export default function SideBar(){
                  :
 
                  <div className="justify-center item-center  flex flex-col p-8 gap-2 h-[30vh] place-content-center px-20">
-                   <div className="px-2">  <img src={user.data_user.image} className="w-28 text-center  h-28 objet-cover  rounded-full ring-2 ring-gray-300    justify-center item-center"/> </div>
-                 <h1 className="text-white text-2xl font-bolt text-center ">{user.data_user.name}</h1>
-                 <p className="text-white text-xl font-bolt bg-gray-200 py-1  rounded-full text-center">Admin</p>
+                   <div className="px-2 m-1">  <img src={user.data_user.image} className="w-28 text-center  h-28 objet-cover  rounded-full ring-2 ring-gray-300    justify-center item-center"/> </div>
+                    <div className="px-2 m-1"> 
+                        <h1 className=" text-white text-2xl font-bolt text-center m-1">{user.data_user.name}</h1>
+                        <p className="text-white text-xl font-bolt bg-gray-200 py-1  rounded-full text-center m-1">Admin</p> 
+                    </div>
                 </div>
 
             }
@@ -37,7 +40,7 @@ export default function SideBar(){
                 <nav className="flex flex-col gap-4">
                     <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Home <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {home}/></a>
                    <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Phones <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {phones}/></a>
-                    <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Users <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {users}/></a>
+                   <Link to={"/UsersDashBoard"}>    <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Users <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {users}/></a> </Link>
                 </nav>
             </div>
 

@@ -1,7 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {GetUsers} from "../../../redux/actions/index"
 import CardDashBoard from "./cardDashBoardUsers/cardDashBoardUsers";
+import SideBar from "../SideBar/SideBar";
 
 
 export default function UsersDashBoard(){
@@ -14,7 +16,7 @@ export default function UsersDashBoard(){
       }, [dispatch]); 
 
     return(
-        <div class='grid grid-cols-6 min-h-screen overflow-y-hidden'>
+        <div class='grid grid-cols-6 min-h-screen overflow-y-hidden bg-gray-100'>
              <div class='col-span-1 bg-slate-400 text-center w-full'>
                  <SideBar/>
             </div>
@@ -24,7 +26,7 @@ export default function UsersDashBoard(){
                     <h1 class='font-bold ml-[10px] text-[25px]'>DashBoard Users Admin</h1>     
                 </div>
 
-                <div class='flex text-left bg-white items-center justify-around py-[10px] mt-[10px] flex-wrap w-[1000px]'>
+                <div class='flex text-center bg-white items-center justify-center mx-80 flex-wrap w-[1000px] px-40'>
                 
                     {allUsers?.map((e) => {
                     return (
@@ -32,7 +34,7 @@ export default function UsersDashBoard(){
                         key={e.id}
                         image={e.image}
                         name={e.name}
-                        last_name={e.last_name}
+                        surname={e.surname}
                         email={e.email}
                         rol={e.rol}
                         />
