@@ -18,6 +18,7 @@ export const CLEAN_PHONES = "CLEAN_PHONES";
 export const FILTER_CAPACITY = "FILTER_CAPACITY";
 export const POST_USER = "POST_USER";
 export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
@@ -169,6 +170,16 @@ export function GetUsers(){
   }
 }
 
+export function getUser(payload){
+  return async function(dispatch){
+    let json = await axios.get(`http://localhost:3001/user/?name=${payload}`)
+    return dispatch({
+      type: GET_USER,
+      payload: json.data
+    })
+  }
+}
+
 export function LoginSuccess(data){
   return async function(dispatch){
     dispatch({
@@ -185,3 +196,4 @@ export function LogOut(){
     })
   }
 }
+
