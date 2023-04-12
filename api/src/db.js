@@ -74,6 +74,10 @@ Product.belongsToMany(User, {through: "product_user"});
 Product.hasMany(Review);
 Review.belongsTo(Product);
 
+
+User.hasMany(Review);
+Review.belongsTo(User);
+
 User.hasMany(Orders);
 Orders.belongsTo(User);
 
@@ -82,6 +86,9 @@ OrderStatus.belongsTo(Orders);
 
 Product.belongsToMany(Orders, {through: Detail });
 Orders.belongsToMany(Product, {through: Detail });
+
+// Detail.belongsTo(Product, { foreignKey: "productId" });
+// Detail.belongsTo(Orders, { foreignKey: "orderId" });
 
 User.belongsToMany(Product, {through: Wishlist});
 Product.belongsToMany(User, {through: Wishlist})
