@@ -13,6 +13,7 @@ import Login from "./views/Login/login"
 import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register"
 import Dashboard from "./views/Dashboard/Dashboard";
+import UsersDashBoard from "./views/Dashboard/Users/User";
 
 export default function App(){
 
@@ -46,6 +47,7 @@ export default function App(){
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
         <Route path="/DashBoard" element={<Dashboard />} />
+        <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
       </Routes>
     </div>
