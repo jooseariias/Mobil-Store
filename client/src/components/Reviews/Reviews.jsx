@@ -18,7 +18,7 @@ export const Reviews = () => {
     if(!reviews.length){
         return <p className='msg'>Este producto no tiene reseñas</p>
     }
-  /*    function PromedioFun() {
+     function PromedioFun() {
         Promedio = reviews.reduce((prev, current) => prev + current.score, 0) / reviews.length;
                
         const num = Promedio;
@@ -32,15 +32,15 @@ export const Reviews = () => {
         }
        console.log(Promedio)
     };
-    PromedioFun() */
+    PromedioFun()
       return (
         <>
         <h3 className='tituloRes'>Opiniones del producto</h3>
         <div className='contenedorRev '>
             {console.log("resenas", reviews)}
-       {/*  <div className='prom'>
+         <div className='prom'>
         <span>{Promedio}</span> <StarRating score={Promedio} /> 
-        </div> */}
+        </div> 
               <div className="fecha">
             {
                 reviews?.map(r=>{
