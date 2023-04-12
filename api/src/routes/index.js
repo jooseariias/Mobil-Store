@@ -38,6 +38,7 @@ const reviewsRoute= require("./routeReviews.js")
 const wishlistRoute = require('./routeWishlist')
 const router = Router();
 const routerAuth = require("./auth")
+const statisticsRoute = require("./routeStatistics")
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -55,5 +56,6 @@ router.use('/wishlist', wishlistRoute);
 router.use("/", routerAuth)
 router.use('/', loginRoute)
 router.use('/orders', orderRouter)
-
+router.use('/statistics', statisticsRoute);
+//
 module.exports = router;
