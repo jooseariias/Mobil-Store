@@ -12,6 +12,7 @@ import NotFount from "./views/notFount/NotFount"
 import Login from "./views/Login/login"
 import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register"
+import Dashboard from "./views/Dashboard/Dashboard";
 
 export default function App(){
 
@@ -44,6 +45,7 @@ export default function App(){
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
+        <Route path="/DashBoard" element={<Dashboard />} />
         <Route path ="*" element={<NotFount />} />
       </Routes>
     </div>
