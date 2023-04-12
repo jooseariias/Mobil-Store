@@ -131,6 +131,9 @@ export default function Login(){
           <div className="mx-5 text-black dark:text-slate-100">Or</div>
           <div className="w-full h-px bg-black rounded-full dark:bg-slate-100"></div>
         </div>
+        <button className="login-auth">
+          <GoogleAuth />
+        </button>
 
 
         <p className="text-slate-900 dark:text-slate-100 py-3">
@@ -139,11 +142,9 @@ export default function Login(){
             Sign up here
           </Link>
         </p>
-
-        <button className="mt-3 w-full text-center">
-          <GoogleAuth />
-        </button>
-
+        <Link to={"/PasswordChange"} className="text-blue-900 dark:text-blue-300 underline">
+        I forgot my password
+          </Link>
       </div>
       </div>
 
