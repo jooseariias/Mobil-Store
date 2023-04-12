@@ -41,11 +41,11 @@ const crearOrden = async (
     // console.log("Cantidades es: ", cadenaCantidades[i]);
     if (product.stock < cadenaCantidades[i]){ 
       flag = false;
-      return false; // no hay stock para un producto determinado
+      return flag; // no hay stock para un producto determinado
     }
   }
-  console.log(flag)
-  if (flag)
+  // console.log(flag)
+  if (flag){
     axios
       .get(`https://api.mercadopago.com/v1/payments/${collection_id}`, {
         headers: {
@@ -124,8 +124,11 @@ const crearOrden = async (
         });
 
         await statusOrder.setOrder(order.id);
+        
       })
-      .catch((error) => console.error(error.message));
+      .catch((error) => console.error(error.message))
+      return flag;
+    }
     else {
       return false
     }
