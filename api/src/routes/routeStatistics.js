@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const { User } = require("../db.js");
-const { Op } = require("sequelize");
+const { User, Orders } = require("../db.js");
+const { Op, Sequelize } = require("sequelize");
 const router = Router();
 
 router.get('/user', async(req, res) => {
@@ -18,15 +18,19 @@ router.get('/user', async(req, res) => {
             whereClause.enabled = true
         }
 
-        if(!fechaInicio && !fechaFin){
-            const usuarios = await User.findAndCountAll({
-                where: whereClause
+        if(!fechaInicio && !fechaFin && !enabled){
+            const usuariosActivos = await User.findAndCountAll({
+                where: {
+                    enabled: true
+                }
             })
-            if(enabled === true){
-                res.status(200).json({msg: `Actualmente hay ${usuarios.count} usuarios activos en la base de datos`})
-            }else {
-                res.status(200).json({msg: `Actualmente hay ${usuarios.count} usuario/s baneado/s en la base de datos`})      
-            }
+            const usuariosInactivos = await User.findAndCountAll({
+                where: {
+                    enabled: false
+                }
+            })
+            
+            res.status(200).json({msg: `Hay ${usuariosActivos.count} usuario/s activos y hay ${usuariosInactivos.count} baneados en la base de datos`})
         }
         
         if(fechaInicio && fechaFin && !enabled){
@@ -34,22 +38,94 @@ router.get('/user', async(req, res) => {
                 where: whereClause
             })
 
-            const usuarioInactivos = await User.findAndCountAll({
+            const usuariosInactivos = await User.findAndCountAll({
                 where: { enabled: false }
             })
             // console.log(enabled)
-            res.status(200).json({msg: `Hay ${usuariosActivos.count} usuario/s activos entre las fechas ${fechaInicio} y ${fechaFin}, tambien hay ${usuarioInactivos.count} baneados en el mismo periodo`})
+            res.status(200).json({msg: `Hay ${usuariosActivos.count} usuario/s activos entre las fechas ${fechaInicio} y ${fechaFin}, tambien hay ${usuariosInactivos.count} baneados en el mismo periodo`})
         }
         
+        if(fechaInicio && !fechaFin ){
+            const usuariosActivos = await User.findAndCountAll({
+                where: {
+                    createdAt: {
+                        [Op.gte]: fechaInicio
+                        
+                    },
+                    enabled: true
+                }
+            })
+            // console.log(usuariosActivos)
+            const usuariosInactivos = await User.findAndCountAll({
+                where: {
+                    createdAt: {
+                        [Op.gte]: fechaInicio
+                        
+                    },
+                    enabled: false
+                }
+            })
+            res.status(200).json({msg: `Desde el ${fechaInicio.count} hay ${usuariosActivos.count} usuarios activos y ${usuariosInactivos.count} usuarios inactivos`})
+        }
         
-          
+        if(!fechaInicio && fechaFin ){
+            const usuariosActivos = await User.findAndCountAll({
+                where: {
+                    createdAt: {
+                        [Op.lte]: fechaFin
+                        
+                    },
+                    enabled: true
+                }
+            })
+            // console.log(usuariosActivos)
+            const usuariosInactivos = await User.findAndCountAll({
+                where: {
+                    createdAt: {
+                        [Op.lte]: fechaFin
+                        
+                    },
+                    enabled: false
+                }
+            })
+            res.status(200).json({msg: `Hasta el ${fechaFin} hay ${usuariosActivos.count} usuarios activos y ${usuariosInactivos.count} usuarios inactivos`})
+        }
     }catch(error){
         res.status(400).json({error: error.message})
     }
 })
 
-router.get('/orders', async (req, res) => {
+router.get('/order', async (req, res) => {
+   try {
+        const { fechaInicio, fechaFin, status } = req.query;
+        
+        if(fechaInicio && fechaFin){
+            const order = await Orders.findAndCountAll({
+                attributes: [
+                    [Sequelize.fn('SUM', Sequelize.col('total')), 'total']
+                ],
+                where: {
+                    date: {
+                        [Op.gte]: fechaInicio,
+                        [Op.lte]: fechaFin
+                    }
+                }
+            })
+            res.status(200).json(order)
+        }
+        if(!fechaInicio && !fechaFin){
+            const order = await Orders.findAndCountAll({
+                attributes: [
+                    [Sequelize.fn('SUM', Sequelize.col('total')), 'total']
+                ]
+            })
+            res.status(200).json(order)
+        }
 
+        // console.log(order)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+   } 
 })
 
 module.exports= router;
