@@ -1,0 +1,47 @@
+.contenedorRev{
+    display: flex;
+    align-items: start;
+    background-color: rgb(250, 247, 247);
+    margin-left: 6%;
+    width: 85%;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+.prom span{
+ 
+   font-size: 30px;
+   color: rgb(250, 247, 247);
+   font-weight: bold;
+   padding-right: 3px;
+}
+.prom{
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+    
+}
+.estrellas,.fecha, .comentarios{
+    margin-right: 20px;
+    margin-top: 5px;
+    align-items: end;
+}
+
+
+  .comentarios p, .fecha p {
+   font-size: 18px;
+   padding: 1px;
+  }
+  .tituloRes{
+   padding-bottom: 30px;
+   text-align: left;
+   font-size: 25px;
+   align-items: end;
+   margin-left: 6%;
+   color: rgb(250, 247, 247);
+  }
+
+.msg{
+    font-size: 25px;
+    margin-left: 6%;
+   
+}
