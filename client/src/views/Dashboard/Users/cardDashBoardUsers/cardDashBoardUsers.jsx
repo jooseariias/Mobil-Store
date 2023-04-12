@@ -4,7 +4,6 @@ export default function CardDashBoard({image, name, surname , email ,  rol}){
 
     return(
         <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px] m-4'>
-        <img class='bg-white rounded-full w-[70px] h-[70px] text-left mr-[10px] ml-[30px] object-cover' src={image}></img>
 
         <div class='w-[200px] bg-white'>
         <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>{name}</h5>
