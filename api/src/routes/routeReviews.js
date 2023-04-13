@@ -37,23 +37,34 @@ router.post("/:idProduct", async (req,res)=>{
           });
 
         if(productBought){
-            if(score>5 || score<1){
-                res.status(400).send("Enter a value from 1 to 5")
-            }else{
-                const newReview= await Review.create({
-                    comment,
-                    score,
-                    date: Date.now(), 
-                    userId: idUser 
-                })
-                const productReview =await Product.findByPk(idProduct);
-                if (productReview) {
-                    newReview.setProduct([productReview.id]);
-                    res.status(200).send("Successful review!")
-                }else{
-                    res.status(400).json({msg:"The product does not exist"})
-                }
 
+            const reviewForThatProduct = await Review.findOne({
+                where: {
+                    userId: idUser,
+                    productId: idProduct
+                }
+            })
+            if(!reviewForThatProduct){
+                if(score>5 || score<1){
+                    res.status(400).send("Enter a value from 1 to 5")
+                }else{
+                    const newReview= await Review.create({
+                        comment,
+                        score,
+                        date: Date.now(), 
+                        userId: idUser 
+                    })
+                    const productReview =await Product.findByPk(idProduct);
+                    if (productReview) {
+                        newReview.setProduct([productReview.id]);
+                        res.status(200).send("Successful review!")
+                    }else{
+                        res.status(400).json({msg:"The product does not exist"})
+                    }
+
+                }
+            }else {
+                res.status(200).json({msg: `No se puede calificar el producto mas de una vez`})
             }
             
         }else{

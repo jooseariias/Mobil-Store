@@ -150,7 +150,7 @@ const sendConfirmedPaymentEmail = async (
                 }
               ]
             })
-          }, 3000)
+          }, 15000)
     }catch(error){
        console.log(error) 
     }
