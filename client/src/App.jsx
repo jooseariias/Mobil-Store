@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
-import { getPhones, getBrands, getCapacity, LoginSuccess } from "./redux/actions";
+import { getPhones, getBrands, getCapacity, LoginSuccess, POST_REVIEW } from "./redux/actions";
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
@@ -16,6 +16,7 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import UsersDashBoard from "./views/Dashboard/Users/User";
 import LinkPassword from "./components/LinkPassword/LinkPassword";
 import ActPassword from "./components/ActPassword/ActPassword";
+import { CreateReviews } from "./components/Reviews/CreateReviews";
 
 export default function App(){
 
@@ -53,6 +54,7 @@ export default function App(){
         <Route path ="*" element={<NotFount />} />
         <Route path ="/PasswordChange" element={< LinkPassword />} /> 
        <Route path ="/RecetPassword" element={< ActPassword  />} /> 
+       <Route path ="/:productId/review" element={< CreateReviews />} /> 
       </Routes>
     </div>
   )
