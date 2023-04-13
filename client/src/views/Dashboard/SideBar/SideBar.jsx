@@ -38,7 +38,7 @@ export default function SideBar(){
 
             <div className="bg-gray-500 p-8 rounded-tr-[100px] h-full">
                 <nav className="flex flex-col gap-4">
-                    <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Home <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {home}/></a>
+                    <Link to={"/DashBoard"}>  <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Home <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {home}/></a></Link>
                    <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Phones <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {phones}/></a>
                    <Link to={"/UsersDashBoard"}>    <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"> Users <img  class= " z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"src = {users}/></a> </Link>
                 </nav>
