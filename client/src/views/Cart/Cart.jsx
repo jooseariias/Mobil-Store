@@ -3,52 +3,79 @@ import { DeleteProductLocalStorage, UpdateStockProductLocalStorage } from "../..
 import { useSelector } from "react-redux";
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2"
+import { getProductCart, deleteProductCart } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 export default function Cart(){
 
+  const user = useSelector((state) => state.User)
   const Phones = useSelector((state) => state.Phones)
-  const User = useSelector((state) => state.User)
-  const[carrito, setCarrito] = useState({});
+  const dispatch = useDispatch();
+  const[carrito, setCarrito] = useState([]);
   const[Actualizar, setActualizar] = useState(false);
-  
+
   useEffect(() => {
 
-    if(window.localStorage.getItem('carrito-db')){
-
+    if(user && user.data_user && user.data_user.id ){
+      dispatch(getProductCart(user.data_user.id)).then((response) => {
+        setCarrito(response.data);
+      });
     }
-
+  
     if(window.localStorage.getItem('carrito-ls')){
       setCarrito(JSON.parse(window.localStorage.getItem('carrito-ls')));
     }
-
+  
     else{
-      setCarrito({});
+      setCarrito({})
     }
     
-  }, [Actualizar])
+  }, [Actualizar, user])
+
+
 
   const DeleteProduct = (id) => {
 
-    Swal.fire({
-      icon: 'warning',
-      title: 'Are you sure you want to delete the product?',
-      confirmButtonText: 'Delete',
-      showDenyButton: true,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed){
-        DeleteProductLocalStorage(id);
-        setActualizar(!Actualizar);
-        console.log(carrito)
-        Swal.fire({
-          icon: 'success',
-          title: 'Congratulations!',
-          text: 'The product was deleted',
-        })
-      }
-    })
+    if(Object.keys(user).length !== 0){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Are you sure you want to delete the product?',
+        confirmButtonText: 'Delete',
+        showDenyButton: true,
+      }).then((result) => {
+        if(result.isConfirmed){
+          dispatch(deleteProductCart(id, user.data_user.id)).then((response) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Congratulations!',
+              text: 'The product was deleted',
+            })
+            setActualizar(!Actualizar);
+          })
+        }
+      })
+    }
+
+    else{
+      Swal.fire({
+        icon: 'warning',
+        title: 'Are you sure you want to delete the product?',
+        confirmButtonText: 'Delete',
+        showDenyButton: true,
+      }).then((result) => {
+        if (result.isConfirmed){
+          DeleteProductLocalStorage(id);
+          setActualizar(!Actualizar);
+          Swal.fire({
+            icon: 'success',
+            title: 'Congratulations!',
+            text: 'The product was deleted',
+          })
+        }
+      })
+    }
+
   }
 
   const handleStock = (operator, id, stock) => {
@@ -77,7 +104,7 @@ export default function Cart(){
 
   const handleSubmit = () => {
 
-    if(Object.keys(User).length === 0){
+    if(Object.keys(user).length === 0){
       return Swal.fire({
         icon: 'error',
         title: 'Something went wrong',
@@ -89,16 +116,16 @@ export default function Cart(){
   const RenderEmptyCart = () => {
     return (
       <section className="flex items-center h-[calc(100vh-6.5rem)] p-16 dark:bg-gray-900 dark:text-gray-100">
-	<div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-		<div className="max-w-md text-center">
-			<h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
-				<span className="sr-only">Error</span>😥
-			</h2>
-			<p className="text-2xl font-semibold md:text-3xl">Sorry, but your cart is empty</p>
-			<p className="mt-4 mb-8 dark:text-gray-400">But don't worry, you can add products from the store</p>
-		</div>
-	</div>
-</section>
+	      <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
+		      <div className="max-w-md text-center">
+			      <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
+				      <span className="sr-only">Error</span>😥
+			      </h2>
+			        <p className="text-2xl font-semibold md:text-3xl">Sorry, but your cart is empty</p>
+			        <p className="mt-4 mb-8 dark:text-gray-400">But don't worry, you can add products from the store</p>
+		      </div>
+	      </div>
+      </section>
     )
   }
 
@@ -136,12 +163,12 @@ export default function Cart(){
                 <div class="flex items-center py-5 border-b dark:border-gray-700">
                   <div class="flex w-2/5"> 
                     <div class="w-20">
-                      <img class="h-24 ml-2" src={product.image} alt="photo" />
+                      <img class="h-24 ml-2" src={product.img} alt="photo" />
                     </div>
 
                     <div class="flex flex-col justify-between ml-4 flex-grow">
                       <span class="font-bold text-xs uppercase">{product?.name}</span>
-                      <span class="text-red-500 text-xs">{product.brand?.name}</span>
+                      <span class="text-red-500 text-xs">{product.brand}</span>
                       <a onClick={() => DeleteProduct(product.id)} class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer">Remove</a>
                     </div>
                 </div>
@@ -163,8 +190,8 @@ export default function Cart(){
                   </div>
           
                   <span class="text-center w-1/5 font-semibold text-sm">{GetStockProduct(product.id)}</span>
-                  <span class="text-center w-1/5 font-semibold text-sm">${product.price}.00</span>
-                  <span class="text-center w-1/5 font-semibold text-sm">${product.total}.00</span>
+                  <span class="text-center w-1/5 font-semibold text-sm">${product.priceProduct}.00</span>
+                  <span class="text-center w-1/5 font-semibold text-sm">${product.totalValue}.00</span>
         </div>
                 )
               })
@@ -191,7 +218,7 @@ export default function Cart(){
           <div class="border-t mt-8">
             <div class="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Total cost</span>
-              <span>${carrito.totalValue}.00</span>
+              <span>${carrito.priceCart}.00</span>
             </div>
 
             <button
