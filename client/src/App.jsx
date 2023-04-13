@@ -22,8 +22,9 @@ import Dashboard from "./views/Dashboard/Dashboard";
 //import Products from "./views/Dashboard/Product/Products";
 
 import UsersDashBoard from "./views/Dashboard/Users/User";
-import LinkPassword from "./components/LinkPassword/LinkPassword";
-import ActPassword from "./components/ActPassword/ActPassword";
+import ResetPassword from "./components/ActPassword/ResetPassword";
+// import LinkPassword from "./components/LinkPassword/LinkPassword";
+// import ActPassword from "./components/ActPassword/ActPassword";
 
 export default function App(){
 
@@ -73,8 +74,9 @@ export default function App(){
         <Route path="/DashBoard" element={<Dashboard />} />
         <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
-        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
-       <Route path ="/RecetPassword" element={< ActPassword  />} /> 
+
+        {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
+       <Route path ="/ResetPassword" element={< ResetPassword/>} /> 
 
       </Routes>
     </div>
