@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import style from "./pagination.module.css";
 
 function Pagination({
   quantity,
@@ -22,17 +21,20 @@ function Pagination({
   const handlePrev = () => {
     start && setCurrentPage(currentPage - 1);
     start && setStart(start - quantity);
+    window.scrollTo(0, 0);
   };
 
   const handleNext = () => {
     currentPage < pages.at(-1) && setCurrentPage(currentPage + 1);
     currentPage < pages.at(-1) && setStart(start + quantity);
+    window.scrollTo(0, 0);
   };
 
   const handleChangePage = (page) => {
     setCurrentPage(page);
     const current = page - 1;
     setStart(quantity * current);
+    window.scrollTo(0, 0);    
   };
 
   useEffect(() => {
@@ -99,32 +101,41 @@ function Pagination({
   }, [currentPage, total]);
  
   
-  return (
-    <>
-      <div className={style.paginate}>
-        <a onClick={handlePrev} className={currentPage === 1 ? style.disabled : style.prev}>
-          Prev
-        </a>
-        {pageButtons.map((page, i) => {
-          return (
-            <a
-              key={i}
-              className={[
-                style.page,
-                page === currentPage && style.active,
-              ].join(" ")}
-              onClick={() => handleChangePage(page)}
-            >
-              {page}
-            </a>
-          );
-        })}
-        <a onClick={handleNext} className={currentPage === pageButtons.length ? style.disabled : style.next}>
-          Next
-        </a>
-      </div>
-    </>
+  return(
+
+    <div className="flex justify-center space-x-2 dark:text-gray-100 mb-5 ">
+	    <button onClick={handlePrev} title="previous" type="button" className="inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow-md dark:bg-gray-900 dark:border-gray-800">
+		    <svg viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-4">
+			    <polyline points="15 18 9 12 15 6"></polyline>
+		    </svg>
+      </button>
+
+      {
+        pageButtons.map((page, i) => {
+          return(
+            <div>
+              <button 
+                key={i}
+                type="button"
+                onClick={() => handleChangePage(page)}
+                title="Page 1"
+                className={`inline-flex items-center justify-center w-8 h-8 text-sm font-semibold rounded shadow-md
+                 dark:bg-gray-900 dark:text-slate-200 ${page === currentPage && "bg-blue-500 dark:bg-blue-500"}`} >{page}
+                </button>
+            </div>
+          )
+        })
+      }
+	    
+      <button onClick={handleNext} title="next" type="button" className="inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow-md dark:bg-gray-900 dark:border-gray-800">
+        <svg viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-4">
+			    <polyline points="9 18 15 12 9 6"></polyline>
+		    </svg>
+	    </button>
+    </div>
   );
 }
+
+
 
 export default Pagination;
