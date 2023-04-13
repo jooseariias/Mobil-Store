@@ -21,7 +21,8 @@ import{
     FILTER_CAPACITY,
 
     LOGIN_SUCCESS,
-    LOG_OUT
+    LOG_OUT,
+    GET_REVIEWS
 }from"../actions/index"
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   Color:[],
   details: [],
   Users: [],
+  Reviews:[]
 };
 
 function rootReducer(state = initialState, action){
@@ -249,7 +251,12 @@ function rootReducer(state = initialState, action){
         PhonesCopy: TypePhonesFilterCapacidad,
       };
 
-
+      case GET_REVIEWS:
+        return{
+          ...state,
+          Reviews: action.payload,
+         
+        };
   
       default: {
         return state;
