@@ -283,10 +283,6 @@ router.get("/pago-confirmado", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
-  res.status(200).json({ msg: "todo ok" });
-});
-
 router.put("/sendOrder/:idOrder", async (req, res) => {
   try {
     const { idOrder } = req.params;

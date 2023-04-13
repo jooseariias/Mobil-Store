@@ -153,7 +153,7 @@ export default function Header(){
 	  }
 
   return (
-    <div className="bg-gray-100-100 dark:bg-gray-800 text-gray-100 flex flex-col justify-center duration-300 ">
+    <div className="bg-gray-100 dark:bg-gray-800 text-gray-100 flex flex-col justify-center duration-300 ">
       <div className=" flex items-center gap-20 h-[80px] px-4 p-2">
         <div className="w-1/6 pl-8">
           <img src={icons.logo} className="h-10 w-28" alt="" />

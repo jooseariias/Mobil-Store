@@ -36,6 +36,7 @@ const reviewsRoute= require("./routeReviews.js")
 const wishlistRoute = require('./routeWishlist')
 const router = Router();
 const routerAuth = require("./auth")
+const statisticsRoute = require("./routeStatistics")
 
 const getCart = require('./cartsRoutes/get')
 const addCart = require('./cartsRoutes/post')
@@ -60,7 +61,8 @@ router.use('/reviews', reviewsRoute);
 router.use('/wishlist', wishlistRoute);
 
 router.use("/", routerAuth)
-router.use('/', loginRoute)
+router.use('/login', loginRoute)
 router.use('/orders', orderRouter)
-
+router.use('/statistics', statisticsRoute);
+//
 module.exports = router;

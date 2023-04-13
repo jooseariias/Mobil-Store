@@ -12,6 +12,10 @@ import NotFount from "./views/notFount/NotFount"
 import Login from "./views/Login/login"
 import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register"
+import Dashboard from "./views/Dashboard/Dashboard";
+import UsersDashBoard from "./views/Dashboard/Users/User";
+import LinkPassword from "./components/LinkPassword/LinkPassword";
+import ActPassword from "./components/ActPassword/ActPassword";
 
 export default function App(){
 
@@ -44,7 +48,11 @@ export default function App(){
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
+        <Route path="/DashBoard" element={<Dashboard />} />
+        <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
+        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
+       <Route path ="/RecetPassword" element={< ActPassword  />} /> 
       </Routes>
     </div>
   )

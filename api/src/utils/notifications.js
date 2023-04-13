@@ -100,55 +100,59 @@ const sendConfirmedPaymentEmail = async (
         
 
         // console.log("cantidadesTotales es ", cantidadesTotales)
-        // console.log(datos.order)
-        await transporter.sendMail({
-            from: process.env.USER_EMAIL_GAMERS_STORE,
-            to: `${datos.comprador.email}`,
-            subject: "Información de orden de compra de MercadoPago",
-            html: `
-            <body style=" font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" >
-            <div style="background-color: #89CFF0; padding-top:20px; width:auto; ">
-                <div style="justify-content: center; display: flex;">
-                   <center> <img src="cid:fondo-email" style="width:60%;border-radius: 2%; "/></center>
-                </div>
-                <div style="font-size: 20px; text-align:center; color: grey;">
-                  <p style="line-height: 140%;">${datos.comprador.name} ${datos.comprador.surname}  Gracias por comprar en <span style="color: #23a7be; line-height: 22.4px;"><a rel="noopener" href="http://127.0.0.1:5173/" target="_blank" style="color: #00008B;text-decoration: none;">PhoneZone 📱</a></span></p>
-                </div>
-                <div style="line-height: 140%; font-size: 17px; text-align:center">
-                  <p style="line-height: 140%;"><span style="background-color: #89CFF0; line-height: 19.6px; letter-spacing: 2px;"><strong><span style="color: #00008B; line-height: 19.6px;">Resumen de tu compra:</span></strong></span></p>
-                </div>
-                <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
-                  <p style="line-height: 140%;">Compraste ${cantidades} unidades!</p>
-                </div>
-                <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
-        
-                </div>
-                <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
-                <p style="line-height: 140%;"> Productos:${datos.products}</p>
-                </div>
-                <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
-              
-                </div>
-                <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;"">
-                  <p style="line-height: 140%;">Total de la compra: $${datos.total}</p>
-                </div>
-                <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;"">
-                  <p style="line-height: 140%;">Envio a domicilio: ${datos.order[0].address}</p>
-                </div>
-                <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey; background-color: #00CCFF; padding: 20px;">
-                  <p style="line-height: 140%;">Si tienes algún problema, estamos para ayudarte <a rel="noopener" href="http://127.0.0.1:5173/" target="_blank" style="color: #00008B;text-decoration: none;">Contactanos :)</a></p>
-                </div>
-            </div>
-            </body>
-            `,
-            attachments:[
-              {
-                filename:'fondo-email.jpg',
-                path:'public/fondo-email.jpg',
-                cid:'fondo-email'
-              }
-            ]
-          });
+        // console.log("DATOS.order ES: ", datos.order)
+        // console.log("DATOS.order.orders ES: ", datos.order.orders)
+        // console.log("DATOS.order.address ES: ", datos.order[0].address)
+        setTimeout( async () => {
+          await transporter.sendMail({
+              from: process.env.USER_EMAIL_GAMERS_STORE,
+              to: `${datos.comprador.email}`,
+              subject: "Información de orden de compra de MercadoPago",
+              html: `
+              <body style=" font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" >
+              <div style="background-color: #89CFF0; padding-top:20px; width:auto; ">
+                  <div style="justify-content: center; display: flex;">
+                    <center> <img src="cid:fondo-email" style="width:60%;border-radius: 2%; "/></center>
+                  </div>
+                  <div style="font-size: 20px; text-align:center; color: grey;">
+                    <p style="line-height: 140%;">${datos.comprador.name} ${datos.comprador.surname}  Gracias por comprar en <span style="color: #23a7be; line-height: 22.4px;"><a rel="noopener" href="http://127.0.0.1:5173/" target="_blank" style="color: #00008B;text-decoration: none;">PhoneZone 📱</a></span></p>
+                  </div>
+                  <div style="line-height: 140%; font-size: 17px; text-align:center">
+                    <p style="line-height: 140%;"><span style="background-color: #89CFF0; line-height: 19.6px; letter-spacing: 2px;"><strong><span style="color: #00008B; line-height: 19.6px;">Resumen de tu compra:</span></strong></span></p>
+                  </div>
+                  <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
+                    <p style="line-height: 140%;">Compraste ${cantidades} unidades!</p>
+                  </div>
+                  <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
+          
+                  </div>
+                  <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
+                  <p style="line-height: 140%;"> Productos:${datos.products}</p>
+                  </div>
+                  <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;">
+                
+                  </div>
+                  <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;"">
+                    <p style="line-height: 140%;">Total de la compra: $${datos.total}</p>
+                  </div>
+                  <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;"">
+                    <p style="line-height: 140%;">Envio a domicilio: ${datos.order[0].address}</p>
+                  </div>
+                  <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey; background-color: #00CCFF; padding: 20px;">
+                    <p style="line-height: 140%;">Si tienes algún problema, estamos para ayudarte <a rel="noopener" href="http://127.0.0.1:5173/" target="_blank" style="color: #00008B;text-decoration: none;">Contactanos :)</a></p>
+                  </div>
+              </div>
+              </body>
+              `,
+              attachments:[
+                {
+                  filename:'fondo-email.jpg',
+                  path:'public/fondo-email.jpg',
+                  cid:'fondo-email'
+                }
+              ]
+            })
+          }, 15000)
     }catch(error){
        console.log(error) 
     }
@@ -174,7 +178,7 @@ const sendEmailOrderSent = async (
         let datos = await informationSearch(
             idUser);
 
-        console.log("datos es: ", datos)
+        // console.log("datos es: ", datos)
         
         await transporter.sendMail({
             from: process.env.EMAIL_PHONEZONE,

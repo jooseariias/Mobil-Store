@@ -18,9 +18,11 @@ export const CLEAN_PHONES = "CLEAN_PHONES";
 export const FILTER_CAPACITY = "FILTER_CAPACITY";
 export const POST_USER = "POST_USER";
 export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
+export const GET_REVIEWS=" GET_REVIEWS"
 
 
   export function getPhones(){
@@ -191,6 +193,16 @@ export function GetUsers(){
   }
 }
 
+export function getUser(payload){
+  return async function(dispatch){
+    let json = await axios.get(`http://localhost:3001/user/?name=${payload}`)
+    return dispatch({
+      type: GET_USER,
+      payload: json.data
+    })
+  }
+}
+
 export function LoginSuccess(data){
   return async function(dispatch){
     dispatch({
@@ -205,5 +217,22 @@ export function LogOut(){
     dispatch({
       type: LOG_OUT,
     })
+  }
+}
+
+//////*REVIEWS///////
+export function getReviews(id) {
+  
+
+  return (dispatch) => {
+      axios.get(`http://localhost:3001/reviews/${id}`)
+          .then(response => dispatch(
+              {
+                  type:GET_REVIEWS ,
+                  payload: response.data
+              },
+              console.log("reviews:",response.data)
+          ))
+          .catch(err => console.log(err))
   }
 }
