@@ -10,8 +10,8 @@
 .prom span{
  
    font-size: 30px;
-   color: rgb(250, 247, 247);
-   font-weight: bold;
+ 
+   font-weight:normal;
    padding-right: 3px;
 }
 .prom{
@@ -22,14 +22,14 @@
 }
 .estrellas,.fecha, .comentarios{
     margin-right: 20px;
-    margin-top: 5px;
+    margin-top: 10px;
     align-items: end;
 }
 
 
   .comentarios p, .fecha p {
    font-size: 18px;
-   padding: 1px;
+   padding: 7px;
   }
   .tituloRes{
    padding-bottom: 30px;

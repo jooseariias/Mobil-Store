@@ -14,7 +14,7 @@ export const StarRating = ({ score }) => {
     }
   }
 
-  return <div className='flex flex-row text-yellow-500 text-2xl'>{stars}</div>;
+  return <div className='flex flex-row text-yellow-500 text-2xl p-2'>{stars}</div>;
 };
 
 

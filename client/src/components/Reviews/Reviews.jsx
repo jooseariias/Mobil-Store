@@ -37,10 +37,9 @@ export const Reviews = () => {
         <>
         <h3 className='tituloRes'>Opiniones del producto</h3>
         <div className='contenedorRev '>
-            {console.log("resenas", reviews)}
-         <div className='prom'>
-        <span>{Promedio}</span> <StarRating score={Promedio} /> 
-        </div> 
+            <div className='prom'>
+                <span>{Promedio}</span> <StarRating score={Promedio} /> 
+            </div> 
               <div className="fecha">
             {
                 reviews?.map(r=>{
