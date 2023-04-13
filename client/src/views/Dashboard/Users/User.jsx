@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {GetUsers} from "../../../redux/actions/index"
 import CardDashBoard from "./cardDashBoardUsers/cardDashBoardUsers";
 import SideBar from "../SideBar/SideBar";
-import Pagination from "../../Pagination/pagination";
+import PaginationUsers from "./PaginationUser/PaginationUser";
 import SearchBarUsers from "./SearchBarUsers/SearchBarUsers";
 
 
@@ -44,13 +44,14 @@ export default function UsersDashBoard(){
                         surname={e.surname}
                         email={e.email}
                         rol={e.rol}
+                        enabled={e.enabled}
                         />
                         );
                     })}
 
                 </div>
 
-                <Pagination
+                <PaginationUsers
                 quantity={quantity}
                 start={start}
                 setStart={setStart}

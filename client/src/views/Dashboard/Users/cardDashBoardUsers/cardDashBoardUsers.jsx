@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CardDashBoard({image, name, surname , email ,  rol}){
+export default function CardDashBoard({image, name, surname , email ,  rol, enabled}){
 
     return(
         <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px] m-4'>
@@ -16,6 +16,10 @@ export default function CardDashBoard({image, name, surname , email ,  rol}){
 
         <div class='w-[200px] bg-white'>
         <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>{rol}</h5>
+        </div>
+
+        <div class='w-[200px] bg-white'>
+        {enabled === true ? <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>autorizado</h5> : <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'> no aoutorizado</h5>}
         </div>
 
         {/* <button className="item-center justify-between flex" onClick={() => DeleteUser(e.id) }>
