@@ -23,7 +23,7 @@ export default function Cart(){
       });
     }
   
-    if(window.localStorage.getItem('carrito-ls')){
+    else if(window.localStorage.getItem('carrito-ls')){
       setCarrito(JSON.parse(window.localStorage.getItem('carrito-ls')));
     }
   
@@ -146,7 +146,7 @@ export default function Cart(){
 
             <div class="flex justify-between border-b pb-5 dark:border-gray-700">
               <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-              <h2 class="font-semibold text-2xl">{carrito?.quantity} Items</h2>
+              <h2 class="font-semibold text-2xl">{carrito?.productcarts.length} Items</h2>
             </div>
 
             <div class="flex mt-8 mb-5 justify-between dark:text-gray-400">
