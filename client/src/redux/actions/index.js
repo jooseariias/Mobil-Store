@@ -22,6 +22,7 @@ export const GET_USERS = "GET_USERS";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
 
+
   export function getPhones(){
     return async function (dispatch) {
       let Json = await axios.get(`http://localhost:3001/product`);
@@ -149,6 +150,27 @@ export const LOG_OUT = "LOGOUT";
         type: CLEAN_PHONES,
         payload: [],
     }
+}
+
+// - - - RUTAS PARA EL CARRITO DE LA BASE DE DATOS - - - //
+
+export function PostProductCart(payload){
+
+  return async function(){
+    await axios.post('http://localhost:3001/cart/addProduct', payload);
+  }
+}
+
+export function getProductCart(payload){
+  return async function(){
+    return await axios.get(`http://localhost:3001/cart/getProduct/${payload}`)
+  }
+}
+
+export function deleteProductCart(payload){
+  return async function(){
+    await axios.delete(`http://localhost:3001/cart/delete/?productCardId=${payload}`);
+  }
 }
 
 //rutas user

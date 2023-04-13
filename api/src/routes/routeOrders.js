@@ -20,13 +20,12 @@ mercadopago.configure({
   access_token: ACCESS_TOKEN_MP,
 });
 
-const { User, Orders, Product, OrderStatus, Detail } = require("../db.js");
+const { User, Orders, Product, OrderStatus, Detail, Cart, Productcart } = require("../db.js");
 
 router.post("/", async (req, res) => {
-  try {
-    const arrayOfOrders = req.body;
-    // console.log(arrayOfOrders)
 
+    const { userId, address } = req.body;
+    
     let successUrl;
 
     let preference = {
@@ -39,9 +38,87 @@ router.post("/", async (req, res) => {
       auto_return: "approved",
       binary_mode: true,
     };
-    let stock = true;
+
+    // BUSCAMOS EN LA DB TODOS LOS PRODUCTOS QUE TIENE EN SU CARRITO.
+
+    const products = await Productcart.findAll({
+      where: { cartId: userId }
+    })
+
+    const cart = await Cart.findOne({
+      where: { id: userId }
+    })
 
     await Promise.all(
+
+      products.map(async (product, index) => {
+
+        preference.items[index] = {
+          title: product.name,
+          picture_url: product.img,
+          currency_id: "ARS",
+          //description: product.description.slice(0, 254),
+          quantity: product.quantity,
+          unit_price: parseFloat(product.priceProduct)
+        }
+      })
+    )
+
+    let [cantidades, precios, titulos, fotos] = preference.items.map((product) => [
+      product.quantity,
+      product.unit_price,
+      product.title,
+      product.picture_url]).reduce((prev, curr) => [
+        [...prev[0], curr[0]],
+        [...prev[1], curr[1]],
+        [...prev[2], curr[2]],
+        [...prev[3], curr[3]],
+      ],[[], [], [], []]).map((arr) => arr.join(","));
+
+    let idProducts = products.map((e) => e.productId).join(",");
+      
+    successUrl = `${process.env.BACK_URL}/orders/pago-confirmado?idUser=${userId}&quantity=${cantidades}
+    &price=${precios}&total=${cart.priceCart}&idProduct=${idProducts}&address=${address}
+    &title=${titulos}&picture_url=${fotos}`;
+
+    let cadenaCantidades = cantidades.split(",")
+    let cadenaProductos = idProducts.split(",");
+    let stock = true;
+
+    for (let i = 0; i < cadenaProductos.length; i++) {
+      const product = await Product.findOne({
+      where: {
+          id: parseInt(cadenaProductos[i]),
+      },
+      });
+      // console.log("Stock es: ", product.stock);
+      // console.log("Cantidades es: ", cadenaCantidades[i]);
+   
+      if (product.stock < cadenaCantidades[i]){
+          stock = false;
+      // res.status(400).json({ error: 'No hay stock para el producto' }); // no hay stock para un producto determinado
+      }
+    }
+
+    if(stock){
+      preference.back_urls.success = successUrl;
+      const response = await mercadopago.preferences.create(preference);
+    
+      res.status(200).json({
+        init_point: response.body.init_point,
+        items: response.body.items,
+      });
+    } else {
+      res.status(400).json({
+        error: `No hay stock, actualice la página para ver el nuevo stock`,
+        success: false
+      });
+    }
+})
+
+    
+    /*await Promise.all(
+
       arrayOfOrders.productAndQuantity.map(async (product, index) => {
         const producto = await Product.findOne({
           where: {
@@ -124,7 +201,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-});
+  */
 
 router.get("/pago-fallido", async (req, res) => {
   res.status(200).json({ msg: "pago fallido" });
@@ -188,8 +265,9 @@ router.get("/pago-confirmado", async (req, res) => {
       picture_url,
       description
     );
+
     if(!nuevaOrden) {
-        res.status(400).json({ error: `No hay stock para el producto` });
+        res.status(400).send({ error: `No hay stock para el producto` });
     }
     await sendConfirmedPaymentEmail(
       idUser,
@@ -199,9 +277,9 @@ router.get("/pago-confirmado", async (req, res) => {
     );
     // const filePath = path.join(__dirname, '../utils/success.html');
     // res.sendFile(filePath);
-    res.status(200).json({ msg: "pago confirmado" });
+    res.status(200).send({ msg: "pago confirmado" });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).send({ error: error.message });
   }
 });
 

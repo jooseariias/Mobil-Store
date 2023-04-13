@@ -90,6 +90,8 @@ const sendConfirmedPaymentEmail = async (
             cadenaPrecios,
             cadenaTitulos)
 
+            console.log("datos", datos);
+
         let cantidadesTotales = datos.cantidades.map((str) => Number(str)); 
         let cantidades = 0;
         for(let i = 0; i < cantidadesTotales.length; i++) {

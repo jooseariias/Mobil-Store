@@ -81,6 +81,8 @@ function rootReducer(state = initialState, action){
 
           window.localStorage.setItem('user-log', JSON.stringify(action.payload));
 
+          console.log("action", action.payload)
+
           return{
             ...state,
             User: action.payload,
@@ -135,7 +137,7 @@ function rootReducer(state = initialState, action){
       //reducers de ordenamiento
   
       case ORDER_BY_NAME:
-        console.log("1");
+
         let order =
           action.payload === "asc"
             ? state.PhonesCopy.sort(function (a, b) {

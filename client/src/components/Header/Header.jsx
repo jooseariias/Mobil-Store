@@ -228,7 +228,7 @@ export default function Header(){
         <Link to={"/Store"}>
           <h1>Support</h1>
         </Link>
-        <Link to={"/Store"}>
+        <Link to={"/About"}>
           <h1>About Phonezone</h1>
         </Link>
       </div>
