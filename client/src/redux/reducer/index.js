@@ -14,6 +14,7 @@ import{
 
     GET_USERS,
     POST_USER,
+    GET_USER,
 
     CLEAN_DETAIL,
     CLEAN_PHONES,
@@ -41,7 +42,6 @@ function rootReducer(state = initialState, action){
     switch (action.type) {
   
       case GET_PHONES:
-       
         return{
           ...state,
           Phones: action.payload,
@@ -66,6 +66,12 @@ function rootReducer(state = initialState, action){
           ...state,
           Users: action.payload
         };
+
+      case GET_USER:
+        return{
+          ...state,
+          Users: action.payload
+        }
 
       case CLEAN_DETAIL:
         return{
