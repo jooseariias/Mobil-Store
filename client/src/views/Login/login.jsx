@@ -142,7 +142,7 @@ export default function Login(){
             Sign up here
           </Link>
         </p>
-        <Link to={"/PasswordChange"} className="text-blue-900 dark:text-blue-300 underline">
+        <Link to={"/ResetPassword"} className="text-blue-900 dark:text-blue-300 underline">
         I forgot my password
           </Link>
       </div>

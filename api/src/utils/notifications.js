@@ -136,7 +136,7 @@ const sendConfirmedPaymentEmail = async (
                     <p style="line-height: 140%;">Total de la compra: $${datos.total}</p>
                   </div>
                   <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey;"">
-                    
+
                   </div>
                   <div style="line-height: 140%;font-size: 17px; text-align:center; color: grey; background-color: #00CCFF; padding: 20px;">
                     <p style="line-height: 140%;">Si tienes algún problema, estamos para ayudarte <a rel="noopener" href="http://127.0.0.1:5173/" target="_blank" style="color: #00008B;text-decoration: none;">Contactanos :)</a></p>

@@ -19,14 +19,15 @@ import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register";
 import Dashboard from "./views/Dashboard/Dashboard";
 
-import Products from "./views/Dashboard/Product/Products";
+//import Products from "./views/Dashboard/Product/Products";
 
 import UsersDashBoard from "./views/Dashboard/Users/User";
-import LinkPassword from "./components/LinkPassword/LinkPassword";
-import ActPassword from "./components/ActPassword/ActPassword";
+import ResetPassword from "./components/ActPassword/ResetPassword";
+// import LinkPassword from "./components/LinkPassword/LinkPassword";
+// import ActPassword from "./components/ActPassword/ActPassword";
 
+export default function App(){
 
-export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,12 +44,12 @@ export default function App() {
     dispatch(getCapacity());
   }, []);
 
-  const user = localStorage.getItem("user");
-  const userPared = JSON.parse(user);
-  const userRol = userPared.rol;
-  console.log(userRol);
+  //const user = localStorage.getItem("user");
+  //const userPared = JSON.parse(user);
+  //const userRol = userPared.rol;
+  //console.log(userRol);
 
-  return (
+  return(
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -61,10 +62,11 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
 
+      {/*
         {userRol === 'admin' ? <Route path="dashboard">
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
-        </Route> : ''}
+  </Route> : ''} */}
         
         
         
@@ -72,8 +74,9 @@ export default function App() {
         <Route path="/DashBoard" element={<Dashboard />} />
         <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
-        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
-       <Route path ="/RecetPassword" element={< ActPassword  />} /> 
+
+        {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
+       <Route path ="/ResetPassword" element={< ResetPassword/>} /> 
 
       </Routes>
     </div>
