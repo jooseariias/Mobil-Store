@@ -2,37 +2,59 @@ import { PostProductLocalStorage } from "../../helpers/Cart";
 import { BsFillHeartFill } from "react-icons/bs"
 import WishListService from '../../helpers/WishList'
 import Swal from "sweetalert2";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
+import { PostProductCart } from "../../redux/actions";
 
 export default function Card({id, name, price, image, stock, brand}){
 
     const user = useSelector((state) => state.User)
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     
-  const handleClickDetail = (id) => {
-    navigate(`/details/${id}`);
-  };
+    const handleClickDetail = (id) => {
+        navigate(`/details/${id}`);
+    };
 
     const handleClick = () => {
 
         const product = {
             id: id,
             name: name,
-            price: parseInt(price),
-            image: image,
+            priceProduct: parseInt(price),
+            img: image,
             stock: stock,
-            total: parseInt(price),
-            brand: brand,
+            totalValue: parseInt(price),
+            brand: brand.name,
             quantity: 1,
         }
 
         // TENEMOS QUE COMPROBAR SI EL USUARIO ESTÁ VALIDADO.
 
-        if(window.localStorage.getItem('user-session')){
+        if(window.localStorage.getItem('user-log')){
 
-        }else{
+            const data = {
+                productId: id,
+                userId: user.data_user.id,
+            }
+
+            dispatch(PostProductCart(data)).then((response) => {
+                console.log("DATOS", response);
+                return Swal.fire({
+                    icon: 'success',
+                    text: 'Congratulations!',
+                    text: "SE AÑADIÓ A TU CARRITO, PA"
+                })
+            }).catch((response) => {
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong',
+                    text: response.response.data.message
+                })
+            })
+            
+        } else{
             const res = PostProductLocalStorage(product);
                 return Swal.fire({
                     icon: res.icon,
@@ -82,7 +104,7 @@ export default function Card({id, name, price, image, stock, brand}){
         <div class="w-full max-w-xl bg-white border border-gray-400 rounded-lg dark:bg-gray-900 dark:border-gray-700 transform transition duration-500 hover:scale-105 mt-3 mb-3" >
 
     <a href="#">
-        <img class="rounded-t-lg w-full h-[300px] text-center px-20" src={image} alt="product image" onClick={() => handleClickDetail(id)} />
+        <img class="rounded-t-lg w-full h-[300px] text-center" src={image} alt="product image" onClick={() => handleClickDetail(id)} />
     </a>
 
     <div class="px-3 pb-1">

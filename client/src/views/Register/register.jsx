@@ -58,13 +58,13 @@ export default function Register() {
 
 
     return (
-        <div className="bg-gray-100  dark:bg-gray-900 h-min-screen ">
+        <div className="bg-gray-100  dark:bg-slate-900 h-min-screen ">
 
             <Header/>
 
-            <div className= "flex flex-col justify-center card p-6 w-1/2  mx-auto h-full m-20 bg-white dark:bg-gray-400 objet-cover rounded-xl objer-cover ">
+            <div className= "flex flex-col justify-center card p-6 w-1/2   mx-auto h-full m-20 bg-white dark:bg-gray-900 dark:border-gray-600 objet-cover dark:text-white  objer-cover rounded-xl">
               <div className="text-center item-center flex justify-center m-8 ">
-                <h1 className="text-center m-1 text-2xl font-bold">Phone zone</h1>
+                <h1 className="text-center m-1 text-2xl font-bold dark:text-white">Phone zone</h1>
               </div>
 
             <Formik className = "bg-white  rounded-lg  flex flex-col justify-center item-center  text-center m-1 h-full space-y-1 "
@@ -81,33 +81,33 @@ export default function Register() {
                 <Form className='flex flex-col  px-20 '>
 
                   <div className='m-1'>                      
-                    <label className="font-bold px-20">Name</label>
+                    <label className="font-bold px-20 dark:text-white">Name</label>
                     <div className='item-center justify-center flex flex-col px-20'>
-                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border dark:text-white "/>
-                    <ErrorMessage name='name' className='dark:text-white'/>
+                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border  dark:bg-blue-300"/>
+                    <ErrorMessage name='name'/>
                     </div> 
                   </div>
 
                   <div className='m-1'>
-                  <label className="font-bold px-20">Surname</label>
+                  <label className="font-bold px-20 dark:text-white">Surname</label>
                    <div className='item-center justify-center flex flex-col px-20'>
-                   <Field name='surname' type='text'  placeholder='Surname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"/>
+                   <Field name='surname' type='text'  placeholder='Surname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border dark:text-white dark:bg-blue-300"/>
                     <ErrorMessage name='surname'/>
                    </div>
                   </div>
 
                   <div className='m-1'>
-                    <label className="font-bold px-20">Email</label>
+                    <label className="font-bold px-20 dark:text-white">Email</label>
                     <div className='item-center justify-center flex flex-col px-20'>
-                    <Field name='email' type='email' placeholder='Email' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"/>
+                    <Field name='email' type='email' placeholder='Email' className=" rounded-lg p-1 my-2 focus:outline-none dark:text-white focus:shadow-outline border dark:bg-blue-300"/>
                       <ErrorMessage name='email'  />
                     </div>
                   </div>
 
                   <div className='m-1'>
-                    <label className="font-bold px-20">Password</label>
+                    <label className="font-bold px-20 dark:text-white">Password</label>
                     <div className='item-center relative justify-center flex flex-col px-20'>
-                    <Field name='password' type={seePassword ? "text" : "password"}  placeholder='Password' className="justify-center item-center  rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border"/>
+                    <Field name='password' type={seePassword ? "text" : "password"}  placeholder='Password' className="justify-center item-center  rounded-lg p-1 my-2 dark:text-white focus:outline-none focus:shadow-outline dark:bg-blue-300 border"/>
                     <span
                     onClick={() => {
                       setSeePassword(!seePassword);
@@ -122,10 +122,10 @@ export default function Register() {
                   </div>
                     
                     <div className='m-1'>
-                      <label className="font-bold px-20">Image</label>
+                      <label className="font-bold px-20 dark:text-white">Image</label>
                       <div className='item-center justify-center flex flex-col px-20'>
                           <div  style={{ backgroundImage: `url(${picture})` }}></div>                    
-                          <Field name='image' type='file' placeholder='image'  className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border" onChange={handleImage}/>  
+                          <Field name='image' type='file' placeholder='image'  className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border dark:bg-blue-400 dark:text-white" onChange={handleImage}/>  
                           <ErrorMessage name='image'/>                     
                       </div>
                     </div>

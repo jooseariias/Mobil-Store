@@ -14,6 +14,9 @@ export default function Wishlist(){
     const [Actualizar, setActualizar] = useState(false)
 
     useEffect(() => {
+
+        console.log("ANDRÉS", user.data_user);
+
         // Only make the API call if `user` data is available
         if (user && user.data_user && user.data_user.id) {
           dispatch(GetWishList(user.data_user.id)).then((response) => {

@@ -18,8 +18,8 @@ export const PostProductLocalStorage = (obj) => {
         }
 
         // MODIFICAMOS EL TOTAL DE PRODUCTOS EN EL CARRITO Y SU VALOR TOTAL
-        carrito.quantity = carrito.quantity + 1;
-        carrito.totalValue = carrito.totalValue + obj.price
+        carrito.quantity = carrito.quantity + 1
+        carrito.priceCart = carrito.priceCart + obj.priceProduct
 
         // AGREGAMOS EL NUEVO PRODUCTO AL ARREGLO DE PRODUCTOS EN EL CARRITO Y VOLVEMOS A METERLO EN EL LOCAL STORAGE
         carrito.productcarts.push(obj);
@@ -36,9 +36,9 @@ export const PostProductLocalStorage = (obj) => {
 
         // EL USUARIO EN ESTE PUNTO NO TIENE CARRITO, PRIMERO LO CREAMOS Y LE METEMOS EL PRIMER PRODUCTO
         const carrito = {
-            totalValue: obj.price,
+            productcarts: [obj],
             quantity: 1,            
-            productcarts: [obj]
+            priceCart: obj.priceProduct,
         }
 
         window.localStorage.setItem('carrito-ls', JSON.stringify(carrito));
@@ -62,7 +62,7 @@ export const DeleteProductLocalStorage = (id) => {
 
             // AHORA MODIFICAMOS LOS PARÁMETROS DE BORRAR UN PRODUCTO
             carrito.quantity = carrito.quantity - 1;
-            carrito.totalValue = carrito.totalValue - carrito.productcarts[i].total;
+            carrito.priceCart = carrito.priceCart - carrito.productcarts[i].totalValue;
             carrito.productcarts.splice(i, 1);
         }
     }
@@ -105,10 +105,10 @@ export const UpdateStockProductLocalStorage = (operator, id, stock) => {
                     carrito.productcarts[i].quantity = carrito.productcarts[i].quantity + 1;
 
                     // AGREGAMOS SU PRECIO AL VALOR TOTAL DEL PRODUCTO EN GENERAL
-                    carrito.productcarts[i].total = carrito.productcarts[i].total + carrito.productcarts[i].price;
+                    carrito.productcarts[i].totalValue = carrito.productcarts[i].totalValue + carrito.productcarts[i].priceProduct;
 
                     // SUMAMOS SU PRECIO AL VALOR TOTAL DEL CARRITO
-                    carrito.totalValue = carrito.totalValue + carrito.productcarts[i].price;
+                    carrito.priceCart = carrito.priceCart + carrito.productcarts[i].priceProduct;
                 } 
                 
                 else{
@@ -134,10 +134,10 @@ export const UpdateStockProductLocalStorage = (operator, id, stock) => {
                     carrito.productcarts[i].quantity = carrito.productcarts[i].quantity - 1;
 
                     // AGREGAMOS SU PRECIO AL VALOR TOTAL DEL PRODUCTO EN GENERAL
-                    carrito.productcarts[i].total = carrito.productcarts[i].total - carrito.productcarts[i].price;
+                    carrito.productcarts[i].totalValue = carrito.productcarts[i].totalValue - carrito.productcarts[i].priceProduct;
 
                     // SUMAMOS SU PRECIO AL VALOR TOTAL DEL CARRITO
-                    carrito.totalValue = carrito.totalValue - carrito.productcarts[i].price;
+                    carrito.priceCart = carrito.priceCart - carrito.productcarts[i].priceProduct;
                 } 
                 
                 else{
