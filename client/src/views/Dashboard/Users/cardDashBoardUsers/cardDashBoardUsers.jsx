@@ -19,7 +19,7 @@ export default function CardDashBoard({image, name, surname , email ,  rol, enab
         </div>
 
         <div class='w-[200px] bg-white'>
-        {enabled === true ? <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>autorizado</h5> : <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'> no aoutorizado</h5>}
+        {enabled === true ? <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>enabled</h5> : <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'> disabled</h5>}
         </div>
 
         {/* <button className="item-center justify-between flex" onClick={() => DeleteUser(e.id) }>
