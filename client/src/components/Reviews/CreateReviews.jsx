@@ -1,12 +1,10 @@
 
-import React ,{useState} from 'react'
+import React ,{useState,useEffect} from 'react'
 import "./reviews.css"
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { postReviews } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
-
-
 import swal from "sweetalert2";
 
 export const CreateReviews = () => {
@@ -22,7 +20,10 @@ export const CreateReviews = () => {
     setRating(event.target.value);
   };
   const [error, setError] = useState({});
+ useEffect(() => {
 
+ }, [msg])
+ 
     const handleBlurComment = () => {
       if (!comment.trim()) {
         setError((prevErrors) => ({
@@ -51,19 +52,22 @@ export const CreateReviews = () => {
        idUser: User.data_user.id
      };
     dispatch(postReviews(productId,FormData))
-    swal.fire({
-     title: "Success",
-     text: "You review was successfully added!",
-     icon: "success",
-     buttons: "Ok",
-   });
-     console.log(productId,FormData)
-     console.log(product)
-     setRating('');
-     setComment('');
-    
-   }
+    .then(() => {
+      swal.fire({
+        title: "Message",
+        text:"Successful review!",
+        icon: "info",
+        buttons: "Ok",
+      });
+      setRating("");
+      setComment("");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
   };
+
 
   return (
     <div className='contenedorReview'>
@@ -94,8 +98,7 @@ export const CreateReviews = () => {
         <input type="radio" id="star1" name="rating" value="1" onChange={handleRatingChange} />
         <label htmlFor="star1"><FaStar /></label>
        </div>
-       {console.log(msg)
-       }
+      
        {error.rating && <p className="error">{error.rating}</p>}
         <label htmlFor="" className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name'>Comment</label>
         <textarea onBlur={handleBlurComment} className='rounded text-pink-500'  cols="30" rows="10" value={comment}  onChange={(event) => setComment(event.target.value)}></textarea>
