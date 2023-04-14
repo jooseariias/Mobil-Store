@@ -67,7 +67,7 @@ export default function App(){
         <Route path="/WishList" element={<Wishlist />} /> 
         <Route path="*" element={<NotFount />} />
         <Route path ="*" element={<NotFount />} />
-        <Route path ="/:productId/review" element={< CreateReviews />} /> 
+        <Route path ="/review/:productId" element={< CreateReviews />} /> 
         <Route path ="/passwordReset" element={<PasswordReset /> } />
         <Route path ="/reset" element={<Reset /> } />
 
