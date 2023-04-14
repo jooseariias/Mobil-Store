@@ -35,7 +35,7 @@ export default function UsersDashBoard(){
                 </div>
 
                 <div class='flex text-center bg-white items-center justify-center mx-80 flex-wrap w-[1000px] px-40'>
-                
+             
                     {usersDisplayed?.map((e) => {
                     return (
                         <CardDashBoard
@@ -59,9 +59,7 @@ export default function UsersDashBoard(){
                 setCurrentPage={setCurrentPage}
             />
 
-
             </div>
-
 
 
 

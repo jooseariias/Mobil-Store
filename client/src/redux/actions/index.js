@@ -24,7 +24,11 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
 export const GET_REVIEWS=" GET_REVIEWS"
 
+
 const { URL_BACK } = process.env;
+
+export const POST_REVIEW="POST_REVIEW"
+
 
 // const URL_BACK = `http://localhost:3001`
   export function getPhones(){
@@ -171,9 +175,9 @@ export function getProductCart(payload){
   }
 }
 
-export function deleteProductCart(payload){
+export function deleteProductCart(data){
   return async function(){
-    await axios.delete(`${URL_BACK}/cart/delete/?productCardId=${payload}`);
+    await axios.delete('${URL_BACK}/cart/deleteProduct', { data });
   }
 }
 
@@ -224,8 +228,6 @@ export function LogOut(){
 
 //////*REVIEWS///////
 export function getReviews(id) {
-  
-
   return (dispatch) => {
       axios.get(`${URL_BACK}/reviews/${id}`)
           .then(response => dispatch(
@@ -238,3 +240,21 @@ export function getReviews(id) {
           .catch(err => console.log(err))
   }
 }
+
+export const postReviews =  (id,payload) => {
+  try {
+    return async (dispatch) => {
+    const resultado = await axios.post(`http://localhost:3001/reviews/${id}`,payload)
+    console.log(resultado.data)
+     dispatch({
+      type:POST_REVIEW, 
+      payload:resultado.data
+    })
+    }
+  
+  } catch (error) {
+    console.log(error.message)
+  }
+  
+}
+

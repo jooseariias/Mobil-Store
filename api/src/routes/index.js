@@ -48,7 +48,7 @@ const deleteCart = require('./cartsRoutes/delete')
 /* *************************  routes CARRITO   **************************************** */
 router.use("/cart/addProduct", addCart);
 router.use("/cart/getProduct", getCart);
-router.use("/cart/delete", deleteCart);
+router.use("/cart/deleteProduct", deleteCart);
 
 router.use('/product', productsRoute);
 router.use('/brand', brandRoute);

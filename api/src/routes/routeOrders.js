@@ -266,9 +266,11 @@ router.get("/pago-confirmado", async (req, res) => {
       description
     );
 
-    if(!nuevaOrden) {
+    if(!nuevaOrden){
         res.status(400).send({ error: `No hay stock para el producto` });
     }
+
+    
     await sendConfirmedPaymentEmail(
       idUser,
       cadenaCantidades,
