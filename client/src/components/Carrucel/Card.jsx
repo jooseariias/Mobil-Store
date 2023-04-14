@@ -20,7 +20,7 @@ export default function Card({id, name, price, image, stock, brand}){
     const handleClick = () => {
 
         const product = {
-            id: id,
+            productId: id,
             name: name,
             priceProduct: parseInt(price),
             img: image,
@@ -40,11 +40,10 @@ export default function Card({id, name, price, image, stock, brand}){
             }
 
             dispatch(PostProductCart(data)).then((response) => {
-                console.log("DATOS", response);
                 return Swal.fire({
                     icon: 'success',
-                    text: 'Congratulations!',
-                    text: "SE AÑADIÓ A TU CARRITO, PA"
+                    title: 'Congratulations!',
+                    text: response.data.message
                 })
             }).catch((response) => {
                 return Swal.fire({
@@ -96,7 +95,6 @@ export default function Card({id, name, price, image, stock, brand}){
                     text: response.response.data.message
                 })
             })
-
         }
     }
     

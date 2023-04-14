@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
+
 import {
   getPhones,
   getBrands,
   getCapacity,
   LoginSuccess,
 } from "./redux/actions";
+
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
@@ -18,15 +20,25 @@ import Login from "./views/Login/login";
 import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Support from './views/Support/Support'
 
-//import Products from "./views/Dashboard/Product/Products";
+
 
 import UsersDashBoard from "./views/Dashboard/Users/User";
+
 import PasswordReset from "./components/ActPassword/PasswordReset";
 import Reset from "./components/ActPassword/Reset";
+
+
+//import LinkPassword from "./components/LinkPassword/LinkPassword";
+// import ActPassword from "./components/ActPassword/ActPassword";
+import { CreateReviews } from "./components/Reviews/CreateReviews";
+
+
 // import ResetPassword from "./components/ActPassword/ResetPassword";
 // import LinkPassword from "./components/LinkPassword/LinkPassword";
 // import ActPassword from "./components/ActPassword/ActPassword";
+
 
 export default function App(){
 
@@ -59,16 +71,12 @@ export default function App(){
         <Route path="/details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
         <Route path="/About" element={<About />} />
+        <Route path="/Support" element={<Support />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
 
-      {/*
-        {userRol === 'admin' ? <Route path="dashboard">
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-  </Route> : ''} */}
         
         
         
@@ -77,10 +85,19 @@ export default function App(){
         <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
 
+        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
+       {/* <Route path ="/RecetPassword" element={< ActPassword  />} />  */}
+       <Route path ="/:productId/review" element={< CreateReviews />} /> 
+
+
         {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
        {/* <Route path ="/ResetPassword" element={< ResetPassword/>} />  */}
+
        <Route path ="/passwordReset" element={<PasswordReset /> } />
        <Route path ="/reset" element={<Reset /> } />
+
+
+
 
       </Routes>
     </div>

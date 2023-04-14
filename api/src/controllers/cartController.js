@@ -1,7 +1,7 @@
 const  { User, Cart, Productcart, Product, Brand  }  = require("../db")
 
-const updateTotalValue = async(cart) => {
-    //busco los productos cargados en el carrito y calculo el total
+const updateTotalValue = async (cart) => {
+
     let loadedProducts = await Productcart.findAll({where: { cartId: cart.id}});
     let totalCart = await loadedProducts.map(e => e.totalValue).reduce((a,b)=> a+b,0);
 
@@ -65,22 +65,26 @@ const addProductCart = async(req, res) => {
 } 
 
 const deleteProductCart = async (req, res) => {
-    try {
-        const { productCardId } = req.query;
-        let productCart = await Productcart.findOne({
-        where: { id: productCardId }
-    });
-    if(!productCart){
-        res.status(404).send("no se puede eliminar un producto que no agregaste tonto ")
-    }
-    await productCart.destroy();
 
-    const cart = await Cart.findOne({ where: { id: productCart.cartId} });
+        const { productId, userId } = req.body
+
+        
+        let productCart = await Productcart.findOne({
+        where: { cartId: userId, 
+                 productId: productId
+        }
+        });
+
+        if(!productCart){
+            res.status(404).send("no se puede eliminar un producto que no agregaste tonto ")
+        }
+
+        await productCart.destroy();
+
+    const cart = await Cart.findOne({ where: { id: userId} })
+
     updateTotalValue(cart); 
-    res.status(200).send('Product has been removed');
-    } catch (error) {
-        console.log(error)
-    }
+    res.status(200).send({message: 'The product was removed from your cart'})
 };
 
 
