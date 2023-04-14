@@ -175,6 +175,12 @@ export function deleteProductCart(data){
   }
 }
 
+export function PostMercadoPago(payload){
+  return async function(){
+    return axios.post(`http://localhost:3001/orders`, payload)
+  }
+}
+
 //rutas user
 
 export function PostUser(payload) {
