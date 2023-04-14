@@ -169,9 +169,9 @@ export function getProductCart(payload){
   }
 }
 
-export function deleteProductCart(payload){
+export function deleteProductCart(data){
   return async function(){
-    await axios.delete(`http://localhost:3001/cart/delete/?productCardId=${payload}`);
+    await axios.delete('http://localhost:3001/cart/deleteProduct', { data });
   }
 }
 
