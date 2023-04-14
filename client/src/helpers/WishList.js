@@ -1,7 +1,7 @@
 import axios from 'axios'
 // const API_URL = "http://localhost:3001/wishlist/"
-const {BACK_URL} = process.env
-const API_URL = `${BACK_URL}/wishlist`
+// const {BACK_URL} = process.env
+const API_URL = `http://localhost:3001/wishlist`
 class WishListService{
 
   // const { idUser, idProduct } = req.body
