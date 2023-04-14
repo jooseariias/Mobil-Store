@@ -2,8 +2,8 @@ import axios from 'axios'
 
 
 
-const {BACK_URL} = process.env
-const API_URL_2 = `${BACK_URL}/login`
+const BACK_URL = `http://localhost:3001`
+const API_URL_2 = `http://localhost:3001/login`
 class AuthService{
 
     Login(data){

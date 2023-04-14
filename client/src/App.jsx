@@ -26,10 +26,10 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import UsersDashBoard from "./views/Dashboard/Users/User";
 
 import LinkPassword from "./components/LinkPassword/LinkPassword";
-import ActPassword from "./components/ActPassword/ActPassword";
+// import ActPassword from "./components/ActPassword/ActPassword";
 import { CreateReviews } from "./components/Reviews/CreateReviews";
 
-import ResetPassword from "./components/ActPassword/ResetPassword";
+// import ResetPassword from "./components/ActPassword/ResetPassword";
 // import LinkPassword from "./components/LinkPassword/LinkPassword";
 // import ActPassword from "./components/ActPassword/ActPassword";
 
@@ -84,12 +84,12 @@ export default function App(){
         <Route path ="*" element={<NotFount />} />
 
         <Route path ="/PasswordChange" element={< LinkPassword />} /> 
-       <Route path ="/RecetPassword" element={< ActPassword  />} /> 
+       {/* <Route path ="/RecetPassword" element={< ActPassword  />} />  */}
        <Route path ="/:productId/review" element={< CreateReviews />} /> 
 
 
         {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
-       <Route path ="/ResetPassword" element={< ResetPassword/>} /> 
+       {/* <Route path ="/ResetPassword" element={< ResetPassword/>} />  */}
 
 
       </Routes>
