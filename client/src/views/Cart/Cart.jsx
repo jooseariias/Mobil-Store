@@ -51,10 +51,11 @@ export default function Cart(){
           }
 
           dispatch(deleteProductCart(data)).then((response) => {
+            console.log("ZEKA", response)
             Swal.fire({
               icon: 'success',
               title: 'Congratulations!',
-              text: 'The product was deleted',
+              text: response.data.message
             })
             setActualizar(!Actualizar);
           })
@@ -75,12 +76,11 @@ export default function Cart(){
           Swal.fire({
             icon: 'success',
             title: 'Congratulations!',
-            text: 'The product was deleted',
+            text: 'The product was removed from your cart',
           })
         }
       })
     }
-
   }
 
   const handleStock = (operator, productId, stock) => {
@@ -126,7 +126,9 @@ export default function Cart(){
 
       dispatch(PostMercadoPago(data)).then((response) => {
         window.open(response.data.init_point, '_blank')
-    }).catch((error) => {
+        
+
+      }).catch((error) => {
         // manejar errores
       });
     }

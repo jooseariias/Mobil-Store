@@ -84,7 +84,7 @@ const deleteProductCart = async (req, res) => {
     const cart = await Cart.findOne({ where: { id: userId} })
 
     updateTotalValue(cart); 
-    res.status(200).send('Product has been removed')
+    res.status(200).send({message: 'The product was removed from your cart'})
 };
 
 
