@@ -146,6 +146,64 @@ router.put('/resetPassword', async (req, res) => {
 
 });
 
+// banned de user
+
+router.put('/banned/:id', async(req,res)=>{
+  const { id } = req.params;
+
+      try {
+          const user = await User.findOne({
+              where: { id: id }
+          })
+          if(user.enabled === true){
+             await User.update(
+                  { enabled: false },
+                  { where: { id: id} }
+              )
+              res.send('User has been banned')
+          }else{
+               await User.update(
+                  { enabled: true },
+                  { where: { id: id} }
+              )
+              res.send('User has been unbanned')
+          }
+
+
+      } catch (err) {
+          console.log(err)
+      }
+})
+
+// cambio a administrador
+
+router.put("/admin/:id", async(req,res)=>{
+  try{
+      const {id} = req.params;
+      const users = await User.findOne({
+          where:{id:id}
+      })
+      
+  
+
+      if(users.rol === "user"){
+           await User.update({rol : "admin"}, {where: {id:id}})
+          res.send("updated user to admin")
+      }else{
+        await User.update(
+          { rol: "user" },
+          { where: { id: id} }
+      )
+      res.send('you have become a user')
+      }
+
+  }catch(err){
+      console.log(err)
+  }
+  
+
+})
+
 
 
 router.get('/:id', async (req, res) => {
