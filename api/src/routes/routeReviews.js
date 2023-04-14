@@ -64,11 +64,11 @@ router.post("/:idProduct", async (req,res)=>{
 
                 }
             }else {
-                res.status(200).send(`No se puede calificar el producto mas de una vez`)
+                res.status(400).send(`No se puede calificar el producto mas de una vez`)
             }
             
         }else{
-            res.status(200).send(`Ud no puede hacer una review de un producto que no compro`)
+            res.status(400).send(`Ud no puede hacer una review de un producto que no compro`)
         }
 
         
