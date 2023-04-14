@@ -20,8 +20,8 @@ import Login from "./views/Login/login";
 import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register";
 import Dashboard from "./views/Dashboard/Dashboard";
-import Support from './views/Support/Support'
-
+import Support from "./views/Support/Support";
+import RutePrivade from "./components/rutePrivade/RutePrivade";
 //import Products from "./views/Dashboard/Product/Products";
 
 import UsersDashBoard from "./views/Dashboard/Users/User";
@@ -34,9 +34,7 @@ import { CreateReviews } from "./components/Reviews/CreateReviews";
 // import LinkPassword from "./components/LinkPassword/LinkPassword";
 // import ActPassword from "./components/ActPassword/ActPassword";
 
-
-export default function App(){
-
+export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,11 +56,11 @@ export default function App(){
   //const userRol = userPared.rol;
   //console.log(userRol);
 
-  return(
+  return (
     <div className="App">
       <Routes>
+        //rutas Users
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/form-product" element={<CreateProduct />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
         <Route path="/About" element={<About />} />
@@ -71,29 +69,15 @@ export default function App(){
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
-
-      {/*
-        {userRol === 'admin' ? <Route path="dashboard">
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-  </Route> : ''} */}
-        
-        
-        
+        <Route path="/:productId/review" element={<CreateReviews />} />
+        <Route path="/PasswordChange" element={<LinkPassword />} />
         <Route path="*" element={<NotFount />} />
-        <Route path="/DashBoard" element={<Dashboard />} />
-        <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
-        <Route path ="*" element={<NotFount />} />
-
-        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
-       {/* <Route path ="/RecetPassword" element={< ActPassword  />} />  */}
-       <Route path ="/:productId/review" element={< CreateReviews />} /> 
-
-
-        {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
-       {/* <Route path ="/ResetPassword" element={< ResetPassword/>} />  */}
-
-
+        //Rutas Admin
+        <Route element={<RutePrivade />}>
+          <Route path="/DashBoard" element={<Dashboard />} />
+          <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
+          <Route exact path="/form-product" element={<CreateProduct />} />
+        </Route>
       </Routes>
     </div>
   );
