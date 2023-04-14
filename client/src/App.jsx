@@ -26,9 +26,14 @@ import Support from './views/Support/Support'
 
 import UsersDashBoard from "./views/Dashboard/Users/User";
 
-import LinkPassword from "./components/LinkPassword/LinkPassword";
+import PasswordReset from "./components/ActPassword/PasswordReset";
+import Reset from "./components/ActPassword/Reset";
+
+
+//import LinkPassword from "./components/LinkPassword/LinkPassword";
 // import ActPassword from "./components/ActPassword/ActPassword";
 import { CreateReviews } from "./components/Reviews/CreateReviews";
+
 
 // import ResetPassword from "./components/ActPassword/ResetPassword";
 // import LinkPassword from "./components/LinkPassword/LinkPassword";
@@ -87,6 +92,11 @@ export default function App(){
 
         {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
        {/* <Route path ="/ResetPassword" element={< ResetPassword/>} />  */}
+
+       <Route path ="/passwordReset" element={<PasswordReset /> } />
+       <Route path ="/reset" element={<Reset /> } />
+
+
 
 
       </Routes>
