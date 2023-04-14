@@ -20,7 +20,7 @@ export default function Card({id, name, price, image, stock, brand}){
     const handleClick = () => {
 
         const product = {
-            id: id,
+            productId: id,
             name: name,
             priceProduct: parseInt(price),
             img: image,
@@ -69,8 +69,8 @@ export default function Card({id, name, price, image, stock, brand}){
         if(Object.keys(user).length === 0){
             return Swal.fire({
                 icon: 'error',
-                title: 'Something wrong',
-                text: "that"
+                title: 'Something went wrong',
+                text: "You have to log in to add to favorites"
             })
         }
 

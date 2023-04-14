@@ -20,6 +20,7 @@ export default function Cart(){
     if(user && user.data_user && user.data_user.id ){
       dispatch(getProductCart(user.data_user.id)).then((response) => {
         setCarrito(response.data);
+        console.log(response.data);
       });
     }
   
@@ -33,9 +34,7 @@ export default function Cart(){
     
   }, [Actualizar, user])
 
-
-
-  const DeleteProduct = (id) => {
+  const DeleteProduct = (productId) => {
 
     if(Object.keys(user).length !== 0){
       Swal.fire({
@@ -45,7 +44,13 @@ export default function Cart(){
         showDenyButton: true,
       }).then((result) => {
         if(result.isConfirmed){
-          dispatch(deleteProductCart(id, user.data_user.id)).then((response) => {
+
+          const data = {
+            productId: productId,
+            userId: user.data_user.id
+          }
+
+          dispatch(deleteProductCart(data)).then((response) => {
             Swal.fire({
               icon: 'success',
               title: 'Congratulations!',
@@ -65,7 +70,7 @@ export default function Cart(){
         showDenyButton: true,
       }).then((result) => {
         if (result.isConfirmed){
-          DeleteProductLocalStorage(id);
+          DeleteProductLocalStorage(productId);
           setActualizar(!Actualizar);
           Swal.fire({
             icon: 'success',
@@ -78,9 +83,9 @@ export default function Cart(){
 
   }
 
-  const handleStock = (operator, id, stock) => {
+  const handleStock = (operator, productId, stock) => {
 
-    const valor = UpdateStockProductLocalStorage(operator, id, stock);
+    const valor = UpdateStockProductLocalStorage(operator, productId, stock);
 
     if(valor !== undefined){
        Swal.fire({
@@ -110,6 +115,10 @@ export default function Cart(){
         title: 'Something went wrong',
         text: 'You have to have an account to buy',
       })
+    }
+
+    else{
+      
     }
   }
 
@@ -169,27 +178,29 @@ export default function Cart(){
                     <div class="flex flex-col justify-between ml-4 flex-grow">
                       <span class="font-bold text-xs uppercase">{product?.name}</span>
                       <span class="text-red-500 text-xs">{product.brand}</span>
-                      <a onClick={() => DeleteProduct(product.id)} class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer">Remove</a>
+                      <a onClick={() => DeleteProduct(product.productId)} class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer">Remove</a>
                     </div>
                 </div>
 
                   <div class="flex justify-center w-1/5">
 
                     
-                    <svg onClick={() => handleStock('-', product.id, GetStockProduct(product.id))} className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                    <svg onClick={() => handleStock('-', product.productId, GetStockProduct(product.productId))} className="fill-current text-gray-600 w-3 cursor-pointer"
+                       viewBox="0 0 448 512">
                       <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                     </svg>
 
                     <input className="mx-2 border text-center w-8 dark:bg-gray-600" type="text" value={product?.quantity} />
 
-                    <svg onClick={() => handleStock('+', product.id, GetStockProduct(product.id))} className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                    <svg onClick={() => handleStock('+', product.productId, GetStockProduct(product.productId))} className="fill-current text-gray-600 w-3 cursor-pointer"
+                     viewBox="0 0 448 512">
                       <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32
                         32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                     </svg>
 
                   </div>
           
-                  <span class="text-center w-1/5 font-semibold text-sm">{GetStockProduct(product.id)}</span>
+                  <span class="text-center w-1/5 font-semibold text-sm">{GetStockProduct(product.productId)}</span>
                   <span class="text-center w-1/5 font-semibold text-sm">${product.priceProduct}.00</span>
                   <span class="text-center w-1/5 font-semibold text-sm">${product.totalValue}.00</span>
         </div>
