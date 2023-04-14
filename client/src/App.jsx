@@ -21,18 +21,12 @@ import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Support from './views/Support/Support'
-
-//import Products from "./views/Dashboard/Product/Products";
-
 import UsersDashBoard from "./views/Dashboard/Users/User";
-
-import LinkPassword from "./components/LinkPassword/LinkPassword";
-// import ActPassword from "./components/ActPassword/ActPassword";
+import PasswordReset from "./components/ActPassword/PasswordReset";
+import Reset from "./components/ActPassword/Reset";
 import { CreateReviews } from "./components/Reviews/CreateReviews";
+import RutePrivade from "./components/rutePrivade/RutePrivade";
 
-// import ResetPassword from "./components/ActPassword/ResetPassword";
-// import LinkPassword from "./components/LinkPassword/LinkPassword";
-// import ActPassword from "./components/ActPassword/ActPassword";
 
 
 export default function App(){
@@ -53,14 +47,14 @@ export default function App(){
     dispatch(getCapacity());
   }, []);
 
-  //const user = localStorage.getItem("user");
-  //const userPared = JSON.parse(user);
-  //const userRol = userPared.rol;
-  //console.log(userRol);
+
 
   return(
     <div className="App">
       <Routes>
+
+    //Routas  Users
+
         <Route exact path="/" element={<Home />} />
         <Route exact path="/form-product" element={<CreateProduct />} />
         <Route path="/details/:id" element={<Details />} />
@@ -70,30 +64,21 @@ export default function App(){
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/WishList" element={<Wishlist />} />
-
-      {/*
-        {userRol === 'admin' ? <Route path="dashboard">
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-  </Route> : ''} */}
-        
-        
-        
+        <Route path="/WishList" element={<Wishlist />} /> 
         <Route path="*" element={<NotFount />} />
-        <Route path="/DashBoard" element={<Dashboard />} />
-        <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
+        <Route path ="/:productId/review" element={< CreateReviews />} /> 
+        <Route path ="/passwordReset" element={<PasswordReset /> } />
+        <Route path ="/reset" element={<Reset /> } />
 
-        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
-       {/* <Route path ="/RecetPassword" element={< ActPassword  />} />  */}
-       <Route path ="/:productId/review" element={< CreateReviews />} /> 
+        //Rutas admin
 
-
-        {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
-       {/* <Route path ="/ResetPassword" element={< ResetPassword/>} />  */}
-
-
+        <Route element={<RutePrivade />}>
+          <Route path="/DashBoard" element={<Dashboard />} />
+          <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
+          <Route exact path="/form-product" element={<CreateProduct />} />
+        </Route>
+       
       </Routes>
     </div>
   );

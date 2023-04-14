@@ -207,6 +207,18 @@ export function GetUsers(){
   }
 }
 
+export function PutUserAdminDashBoard(idUser){
+  return async function(dispatch){
+      return axios.put(`http://localhost:3001/user/admin/${idUser}`)
+  }
+}
+
+export function PutUserBanDashBoard(idUser){
+  return async function(dispatch){
+      return axios.put(`http://localhost:3001/user/banned/${idUser}`)
+  }
+}
+
 export function getUser(payload){
   return async function(dispatch){
     let json = await axios.get(`${URL_BACK}/user/?name=${payload}`)
@@ -253,11 +265,11 @@ export const postReviews =  (id,payload) => {
   try {
     return async (dispatch) => {
     const resultado = await axios.post(`http://localhost:3001/reviews/${id}`,payload)
-    console.log(resultado.data)
-     dispatch({
+    dispatch({
       type:POST_REVIEW, 
       payload:resultado.data
     })
+    console.log("resultado.data es:", resultado.data)
     }
   
   } catch (error) {
