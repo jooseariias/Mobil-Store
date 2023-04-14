@@ -6,6 +6,7 @@ import { postReviews } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
 import swal from "sweetalert2";
+// import { response } from '../../../../api/src/app';
 
 export const CreateReviews = () => {
   const User= useSelector(state=>state.User)
@@ -51,13 +52,25 @@ export const CreateReviews = () => {
       idUser: User.data_user.id,
     };
     dispatch(postReviews(productId, FormData))
-    setTimeout(() => console.log("msg es: ", msg), 3000)
-    await swal.fire({
-      title: "Message",
-      text: "Review",
-      icon: "info",
-      buttons: "Ok",
-    })
+    .then((response) => {
+      console.log("response es: ", response)
+      swal.fire({
+        title: "Message",
+        text: response.data,
+        icon: "success",
+        buttons: "Ok",
+      })
+    } )
+    .catch((error) => {
+      // console.log("error es: ", error)
+      swal.fire({
+        title: "Message",
+        text: error.response.data,
+        icon: "error",
+        buttons: "Ok",
+      })
+    })      
+    
     setRating("");
     setComment("");
     

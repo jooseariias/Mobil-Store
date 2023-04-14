@@ -265,11 +265,12 @@ export const postReviews =  (id,payload) => {
   try {
     return async (dispatch) => {
     const resultado = await axios.post(`http://localhost:3001/reviews/${id}`,payload)
-    dispatch({
-      type:POST_REVIEW, 
-      payload:resultado.data
-    })
-    console.log("resultado.data es:", resultado.data)
+    // dispatch({
+    //   type:POST_REVIEW, 
+    //   payload:resultado.data
+    // })
+    // console.log("resultado.data es:", resultado.data)
+    return resultado
     }
   
   } catch (error) {

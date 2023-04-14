@@ -279,7 +279,7 @@ router.get("/pago-confirmado", async (req, res) => {
     );
     // const filePath = path.join(__dirname, '../utils/success.html');
     // res.sendFile(filePath);
-    res.status(200).send({ msg: "pago confirmado" });
+    res.status(200).json({ msg: "pago confirmado" });
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
