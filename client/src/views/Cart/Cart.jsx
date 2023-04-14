@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer";
 import Swal from "sweetalert2"
-import { getProductCart, deleteProductCart } from "../../redux/actions";
+import { getProductCart, deleteProductCart, PostMercadoPago } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 
 export default function Cart(){
@@ -118,7 +118,17 @@ export default function Cart(){
     }
 
     else{
-      
+
+      const data = {
+        userId: user.data_user.id,
+        address: "APROBAR-PF"
+      }
+
+      dispatch(PostMercadoPago(data)).then((response) => {
+        window.open(response.data.init_point, '_blank')
+    }).catch((error) => {
+        // manejar errores
+      });
     }
   }
 
