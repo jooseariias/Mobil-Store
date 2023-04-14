@@ -1,6 +1,9 @@
 import axios from 'axios'
-const API_URL = "http://localhost:3001/"
-const API_URL_2 = "http://localhost:3001/login"
+
+
+
+const {BACK_URL} = process.env
+const API_URL_2 = `${BACK_URL}/login`
 class AuthService{
 
     Login(data){
@@ -8,7 +11,7 @@ class AuthService{
     };
 
     Register(data){
-      return axios.post(API_URL, data);
+      return axios.post(BACK_URL, data);
     };
 }
 
