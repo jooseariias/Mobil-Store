@@ -133,7 +133,7 @@ export default function Header(){
 
 		Swal.fire({
 			icon: 'warning',
-			title: 'Are you sure you want to sign out?',
+			title: 'Do you want to log out?',
 			confirmButtonText: 'Yes',
 			showDenyButton: true,
 		}).then((result) => {
