@@ -24,10 +24,12 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
 export const GET_REVIEWS=" GET_REVIEWS"
 
+const { URL_BACK } = process.env;
 
+// const URL_BACK = `http://localhost:3001`
   export function getPhones(){
     return async function (dispatch) {
-      let Json = await axios.get(`http://localhost:3001/product`);
+      let Json = await axios.get(`${URL_BACK}/product`);
       dispatch({
         type: GET_PHONES,
         payload: Json.data,
@@ -37,7 +39,7 @@ export const GET_REVIEWS=" GET_REVIEWS"
 
   export function getPhone(payload){
     return async function(dispatch){
-      let json = await axios.get(`http://localhost:3001/product/?name=${payload}`)
+      let json = await axios.get(`${URL_BACK}/product/?name=${payload}`)
       return dispatch({
         type: 'GET_PHONE',
         payload: json.data
@@ -47,19 +49,19 @@ export const GET_REVIEWS=" GET_REVIEWS"
 
   export function GetWishList(id){
     return async function(dispatch){
-      return await axios.get(`http://localhost:3001/wishlist/${id}`)
+      return await axios.get(`${URL_BACK}/wishlist/${id}`)
     }
   }
 
   export function DeleteWishList(idUser, idProduct){
     return async function(){
-      return await axios.delete(`http://localhost:3001/wishlist/${idUser}/${idProduct}`);
+      return await axios.delete(`${URL_BACK}/wishlist/${idUser}/${idProduct}`);
     }
   }
 
   export function getDetail(id) {
     return async function(dispatch) {
-        const json = await axios(`http://localhost:3001/product/${id}`);
+        const json = await axios(`${URL_BACK}/product/${id}`);
         return dispatch({
             type: GET_DETAIL,
             payload: json.data
@@ -69,7 +71,7 @@ export const GET_REVIEWS=" GET_REVIEWS"
 
   export function getBrands() {
     return async function (dispatch) {
-      let json = await axios.get(`http://localhost:3001/brand`);
+      let json = await axios.get(`${URL_BACK}/brand`);
       dispatch({
         type: GET_BRANDS,
         payload: json.data,
@@ -78,13 +80,13 @@ export const GET_REVIEWS=" GET_REVIEWS"
   }
 
   export function PostPhone(payload) {
-    var json = axios.post(`http://localhost:3001/product`, payload);
+    var json = axios.post(`${URL_BACK}/product`, payload);
     return { type: POST_PHONE, payload: json };
   }
 
   export function getColores() {
     return async function (dispatch) {
-      let json = await axios.get(`http://localhost:3001/color`);
+      let json = await axios.get(`${URL_BACK}/color`);
   
       dispatch({
         type: GET_COLORES,
@@ -95,7 +97,7 @@ export const GET_REVIEWS=" GET_REVIEWS"
   
   export function getCapacity() {
     return async function (dispatch) {
-      let json = await axios.get(`http://localhost:3001/capacity`);
+      let json = await axios.get(`${URL_BACK}/capacity`);
   
       dispatch({
         type: GET_CAPACITY,
@@ -159,19 +161,19 @@ export const GET_REVIEWS=" GET_REVIEWS"
 export function PostProductCart(payload){
 
   return async function(){
-    await axios.post('http://localhost:3001/cart/addProduct', payload);
+    await axios.post('${URL_BACK}/cart/addProduct', payload);
   }
 }
 
 export function getProductCart(payload){
   return async function(){
-    return await axios.get(`http://localhost:3001/cart/getProduct/${payload}`)
+    return await axios.get(`${URL_BACK}/cart/getProduct/${payload}`)
   }
 }
 
 export function deleteProductCart(payload){
   return async function(){
-    await axios.delete(`http://localhost:3001/cart/delete/?productCardId=${payload}`);
+    await axios.delete(`${URL_BACK}/cart/delete/?productCardId=${payload}`);
   }
 }
 
@@ -179,13 +181,13 @@ export function deleteProductCart(payload){
 
 export function PostUser(payload) {
   return async function(dispatch){
-    await axios.post(`http://localhost:3001/user`, payload);
+    await axios.post(`${URL_BACK}/user`, payload);
   }
 }
 
 export function GetUsers(){
   return async function (dispatch) {
-    let Json = await axios.get(`http://localhost:3001/user`);
+    let Json = await axios.get(`${URL_BACK}/user`);
     dispatch({
       type: GET_USERS,
       payload: Json.data,
@@ -195,7 +197,7 @@ export function GetUsers(){
 
 export function getUser(payload){
   return async function(dispatch){
-    let json = await axios.get(`http://localhost:3001/user/?name=${payload}`)
+    let json = await axios.get(`${URL_BACK}/user/?name=${payload}`)
     return dispatch({
       type: GET_USER,
       payload: json.data
@@ -225,7 +227,7 @@ export function getReviews(id) {
   
 
   return (dispatch) => {
-      axios.get(`http://localhost:3001/reviews/${id}`)
+      axios.get(`${URL_BACK}/reviews/${id}`)
           .then(response => dispatch(
               {
                   type:GET_REVIEWS ,
