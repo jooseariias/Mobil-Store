@@ -28,8 +28,8 @@ const addProductCart = async(req, res) => {
         let cart = null;
         
         if(!user.cartId) {
-            cart = await Cart.create({ priceCart: product.price });
-            await user.update({ cartId: cart.id});
+            cart = await Cart.create({ priceCart: product.price, id: userId });
+            await user.update({ cartId: userId});
         }else {
         
             cart = await Cart.findOne({
@@ -67,6 +67,9 @@ const addProductCart = async(req, res) => {
 const deleteProductCart = async (req, res) => {
 
         const { productId, userId } = req.body
+
+        console.log("PRODUCTO-ID", productId);
+        console.log("USER-ID", userId);
 
         
         let productCart = await Productcart.findOne({

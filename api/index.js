@@ -92,7 +92,7 @@ const initiateTables = async () => {
 // Syncing all the models at once.
 
 const PORT = process.env.PORT || 3001
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: false}).then(() => {
 
   initiateTables()
 
