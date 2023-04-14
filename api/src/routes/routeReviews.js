@@ -68,7 +68,7 @@ router.post("/:idProduct", async (req,res)=>{
             }
             
         }else{
-            res.status(400).json({msg: `Ud no puede hacer una review de un producto que no compro`})
+            res.status(200).json({msg: `Ud no puede hacer una review de un producto que no compro`})
         }
 
         

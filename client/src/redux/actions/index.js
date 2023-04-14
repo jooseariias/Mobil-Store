@@ -23,7 +23,7 @@ export const GET_USER = "GET_USER";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
 export const GET_REVIEWS=" GET_REVIEWS"
-
+export const POST_REVIEW="POST_REVIEW"
 
   export function getPhones(){
     return async function (dispatch) {
@@ -222,8 +222,6 @@ export function LogOut(){
 
 //////*REVIEWS///////
 export function getReviews(id) {
-  
-
   return (dispatch) => {
       axios.get(`http://localhost:3001/reviews/${id}`)
           .then(response => dispatch(
@@ -236,3 +234,21 @@ export function getReviews(id) {
           .catch(err => console.log(err))
   }
 }
+
+export const postReviews =  (id,payload) => {
+  try {
+    return async (dispatch) => {
+    const resultado = await axios.post(`http://localhost:3001/reviews/${id}`,payload)
+    console.log(resultado.data)
+     dispatch({
+      type:POST_REVIEW, 
+      payload:resultado.data
+    })
+    }
+  
+  } catch (error) {
+    console.log(error.message)
+  }
+  
+}
+
