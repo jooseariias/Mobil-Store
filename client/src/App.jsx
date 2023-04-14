@@ -20,6 +20,7 @@ import Login from "./views/Login/login";
 import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Support from './views/Support/Support'
 
 //import Products from "./views/Dashboard/Product/Products";
 
@@ -65,6 +66,7 @@ export default function App(){
         <Route path="/details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
         <Route path="/About" element={<About />} />
+        <Route path="/Support" element={<Support />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />

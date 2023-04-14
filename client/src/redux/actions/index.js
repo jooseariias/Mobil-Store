@@ -77,7 +77,7 @@ export const POST_REVIEW="POST_REVIEW"
 
   export function getBrands() {
     return async function (dispatch) {
-      let json = await axios.get(`${URL_BACK}/brand`);
+      let json = await axios.get(`${URL_BACK}/brand`)
       dispatch({
         type: GET_BRANDS,
         payload: json.data,
@@ -167,7 +167,7 @@ export const POST_REVIEW="POST_REVIEW"
 export function PostProductCart(payload){
 
   return async function(){
-    await axios.post('${URL_BACK}/cart/addProduct', payload);
+    return await axios.post(`${URL_BACK}/cart/addProduct`, payload);
   }
 }
 
@@ -179,13 +179,13 @@ export function getProductCart(payload){
 
 export function deleteProductCart(data){
   return async function(){
-    await axios.delete('${URL_BACK}/cart/deleteProduct', { data });
+    return await axios.delete(`${URL_BACK}/cart/deleteProduct`, { data });
   }
 }
 
 export function PostMercadoPago(payload){
   return async function(){
-    return axios.post(`http://localhost:3001/orders`, payload)
+    return axios.post(`${URL_BACK}/orders`, payload)
   }
 }
 
