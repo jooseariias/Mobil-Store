@@ -262,7 +262,7 @@ function rootReducer(state = initialState, action){
          
         };
         case POST_REVIEW:
-          console.log("msg:", action.payload)
+          // console.log("msg:", action.payload)
           return {
             ...state,
             msg:action.payload

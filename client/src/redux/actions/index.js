@@ -235,22 +235,41 @@ export function getReviews(id) {
   }
 }
 
-export function postReviews(id,data) {
+export const postReviews =  (id,payload) => {
   try {
-    return (dispatch) => {
-     axios.post(`http://localhost:3001/reviews/${id}`,data)
-    .then(response => {
-      console.log(response.data)
+    return async (dispatch) => {
+    const resultado = await axios.post(`http://localhost:3001/reviews/${id}`,payload)
+    
+    console.log(resultado.data)
+    
+   
      dispatch({
       type:POST_REVIEW, 
-      payload:response.data
-      
-
-     })}).catch(error=>console.log(error.message))
-     
+      payload:resultado.data
+    })
     }
   } catch (error) {
     console.log(error.message)
   }
   
 }
+
+// export function postReviews(id,data) {
+//   try {
+//     return (dispatch) => {
+//      axios.post(`http://localhost:3001/reviews/${id}`,data)
+//     .then(response => {
+//       console.log(response.data)
+//      dispatch({
+//       type:POST_REVIEW, 
+//       payload:response.data
+      
+
+//      })}).catch(error=>console.log(error.message))
+     
+//     }
+//   } catch (error) {
+//     console.log(error.message)
+//   }
+  
+// }
