@@ -57,6 +57,7 @@ export default function SideBar() {
               src={home}
             />
           </Link>
+
           <Link
             to="products"
             className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"
@@ -67,14 +68,17 @@ export default function SideBar() {
               src={phones}
             />
           </Link>
-          <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl">
-            {" "}
-            Users{" "}
-            <img
-              class=" z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"
-              src={users}
-            />
-          </a>
+
+          <Link to = "/UsersDashBoard">
+            <a className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl">
+              {" "}
+              Users{" "}
+              <img
+                class=" z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"
+                src={users}
+              />
+            </a>
+          </Link>
         </nav>
       </div>
     </div>
