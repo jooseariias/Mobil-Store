@@ -59,7 +59,7 @@ export default function SideBar() {
           </Link>
 
           <Link
-            to="products"
+            to="/ProductsDash"
             className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl"
           >
             Phones

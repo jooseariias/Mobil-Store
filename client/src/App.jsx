@@ -22,7 +22,7 @@ import Register from "./views/Register/register";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Support from './views/Support/Support'
 
-//import Products from "./views/Dashboard/Product/Products";
+
 
 import UsersDashBoard from "./views/Dashboard/Users/User";
 
@@ -72,11 +72,6 @@ export default function App(){
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
 
-      {/*
-        {userRol === 'admin' ? <Route path="dashboard">
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-  </Route> : ''} */}
         
         
         
