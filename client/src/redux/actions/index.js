@@ -207,6 +207,18 @@ export function GetUsers(){
   }
 }
 
+export function PutUserAdminDashBoard(idUser){
+  return async function(dispatch){
+      return axios.put(`http://localhost:3001/user/admin/${idUser}`)
+  }
+}
+
+export function PutUserBanDashBoard(idUser){
+  return async function(dispatch){
+      return axios.put(`http://localhost:3001/user/banned/${idUser}`)
+  }
+}
+
 export function getUser(payload){
   return async function(dispatch){
     let json = await axios.get(`${URL_BACK}/user/?name=${payload}`)
