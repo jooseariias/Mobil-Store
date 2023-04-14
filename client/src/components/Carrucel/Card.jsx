@@ -20,7 +20,7 @@ export default function Card({id, name, price, image, stock, brand}){
     const handleClick = () => {
 
         const product = {
-            id: id,
+            productId: id,
             name: name,
             priceProduct: parseInt(price),
             img: image,

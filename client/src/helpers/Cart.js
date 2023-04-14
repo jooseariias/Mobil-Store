@@ -8,7 +8,7 @@ export const PostProductLocalStorage = (obj) => {
 
         for(let i=0; i<carrito.productcarts.length; i++){
 
-            if(obj.id === carrito.productcarts[i].id){
+            if(obj.productId === carrito.productcarts[i].productId){
                 return{
                     icon: "error",
                     title: 'Something went wrong',
@@ -51,14 +51,14 @@ export const PostProductLocalStorage = (obj) => {
     }
 }
 
-export const DeleteProductLocalStorage = (id) => {
+export const DeleteProductLocalStorage = (productId) => {
 
     // PRIMERO NOS TRAEMOS EL CARRITO DE PRODUCTOS
     const carrito = JSON.parse(window.localStorage.getItem('carrito-ls'));
 
     // BORRAMOS DE LA LISTA EL PRODUCTO QUE COINCIDA CON EL PARÁMETRO QUE RECIBIMOS
     for(let i=0; i<carrito.productcarts.length; i++){
-        if(id === carrito.productcarts[i].id){
+        if(productId === carrito.productcarts[i].productId){
 
             // AHORA MODIFICAMOS LOS PARÁMETROS DE BORRAR UN PRODUCTO
             carrito.quantity = carrito.quantity - 1;
@@ -87,7 +87,7 @@ export const DeleteProductLocalStorage = (id) => {
     }
 }
 
-export const UpdateStockProductLocalStorage = (operator, id, stock) => {
+export const UpdateStockProductLocalStorage = (operator, productId, stock) => {
 
     const carrito = JSON.parse(window.localStorage.getItem('carrito-ls'));
 
@@ -97,7 +97,7 @@ export const UpdateStockProductLocalStorage = (operator, id, stock) => {
         
         for(let i=0; i<carrito.productcarts.length; i++){
 
-            if(id === carrito.productcarts[i].id){
+            if(productId === carrito.productcarts[i].productId){
 
                 if(carrito.productcarts[i].quantity < stock){
                     
@@ -126,7 +126,7 @@ export const UpdateStockProductLocalStorage = (operator, id, stock) => {
         
         for(let i=0; i<carrito.productcarts.length; i++){
 
-            if(id === carrito.productcarts[i].id){
+            if(productId === carrito.productcarts[i].productId){
 
                 if(carrito.productcarts[i].quantity > 1){
                     
