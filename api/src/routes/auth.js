@@ -19,40 +19,41 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/auth/google/failure",
   }),
-  async(req, res) => {
-    
-    // Establece las cookies con los datos del usuario
-    
+  async (req, res) => {
     const datos = await User.findOne({
-      where:{email : req.user.email}
-    })    
-
-    
-
-if(datos){
-
-    const data = {
-      id: datos.dataValues.id,
-      name: req.user.given_name,
-      last_name: req.user.family_name,
-      email: req.user.email,
-      rol: datos.dataValues.rol,
-      image:req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null
+      where: { email: req.user.email },
+    });
+  
+    if (datos) {
+      const data = {
+        id: datos.dataValues.id,
+        name: req.user.given_name,
+        last_name: req.user.family_name,
+        email: req.user.email,
+        rol: datos.dataValues.rol,
+        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
+      };
+  
+      res.cookie('user_data', JSON.stringify(data));
+      res.redirect(CLIENT);
+    } else {
+      const userCreate = await User.create({
+        name: req.user.displayName,
+        surname: req.user.displayName,
+        email: req.user.email,
+        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
+      });
+      const data = {
+        id: userCreate.dataValues.id,
+        name: req.user.displayName,
+        last_name: req.user.displayName,
+        email: req.user.email,
+        rol: userCreate.dataValues.rol,
+        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
+      };
+      res.cookie('user_data', JSON.stringify(data));
+      res.redirect(CLIENT);
     }
-
-    res.cookie('user_data', JSON.stringify(data));
-    res.redirect(CLIENT);
-
-}else{
-  const userCreate = await User.create({
-    name: req.user.displayName,
-    surname:req.user.displayName,
-    email:req.user.email,   
-    image:req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null
-  });
-  res.cookie('user_data', JSON.stringify(data));
-  res.redirect(CLIENT);
-}
   })
 
 router.get("/login/success", (req, res) => {
