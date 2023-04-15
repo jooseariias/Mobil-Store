@@ -54,13 +54,15 @@ export default function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
-        {userRol === 'admin' ? <Route path="dashboard">
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-        </Route> : ''}
-        
-        
-        
+        {userRol === "admin" ? (
+          <Route path="dashboard">
+            <Route index element={<Dashboard />} />
+            <Route path="products" element={<Products />} />
+          </Route>
+        ) : (
+          ""
+        )}
+
         <Route path="*" element={<NotFount />} />
       </Routes>
     </div>
