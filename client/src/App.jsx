@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
+
 import {
   getPhones,
   getBrands,
   getCapacity,
   LoginSuccess,
 } from "./redux/actions";
+
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
@@ -18,15 +20,17 @@ import Login from "./views/Login/login";
 import Wishlist from "./views/WishList/Wishlist";
 import Register from "./views/Register/register";
 import Dashboard from "./views/Dashboard/Dashboard";
-
-import Products from "./views/Dashboard/Product/Products";
-
+import Support from './views/Support/Support'
 import UsersDashBoard from "./views/Dashboard/Users/User";
-import LinkPassword from "./components/LinkPassword/LinkPassword";
-import ActPassword from "./components/ActPassword/ActPassword";
+import PasswordReset from "./components/ActPassword/PasswordReset";
+import Reset from "./components/ActPassword/Reset";
+import { CreateReviews } from "./components/Reviews/CreateReviews";
+import RutePrivade from "./components/rutePrivade/RutePrivade";
 
 
-export default function App() {
+
+export default function App(){
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,38 +47,38 @@ export default function App() {
     dispatch(getCapacity());
   }, []);
 
-  const user = localStorage.getItem("user");
-  const userPared = JSON.parse(user);
-  const userRol = userPared.rol;
-  console.log(userRol);
 
-  return (
+
+  return(
     <div className="App">
       <Routes>
+
+    //Routas  Users
+
         <Route exact path="/" element={<Home />} />
         <Route exact path="/form-product" element={<CreateProduct />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
         <Route path="/About" element={<About />} />
+        <Route path="/Support" element={<Support />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/WishList" element={<Wishlist />} />
-
-        {userRol === 'admin' ? <Route path="dashboard">
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-        </Route> : ''}
-        
-        
-        
+        <Route path="/WishList" element={<Wishlist />} /> 
         <Route path="*" element={<NotFount />} />
-        <Route path="/DashBoard" element={<Dashboard />} />
-        <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
-        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
-       <Route path ="/RecetPassword" element={< ActPassword  />} /> 
+        <Route path ="/review/:productId" element={< CreateReviews />} /> 
+        <Route path ="/passwordReset" element={<PasswordReset /> } />
+        <Route path ="/reset" element={<Reset /> } />
 
+        //Rutas admin
+
+        <Route element={<RutePrivade />}>
+          <Route path="/DashBoard" element={<Dashboard />} />
+          <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
+          <Route exact path="/form-product" element={<CreateProduct />} />
+        </Route>
+       
       </Routes>
     </div>
   );

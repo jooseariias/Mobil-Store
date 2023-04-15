@@ -7,11 +7,8 @@ import {
   TidyPrice,
   TidyReleased,
   FilterBrands,
-  getBrands,
-  getPhones,
   CleanPhones,
-  FilterCapacity,
-  getCapacity,
+  FilterCapacity
 } from "../../redux/actions/index";
 import Header from "../../components/Header/Header";
 import Pagination from "../Pagination/pagination";
@@ -78,76 +75,60 @@ export default function Store() {
         <Header />
       </div>
 
-      <div className="flex justify-between flex-wrap px-0 mt-2 mx-4">
-        <select
-          className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center  "
-          onChange={(e) => handleFilterTidy(e)}
-        >
-          <option selected hidden>
-            Alphabetic
-          </option>
-          <option value="asc"> A to Z </option>
-          <option value="descendente">Z to A</option>
+      <div className="flex justify-between flex-wrap mt-8 mx-10">
+
+        <select id="brands" className="w-48 bg-gray-100 border border-gray-300 text-gray-900 font-semibold text-md rounded-lg  p-2.5
+          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+          shadow-md shadow-gray-400 cursor-pointer focus:outline-none" onChange={(e) => HandlerFilterTypeFerBrands(e)}>
+          <option selected value="all">Filter by brands</option>
+            {Allbrand?.map((value, index) => (
+              <option index={index} value={value.name}>
+                {value.name}
+              </option>
+            ))}
         </select>
 
-        <select
-          className="px-1 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center "
-          onChange={(e) => handleFilterTidyPrice(e)}
-        >
-          <option selected hidden>
-            Price
-          </option>
-          <option value="min"> Minor to Major Price </option>
-          <option value="Maximo">Major to Minor Price</option>
+        <select id="capabilities" className="w-48 bg-gray-100 border border-gray-300 text-gray-900 font-semibold text-md rounded-lg  p-2.5
+          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+          shadow-md shadow-gray-400 cursor-pointer focus:outline-none" onChange={(e) => HandlerFilterTypeFercapabilities(e)}>
+          <option selected value="all">Filter by capabitilies</option>
+            {AllCap?.map((value, index) => (
+              <option index={index} value={value.capacity}>
+                {value.capacity} GB
+              </option>
+            ))}
         </select>
 
-        <select
-          className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
-          onChange={(e) => HandlerFilterTypeFerBrands(e)}
-        >
-          <option selected hidden value="all">
-            All Phones
-          </option>
-          {Allbrand?.map((value, index) => (
-            <option index={index} value={value.name}>
-              {value.name}
-            </option>
-          ))}
+        <select id="alphabetically" className="w-48 bg-gray-100 border border-gray-300 text-gray-900 font-semibold text-md rounded-lg  p-2.5
+          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+          shadow-md shadow-gray-400 cursor-pointer focus:outline-none" onChange={(e) => handleFilterTidy(e)}>
+            <option selected value="all">Order alphabetically</option>
+            <option value="asc">A - Z</option>
+            <option value="descendente">Z - A</option>
         </select>
 
-        <select
-          className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-center text-xl "
-          onChange={(e) => HandlerFilterTypeFercapabilities(e)}
-        >
-          <option selected hidden value="all">
-            All capabilities
-          </option>
-          {AllCap?.map((value, index) => (
-            <option index={index} value={value.capacity}>
-              {value.capacity}
-            </option>
-          ))}
+        <select id="price" className="w-48 bg-gray-100 border border-gray-300 text-gray-900 font-semibold text-md rounded-lg  p-2.5
+          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+          shadow-md shadow-gray-400 cursor-pointer focus:outline-none" onChange={(e) => handleFilterTidyPrice(e)}>
+            <option selected value="all">Order by price</option>
+            <option value="min">Minor to Major</option>
+            <option value="Maximo">Major to Minor</option>
         </select>
 
-        <select
-          className="px-1 bg-gray-300 text-black py-3 rounded-xl border-2 border-white text-xl text-center "
-          onChange={(e) => handleFilterTidyReleased(e)}
-        >
-          <option selected hidden>
-            Released
-          </option>
-          <option value="asc"> oldest </option>
-          <option value="descendente"> recent</option>
+        <select id="released" className="w-48 bg-gray-100 border border-gray-300 text-gray-900 font-semibold text-md rounded-lg  p-2.5
+          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+          shadow-md shadow-gray-400 cursor-pointer focus:outline-none" onChange={(e) => handleFilterTidyReleased(e)}>
+            <option selected value="all">Order by released</option>
+            <option value="descendente">Recent</option>
+            <option value="asc">Oldest</option>
         </select>
 
-        <button
-          onClick={(e) => {
-            handleClick(e);
-          }}
-          className="px-3 bg-gray-300 text-black py-3  rounded-xl border-2 border-white text-xl text-center hover:bg-transparent hover:text-white"
-        >
+        <button onClick={(e) => {handleClick(e)}} className="w-48 bg-gray-100 border border-gray-300 text-gray-900 font-semibold text-md rounded-lg  p-2.5
+          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+          shadow-md shadow-gray-400 cursor-pointer focus:outline-none">
           Clear Filters
         </button>
+
       </div>
 
       <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mx-10 mt-5 mb-4">

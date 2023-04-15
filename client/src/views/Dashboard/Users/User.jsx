@@ -13,10 +13,10 @@ export default function UsersDashBoard(){
     const dispatch = useDispatch();
     const allUsers = useSelector((state) => state.Users);
 
-    const [start, setStart] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
-    const quantity = 9;
-    const usersDisplayed = allUsers.slice(start, start + quantity );
+    // const [start, setStart] = useState(0);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const quantity = 9;
+    // const usersDisplayed = allUsers.slice(start, start + quantity );
 
     useEffect(() => {
         dispatch(GetUsers());
@@ -35,8 +35,8 @@ export default function UsersDashBoard(){
                 </div>
 
                 <div class='flex text-center bg-white items-center justify-center mx-80 flex-wrap w-[1000px] px-40'>
-                
-                    {usersDisplayed?.map((e) => {
+             
+                    {/* {usersDisplayed?.map((e) => {
                     return (
                         <CardDashBoard
                         key={e.id}
@@ -47,21 +47,13 @@ export default function UsersDashBoard(){
                         enabled={e.enabled}
                         />
                         );
-                    })}
+                    })} */}
+                    <CardDashBoard/>
 
                 </div>
 
-                <PaginationUsers
-                quantity={quantity}
-                start={start}
-                setStart={setStart}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
-
 
             </div>
-
 
 
 

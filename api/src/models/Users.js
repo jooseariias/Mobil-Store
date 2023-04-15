@@ -38,6 +38,10 @@ const { DataTypes } = require('sequelize');
       allowNull: false,
       defaultValue: true
     },
+    resetPasswordCode: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     image: {
       type: DataTypes.STRING,
       allowNull: true

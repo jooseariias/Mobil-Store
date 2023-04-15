@@ -32,7 +32,7 @@ export const data = [
 
     {
         "name": "José Kaypa",
-        "image": "https://media.licdn.com/dms/image/D4E35AQFxJEwtpydiWA/profile-framedphoto-shrink_800_800/0/1676006169089?e=1681138800&v=beta&t=wcsTfIhaqfKDgYF40kQJxauAcR40gZP2Ad6DT61LIE8",
+        "image": "https://media.licdn.com/dms/image/D4E35AQFxJEwtpydiWA/profile-framedphoto-shrink_800_800/0/1676006169089?e=1682078400&v=beta&t=eD0ZWsQUrE_t2R8vBmBc_hrJTfsYJrJTTBV2qKiaOWI",
         "Linkedin": "https://www.linkedin.com/in/victor-pestana-%F0%9F%96%A5%EF%B8%8F-2aa750189/",
         "GitHub": "https://github.com/stringVictorinox"
     },

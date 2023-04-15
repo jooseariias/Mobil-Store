@@ -133,7 +133,7 @@ export default function Header(){
 
 		Swal.fire({
 			icon: 'warning',
-			title: 'Are you sure you want to sign out?',
+			title: 'Do you want to log out?',
 			confirmButtonText: 'Yes',
 			showDenyButton: true,
 		}).then((result) => {
@@ -218,19 +218,12 @@ export default function Header(){
         </div>
       </div>
 
-      <div className="font-bold flex bg-gray-700 w-full p-2 justify-between px-40 text-md cursor-pointer">
-        <Link to={"/"}>
-          <h1>Home</h1>
-        </Link>
-        <Link to={"/Store"}>
-          <h1>Store</h1>
-        </Link>
-        <Link to={"/Store"}>
-          <h1>Support</h1>
-        </Link>
-        <Link to={"/About"}>
-          <h1>About Phonezone</h1>
-        </Link>
+      <div className="font-semibold flex text-gray-200 bg-gray-900 w-full p-2 justify-between px-40 text-md cursor-pointer">
+        <Link to={"/"}><h1>HOME</h1></Link>
+        <Link to={"/Store"}><h1>STORE</h1></Link>
+        <Link to={"/Support"}><h1>SUPPORT</h1></Link>
+		<Link to={"/About"}><h1>FAQ</h1></Link>
+        <Link to={"/About"}><h1>DEVELOPERS</h1></Link>
       </div>
     </div>
   );
