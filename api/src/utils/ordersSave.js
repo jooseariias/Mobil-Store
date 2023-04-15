@@ -126,7 +126,10 @@ const crearOrden = async (
         await statusOrder.setOrder(order.id);
         
       })
-      .catch((error) => console.error(error.message))
+      .catch((error) => {
+        alert('error')
+        console.error(error.message)
+      })
       return flag;
     }
     else {

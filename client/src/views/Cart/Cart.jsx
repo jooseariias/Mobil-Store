@@ -17,11 +17,15 @@ export default function Cart(){
 
   useEffect(() => {
 
+    console.log("111")
+
     if(user && user.data_user && user.data_user.id ){
       dispatch(getProductCart(user.data_user.id)).then((response) => {
+        console.log("CR", response.data);
         setCarrito(response.data);
-        console.log(response.data);
-      });
+      }).catch((response) => {
+        setCarrito([]);
+      })
     }
   
     else if(window.localStorage.getItem('carrito-ls')){
@@ -57,6 +61,8 @@ export default function Cart(){
               title: 'Congratulations!',
               text: response.data.message
             })
+          }).then(() => {
+            dispatch(getProductCart(user.data_user.id));
             setActualizar(!Actualizar);
           })
         }
@@ -136,7 +142,7 @@ export default function Cart(){
 
   const RenderEmptyCart = () => {
     return (
-      <section className="flex items-center h-[calc(100vh-6.5rem)] p-16 dark:bg-gray-900 dark:text-gray-100">
+      <section className="flex items-center h-[calc(100vh-7rem)] p-16 dark:bg-gray-900 dark:text-gray-100">
 	      <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
 		      <div className="max-w-md text-center">
 			      <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
@@ -163,7 +169,7 @@ export default function Cart(){
           Object.keys(carrito).length === 0  ? <RenderEmptyCart /> :
 
         <div class="flex shadow-md py-5">
-          <div class="w-3/4 h-[calc(100vh-8.8rem)] px-10 py-4 overflow-auto border dark:bg-gray-900 dark:border-gray-800 text-slate-900 dark:text-slate-100 ">
+          <div class="w-3/4 h-[calc(100vh-10rem)] px-10 py-4 overflow-auto border dark:bg-gray-900 dark:border-gray-800 text-slate-900 dark:text-slate-100 ">
 
             <div class="flex justify-between border-b pb-5 dark:border-gray-700">
               <h1 class="font-semibold text-2xl">Shopping Cart</h1>

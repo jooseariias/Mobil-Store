@@ -279,7 +279,7 @@ router.get("/pago-confirmado", async (req, res) => {
     );
     // const filePath = path.join(__dirname, '../utils/success.html');
     // res.sendFile(filePath);
-    res.status(200).send({ msg: "pago confirmado" });
+    res.status(200).json({ msg: "pago confirmado" });
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
@@ -382,4 +382,107 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/order", async (req, res) => {
+  try {
+    const arrayOfOrders = req.body;
+    console.log(arrayOfOrders)
+
+    let successUrl;
+
+    let preference = {
+      items: [],
+      back_urls: {
+        success: successUrl,
+        failure: `${process.env.BACK_URL}/orders/pago-fallido`,
+        pending: `${process.env.BACK_URL}/orders/pago-pendiente`,
+      },
+      auto_return: "approved",
+      binary_mode: true,
+    };
+    let stock = true;
+
+    await Promise.all(
+      arrayOfOrders.productAndQuantity.map(async (product, index) => {
+        const producto = await Product.findOne({
+          where: {
+            id: product.idProduct,
+          },
+        });
+
+     
+        preference.items[index] = {
+          title: producto.name,
+          picture_url: producto.image,
+          currency_id: "ARS",
+          description: producto.description.slice(0, 254),
+          quantity: product.quantity,
+          unit_price: parseFloat(producto.price),
+        };
+ 
+        let [cantidades, precios, titulos, foto] = preference.items
+          .map((product) => [
+            product.quantity,
+            product.unit_price,
+            product.title,
+            product.picture_url,
+          ])
+          .reduce(
+            (prev, curr) => [
+              [...prev[0], curr[0]],
+              [...prev[1], curr[1]],
+              [...prev[2], curr[2]],
+              [...prev[3], curr[3]],
+            ],
+            [[], [], [], []]
+          )
+          .map((arr) => arr.join(","));
+
+        // let cantidades = preference.items.map((product) => product.quantity ).join(',')
+        // let precios = preference.items.map(product => product.unit_price).join(',') // 300, 63, 350
+        // let titulos = preference.items.map(product => product.title).join(',') // Galaxy S23 Ultra, P20 , Galaxy Z Flip4
+        // let foto = preference.items.map(product => product.picture_url).join(',') // https://m.media-amazon.com/images/I/71nZ4-uixuL.AC_SY355.jpg, https://m.media-amazon.com/images/I/61V8FqrPIpL.AC_SY550.jpg, https://m.media-amazon.com/images/I/51K7abmErwL.AC_SX425.jpg
+        let idProducts = arrayOfOrders.productAndQuantity
+          .map((order) => order.idProduct)
+          .join(",");
+
+        successUrl = `${process.env.BACK_URL}/orders/pago-confirmado?idUser=${arrayOfOrders.idUser}&quantity=${cantidades}
+                &price=${precios}&total=${arrayOfOrders.total}&idProduct=${idProducts}&address=${arrayOfOrders.address}
+                &title=${titulos}&picture_url=${foto}`;
+                let cadenaCantidades = cantidades.split(","); // ['1','2','1']
+
+                let cadenaProductos = idProducts.split(",");
+               
+            
+        for (let i = 0; i < cadenaProductos.length; i++) {
+            const product = await Product.findOne({
+            where: {
+                id: parseInt(cadenaProductos[i]),
+            },
+            });
+            // console.log("Stock es: ", product.stock);
+            // console.log("Cantidades es: ", cadenaCantidades[i]);
+            if (product.stock < cadenaCantidades[i]){
+                stock = false;
+            // res.status(400).json({ error: 'No hay stock para el producto' }); // no hay stock para un producto determinado
+            }
+        }
+      }) 
+    );
+
+
+    if(stock){
+        preference.back_urls.success = successUrl;
+        const response = await mercadopago.preferences.create(preference);
+
+        res.status(200).json({
+        init_point: response.body.init_point,
+        items: response.body.items,
+        });
+    }else {
+        res.status(400).json({error: `No hay stock, actualice la pagina para ver el nuevo stock`})
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 module.exports = router;
