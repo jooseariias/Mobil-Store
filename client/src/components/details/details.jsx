@@ -7,6 +7,7 @@ import "./details.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import atras from "../../assets/atras.png"
+import { Reviews } from "../Reviews/Reviews";
 function Details() {
   const [details] = useSelector((state) => state.details);
   console.log(details);
@@ -77,6 +78,7 @@ function Details() {
           </div>
         </div>
       </div>
+      <Reviews/>
       <Footer />
     </div>
   );

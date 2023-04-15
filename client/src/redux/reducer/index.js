@@ -14,13 +14,15 @@ import{
 
     GET_USERS,
     POST_USER,
+    GET_USER,
 
     CLEAN_DETAIL,
     CLEAN_PHONES,
     FILTER_CAPACITY,
 
     LOGIN_SUCCESS,
-    LOG_OUT
+    LOG_OUT,
+    GET_REVIEWS
 }from"../actions/index"
 
 const initialState = {
@@ -32,6 +34,7 @@ const initialState = {
   Color:[],
   details: [],
   Users: [],
+  Reviews:[]
 };
 
 function rootReducer(state = initialState, action){
@@ -39,7 +42,6 @@ function rootReducer(state = initialState, action){
     switch (action.type) {
   
       case GET_PHONES:
-       
         return{
           ...state,
           Phones: action.payload,
@@ -65,6 +67,12 @@ function rootReducer(state = initialState, action){
           Users: action.payload
         };
 
+      case GET_USER:
+        return{
+          ...state,
+          Users: action.payload
+        }
+
       case CLEAN_DETAIL:
         return{
           ...state,
@@ -80,6 +88,8 @@ function rootReducer(state = initialState, action){
         case LOGIN_SUCCESS:
 
           window.localStorage.setItem('user-log', JSON.stringify(action.payload));
+
+          console.log("action", action.payload)
 
           return{
             ...state,
@@ -135,7 +145,7 @@ function rootReducer(state = initialState, action){
       //reducers de ordenamiento
   
       case ORDER_BY_NAME:
-        console.log("1");
+
         let order =
           action.payload === "asc"
             ? state.PhonesCopy.sort(function (a, b) {
@@ -243,7 +253,12 @@ function rootReducer(state = initialState, action){
         PhonesCopy: TypePhonesFilterCapacidad,
       };
 
-
+      case GET_REVIEWS:
+        return{
+          ...state,
+          Reviews: action.payload,
+         
+        };
   
       default: {
         return state;
