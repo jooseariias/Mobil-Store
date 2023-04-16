@@ -41,6 +41,7 @@ const statisticsRoute = require("./routeStatistics")
 const getCart = require('./cartsRoutes/get')
 const addCart = require('./cartsRoutes/post')
 const deleteCart = require('./cartsRoutes/delete')
+const updateProduct = require('./cartsRoutes/update')
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -49,6 +50,7 @@ const deleteCart = require('./cartsRoutes/delete')
 router.use("/cart/addProduct", addCart);
 router.use("/cart/getProduct", getCart);
 router.use("/cart/deleteProduct", deleteCart);
+router.use("/cart/updateProduct", updateProduct);
 
 router.use('/product', productsRoute);
 router.use('/brand', brandRoute);
