@@ -69,11 +69,11 @@ export default function App() {
         <Route path="/Profile" element={<Profile />} />
 
         //Rutas admin
-        <Route element={<RutePrivade />}>
+        {/* <Route element={<RutePrivade />}> */}
           <Route path="/DashBoard" element={<Dashboard />} />
           <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
           <Route exact path="/form-product" element={<CreateProduct />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
     </div>
   );
