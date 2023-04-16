@@ -50,11 +50,11 @@ const PasswordReset = () => {
             Reset password
             </h1>
 
-              <div className="w-4/5">
+              <div className="w-4/5 px-60 items-center">
               <label htmlFor="email" className="font-bold text-slate-900 dark:text-slate-100">Enter your email address:</label>
               </div>
 
-              <div className="w-4/5 my-2 flex items-center relative  mb-12">
+              <div className="w-4/5 my-2 flex items-center relative  mb-12 px-60">
                   <input
                   type="email"
                   id="email"
