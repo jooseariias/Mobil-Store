@@ -85,6 +85,7 @@ const PasswordReset = () => {
           <div className='my-auto pt-28'>
           <Footer/>
           </div>
+          
     </div>
   );
 };
