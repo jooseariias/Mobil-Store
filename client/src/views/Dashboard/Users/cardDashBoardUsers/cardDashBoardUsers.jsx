@@ -56,7 +56,7 @@ export default function CardDashBoard(){
     
                             <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px] '>
 
-                            <div class='w-[200px] bg-white items-center justify-center'>
+                            <div class='w-[200px] bg-white items-center justify-center '>
                             <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>Name</h5>
                             </div>
                             
