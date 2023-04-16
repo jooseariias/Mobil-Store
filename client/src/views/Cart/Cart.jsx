@@ -145,28 +145,14 @@ export default function Cart(){
 
       const data = {
         userId: user.data_user.id,
-        address: "APROBAR-PF"
+        address: "LA CALIFORNIA"
       }
 
       dispatch(PostMercadoPago(data)).then((response) => {
-        // Abrir la ventana y guardar una referencia a ella
-        const nuevaVentana = window.open(response.data.init_point, '_blank');
-      
-        // Agregar un eventListener para escuchar los mensajes enviados desde la ventana abierta
-        window.addEventListener('message', (event) => {
-          // Comprobar que el mensaje es válido y proviene de la ventana abierta
-          if (event.origin === response.data.init_point && event.data.respuesta) {
-            // Procesar la respuesta recibida
-            console.log(event.data.respuesta);
-            console.log("mensaje");
-          }
-        }, false);
-      
-        // Enviar los datos necesarios a la ventana abierta
-        nuevaVentana.postMessage({ datos: 'Datos enviados desde la ventana padre' }, 'https://url_de_la_ventana_abierta.com');
-      }).catch((error) => {
-        // manejar errores
-      });
+
+        console.log("BEBITO", response);
+        window.open(response.data.init_point, '_blank');
+      })
     }
   }
 

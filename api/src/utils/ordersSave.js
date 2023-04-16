@@ -37,7 +37,7 @@ const crearOrden = async (
         id: parseInt(cadenaProductos[i]),
       },
     });
-    // console.log("Stock es: ", product.stock);
+    console.log("Stock es: ", product.stock);
     // console.log("Cantidades es: ", cadenaCantidades[i]);
     if (product.stock < cadenaCantidades[i]){ 
       flag = false;
@@ -46,14 +46,14 @@ const crearOrden = async (
   }
   // console.log(flag)
   if (flag){
-    axios
-      .get(`https://api.mercadopago.com/v1/payments/${collection_id}`, {
+    axios.get(`https://api.mercadopago.com/v1/payments/${collection_id}`, {
         headers: {
           Authorization: `Bearer ${process.env.ACCESS_TOKEN_MP}`,
         },
       })
       .then(async (response) => {
-        //   console.log("response en crear orden: ", response)
+
+          console.log("response en crear orden: ", response)
 
         const user = await User.findOne({
           where: {
@@ -67,6 +67,8 @@ const crearOrden = async (
             parseFloat(cadenaPrecios[i]) * parseInt(cadenaCantidades[i]);
           // console.log("total de la orden: ", totalOrder)
         }
+
+       
 
         // console.log("Total de la orden: ", totalOrder)
         const order = await Orders.create({
@@ -127,7 +129,7 @@ const crearOrden = async (
         
       })
       .catch((error) => {
-        alert('error')
+        console.log("ERROR - ERROR")
         console.error(error.message)
       })
       return flag;
