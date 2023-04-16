@@ -25,11 +25,11 @@ export default function UsersDashBoard(){
 
             <div class='col-span-5 items-center relative'>
                 <div class='mx-[30px] mt-[20px] bg-white mb-[20px] p-[10px] rounded flex items-center'>
-                    <h1 class='font-bold ml-[10px] text-[25px]'>DashBoard Users Admin</h1> 
-                   <div className="items-center justify-center m-2 px-80"> <SearchBarUsers/> </div>   
+                    <h1 class='font-bold ml-[10px] text-[25px]'>Users</h1> 
+                   <div className="items-center justify-center m-4 px-60 m-4 w-full"> <SearchBarUsers/> </div>   
                 </div>
 
-                <div class='flex text-center bg-white items-center justify-center mx-80 flex-wrap w-[1000px] px-40'>
+                <div class='flex text-center bg-white items-center justify-center mx-80  w-[1000px]   h-full px-40'>
              
                     <CardDashBoard/>
 

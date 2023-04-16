@@ -27,7 +27,7 @@ export default function CardDashBoard(){
             Swal.fire({
                 icon: 'sucess',
                 title: resp.data.message,
-                text: 'changed user role!',
+                text: 'User role changed successfully!',
         })
         }).then(() => {
             dispatch(GetUsers());
@@ -41,7 +41,7 @@ export default function CardDashBoard(){
             Swal.fire({
                 icon: 'sucess',
                 title: resp.data.message,
-                text: 'has banned the user!',
+                text: 'User enablement changed successfully!',
         })
         }).then(() => {
             dispatch(GetUsers());
@@ -50,33 +50,68 @@ export default function CardDashBoard(){
     }
 
     return(
-        <div>
-                    <div class='flex flex-wrap justify-center'>
+        <div className="min-h-full flex flex-col">
+
+                    <div class=' justify-center my-2'>
+    
+                            <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px] '>
+
+                            <div class='w-[200px] bg-white items-center justify-center'>
+                            <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>Name</h5>
+                            </div>
+                            
+                            <div class='w-[200px] bg-white justify-center items-center'>
+                            <h5 class='mr-[100px] text-[15px] w-[200px] text-black font-bold'>Email</h5>
+                            </div>
+
+                            <div class='w-[150px] bg-white justify-center items-center'>
+                            <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>Rol</h5>
+                            </div>
+
+                            <div class='w-[150px] bg-white justify-center items-center '>
+                            <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'> Qualification</h5>
+                            </div>
+
+                            <div class='w-[80px] bg-white justify-center items-center '>
+                            <h5 class='mr-[80px] text-[15px] w-[20px]  font-bold'> Assign Role</h5>
+                            </div>
+
+                            <div class='w-[80px] bg-white justify-center items-center px-0'>
+                            <h5 class='mr-[80px] text-[15px] w-[20px] font-bold'> assign enablement</h5>
+                            </div>
+
+
+                             </div>
+                 
+
+                    </div> 
+
+                    <div class=' justify-center mb-auto'>
                      {usersDisplayed?.map((e) => {
                             return(
                             <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px]'>
-                            <div class='w-[200px] bg-white'>
+                            <div class='w-[200px] bg-white justify-center items-center'>
                             <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>{e.name}</h5>
                             <h5 class='text-[12px] font-bold'>{e.surname}</h5>
                             </div>
                             
-                            <div class='w-[200px] bg-white '>
+                            <div class='w-[200px] bg-white justify-center items-center'>
                             <h5 class='mr-[100px] text-[15px] w-[200px] text-black font-bold'>{e.email}</h5>
                             </div>
 
-                            <div class='w-[200px] bg-white'>
-                            <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>{e.rol}</h5>
+                            <div class='w-[150px] bg-white justify-center items-center'>
+                            <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>{e.rol}</h5>
                             </div>
 
-                            <div class='w-[200px] bg-white'>
-                            {e.enabled === true ? <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>enabled</h5> : <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'> disabled</h5>}
+                            <div class='w-[150px] bg-white justify-center items-center '>
+                            {e.enabled === true ? <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>enabled</h5> : <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'> disabled</h5>}
                             </div>
 
-                            <button className="item-center justify-between flex" onClick={() => AdminUser(e.id)} >
+                            <button className="item-center justify-center items-center flex " onClick={() => AdminUser(e.id)} >
                             <img  class= " z-9  my-auto h-8 m-7 text-center item-center justify-center"src = {admin}/>
                             </button>
 
-                            <button className="item-center justify-between flex" onClick={() => BanUser(e.id)} >
+                            <button className="justify-center items-center flex" onClick={() => BanUser(e.id)} >
                             <img  class= " z-9  my-auto h-8 m-7 text-center item-center justify-center"src = {ban}/>
                             </button>
 
@@ -87,13 +122,17 @@ export default function CardDashBoard(){
 
                     </div> 
 
-                        <PaginationUsers
+
+
+                    <div className="my-auto ">
+                    <PaginationUsers
                         quantity={quantity}
                         start={start}
                         setStart={setStart}
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
                     />
+                    </div>
 
 
         </div>
