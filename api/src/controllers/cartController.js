@@ -99,6 +99,7 @@ const updateStockProduct = async (req, res) => {
         where: { id: productId }
     })
 
+    const price = product.price;
     const stock = product.dataValues.stock;
 
     // BUSCAMOS LA CANTIDAD DE STOCK QUE TENEMOS DE ESE PRODUCTO.
@@ -125,6 +126,14 @@ const updateStockProduct = async (req, res) => {
                 }
             );
             
+            await Cart.update(
+                {
+                    priceCart: Sequelize.literal(`"priceCart" + ${price}`)
+                },
+                { 
+                where: { id: userId} }
+            )
+            
             response = res.status(200).send({message: 'all good!'});
         }        
     }else{
@@ -141,12 +150,20 @@ const updateStockProduct = async (req, res) => {
                     where: { cartId: userId, productId: productId} 
                 }
             );
+
+            await Cart.update(
+                {
+                    priceCart: Sequelize.literal(`"priceCart" - ${price}`)
+                },
+                { 
+                where: { id: userId} }
+            )
+
             response = res.status(200).send({message: 'all good!'});
         }
     }
 
-    const cart = await Cart.findOne({ where: { id: userId} })
-    updateTotalValue(cart); 
+    
     
     return response;           
 }
