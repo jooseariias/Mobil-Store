@@ -48,7 +48,7 @@ export default function Login() {
 
         dispatch(LoginSuccess(data));
         if (data.data_user.rol === "admin") {
-          alert("soy admin");
+
 
           Swal.fire({
             icon: "success",
@@ -58,7 +58,7 @@ export default function Login() {
           });
           navigate("/DashBoard");
         } else {
-          alert("no spy admin");
+ 
           Swal.fire({
             icon: "success",
             title: "Congratulations!",
