@@ -6,12 +6,9 @@ const axios = require("axios");
 const path = require("path");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const { ACCESS_TOKEN_MP } = process.env;
+const ACCESS_TOKEN_MP  = 'APP_USR-921942326134673-041309-7971cc2e2ff43d9017f0a3bb60ac3d1d-1327836042'
 const { crearOrden } = require("../utils/ordersSave");
-const {
-  sendConfirmedPaymentEmail,
-  sendEmailOrderSent,
-} = require("../utils/notifications");
+const { sendConfirmedPaymentEmail, sendEmailOrderSent } = require("../utils/notifications");
 
 const router = Router();
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -79,7 +76,7 @@ router.post("/", async (req, res) => {
       
     const URL = `localhost:3001/orders/pago-confirmado?idUser=${userId}&quantity=${cantidades}
     &price=${precios}&total=${cart.priceCart}&idProduct=${idProducts}&address=${address}
-    &title=${titulos}`;
+    &title=${titulos}&img=${fotos}`;
 
     let cadenaCantidades = cantidades.split(",")
     let cadenaProductos = idProducts.split(",");
@@ -126,7 +123,7 @@ router.get("/pago-pendiente", async (req, res) => {
 });
 
 router.get("/pago-confirmado", async (req, res) => {
-  try {
+  
     const {
       idUser,
       quantity, // este
@@ -135,6 +132,7 @@ router.get("/pago-confirmado", async (req, res) => {
       idProduct, // este
       address,
       title, // este
+      img,
       //picture_url, // este
       description, // este
 
@@ -167,6 +165,7 @@ router.get("/pago-confirmado", async (req, res) => {
       cadenaTitulos,
       //cadenaPicture,
       totalDeRegistros,
+      img,
       address,
       collection_id,
       preference_id,
@@ -192,9 +191,6 @@ router.get("/pago-confirmado", async (req, res) => {
     // const filePath = path.join(__dirname, '../utils/success.html');
     // res.sendFile(filePath);
     res.status(200).json({ msg: "pago confirmado" });
-  } catch (error) {
-    res.status(400).send({ error: error.message });
-  }
 });
 
 router.put("/sendOrder/:idOrder", async (req, res) => {

@@ -96,6 +96,7 @@ export default function Cart(){
       }
       
       dispatch(UpdateStockDB(data)).then((response) => {
+        dispatch(getProductCart(user.data_user.id));
         setActualizar(!Actualizar);
       }).catch((response) => {
           return Swal.fire({
@@ -149,8 +150,6 @@ export default function Cart(){
       }
 
       dispatch(PostMercadoPago(data)).then((response) => {
-
-        console.log("BEBITO", response);
         window.open(response.data.init_point, '_blank');
       })
     }
