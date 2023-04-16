@@ -24,10 +24,11 @@ router.get("/:id", async (req, res) => {
       where: { cartId: id }
     })*/
 
-    console.log("CART", cart)
-
-    if(cart.productcarts.length === 0) return res.status(400).send([]);
+    if(!cart || cart.productcarts.length === 0) return res.status(400).send([])
     else return res.status(200).send(cart);
+    
+      
+    //if(cart.productcarts.length === 0) return res.status(400).send([]);
   
 });
 

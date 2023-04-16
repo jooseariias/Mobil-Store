@@ -183,6 +183,12 @@ export function deleteProductCart(data){
   }
 }
 
+export function UpdateStockDB(data){
+  return async function(){
+    return await axios.put(`${URL_BACK}/cart/updateProduct`, data);
+  }
+}
+
 export function PostMercadoPago(payload){
   return async function(){
     return axios.post(`${URL_BACK}/orders`, payload)
