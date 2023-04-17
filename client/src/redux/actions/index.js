@@ -215,13 +215,13 @@ export function GetUsers(){
 
 export function PutUserAdminDashBoard(idUser){
   return async function(dispatch){
-      return axios.put(`http://localhost:3001/user/admin/${idUser}`)
+      return axios.put(`${URL_BACK}/user/admin/${idUser}`)
   }
 }
 
 export function PutUserBanDashBoard(idUser){
   return async function(dispatch){
-      return axios.put(`http://localhost:3001/user/banned/${idUser}`)
+      return axios.put(`${URL_BACK}/user/banned/${idUser}`)
   }
 }
 
@@ -276,7 +276,7 @@ export function getReviews(id) {
 export const postReviews =  (id,payload) => {
   try {
     return async (dispatch) => {
-    const resultado = await axios.post(`http://localhost:3001/reviews/${id}`,payload)
+    const resultado = await axios.post(`${URL_BACK}/reviews/${id}`,payload)
     // dispatch({
     //   type:POST_REVIEW, 
     //   payload:resultado.data

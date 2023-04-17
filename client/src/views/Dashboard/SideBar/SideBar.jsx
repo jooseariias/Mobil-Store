@@ -4,6 +4,7 @@ import home from "../../../assets/icons-user-dashboard/home.png";
 import phones from "../../../assets/icons-user-dashboard/phones.png";
 import users from "../../../assets/icons-user-dashboard/users.png";
 import userphoto from "../../../assets/icons-user-dashboard/user.png";
+import statistics from "../../../assets/icons-user-dashboard/statistics.png";
 import { Link } from "react-router-dom";
 
 export default function SideBar() {
@@ -46,15 +47,15 @@ export default function SideBar() {
       )}
 
       <div className="bg-gray-500 p-8 rounded-tr-[100px] h-full">
-        <nav className="flex flex-col gap-4">
+        <nav className="flex flex-col gap-4 h-full">
           <Link
            to='/dashboard'
            className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl">
 
-            Home
+            statistics
             <img
               class=" z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"
-              src={home}
+              src={statistics}
             />
           </Link>
 
@@ -79,8 +80,21 @@ export default function SideBar() {
               />
             </a>
           </Link>
+
+          <Link
+           to='/'
+           className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl my-auto">
+
+            Home
+            <img
+              class=" z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"
+              src={home}
+            />
+          </Link>
         </nav>
       </div>
+
+
     </div>
   );
 }
