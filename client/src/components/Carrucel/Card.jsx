@@ -99,7 +99,7 @@ export default function Card({id, name, price, image, stock, brand}){
     }
     
     return(
-        <div class="w-full max-w-xl bg-white border border-gray-400 rounded-lg dark:bg-gray-900 dark:border-gray-700 transform transition duration-500 hover:scale-105 mt-3 mb-3" >
+        <div class="w-full max-w-xl bg-white border border-gray-400 rounded-lg dark:bg-gray-900 dark:border-gray-700 transform transition duration-500 hover:scale-105 mt-6 mb-3" >
 
     <a href="#">
         <img class="rounded-t-lg w-full h-[300px] text-center" src={image} alt="product image" onClick={() => handleClickDetail(id)} />

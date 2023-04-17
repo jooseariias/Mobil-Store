@@ -7,8 +7,7 @@ router.get("/:id", async (req, res) => {
 
   const { id } = req.params;
 
-  try {
-    let cart = await Cart.findOne({
+  const cart = await Cart.findOne({
       include: [
         {
           model: User,
@@ -21,14 +20,16 @@ router.get("/:id", async (req, res) => {
       order: [[Productcart, "createdAt", "DESC"]],
     });
 
-    console.log("CARRITO", cart);
+    /*cart.productcarts = await Productcart.findAll({
+      where: { cartId: id }
+    })*/
 
-    if(cart.productcarts.length === 0) return res.status(200).send([]);
-
-    return res.status(200).send(cart);
-  } catch (err) {
-    console.log(err);
-  }
+    if(!cart || cart.productcarts.length === 0) return res.status(400).send([])
+    else return res.status(200).send(cart);
+    
+      
+    //if(cart.productcarts.length === 0) return res.status(400).send([]);
+  
 });
 
 module.exports = router;

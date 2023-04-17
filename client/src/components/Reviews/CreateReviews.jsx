@@ -6,10 +6,11 @@ import { postReviews } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
 import swal from "sweetalert2";
+// import { response } from '../../../../api/src/app';
 
 export const CreateReviews = () => {
   const User= useSelector(state=>state.User)
-  const msg= useSelector(state=>state.msg)
+  const msg= useSelector(state=>state.message)
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
   const { productId } = useParams();
@@ -20,9 +21,9 @@ export const CreateReviews = () => {
     setRating(event.target.value);
   };
   const [error, setError] = useState({});
- useEffect(() => {
+//  useEffect(() => {
 
- }, [msg])
+//  }, [msg])
  
     const handleBlurComment = () => {
       if (!comment.trim()) {
@@ -35,7 +36,48 @@ export const CreateReviews = () => {
       }
     };
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+  event.preventDefault();
+  if (!rating || !comment) {
+    swal.fire({
+      title: "Error",
+      text: "You must complete all fields",
+      icon: "warning",
+      buttons: "Ok",
+    });
+  } else {
+    const FormData = {
+      score: parseInt(rating),
+      comment: comment,
+      idUser: User.data_user.id,
+    };
+    dispatch(postReviews(productId, FormData))
+    .then((response) => {
+      console.log("response es: ", response)
+      swal.fire({
+        title: "Message",
+        text: response.data,
+        icon: "success",
+        buttons: "Ok",
+      })
+    } )
+    .catch((error) => {
+      // console.log("error es: ", error)
+      swal.fire({
+        title: "Message",
+        text: error.response.data,
+        icon: "error",
+        buttons: "Ok",
+      })
+    })      
+    
+    setRating("");
+    setComment("");
+    
+  }
+};
+
+  const handleSubmit2 = (event) => {
     event.preventDefault();
    if( !rating || !comment){
     swal.fire({
@@ -51,20 +93,21 @@ export const CreateReviews = () => {
        comment:comment,
        idUser: User.data_user.id
      };
-    dispatch(postReviews(productId,FormData))
-    .then(() => {
-      swal.fire({
-        title: "Message",
-        text:"Successful review!",
-        icon: "info",
-        buttons: "Ok",
-      });
-      setRating("");
-      setComment("");
-    })
-    .catch((error) => {
-      console.log(error);
+    dispatch(postReviews(productId,FormData)) 
+    console.log("msg es:", msg)
+    swal.fire({
+      title: "Message",
+      text: "Review",
+      icon: "success", 
+      buttons: "Ok",
     });
+    
+    setRating("");
+    setComment("");
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
 }
   };
 

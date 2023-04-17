@@ -183,6 +183,12 @@ export function deleteProductCart(data){
   }
 }
 
+export function UpdateStockDB(data){
+  return async function(){
+    return await axios.put(`${URL_BACK}/cart/updateProduct`, data);
+  }
+}
+
 export function PostMercadoPago(payload){
   return async function(){
     return axios.post(`${URL_BACK}/orders`, payload)
@@ -209,13 +215,13 @@ export function GetUsers(){
 
 export function PutUserAdminDashBoard(idUser){
   return async function(dispatch){
-      return axios.put(`http://localhost:3001/user/admin/${idUser}`)
+      return axios.put(`${URL_BACK}/user/admin/${idUser}`)
   }
 }
 
 export function PutUserBanDashBoard(idUser){
   return async function(dispatch){
-      return axios.put(`http://localhost:3001/user/banned/${idUser}`)
+      return axios.put(`${URL_BACK}/user/banned/${idUser}`)
   }
 }
 
@@ -226,6 +232,12 @@ export function getUser(payload){
       type: GET_USER,
       payload: json.data
     })
+  }
+}
+
+export function getOrders(id){
+  return async function(){
+    return await axios.get(`${URL_BACK}/orders/${id}`)
   }
 }
 
@@ -264,17 +276,19 @@ export function getReviews(id) {
 export const postReviews =  (id,payload) => {
   try {
     return async (dispatch) => {
-    const resultado = await axios.post(`http://localhost:3001/reviews/${id}`,payload)
-    console.log(resultado.data)
-     dispatch({
-      type:POST_REVIEW, 
-      payload:resultado.data
-    })
+    const resultado = await axios.post(`${URL_BACK}/reviews/${id}`,payload)
+    // dispatch({
+    //   type:POST_REVIEW, 
+    //   payload:resultado.data
+    // })
+    // console.log("resultado.data es:", resultado.data)
+    return resultado
     }
   
   } catch (error) {
     console.log(error.message)
   }
-  
 }
+
+
 

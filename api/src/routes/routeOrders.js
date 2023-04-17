@@ -6,12 +6,10 @@ const axios = require("axios");
 const path = require("path");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const { ACCESS_TOKEN_MP } = process.env;
+const ACCESS_TOKEN_MP  = 'APP_USR-921942326134673-041309-7971cc2e2ff43d9017f0a3bb60ac3d1d-1327836042'
 const { crearOrden } = require("../utils/ordersSave");
-const {
-  sendConfirmedPaymentEmail,
-  sendEmailOrderSent,
-} = require("../utils/notifications");
+const { sendConfirmedPaymentEmail, sendEmailOrderSent } = require("../utils/notifications");
+const BACK_URL = process.env.BACK_URL
 
 const router = Router();
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -25,13 +23,13 @@ const { User, Orders, Product, OrderStatus, Detail, Cart, Productcart } = requir
 router.post("/", async (req, res) => {
 
     const { userId, address } = req.body;
-    
-    let successUrl;
+
+    var sucessUrl;
 
     let preference = {
       items: [],
       back_urls: {
-        success: successUrl,
+        success: sucessUrl,
         failure: `${process.env.BACK_URL}/orders/pago-fallido`,
         pending: `${process.env.BACK_URL}/orders/pago-pendiente`,
       },
@@ -57,7 +55,7 @@ router.post("/", async (req, res) => {
           title: product.name,
           picture_url: product.img,
           currency_id: "ARS",
-          //description: product.description.slice(0, 254),
+          //description: product.description,
           quantity: product.quantity,
           unit_price: parseFloat(product.priceProduct)
         }
@@ -77,9 +75,9 @@ router.post("/", async (req, res) => {
 
     let idProducts = products.map((e) => e.productId).join(",");
       
-    successUrl = `${process.env.BACK_URL}/orders/pago-confirmado?idUser=${userId}&quantity=${cantidades}
+    const URL = `${BACK_URL}/orders/pago-confirmado?idUser=${userId}&quantity=${cantidades}
     &price=${precios}&total=${cart.priceCart}&idProduct=${idProducts}&address=${address}
-    &title=${titulos}&picture_url=${fotos}`;
+    &title=${titulos}&img=${fotos}`;
 
     let cadenaCantidades = cantidades.split(",")
     let cadenaProductos = idProducts.split(",");
@@ -91,17 +89,18 @@ router.post("/", async (req, res) => {
           id: parseInt(cadenaProductos[i]),
       },
       });
-      // console.log("Stock es: ", product.stock);
-      // console.log("Cantidades es: ", cadenaCantidades[i]);
-   
+     
+      
       if (product.stock < cadenaCantidades[i]){
-          stock = false;
-      // res.status(400).json({ error: 'No hay stock para el producto' }); // no hay stock para un producto determinado
+        stock = false;
+        // res.status(400).json({ error: 'No hay stock para el producto' }); // no hay stock para un producto determinado
       }
     }
-
+    
     if(stock){
-      preference.back_urls.success = successUrl;
+      
+      preference.back_urls.success = URL;
+
       const response = await mercadopago.preferences.create(preference);
     
       res.status(200).json({
@@ -116,93 +115,6 @@ router.post("/", async (req, res) => {
     }
 })
 
-    
-    /*await Promise.all(
-
-      arrayOfOrders.productAndQuantity.map(async (product, index) => {
-        const producto = await Product.findOne({
-          where: {
-            id: product.idProduct,
-          },
-        });
-
-     
-        preference.items[index] = {
-          title: producto.name,
-          picture_url: producto.image,
-          currency_id: "ARS",
-          description: producto.description.slice(0, 254),
-          quantity: product.quantity,
-          unit_price: parseFloat(producto.price),
-        };
- 
-        let [cantidades, precios, titulos, foto] = preference.items
-          .map((product) => [
-            product.quantity,
-            product.unit_price,
-            product.title,
-            product.picture_url,
-          ])
-          .reduce(
-            (prev, curr) => [
-              [...prev[0], curr[0]],
-              [...prev[1], curr[1]],
-              [...prev[2], curr[2]],
-              [...prev[3], curr[3]],
-            ],
-            [[], [], [], []]
-          )
-          .map((arr) => arr.join(","));
-
-        // let cantidades = preference.items.map((product) => product.quantity ).join(',')
-        // let precios = preference.items.map(product => product.unit_price).join(',') // 300, 63, 350
-        // let titulos = preference.items.map(product => product.title).join(',') // Galaxy S23 Ultra, P20 , Galaxy Z Flip4
-        // let foto = preference.items.map(product => product.picture_url).join(',') // https://m.media-amazon.com/images/I/71nZ4-uixuL.AC_SY355.jpg, https://m.media-amazon.com/images/I/61V8FqrPIpL.AC_SY550.jpg, https://m.media-amazon.com/images/I/51K7abmErwL.AC_SX425.jpg
-        let idProducts = arrayOfOrders.productAndQuantity
-          .map((order) => order.idProduct)
-          .join(",");
-
-        successUrl = `${process.env.BACK_URL}/orders/pago-confirmado?idUser=${arrayOfOrders.idUser}&quantity=${cantidades}
-                &price=${precios}&total=${arrayOfOrders.total}&idProduct=${idProducts}&address=${arrayOfOrders.address}
-                &title=${titulos}&picture_url=${foto}`;
-                let cadenaCantidades = cantidades.split(","); // ['1','2','1']
-
-                let cadenaProductos = idProducts.split(",");
-               
-            
-        for (let i = 0; i < cadenaProductos.length; i++) {
-            const product = await Product.findOne({
-            where: {
-                id: parseInt(cadenaProductos[i]),
-            },
-            });
-            // console.log("Stock es: ", product.stock);
-            // console.log("Cantidades es: ", cadenaCantidades[i]);
-            if (product.stock < cadenaCantidades[i]){
-                stock = false;
-            // res.status(400).json({ error: 'No hay stock para el producto' }); // no hay stock para un producto determinado
-            }
-        }
-      }) 
-    );
-
-
-    if(stock){
-        preference.back_urls.success = successUrl;
-        const response = await mercadopago.preferences.create(preference);
-
-        res.status(200).json({
-        init_point: response.body.init_point,
-        items: response.body.items,
-        });
-    }else {
-        res.status(400).json({error: `No hay stock, actualice la pagina para ver el nuevo stock`})
-    }
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-  */
-
 router.get("/pago-fallido", async (req, res) => {
   res.status(200).json({ msg: "pago fallido" });
 });
@@ -212,7 +124,7 @@ router.get("/pago-pendiente", async (req, res) => {
 });
 
 router.get("/pago-confirmado", async (req, res) => {
-  try {
+  
     const {
       idUser,
       quantity, // este
@@ -221,7 +133,8 @@ router.get("/pago-confirmado", async (req, res) => {
       idProduct, // este
       address,
       title, // este
-      picture_url, // este
+      img,
+      //picture_url, // este
       description, // este
 
       collection_id, //: '56501258558',
@@ -237,13 +150,12 @@ router.get("/pago-confirmado", async (req, res) => {
       merchant_account_id, //: 'null'
     } = req.query;
 
-    // console.log("req query es: ", req.query)
 
     let cadenaCantidades = quantity.split(","); // ['1','2','1']
     let cadenaPrecios = price.split(","); // ['20.5','12....]
     let cadenaProductos = idProduct.split(",");
     let cadenaTitulos = title.split(",");
-    let cadenaPicture = picture_url.split(",");
+    //let cadenaPicture = picture_url.split(",");
 
     let totalDeRegistros = cadenaCantidades.length;
 
@@ -252,8 +164,9 @@ router.get("/pago-confirmado", async (req, res) => {
       cadenaPrecios,
       cadenaProductos,
       cadenaTitulos,
-      cadenaPicture,
+      //cadenaPicture,
       totalDeRegistros,
+      img,
       address,
       collection_id,
       preference_id,
@@ -262,7 +175,7 @@ router.get("/pago-confirmado", async (req, res) => {
       idUser,
       total,
       title,
-      picture_url,
+      //picture_url,
       description
     );
 
@@ -270,7 +183,6 @@ router.get("/pago-confirmado", async (req, res) => {
         res.status(400).send({ error: `No hay stock para el producto` });
     }
 
-    
     await sendConfirmedPaymentEmail(
       idUser,
       cadenaCantidades,
@@ -279,10 +191,7 @@ router.get("/pago-confirmado", async (req, res) => {
     );
     // const filePath = path.join(__dirname, '../utils/success.html');
     // res.sendFile(filePath);
-    res.status(200).send({ msg: "pago confirmado" });
-  } catch (error) {
-    res.status(400).send({ error: error.message });
-  }
+    res.status(200).json({ msg: "pago confirmado" });
 });
 
 router.put("/sendOrder/:idOrder", async (req, res) => {

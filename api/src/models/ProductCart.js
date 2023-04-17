@@ -13,15 +13,15 @@ module.exports = function (sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    totalValue: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     priceProduct: {
-      type: DataTypes.DECIMAL,
-      allowNull: false,
-    },
-    totalValue: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

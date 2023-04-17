@@ -59,16 +59,16 @@ router.post("/:idProduct", async (req,res)=>{
                         newReview.setProduct([productReview.id]);
                         res.status(200).send("Successful review!")
                     }else{
-                        res.status(400).json({msg:"The product does not exist"})
+                        res.status(400).send("The product does not exist")
                     }
 
                 }
             }else {
-                res.status(200).json({msg: `No se puede calificar el producto mas de una vez`})
+                res.status(400).send(`No se puede calificar el producto mas de una vez`)
             }
             
         }else{
-            res.status(200).json({msg: `Ud no puede hacer una review de un producto que no compro`})
+            res.status(400).send(`Ud no puede hacer una review de un producto que no compro`)
         }
 
         

@@ -30,52 +30,29 @@ const crearOrden = async (
   picture_url,
   description
 ) => {
-  let flag = true;
-  for (let i = 0; i < cadenaProductos.length; i++) {
-    const product = await Product.findOne({
-      where: {
-        id: parseInt(cadenaProductos[i]),
-      },
-    });
-    // console.log("Stock es: ", product.stock);
-    // console.log("Cantidades es: ", cadenaCantidades[i]);
-    if (product.stock < cadenaCantidades[i]){ 
-      flag = false;
-      return flag; // no hay stock para un producto determinado
-    }
-  }
-  // console.log(flag)
-  if (flag){
-    axios
-      .get(`https://api.mercadopago.com/v1/payments/${collection_id}`, {
-        headers: {
-          Authorization: `Bearer ${process.env.ACCESS_TOKEN_MP}`,
-        },
-      })
-      .then(async (response) => {
-        //   console.log("response en crear orden: ", response)
-
+  
         const user = await User.findOne({
           where: {
             id: idUser,
           },
         });
-
         let totalOrder = 0;
+
+        console.log("PREFERENCE-ID", preference_id)
+
         for (let i = 0; i < cadenaProductos.length; i++) {
           totalOrder +=
             parseFloat(cadenaPrecios[i]) * parseInt(cadenaCantidades[i]);
           // console.log("total de la orden: ", totalOrder)
         }
 
-        // console.log("Total de la orden: ", totalOrder)
         const order = await Orders.create({
           id: preference_id,
           // idProduct,
           // quantity,
           // price,
           address,
-          idUser,
+          idUser: idUser,
           total: totalOrder,
           date: Date.now(),
         });
@@ -125,13 +102,7 @@ const crearOrden = async (
 
         await statusOrder.setOrder(order.id);
         
-      })
-      .catch((error) => console.error(error.message))
-      return flag;
-    }
-    else {
-      return false
-    }
+        return 'todo bien'
 };
 
 module.exports = { crearOrden };

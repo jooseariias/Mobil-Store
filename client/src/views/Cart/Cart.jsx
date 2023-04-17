@@ -3,9 +3,9 @@ import { DeleteProductLocalStorage, UpdateStockProductLocalStorage } from "../..
 import { useSelector } from "react-redux";
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer";
-import Swal from "sweetalert2"
-import { getProductCart, deleteProductCart, PostMercadoPago } from "../../redux/actions";
+import { getProductCart, deleteProductCart, UpdateStockDB, PostMercadoPago } from "../../redux/actions";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2"
 
 export default function Cart(){
 
@@ -20,8 +20,9 @@ export default function Cart(){
     if(user && user.data_user && user.data_user.id ){
       dispatch(getProductCart(user.data_user.id)).then((response) => {
         setCarrito(response.data);
-        console.log(response.data);
-      });
+      }).catch(() => {
+        setCarrito([]);
+      })
     }
   
     else if(window.localStorage.getItem('carrito-ls')){
@@ -37,6 +38,7 @@ export default function Cart(){
   const DeleteProduct = (productId) => {
 
     if(Object.keys(user).length !== 0){
+
       Swal.fire({
         icon: 'warning',
         title: 'Are you sure you want to delete the product?',
@@ -51,13 +53,13 @@ export default function Cart(){
           }
 
           dispatch(deleteProductCart(data)).then((response) => {
-            console.log("ZEKA", response)
             Swal.fire({
               icon: 'success',
               title: 'Congratulations!',
               text: response.data.message
-            })
-            setActualizar(!Actualizar);
+            })}).then(() => {
+              dispatch(getProductCart(user.data_user.id));
+              setActualizar(!Actualizar);
           })
         }
       })
@@ -85,17 +87,40 @@ export default function Cart(){
 
   const handleStock = (operator, productId, stock) => {
 
-    const valor = UpdateStockProductLocalStorage(operator, productId, stock);
+    if(Object.keys(user).length !== 0){
 
-    if(valor !== undefined){
-       Swal.fire({
-        icon: valor.icon,
-        title: valor.title,
-        text: valor.text,
+      const data = {
+        userId: user.data_user.id,
+        productId: productId,
+        operator: operator
+      }
+      
+      dispatch(UpdateStockDB(data)).then((response) => {
+        dispatch(getProductCart(user.data_user.id));
+        setActualizar(!Actualizar);
+      }).catch((response) => {
+          return Swal.fire({
+            icon: 'error',
+            title: 'Something went wrong',
+            text: response.response.data.message,
+          })
       })
     }
 
-    setActualizar(!Actualizar);
+    else{
+
+      const valor = UpdateStockProductLocalStorage(operator, productId, stock);
+  
+      if(valor !== undefined){
+         Swal.fire({
+          icon: valor.icon,
+          title: valor.title,
+          text: valor.text,
+        })
+      }
+  
+      setActualizar(!Actualizar);
+    }
   }
 
   const GetStockProduct = (id) => {
@@ -121,22 +146,18 @@ export default function Cart(){
 
       const data = {
         userId: user.data_user.id,
-        address: "APROBAR-PF"
+        address: "LA CALIFORNIA"
       }
 
       dispatch(PostMercadoPago(data)).then((response) => {
-        window.open(response.data.init_point, '_blank')
-        
-
-      }).catch((error) => {
-        // manejar errores
-      });
+        window.open(response.data.init_point, '_blank');
+      })
     }
   }
 
   const RenderEmptyCart = () => {
     return (
-      <section className="flex items-center h-[calc(100vh-6.5rem)] p-16 dark:bg-gray-900 dark:text-gray-100">
+      <section className="flex items-center h-[calc(100vh-7rem)] p-16 dark:bg-gray-800 dark:text-gray-100">
 	      <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
 		      <div className="max-w-md text-center">
 			      <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
@@ -156,14 +177,14 @@ export default function Cart(){
 
       <Header />
 
-    <div className="dark:bg-slate-900">
+    <div className="bg-gray-100 dark:bg-gray-800">
       <div class="container mx-auto">
 
         {
           Object.keys(carrito).length === 0  ? <RenderEmptyCart /> :
 
         <div class="flex shadow-md py-5">
-          <div class="w-3/4 h-[calc(100vh-8.8rem)] px-10 py-4 overflow-auto border dark:bg-gray-900 dark:border-gray-800 text-slate-900 dark:text-slate-100 ">
+          <div class="w-3/4 h-[calc(100vh-10rem)] px-10 py-4 overflow-auto border dark:bg-gray-900 dark:border-gray-800 text-slate-900 dark:text-slate-100 ">
 
             <div class="flex justify-between border-b pb-5 dark:border-gray-700">
               <h1 class="font-semibold text-2xl">Shopping Cart</h1>

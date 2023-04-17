@@ -36,7 +36,7 @@ const initialState = {
   details: [],
   Users: [],
   Reviews:[],
-  msg:null
+  message: ""
 };
 
 function rootReducer(state = initialState, action){
@@ -262,10 +262,10 @@ function rootReducer(state = initialState, action){
          
         };
         case POST_REVIEW:
-          // console.log("msg:", action.payload)
+          console.log("action.payload es: ",  action.payload)
           return {
             ...state,
-            msg:action.payload
+            message: action.payload
           };
   
   
