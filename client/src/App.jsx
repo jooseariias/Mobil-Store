@@ -28,6 +28,7 @@ import Reset from "./components/ActPassword/Reset";
 import { CreateReviews } from "./components/Reviews/CreateReviews";
 import RutePrivade from "./components/rutePrivade/RutePrivade";
 import ProductDashBoard from "./views/Dashboard/Product/Products";
+import Profile from "./views/Profile/Profile";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -71,13 +72,13 @@ export default function App() {
 
         //Rutas admin
 
-        <Route element={<RutePrivade />}>
+        {/* <Route element={<RutePrivade />}> */}
           <Route path="/DashBoard" element={<Dashboard />} />
           <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
           <Route path="/ProductsDash" element={<ProductDashBoard />} />
           <Route exact path="/form-product" element={<CreateProduct />} />
           <Route exact path="/update-product/:id" element={<UpdateProduct />} />
-        </Route>
+        {/* </Route> */}
        
       </Routes>
     </div>
