@@ -27,7 +27,6 @@ function Reset() {
     return (
       <div div className="bg-gray-100 dark:bg-slate-800  h-min-screen ">
         
-    
             <Header/>
 
 
