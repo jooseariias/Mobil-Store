@@ -109,30 +109,83 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.put("/:id", async (req, res) => {
-  const id = req.params.id;
-  const body = req.body;
+// router.put("/:id", async (req, res) => {
+//   const id = req.params.id;
+//   const body = req.body;
 
-  try {
-    await Product.update(
-      {
-        name: body.name,
-        price: body.price,
-        description: body.description,
-        stock: body.stock,
-        enabled: body.enabled,
-        year: body.year,
-      },
-      {
-        where: {
-          id: id,
-        },
-      }
-    );
+//   try {
+//     await Product.update(
+//       {
+//         name: body.name,
+//         price: body.price,
+//         description: body.description,
+//         stock: body.stock,
+//         enabled: body.enabled,
+//         year: body.year,
+//       },
+//       {
+//         where: {
+//           id: id,
+//         },
+//       }
+//     );
 
-    res.status(200).send("Product updated successfully!");
-  } catch (error) {
-    res.status(400).json({ message: error.message });
+//     res.status(200).send("Product updated successfully!");
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
+
+router.put('/:id', async (req, res) => {
+  const selectedProduct = await Product.findOne({
+    where: {
+      id: req.params.id
+    }
+
+  });
+
+  if (selectedProduct) {
+    let data = { ...req.body }
+
+    let keys = Object.keys(data);
+
+    keys.forEach(k => {
+      selectedProduct[k] = data[k]
+    });
+
+    await selectedProduct.save()
+
+    res.status(200).send(selectedProduct)
+  } else {
+    res.status(404)
   }
-});
+})
+
+
+router.put('/enabled/:id', async(req,res)=>{
+  const { id } = req.params;
+
+      try {
+          const product = await Product.findOne({
+              where: { id: id }
+          })
+          if(product.enabled === true){
+             await Product.update(
+                  { enabled: false },
+                  { where: { id: id} }
+              )
+              res.send('the product is disabled')
+          }else{
+               await Product.update(
+                  { enabled: true },
+                  { where: { id: id} }
+              )
+              res.send('the product is enabled')
+          }
+
+
+      } catch (err) {
+          console.log(err)
+      }
+})
 module.exports = router;
