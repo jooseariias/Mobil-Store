@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 const  { User, Cart, Productcart, Product, Brand  }  = require("../db")
 
 const updateTotalValue = async (cart) => {
@@ -68,9 +70,6 @@ const deleteProductCart = async (req, res) => {
 
         const { productId, userId } = req.body
 
-        console.log("PRODUCTO-ID", productId);
-        console.log("USER-ID", userId);
-
         
         let productCart = await Productcart.findOne({
         where: { cartId: userId, 
@@ -84,11 +83,90 @@ const deleteProductCart = async (req, res) => {
 
         await productCart.destroy();
 
-    const cart = await Cart.findOne({ where: { id: userId} })
+        const cart = await Cart.findOne({ where: { id: userId} })
 
-    updateTotalValue(cart); 
+        updateTotalValue(cart); 
     res.status(200).send({message: 'The product was removed from your cart'})
 };
 
+const updateStockProduct = async (req, res) => {
 
-module.exports = {addProductCart,deleteProductCart,updateTotalValue}
+    const { userId, productId, operator } = req.body;
+
+    // BUSCAMOS EL STOCK DEL PRODUCTO AL CUÁL LE APLICAREMOS EL UPDATE.
+
+    const product = await Product.findOne({
+        where: { id: productId }
+    })
+
+    const price = product.price;
+    const stock = product.dataValues.stock;
+
+    // BUSCAMOS LA CANTIDAD DE STOCK QUE TENEMOS DE ESE PRODUCTO.
+
+    var productCart = await Productcart.findOne({
+        where: { cartId: userId, productId: productId}
+    })
+
+    const quantity = productCart.dataValues.quantity;
+
+    let response = null;
+
+    if(operator === '+'){
+        if(quantity >= stock){
+            response = res.status(400).send({message: 'You cannot exceed the stock of a product'});
+        } else {
+            await Productcart.update(
+                { 
+                    quantity: Sequelize.literal('quantity + 1'),
+                    totalValue: Sequelize.literal('"totalValue" + "priceProduct"')
+                },
+                { 
+                    where: { cartId: userId, productId: productId} 
+                }
+            );
+            
+            await Cart.update(
+                {
+                    priceCart: Sequelize.literal(`"priceCart" + ${price}`)
+                },
+                { 
+                where: { id: userId} }
+            )
+            
+            response = res.status(200).send({message: 'all good!'});
+        }        
+    }else{
+
+        if(quantity <= 1){
+            response = res.status(400).send({message: 'You cannot have negative stock'});
+        } else {
+            await Productcart.update(
+                { 
+                    quantity: Sequelize.literal('quantity - 1'),
+                    totalValue: Sequelize.literal('"totalValue" - "priceProduct"')
+                },
+                { 
+                    where: { cartId: userId, productId: productId} 
+                }
+            );
+
+            await Cart.update(
+                {
+                    priceCart: Sequelize.literal(`"priceCart" - ${price}`)
+                },
+                { 
+                where: { id: userId} }
+            )
+
+            response = res.status(200).send({message: 'all good!'});
+        }
+    }
+
+    
+    
+    return response;           
+}
+
+
+module.exports = { addProductCart, deleteProductCart, updateTotalValue, updateStockProduct}

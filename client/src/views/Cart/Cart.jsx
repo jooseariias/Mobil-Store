@@ -3,9 +3,9 @@ import { DeleteProductLocalStorage, UpdateStockProductLocalStorage } from "../..
 import { useSelector } from "react-redux";
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer";
-import Swal from "sweetalert2"
-import { getProductCart, deleteProductCart, PostMercadoPago } from "../../redux/actions";
+import { getProductCart, deleteProductCart, UpdateStockDB, PostMercadoPago } from "../../redux/actions";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2"
 
 export default function Cart(){
 
@@ -17,13 +17,10 @@ export default function Cart(){
 
   useEffect(() => {
 
-    console.log("111")
-
     if(user && user.data_user && user.data_user.id ){
       dispatch(getProductCart(user.data_user.id)).then((response) => {
-        console.log("CR", response.data);
         setCarrito(response.data);
-      }).catch((response) => {
+      }).catch(() => {
         setCarrito([]);
       })
     }
@@ -41,6 +38,7 @@ export default function Cart(){
   const DeleteProduct = (productId) => {
 
     if(Object.keys(user).length !== 0){
+
       Swal.fire({
         icon: 'warning',
         title: 'Are you sure you want to delete the product?',
@@ -55,15 +53,13 @@ export default function Cart(){
           }
 
           dispatch(deleteProductCart(data)).then((response) => {
-            console.log("ZEKA", response)
             Swal.fire({
               icon: 'success',
               title: 'Congratulations!',
               text: response.data.message
-            })
-          }).then(() => {
-            dispatch(getProductCart(user.data_user.id));
-            setActualizar(!Actualizar);
+            })}).then(() => {
+              dispatch(getProductCart(user.data_user.id));
+              setActualizar(!Actualizar);
           })
         }
       })
@@ -91,17 +87,40 @@ export default function Cart(){
 
   const handleStock = (operator, productId, stock) => {
 
-    const valor = UpdateStockProductLocalStorage(operator, productId, stock);
+    if(Object.keys(user).length !== 0){
 
-    if(valor !== undefined){
-       Swal.fire({
-        icon: valor.icon,
-        title: valor.title,
-        text: valor.text,
+      const data = {
+        userId: user.data_user.id,
+        productId: productId,
+        operator: operator
+      }
+      
+      dispatch(UpdateStockDB(data)).then((response) => {
+        dispatch(getProductCart(user.data_user.id));
+        setActualizar(!Actualizar);
+      }).catch((response) => {
+          return Swal.fire({
+            icon: 'error',
+            title: 'Something went wrong',
+            text: response.response.data.message,
+          })
       })
     }
 
-    setActualizar(!Actualizar);
+    else{
+
+      const valor = UpdateStockProductLocalStorage(operator, productId, stock);
+  
+      if(valor !== undefined){
+         Swal.fire({
+          icon: valor.icon,
+          title: valor.title,
+          text: valor.text,
+        })
+      }
+  
+      setActualizar(!Actualizar);
+    }
   }
 
   const GetStockProduct = (id) => {
@@ -127,16 +146,12 @@ export default function Cart(){
 
       const data = {
         userId: user.data_user.id,
-        address: "APROBAR-PF"
+        address: "LA CALIFORNIA"
       }
 
       dispatch(PostMercadoPago(data)).then((response) => {
-        window.open(response.data.init_point, '_blank')
-        
-
-      }).catch((error) => {
-        // manejar errores
-      });
+        window.open(response.data.init_point, '_blank');
+      })
     }
   }
 

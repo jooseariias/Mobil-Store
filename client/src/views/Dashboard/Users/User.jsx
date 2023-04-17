@@ -20,6 +20,7 @@ export default function UsersDashBoard() {
     dispatch(GetUsers());
   }, [dispatch]);
 
+<<<<<<< HEAD
   return (
     <div class="grid grid-cols-6 min-h-screen overflow-y-hidden bg-gray-100">
       <div class="col-span-1 bg-slate-400 text-center w-full">
@@ -48,6 +49,34 @@ export default function UsersDashBoard() {
                         );
                     })} */}
           <CardDashBoard />
+=======
+    useEffect(() => {
+        dispatch(GetUsers());
+      }, [dispatch]); 
+
+    return(
+        <div class='grid grid-cols-6 min-h-screen overflow-y-hidden bg-gray-100'>
+             <div class='col-span-1 bg-slate-400 text-center w-full'>
+                 <SideBar/>
+            </div>
+
+            <div class='col-span-5 items-center relative'>
+                <div class='mx-[30px] mt-[20px] bg-white mb-[20px] p-[10px] rounded flex items-center'>
+                    <h1 class='font-bold ml-[10px] text-[25px]'>Users</h1> 
+                   <div className="items-center justify-center m-4 px-60 m-4 w-full"> <SearchBarUsers/> </div>   
+                </div>
+
+                <div class='flex text-center bg-white items-center justify-center mx-80  w-[1000px]   h-full px-40'>
+             
+                    <CardDashBoard/>
+
+                </div>
+
+
+            </div>
+
+
+>>>>>>> 625a67c672f2b035f83d0adc208f28f53021d418
         </div>
       </div>
     </div>

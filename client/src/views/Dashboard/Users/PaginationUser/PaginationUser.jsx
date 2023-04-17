@@ -101,28 +101,30 @@ function PaginationUsers({
   
   return (
     <>
-      <div className={style.paginate}>
-        <a onClick={handlePrev} className={currentPage === 1 ? style.disabled : style.prev}>
-          Prev
-        </a>
-        {pageButtons.map((page, i) => {
-          return (
-            <a
-              key={i}
-              className={[
-                style.page,
-                page === currentPage && style.active,
-              ].join(" ")}
-              onClick={() => handleChangePage(page)}
-            >
-              {page}
-            </a>
-          );
-        })}
-        <a onClick={handleNext} className={currentPage === pageButtons.length ? style.disabled : style.next}>
-          Next
-        </a>
-      </div>
+          <div className="mt-auto">
+                <div className={style.paginate}>
+              <a onClick={handlePrev} className={currentPage === 1 ? style.disabled : style.prev}>
+                Prev
+              </a>
+              {pageButtons.map((page, i) => {
+                return (
+                  <a
+                    key={i}
+                    className={[
+                      style.page,
+                      page === currentPage && style.active,
+                    ].join(" ")}
+                    onClick={() => handleChangePage(page)}
+                  >
+                    {page}
+                  </a>
+                );
+              })}
+              <a onClick={handleNext} className={currentPage === pageButtons.length ? style.disabled : style.next}>
+                Next
+              </a>
+            </div>
+          </div>
     </>
   );
 }
