@@ -235,6 +235,12 @@ export function getUser(payload){
   }
 }
 
+export function getOrders(id){
+  return async function(){
+    return await axios.get(`${URL_BACK}/orders/${id}`)
+  }
+}
+
 export function LoginSuccess(data){
   return async function(dispatch){
     dispatch({
@@ -282,6 +288,7 @@ export const postReviews =  (id,payload) => {
   } catch (error) {
     console.log(error.message)
   }
-  
 }
+
+
 

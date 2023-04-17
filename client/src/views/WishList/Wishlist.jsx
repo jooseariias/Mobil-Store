@@ -40,11 +40,11 @@ export default function Wishlist(){
 
     const RenderEmptyWishlist = () => {
         return (
-          <section className="flex items-center h-[calc(100vh-6.5rem)] p-16 dark:bg-gray-900 dark:text-gray-100">
+          <section className="flex items-center h-[calc(100vh-6.5rem)] p-16 bg-gray-100 dark:bg-gray-800 dark:text-gray-100">
         <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
             <div className="max-w-md text-center">
                 <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
-                    <span className="sr-only">Error</span>😥
+                    <span className="sr-only">Error</span>😴
                 </h2>
                 <p className="text-2xl font-semibold md:text-3xl">Sorry, but your wish list is empty</p>
                 <p className="mt-4 mb-8 dark:text-gray-400">But don't worry, you can add to favorites from the store</p>
@@ -57,7 +57,7 @@ export default function Wishlist(){
   return (
     <div>
 
-        <Header />
+        <Header class='bg-gray-100' />
 
             {
                 Wishlist.length == 0 ? <RenderEmptyWishlist /> :
@@ -69,7 +69,7 @@ export default function Wishlist(){
 
                     Wishlist?.map((element) => {
                         return(
-                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div className="rounded-lg shadow-md overflow-hidden">
                             <img src={element.image} alt="Artículo 1" className="w-full h-[300px] object-cover" />
                             <div className="p-4">
                                 <h2 class="text-lg font-bold mb-2">{element.name}</h2>

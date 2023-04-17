@@ -27,6 +27,7 @@ import Reset from "./components/ActPassword/Reset";
 import { CreateReviews } from "./components/Reviews/CreateReviews";
 import RutePrivade from "./components/rutePrivade/RutePrivade";
 import Profile from "./views/Profile/Profile";
+import QA from './views/QA/QA'
 
 export default function App() {
   const dispatch = useDispatch();
@@ -67,6 +68,8 @@ export default function App() {
         <Route path="/passwordReset" element={<PasswordReset />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route path="/QA" element={<QA />} />
+        
 
         //Rutas admin
         <Route element={<RutePrivade />}>
