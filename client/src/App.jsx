@@ -85,7 +85,7 @@ export default function App(){
         <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
         <Route path ="*" element={<NotFount />} />
 
-        <Route path ="/PasswordChange" element={< LinkPassword />} /> 
+        {/* <Route path ="/PasswordChange" element={< LinkPassword />} />  */}
        {/* <Route path ="/RecetPassword" element={< ActPassword  />} />  */}
        <Route path ="/:productId/review" element={< CreateReviews />} /> 
 
