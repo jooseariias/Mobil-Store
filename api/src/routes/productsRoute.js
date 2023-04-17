@@ -135,4 +135,32 @@ router.put("/:id", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+
+router.put('/enabled/:id', async(req,res)=>{
+  const { id } = req.params;
+
+      try {
+          const product = await Product.findOne({
+              where: { id: id }
+          })
+          if(product.enabled === true){
+             await Product.update(
+                  { enabled: false },
+                  { where: { id: id} }
+              )
+              res.send('the product is disabled')
+          }else{
+               await Product.update(
+                  { enabled: true },
+                  { where: { id: id} }
+              )
+              res.send('the product is enabled')
+          }
+
+
+      } catch (err) {
+          console.log(err)
+      }
+})
 module.exports = router;
