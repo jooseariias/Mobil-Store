@@ -196,7 +196,6 @@ try {
       },
       colorId: 5,
       storageCapacityId: 8
-
     },
 
     {
@@ -311,8 +310,9 @@ try {
       },
       colorId: 5,
       storageCapacityId: 3
-
     },
+
+
     {
       id: 17,
       name: "Mate 20 Pro",
@@ -488,8 +488,8 @@ try {
       },
       colorId: 5,
       storageCapacityId: 2
-
     },
+
     {
       id: 26,
       name: "Sony Xperia 1",
