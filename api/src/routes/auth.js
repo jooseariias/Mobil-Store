@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const passport = require("passport");
 const { User } = require("../db");
-const CLIENT = "http://localhost:5173/";
+const CLIENT = process.env.CLIENT;
 require("../utils/passport");
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
