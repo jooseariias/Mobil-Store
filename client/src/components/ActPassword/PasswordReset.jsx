@@ -7,7 +7,8 @@ import Footer from '../Footer/Footer';
 const PasswordReset = () => {
 
   const navigate = useNavigate();
-  
+
+
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -19,7 +20,8 @@ const PasswordReset = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-     axios
+    
+      axios
       .post('http://localhost:3001/user/passwordCode', { email })
       .then((res) => {
          setMessage(res.data.message); 
@@ -27,12 +29,13 @@ const PasswordReset = () => {
           navigate("/reset")
         }, 5000);
         
-      })
-      .catch((err) => {
+      }).catch((err) => {
         setError(err.response.data.message);
       });
       
+      
   };
+  
 
   return (
 
