@@ -12,6 +12,7 @@ import {
 } from "./redux/actions";
 
 import { CreateProduct } from "./components/FormCreateProduct/CreateProduct";
+import { UpdateProduct } from "./components/FormCreateProduct/UpdateProduct";
 import Store from "./views/store/store";
 import About from "./views/About/About";
 import Cart from "./views/Cart/Cart";
@@ -26,6 +27,7 @@ import PasswordReset from "./components/ActPassword/PasswordReset";
 import Reset from "./components/ActPassword/Reset";
 import { CreateReviews } from "./components/Reviews/CreateReviews";
 import RutePrivade from "./components/rutePrivade/RutePrivade";
+import ProductDashBoard from "./views/Dashboard/Product/Products";
 import Profile from "./views/Profile/Profile";
 import QA from './views/QA/QA'
 import Contact from './views/Contact/Contact'
@@ -74,11 +76,15 @@ export default function App(){
         
 
         //Rutas admin
+
         <Route element={<RutePrivade />}>
           <Route path="/DashBoard" element={<Dashboard />} />
           <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
+          <Route path="/ProductsDash" element={<ProductDashBoard />} />
           <Route exact path="/form-product" element={<CreateProduct />} />
+          <Route exact path="/update-product/:id" element={<UpdateProduct />} />
         </Route>
+       
       </Routes>
     </div>
   );
