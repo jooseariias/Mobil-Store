@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import icons from '../../assets/icons-header/icons.js'
 import { BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill, BsMoonStarsFill} from "react-icons/bs"
 import { RiLogoutCircleRFill } from 'react-icons/ri';
@@ -17,6 +17,7 @@ export default function Header(){
 	
 	const [user, setUser] = useState({})
 	const [Actualizar, setActualizar] = useState(false)
+	const location = useLocation();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [mode, setMode] = useThemeSwitcher();
@@ -177,42 +178,42 @@ export default function Header(){
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-20 lg:w-full lg:mt-0">
 
                     <li>
-						<Link to={'/'}>
+						<Link to={'/'} className={location.pathname === '/' ? 'text-black' : 'text-gray-500'}>
 							<a className="block py-2 pr-4 pl-3
-						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						    hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
 						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
 						   ">Home</a>
 						</Link>
                     </li>
 
                     <li>
-						<Link to={'/Store'}>
+						<Link to={'/Store'} className={location.pathname === '/Store' ? 'text-black' : 'text-gray-500'}>
 						<a className="block py-2 pr-4 pl-3
-						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						    hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
 						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
 						   ">Marketplace</a>
 						</Link>
                     </li>
                     <li>
-						<Link to={'/About'}>
+						<Link to={'/About'} className={location.pathname === '/About' ? 'text-black' : 'text-gray-500'}>
 						<a className="block py-2 pr-4 pl-3
-						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						    hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
 						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
 						   ">Team</a>
 						</Link>
                     </li>
                     <li>
-						<Link to={'/QA'}>
+						<Link to={'/QA'} className={location.pathname === '/QA' ? 'text-black' : 'text-gray-500'}>
 						<a className="block py-2 pr-4 pl-3
-						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						    hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
 						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
 						   ">QA</a>
 						</Link>
                     </li>
                     <li>
-						<Link to={'/Contact'}>
+						<Link to={'/Contact'} className={location.pathname === '/Contact' ? 'text-black' : 'text-gray-500'}>
                         <a className="block py-2 pr-4 pl-3
-						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+							hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
 						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
 						   ">Contact</a>
 						 </Link>
