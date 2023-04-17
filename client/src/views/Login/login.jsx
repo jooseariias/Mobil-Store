@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FcGoogle } from "react-icons/fc";
 import { BsEyeSlash } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../helpers/Auth";
 import Swal from "sweetalert2";
 import { LoginSuccess } from "../../redux/actions";
-
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 
-export default function Login() {
+export default function Login(){
+
   const dispatch = useDispatch();
-  const [googleLogin, setGoogleLogin] = useState();
   const [user, setUser] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
   const [control, setControl] = useState("");
   const [seePassword, setSeePassword] = useState(false);
   const [loginError, setLoginError] = useState("");
@@ -29,16 +28,36 @@ export default function Login() {
     setControl("");
   };
 
+  const validateForm = () => {
+
+    let errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if(!regex.test(user.email)){
+      errors.email = 'Ingrese un formato válido de correo.';
+    }
+  
+    if(!user.password){
+      errors.password = 'Ingrese una contraseña válida.';
+    }
+  
+    setErrors(errors);
+    return Object.keys(errors).length;
+  }
+
   const data = useSelector((state) => state.User);
   const admin = data?.data_user?.rol;
-  console.log("AAAAAAAA", admin);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!Object.values(user)[0].length) {
-      setControl("Please, introduce your login data");
-    } else {
+
+    if(validateForm() !== 0){
+      alert("TIENES ERRORES");
+    }
+    
+    else {
       AuthService.Login(user).then((response) => {
+
         // GUARDAMOS SOLO LA DATA QUE NECESITAMOS, LO DEMÁS LO DESCARTAMOS
 
         const data = {
@@ -47,29 +66,33 @@ export default function Login() {
         };
 
         dispatch(LoginSuccess(data));
-        if (data.data_user.rol === "admin") {
+          
+          if(data.data_user.rol === "admin"){
+            Swal.fire({
+              icon: "success",
+              title: "Congratulations!",
+              text: response.data.message,
+              confirmButtonText: "Continue",
+            });
+            navigate("/DashBoard");
+          } else {
+            Swal.fire({
 
-
-          Swal.fire({
-            icon: "success",
-            title: "Congratulations!",
-            text: response.data.message,
-            confirmButtonText: "Continue",
-          });
-          navigate("/DashBoard");
-        } else {
- 
-          Swal.fire({
-            icon: "success",
-            title: "Congratulations!",
-            text: response.data.message,
-            confirmButtonText: "Continue",
-          });
-          navigate("/");
-        }
-      });
-    }
-  };
+              icon: "success",
+              title: "Congratulations!",
+              text: response.data.message,
+              confirmButtonText: "Continue",
+            });
+            navigate("/");
+          }
+        }).catch((response) => {
+          return Swal.fire({
+            icon: 'error',
+            title: 'Something went wrong',
+            text: response.response.data.message,
+          })
+        })}
+  }
 
   return (
     <div className="">

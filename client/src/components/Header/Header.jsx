@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import icons from '../../assets/icons-header/icons.js'
-import { BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill } from "react-icons/bs"
+import { BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill, BsMoonStarsFill} from "react-icons/bs"
+import { RiLogoutCircleRFill } from 'react-icons/ri';
+import { FaUserCircle } from 'react-icons/fa'
 import { BiLogOutCircle } from "react-icons/bi"
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import { useDispatch } from 'react-redux'
@@ -9,50 +11,17 @@ import Swal from 'sweetalert2'
 import { LogOut } from '../../redux/actions/index.js'
 import { useNavigate } from 'react-router-dom'
 import { LoginSuccess } from '../../redux/actions/index.js'
+import useThemeSwitcher from '../hooks/useThemeSwitcher.js'
 
 export default function Header(){
 	
-	const [theme, setTheme] = useState(window.localStorage.getItem('theme') ? window.localStorage.getItem("theme") : "dark")
-	const dispatch = useDispatch();
 	const [user, setUser] = useState({})
 	const [Actualizar, setActualizar] = useState(false)
-	const element = document.documentElement;
-	const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const [mode, setMode] = useThemeSwitcher();
 
-	const iconComponents = [
-	  {
-		text: 'light',
-		icon: <BsSun />
-		},
-		{
-		  text: 'dark',
-		  icon:  <BsMoon />
-		},
-	]
-
-	  useEffect(() => {
-
-		switch(theme){
-	
-		  case 'dark':
-			element.classList.add('dark');
-			window.localStorage.setItem('theme', 'dark')
-			break;
-		  
-		  case 'light':
-			element.classList.remove('dark');
-			window.localStorage.setItem('theme', 'light');
-			break;
-		  
-		  default:
-			window.localStorage.removeItem('theme');
-			onWindowMatch();
-			break;    
-		}
-	  }, [theme])
-
-	  const getCookieValue = (cookieName) => {
+	const getCookieValue = (cookieName) => {
 		const cookieString = document.cookie;
 		const cookies = cookieString.split("% ");
 		for (let i = 0; i < cookies.length; i++) {
@@ -62,9 +31,9 @@ export default function Header(){
 		  }
 		}
 		return null;
-	  };
+	};
 	  
-	  useEffect(() => {
+	useEffect(() => {
 
 		const userDataCookie = getCookieValue("user_data");
 		
@@ -90,26 +59,6 @@ export default function Header(){
 			setUser({});
 		}
 	  }, [Actualizar])
-	  
-
-	  darkQuery.addEventListener("change", (e) => {
-		if(!("theme") in localStorage){
-		  if(e.matches){
-			element.classList.add("dark");
-		  }else{
-			element.classList.remove("dark");
-		  }
-		}
-	  })
-
-	  function onWindowMatch(){
-		if(localStorage.theme === "dark"  || (!("theme" in localStorage) && darkQuery.matches)){
-		  element.classList.add("dark");
-		}else{
-		  element.classList.remove("dark");
-		}
-	  }
-	  onWindowMatch();
 
 	  const handleFavorites = () => {
 
@@ -153,7 +102,7 @@ export default function Header(){
 	  }
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-800 text-gray-100 flex flex-col justify-center duration-300 ">
+    <div className="bg-gray-100 dark:bg-gray-800 text-gray-100 flex flex-col justify-center duration-300 border-b border-gray-400">
       <div className=" flex items-center gap-20 h-[80px] px-4 p-2">
         <div className="w-1/6 pl-8">
           <img src={icons.logo} className="h-10 w-28" alt="" />
@@ -164,9 +113,10 @@ export default function Header(){
         </div>
 
         <div className="w-1/3 flex items-center justify-around">
-          <div className="w-20 h-10 flex justify-around items-center duration-300 rounded-full bg-gray-400 dark:bg-gray-400">
+
+          {/*<div className="w-20 h-10 flex justify-around items-center duration-300 rounded-full bg-gray-400 dark:bg-gray-400">
             {iconComponents?.map((element) => {
-              return (
+				return (
                 <button
                   onClick={() => setTheme(element.text)}
                   key={element.text}
@@ -174,33 +124,38 @@ export default function Header(){
                     theme === element.text && "text-slate-900 "
                   }`}
                 >
-                  {element.icon}
+				{element.icon}
                 </button>
               );
             })}
-          </div>
+		</div>*/}
 
           {/*<img className='h-[30px] w-[30px] cursor-pointer mr-2' src={theme === "light" ? icons['corazon-negro'] : icons['corazon-blanco']} alt="color" />*/}
-          <div className="w-fit text-3xl cursor-pointer text-black dark:text-white flex justify-evenly items-center gap-4">
+          <div className="w-2/3 text-3xl cursor-pointer text-black dark:text-white flex  items-center gap-x-5">
+
+			<button className=' "hover:transform hover:scale-110' onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
+				{mode === 'dark' ? <BsSun className='w-6 h-6' /> : <BsMoonStarsFill  className='w-6 h-6'/>}
+			</button>
+
             <BsFillHeartFill
               onClick={() => handleFavorites()}
-              className="text-2xl hover:transform hover:scale-110"
+              className="w-7 h-7 hover:transform hover:scale-110 mt-1"
             />
 
             <Link to="/Cart">
-              <BsFillCartCheckFill className="hover:transform hover:scale-110" />
+              <BsFillCartCheckFill className="hover:transform hover:scale-110 w-7 h-7" />
             </Link>
 
             {Object.keys(user).length === 0 ? (
               <Link to="/login">
-                <BsFillPersonFill className="hover:transform hover:scale-110" />
+                <FaUserCircle  className="hover:transform hover:scale-110 w-7 h-7 mt-1" />
               </Link>
             ) : (
               <Link to={"/Profile"}>
                 <img
                   src={user.data_user.image}
                   alt=""
-                  className="hover:transform hover:scale-110 w-8 h-8 rounded-full"
+                  className="hover:transform hover:scale-110 w-7 h-7 rounded-full mt-1"
                 />
               </Link>
             )}
@@ -208,23 +163,63 @@ export default function Header(){
             {Object.keys(user).length === 0 ? (
               <></>
             ) : (
-              <BiLogOutCircle
+              < RiLogoutCircleRFill
                 onClick={() => handleLogOut()}
                 alt=""
-                className="hover:transform hover:scale-110 w-8 h-8 rounded-full"
+                className="hover:transform hover:scale-110 w-7 h-7 rounded-full"
               />
             )}
           </div>
         </div>
       </div>
 
-      <div className="font-semibold flex text-gray-200 bg-gray-900 w-full p-2 justify-between px-40 text-md cursor-pointer">
-        <Link to={"/"}><h1>HOME</h1></Link>
-        <Link to={"/Store"}><h1>STORE</h1></Link>
-        <Link to={"/Support"}><h1>SUPPORT</h1></Link>
-		<Link to={"/About"}><h1>FAQ</h1></Link>
-        <Link to={"/About"}><h1>DEVELOPERS</h1></Link>
-      </div>
+      	<div class="flex items-center mx-auto mb-4">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-20 lg:w-full lg:mt-0">
+
+                    <li>
+						<Link to={'/'}>
+							<a className="block py-2 pr-4 pl-3
+						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
+						   ">Home</a>
+						</Link>
+                    </li>
+
+                    <li>
+						<Link to={'/Store'}>
+						<a className="block py-2 pr-4 pl-3
+						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
+						   ">Marketplace</a>
+						</Link>
+                    </li>
+                    <li>
+						<Link to={'/About'}>
+						<a className="block py-2 pr-4 pl-3
+						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
+						   ">Team</a>
+						</Link>
+                    </li>
+                    <li>
+						<Link to={'/QA'}>
+						<a className="block py-2 pr-4 pl-3
+						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
+						   ">QA</a>
+						</Link>
+                    </li>
+                    <li>
+						<Link to={'/Contact'}>
+                        <a className="block py-2 pr-4 pl-3
+						   text-gray-500 hover:text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 lg:hover:text-primary-700
+						   dark:text-gray-400 lg:dark:hover.text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer
+						   ">Contact</a>
+						 </Link>
+                    </li>
+                </ul>
+    	</div>
+
     </div>
   );
 }
