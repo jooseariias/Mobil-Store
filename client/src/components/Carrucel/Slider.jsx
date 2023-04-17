@@ -40,7 +40,9 @@ export default function Slider2({data, tittle}){
       <div className='max-w-full mx-4'>
 
         <div>
-            <h1 className="text-2xl mb-4 mt-10 ml-4 font-extrabold leading-none text-left text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">{tittle}</h1>
+            <h1 className="text-2xl mb-4 mt-10  font-bold leading-none text-left text-slate-900 dark:text-slate-100">{tittle}</h1>
+            <hr className='border-gray-400' />
+            
       
             <Slider {...settings}>
                 {data.map((e,index) => <Card key={index} id={e.id} image={e.image} name={e.name} price={e.price} brand={e.brand} stock={e.stock}/>)}

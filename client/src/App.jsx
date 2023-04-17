@@ -30,10 +30,11 @@ import RutePrivade from "./components/rutePrivade/RutePrivade";
 import ProductDashBoard from "./views/Dashboard/Product/Products";
 import Profile from "./views/Profile/Profile";
 import QA from './views/QA/QA'
+import Contact from './views/Contact/Contact'
 
-export default function App() {
+export default function App(){
+
   const dispatch = useDispatch();
-
   const data = useSelector((state) => state.User);
   const admin = data?.data_user?.rol;
 
@@ -71,6 +72,7 @@ export default function App() {
         <Route path="/reset" element={<Reset />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/QA" element={<QA />} />
+        <Route path="/Contact" element={<Contact />} />
         
 
         //Rutas admin
