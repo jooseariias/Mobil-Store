@@ -146,16 +146,16 @@ export const UpdateProduct = () => {
     //     buttons: "Ok",
     //   });
     // } else {
-      const updatedFormData = {
-        ...form,
-        brandid: selectedBrand,
-        colorId: selectedColor,
-        storageCapacityId: selectedCapacity,
-        image: image,
-      };
+      // const updatedFormData = {
+      //   ...form,
+      //   brandid: selectedBrand,
+      //   colorId: selectedColor,
+      //   storageCapacityId: selectedCapacity,
+      //   image: image,
+      // };
 
-      console.log(updatedFormData);
-      await axios.put(`http://localhost:3001/${phone.id}`, updatedFormData);
+      console.log(form);
+      await axios.put(`http://localhost:3001/product/${phone.id}`, form);
       setForm({
         name: "",
         description: "",
@@ -388,7 +388,7 @@ export const UpdateProduct = () => {
               >
                 Submit
               </button>
-            {/* )} */}
+            {/* )}   */}
           </div>
         </form>
       </div>
