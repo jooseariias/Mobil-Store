@@ -9,6 +9,7 @@ require("dotenv").config();
 const ACCESS_TOKEN_MP  = 'APP_USR-921942326134673-041309-7971cc2e2ff43d9017f0a3bb60ac3d1d-1327836042'
 const { crearOrden } = require("../utils/ordersSave");
 const { sendConfirmedPaymentEmail, sendEmailOrderSent } = require("../utils/notifications");
+const BACK_URL = process.env.BACK_URL
 
 const router = Router();
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -74,7 +75,7 @@ router.post("/", async (req, res) => {
 
     let idProducts = products.map((e) => e.productId).join(",");
       
-    const URL = `localhost:3001/orders/pago-confirmado?idUser=${userId}&quantity=${cantidades}
+    const URL = `${BACK_URL}/orders/pago-confirmado?idUser=${userId}&quantity=${cantidades}
     &price=${precios}&total=${cart.priceCart}&idProduct=${idProducts}&address=${address}
     &title=${titulos}&img=${fotos}`;
 
