@@ -231,22 +231,52 @@ router.put("/sendOrder/:idOrder", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/status', async (req, res) => {
   try {
-    const { id } = req.params;
-    if (id) {
-      // const order = await Orders.findAll({
-      //     where: {
-      //         include: [
-      //             {model: User},
-      //             {model: Product},
-      //             {model: Detail},
-      //         ]
-      //     },
-      //     where: {
-      //         userId: id
-      //     }
-      // })
+    const { statusOrder } = req.query;
+  
+    // console.log("statusOrder es: ", statusOrder)
+    if(statusOrder){
+      const orders = await Orders.findAll(
+      {
+        include: [
+          {
+            model: OrderStatus,
+            where: {
+              status: statusOrder
+            }    
+          },
+          
+        ],
+       
+      },
+      )
+      res.status(200).json(orders)
+    }else {
+      console.log('entra aca')
+      const orders = await Orders.findAll(
+        {
+          include: [
+            {
+              model: OrderStatus,
+            },
+          ],
+        
+        })
+        res.status(200).json(orders)
+    }
+
+
+  }catch(error){
+    console.log(error.message)
+    res.status(400).json({error: error.message})
+  }
+})
+
+router.get("/order/:idUser", async (req, res) => {
+  try {
+    const { idUser } = req.params;
+    if (idUser) {
       const order = await Orders.findAll({
         include: {
           model: User,
@@ -255,7 +285,7 @@ router.get("/:id", async (req, res) => {
           model: Product,
         },
         where: {
-          userId: id,
+          userId: idUser,
         },
       });
       if (order.length) {
@@ -338,51 +368,51 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
-  try{
-  const order = await Orders.findAll({
-    include: {
-      model: User,
-    },
-    include: {
-      model: Product,
-    },
-  });
-  if (order.length) {
-    const status = await OrderStatus.findAll();
-    // const detail = await Detail.findAll({
-    //   where: {
-    //     orderId: order[0].id,
-    //   },
-    // });
+// router.get('/', async (req, res) => {
+//   try{
+//   const order = await Orders.findAll({
+//     include: {
+//       model: User,
+//     },
+//     include: {
+//       model: Product,
+//     },
+//   });
+//   if (order.length) {
+//     const status = await OrderStatus.findAll();
+//     // const detail = await Detail.findAll({
+//     //   where: {
+//     //     orderId: order[0].id,
+//     //   },
+//     // });
 
-    const data = await order?.map((p) => {
-      return {
-        Nro: p.id,
-        date: p.date,
-        address: p.address,
-        status: p.orderStatus,
-        image: p.products.map((e) => e.image),
-        nameAndQuantity: p.products.map((e) => {
-          return e.name
-            .concat(" (", e.detail.quantity, ") unit/s ")
-            .concat(" Unit Price: $", e.detail.price);
-        }),
-        total: p.total,
-        status: status
-          .filter((s) => s.orderId == p.id)
-          .map((e) => e.status),
-      };
-    });
-    data.length
-      ? res.status(200).send(data)
-      : res.status(400).send("This user has no associated purchases");
-  } else {
-    res.status(400).send("This user has no associated purchases");
-  }
+//     const data = await order?.map((p) => {
+//       return {
+//         Nro: p.id,
+//         date: p.date,
+//         address: p.address,
+//         status: p.orderStatus,
+//         image: p.products.map((e) => e.image),
+//         nameAndQuantity: p.products.map((e) => {
+//           return e.name
+//             .concat(" (", e.detail.quantity, ") unit/s ")
+//             .concat(" Unit Price: $", e.detail.price);
+//         }),
+//         total: p.total,
+//         status: status
+//           .filter((s) => s.orderId == p.id)
+//           .map((e) => e.status),
+//       };
+//     });
+//     data.length
+//       ? res.status(200).send(data)
+//       : res.status(400).send("This user has no associated purchases");
+//   } else {
+//     res.status(400).send("This user has no associated purchases");
+//   }
 
-} catch (error) {
-res.status(400).json({ msg: error.message });
-}
-})
+// } catch (error) {
+// res.status(400).json({ msg: error.message });
+// }
+// })
 module.exports = router;

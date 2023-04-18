@@ -65,7 +65,7 @@ router.get('/user', async(req, res) => {
                     enabled: false
                 }
             })
-            res.status(200).json({msg: `Desde el ${fechaInicio.count} hay ${usuariosActivos.count} usuarios activos y ${usuariosInactivos.count} usuarios inactivos`})
+            res.status(200).json({msg: `Desde el ${fechaInicio} hay ${usuariosActivos.count} usuarios activos y ${usuariosInactivos.count} usuarios inactivos`})
         }
         
         if(!fechaInicio && fechaFin ){
@@ -121,7 +121,34 @@ router.get('/order', async (req, res) => {
             })
             res.status(200).json(order)
         }
-
+        if(fechaInicio && !fechaFin){
+            const order = await Orders.findAndCountAll({
+                attributes: [
+                    [Sequelize.fn('SUM', Sequelize.col('total')), 'total']
+                ],
+                where: {
+                    date: {
+                        [Op.gte]: fechaInicio
+                       
+                    }
+                }
+            })
+            res.status(200).json(order)
+        }
+        if(!fechaInicio && fechaFin){
+            const order = await Orders.findAndCountAll({
+                attributes: [
+                    [Sequelize.fn('SUM', Sequelize.col('total')), 'total']
+                ],
+                where: {
+                    date: {
+                        [Op.lte]: fechaFin
+                       
+                    }
+                }
+            })
+            res.status(200).json(order)
+        }
         // console.log(order)
     } catch (error) {
         res.status(400).json({error: error.message})
