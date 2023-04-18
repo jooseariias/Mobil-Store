@@ -32,7 +32,7 @@ export default function Store(){
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const quantity = 10;
-  const borradoLogico = phones.filter(phone => phone.disable)
+  const borradoLogico = phones.filter(phone => phone.enabled)
   const phonesDisplayed = borradoLogico.slice(start, start + quantity + 2);
 
   
