@@ -64,7 +64,7 @@ useEffect(() => {
                         <th scope="col" class="px-6 py-3">NRO</th>
                         <th scope="col" class="px-6 py-3">DATE</th>
                         <th scope="col" class="px-6 py-3">ADDRESS</th>
-                        <th scope="col" class="px-6 py-3">STATUS</th>
+                        <th scope="col" class="px-6 py-3">TOTAL</th>
                         <th scope="col" class="px-6 py-3">PENDING</th>
                     </tr>
                 </thead>
