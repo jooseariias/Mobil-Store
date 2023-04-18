@@ -21,7 +21,7 @@ function ProductDashBoard() {
   const quantity = 9;
   const phonesDisplayed = phones.slice(start, start + quantity);
 
-  console.log(phones);
+  // console.log(phones);
 
   const update = async (id, boolean) => {
     const enabled = { enabled: !boolean };
