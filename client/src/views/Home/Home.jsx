@@ -262,7 +262,7 @@ export default function Home(){
             </div>
         </div>
     </div>
-</div>
+  </div>
   )
 
   const handleCookies = (e) => {
