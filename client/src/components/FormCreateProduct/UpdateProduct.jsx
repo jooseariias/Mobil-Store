@@ -15,6 +15,7 @@ export const UpdateProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     dispatch(getDetail(id));
     return () => {dispatch(cleanDetail())}
@@ -22,7 +23,7 @@ export const UpdateProduct = () => {
 
   
   const [phone] = useSelector(state => state.details)
-  console.log(phone);
+  // console.log(phone);
   const brands = useSelector((state) => state.Brands);
   const phones = useSelector((state) => state.Phones);
   const colors = useSelector((state) => state.Color);
@@ -41,6 +42,7 @@ export const UpdateProduct = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedCapacity, setSelectedCapacity] = useState("");
 
+
   useEffect(() => {
     setForm({
       name: phone?.name,
@@ -50,15 +52,17 @@ export const UpdateProduct = () => {
     year: phone?.year
     })
     // setImage(phone?.image)
-    // setSelectedBrand(phone?.brandId )
-    // setSelectedColor(phone?.colorId)
-    // setSelectedCapacity(phone?.storageCapacityId)
+    setSelectedBrand(phone?.brandId )
+    setSelectedColor(phone?.colorId)
+    setSelectedCapacity(phone?.storageCapacityId)
   }, [phone])
 
   ////*upload image
 
   const handleImage = async (e) => {
     try {
+      
+      // console.log("e es: ", e.target.files[0])
       const file = e.target.files[0];
       const data = new FormData();
       data.append("file", file);
@@ -66,6 +70,7 @@ export const UpdateProduct = () => {
       await axios
         .post(`https://api.cloudinary.com/v1_1/dwfhsitwe/image/upload`, data)
         .then((response) => setImage(response.data.secure_url));
+      
     } catch (error) {
       console.log(error.message);
     }
@@ -146,16 +151,19 @@ export const UpdateProduct = () => {
     //     buttons: "Ok",
     //   });
     // } else {
-      // const updatedFormData = {
-      //   ...form,
-      //   brandid: selectedBrand,
-      //   colorId: selectedColor,
-      //   storageCapacityId: selectedCapacity,
-      //   image: image,
-      // };
-
-      console.log(form);
-      await axios.put(`http://localhost:3001/product/${phone.id}`, form);
+      
+      const updatedFormData = {
+        ...form,
+        brandId: parseInt(selectedBrand),
+        colorId: parseInt(selectedColor),
+        storageCapacityId: parseInt(selectedCapacity),
+        // image: image,
+      };
+      if(image !== ''){
+        updatedFormData.image = image
+      }
+      // console.log("updatedFormData es: ", updatedFormData);
+      await axios.put(`http://localhost:3001/product/${phone.id}`, updatedFormData);
       setForm({
         name: "",
         description: "",
@@ -323,10 +331,11 @@ export const UpdateProduct = () => {
               <select
                 className="appearance-none border rounded w-full p-1"
                 onChange={(e) => setSelectedBrand(e.target.value)}
+                // ref={brandRef}
               >
-                <option hidden>choose a brand</option>
+                {/* <option hidden>choose a brand</option> */}
                 {brands?.map((b) => (
-                  <option key={b.id} value={b.id}>
+                  <option key={b.id} value={b.id} selected={b.id === selectedBrand}>
                     {b.name}
                   </option>
                 ))}
@@ -346,9 +355,9 @@ export const UpdateProduct = () => {
                 className="appearance-none border rounded w-full p-1"
                 onChange={(e) => setSelectedColor(e.target.value)}
               >
-                <option hidden>choose a color</option>
+                {/* <option hidden>choose a color</option> */}
                 {colors?.map((c) => (
-                  <option key={c.id} value={c.id}>
+                  <option key={c.id} value={c.id} selected={c.id === selectedColor}>
                     {c.color}
                   </option>
                 ))}
@@ -368,9 +377,9 @@ export const UpdateProduct = () => {
                 className="appearance-none border rounded w-full p-1"
                 onChange={(e) => setSelectedCapacity(e.target.value)}
               >
-                <option hidden>choose a capacity</option>
+                {/* <option hidden>choose a capacity</option> */}
                 {capacity?.map((c) => (
-                  <option key={c.id} value={c.id}>
+                  <option key={c.id} value={c.id} selected={c.id === selectedCapacity}>
                     {c.capacity}
                   </option>
                 ))}
