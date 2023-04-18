@@ -17,7 +17,7 @@ import{
     GET_USER,
 
     CLEAN_DETAIL,
-    CLEAN_PHONES,
+    CLEAN_BROAD,
     FILTER_CAPACITY,
 
     LOGIN_SUCCESS,
@@ -82,11 +82,11 @@ function rootReducer(state = initialState, action){
           details: action.payload
         }
 
-      case CLEAN_PHONES:
+      case CLEAN_BROAD:
         return{
           ...state,
-          PhonesCopy: state.Phones
-        }
+          ArrayFilters: []          
+      }
 
         case LOGIN_SUCCESS:
 
