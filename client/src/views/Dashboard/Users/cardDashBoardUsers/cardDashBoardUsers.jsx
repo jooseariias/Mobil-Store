@@ -104,7 +104,7 @@ export default function CardDashBoard(){
                             </div>
 
                             <div class='w-[150px] bg-white justify-center items-center '>
-                            {e.enabled === true ? <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>enabled</h5> : <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'> disabled</h5>}
+                            {e.enabled === true ? <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>enabled</h5> : <h5 class='mr-[100px] text-[15px] w-[150px] font-bold text-red-600'> disabled</h5>}
                             </div>
 
                             <button className="item-center justify-center items-center flex " onClick={() => AdminUser(e.id)} >

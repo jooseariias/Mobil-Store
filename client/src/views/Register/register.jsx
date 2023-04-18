@@ -83,8 +83,8 @@ export default function Register() {
                   <div className='m-1'>                      
                     <label className="font-bold px-20 dark:text-white">Name</label>
                     <div className='item-center justify-center flex flex-col px-20'>
-                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border  dark:bg-blue-300"/>
-                    <ErrorMessage name='name'/>
+                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none  focus:shadow-outline border  dark:bg-blue-300"/>
+                    <ErrorMessage name='name' className='text-red-600'/>
                     </div> 
                   </div>
 
