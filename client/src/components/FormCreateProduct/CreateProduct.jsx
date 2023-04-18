@@ -173,7 +173,7 @@ export const CreateProduct = () => {
                             value={form.name}
                           />
                           {errors.name && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.name}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.name}</p>
                           )}
                         </div>
 
@@ -191,7 +191,7 @@ export const CreateProduct = () => {
                             value={form.description}
                           />
                           {errors.description && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>
                               {errors.description}
                             </p>
                           )}
@@ -212,7 +212,7 @@ export const CreateProduct = () => {
                             value={form.price}
                           />
                           {errors.price && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.price}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.price}</p>
                           )}
                         </div>
 
@@ -229,7 +229,7 @@ export const CreateProduct = () => {
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
                           {errors.image && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.image}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.image}</p>
                           )}
                         </div>
 
@@ -250,7 +250,7 @@ export const CreateProduct = () => {
                             pattern="^[0-9]+"
                           />
                           {errors.stock && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.stock}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.stock}</p>
                           )}
                         </div>
 
@@ -270,7 +270,7 @@ export const CreateProduct = () => {
                             pattern="^[0-9]+"
                           />
                           {errors.year && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.year}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.year}</p>
                           )}
                         </div>
 
@@ -287,7 +287,7 @@ export const CreateProduct = () => {
                             ))}
                             </select>
                             {errors.brand && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.brand}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.brand}</p>
                           )}
                         </div>
 
@@ -303,7 +303,7 @@ export const CreateProduct = () => {
                             ))}
                             </select>
                             {errors.color && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.color}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.color}</p>
                           )}
                         </div>
 
@@ -319,7 +319,7 @@ export const CreateProduct = () => {
                             ))}
                             </select>
                             {errors.capacity && (
-                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.capacity}</p>
+                            <p style={{ color: "blue", fontWeight: "bold" }}>{errors.capacity}</p>
                           )}
                         </div>
                           { Object.values(errors).length ===0  &&  <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
