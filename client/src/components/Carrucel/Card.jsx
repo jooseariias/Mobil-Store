@@ -109,7 +109,7 @@ export default function Card({id, name, price, image, stock, brand}){
 
             <div className="flex flex-row justify-between">
                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white mt-2">{name}</h5>
-                <BsFillHeartFill onClick={() => handleFavorites(id)} className="w-5 h-5 mt-3 cursor-pointer text-slate-900 dark:text-slate-100" />
+                <BsFillHeartFill onClick={() => handleFavorites(id)} className="w-5 h-5 mt-3 cursor-pointer text-slate-900 dark:text-gray-400" />
             </div>
 
         <div class="flex items-center mt-2.5 mb-5">
