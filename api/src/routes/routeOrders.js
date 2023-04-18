@@ -150,6 +150,11 @@ router.get("/pago-confirmado", async (req, res) => {
       merchant_account_id, //: 'null'
     } = req.query;
 
+    // BORRAMOS EL CARRITO DEL USUARIO.
+
+    await Productcart.destroy({ where: { cartId: idUser } });
+    await Cart.destroy({ where: { id: idUser }})
+
 
     let cadenaCantidades = quantity.split(","); // ['1','2','1']
     let cadenaPrecios = price.split(","); // ['20.5','12....]
