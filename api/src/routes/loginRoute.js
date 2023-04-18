@@ -22,6 +22,10 @@ router.post("/", async (req, res) => {
     where: { email: email },
   });
 
+  if(!user.enabled){
+    return res.status(401).send({message: 'You are banned, please contact us for support.'})
+  }
+
   if (!user || !user.password)
     return res.status(401).send({ message: "Email or Password is invalid" });
 

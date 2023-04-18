@@ -58,7 +58,7 @@ export default function Register() {
 
 
     return (
-        <div className="bg-gray-100  dark:bg-slate-900 h-min-screen ">
+        <div className="bg-gray-100 dark:bg-gray-800 h-min-screen ">
 
             <Header/>
 
