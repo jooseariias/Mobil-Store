@@ -46,7 +46,8 @@ function ProductDashBoard() {
             Create a new phone
           </Link>
         </div>
-        <div class="flex text-center bg-white items-center justify-center mx-80 flex-wrap w-[1000px] px-40">
+        
+        <div class="flex text-center bg-white items-center justify-center mx-40 flex-wrap w-[1000px] px-40">
           <div class=" justify-center">
             <div class="flex bg-white justify-evenly py-[10px] pr-3 w-[1000px]">
               <div class="w-[200px] bg-white items-center justify-center ">
