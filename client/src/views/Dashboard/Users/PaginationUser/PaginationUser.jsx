@@ -101,7 +101,7 @@ function PaginationUsers({
   
   return (
     <>
-          <div className="mt-auto">
+          <div className="">
                 <div className={style.paginate}>
               <a onClick={handlePrev} className={currentPage === 1 ? style.disabled : style.prev}>
                 Prev
