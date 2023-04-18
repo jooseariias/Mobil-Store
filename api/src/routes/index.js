@@ -43,6 +43,8 @@ const addCart = require('./cartsRoutes/post')
 const deleteCart = require('./cartsRoutes/delete')
 const updateProduct = require('./cartsRoutes/update')
 
+const postSupport = require('./support')
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
@@ -61,6 +63,7 @@ router.use('/color', ColoreRoute);
 router.use('/capacity' ,CapacityRoute)
 router.use('/reviews', reviewsRoute);
 router.use('/wishlist', wishlistRoute);
+router.use('/Support', postSupport);
 
 router.use("/", routerAuth)
 router.use('/login', loginRoute)
