@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Details from "./components/details/details";
 import Home from "./views/Home/Home";
@@ -55,8 +55,9 @@ export default function App(){
 
   return (
     <div className="App">
+
       <Routes>
-        //Routas Users
+        
         <Route exact path="/" element={<Home />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
@@ -73,9 +74,6 @@ export default function App(){
         <Route path="/Profile" element={<Profile />} />
         <Route path="/QA" element={<QA />} />
         <Route path="/Contact" element={<Contact />} />
-        
-
-        //Rutas admin
 
         <Route element={<RutePrivade />}>
           <Route path="/DashBoard" element={<Dashboard />} />

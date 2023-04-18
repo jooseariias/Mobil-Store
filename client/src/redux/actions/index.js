@@ -258,6 +258,12 @@ export function LogOut(){
   }
 }
 
+export function postSupport(data){
+  return async function(){
+    return await axios.post(`${URL_BACK}/Support`, data);
+  }
+}
+
 //////*REVIEWS///////
 export function getReviews(id) {
   return (dispatch) => {
