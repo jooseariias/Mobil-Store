@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { BsEyeSlash } from "react-icons/bs";
+
 
 function Reset() {
 
@@ -12,6 +14,7 @@ function Reset() {
     const [code, setCode] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [seePassword, setSeePassword] = useState(false);
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -44,7 +47,19 @@ function Reset() {
               </div>
               <div className=" m-8">
                 <label htmlFor="password" className="block  font-bold mb-2">Password:</label>
-                <input type="password" id="password" className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setPassword(e.target.value)} />
+
+                <div>
+                <input type={seePassword ? "text" : "password"}  id="password" className="justify-center item-center  rounded-lg p-1 my-2 dark:text-white focus:outline-none focus:shadow-outline dark:bg-blue-300 border" onChange={(e) => setPassword(e.target.value)} />
+                <span
+                    onClick={() => {
+                      setSeePassword(!seePassword);
+                    }}
+                    className="block lg:inline-block lg:mt-0 absolute  p-4  "
+                  >
+                    <BsEyeSlash />
+                  </span>
+                </div>
+               
               </div>
               <button type="submit" className="bg-gradient-to-r from-red-500 to-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Send</button>
             </form>
