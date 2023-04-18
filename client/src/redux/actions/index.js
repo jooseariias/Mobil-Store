@@ -29,6 +29,8 @@ export const GET_REVIEWS=" GET_REVIEWS"
 
 const URL_BACK = `http://localhost:3001`
 
+// const URL_BACK = 'phonezoneback-production.up.railway.app'
+
 export const POST_REVIEW="POST_REVIEW"
 
 
