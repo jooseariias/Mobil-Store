@@ -56,7 +56,8 @@ export default function App(){
   return (
     <div className="App">
       <Routes>
-        //Routas Users
+
+
         <Route exact path="/" element={<Home />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
@@ -67,15 +68,6 @@ export default function App(){
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<Wishlist />} />
         <Route path="*" element={<NotFount />} />
-
-        <Route path="/DashBoard" element={<Dashboard />} />
-        <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
-        <Route path ="*" element={<NotFount />} />
-
-       
-       <Route path ="/:productId/review" element={< CreateReviews />} /> 
-
-
         <Route path="/review/:productId" element={<CreateReviews />} />
         <Route path="/passwordReset" element={<PasswordReset />} />
         <Route path="/reset" element={<Reset />} />
@@ -84,15 +76,14 @@ export default function App(){
         <Route path="/Contact" element={<Contact />} />
         
 
-        //Rutas admin
 
-        {/* <Route element={<RutePrivade />}> */}
+        <Route element={<RutePrivade />}>
           <Route path="/DashBoard" element={<Dashboard />} />
           <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
           <Route path="/ProductsDash" element={<ProductDashBoard />} />
           <Route exact path="/form-product" element={<CreateProduct />} />
           <Route exact path="/update-product/:id" element={<UpdateProduct />} />
-        {/* </Route> */}
+        </Route>
        
       </Routes>
     </div>
