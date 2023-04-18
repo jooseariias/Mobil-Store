@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostPhone, getBrands, getCapacity,getColores } from "../../redux/actions/index.js";
 import axios from "axios";
 import swal from "sweetalert2";
+import SideBar from "../../views/Dashboard/SideBar/SideBar.jsx";
 
 export const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -145,182 +146,189 @@ export const CreateProduct = () => {
   }, [dispatch]);
 
   return (
-      <div className="bg-gray-100  h-full  item-center">
+      <div class='grid grid-cols-6 min-h-screen overflow-y-hidden'>
 
-      <div className="card rounded-none p-6 w-1/2 mx-auto bg-gray-100 objet-cover m-40">
+            <div class='col-span-1 bg-slate-400 text-center w-full'>
+                 <SideBar/>
+            </div>  
+
+            <div className="col-span-5 items-center relative m-20 px-40">
+
+            <div className="flex flex-col  rounded-none p-6 w-full mx-1  objet-cover m-20">
      
-     <form  className="p-10 rounded-lg shadow-md bg-blue-200 flex flex-col  h-full space-y-1"  onSubmit={handleSubmit}>
-        <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
-   
-        <div>
-        <label className="letas font-bold" htmlFor="name">
-          Name
-        </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={form.name}
-          />
-          {errors.name && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.name}</p>
-          )}
-        </div>
+                    <form  className="p-10 rounded-lg shadow-md bg-blue-200 flex flex-col  h-full space-y-1"  onSubmit={handleSubmit}>
+                        <div class='grid grid-cols-1 lg:grid-cols-2 lg:gap-3'>
+                  
+                        <div>
+                        <label className="letas font-bold" htmlFor="name">
+                          Name
+                        </label>
+                          <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={form.name}
+                          />
+                          {errors.name && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.name}</p>
+                          )}
+                        </div>
 
 
-        <div>
-          <label className="letas font-bold" htmlFor="description">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={form.description}
-          />
-          {errors.description && (
-            <p style={{ color: "red", fontWeight: "bold" }}>
-              {errors.description}
-            </p>
-          )}
-        </div>
+                        <div>
+                          <label className="letas font-bold" htmlFor="description">
+                            Description
+                          </label>
+                          <textarea
+                            id="description"
+                            name="description"
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={form.description}
+                          />
+                          {errors.description && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>
+                              {errors.description}
+                            </p>
+                          )}
+                        </div>
 
-        <div>
-        <label className="letas font-extrabold" htmlFor="price">
-          Price
-        </label>
+                        <div>
+                        <label className="letas font-extrabold" htmlFor="price">
+                          Price
+                        </label>
 
-          <input
-            type="number"
-            id="price"
-            name="price"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={form.price}
-          />
-          {errors.price && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.price}</p>
-          )}
-        </div>
+                          <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={form.price}
+                          />
+                          {errors.price && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.price}</p>
+                          )}
+                        </div>
 
-        <div>
-        <label className="letas font-bold" htmlFor="image">
-          Image
-        </label>
+                        <div>
+                        <label className="letas font-bold" htmlFor="image">
+                          Image
+                        </label>
 
-          <input
-            type="file"
-            name="file"
-            onBlur={handleBlur}
-            onChange={handleImage}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          {errors.image && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.image}</p>
-          )}
-        </div>
+                          <input
+                            type="file"
+                            name="file"
+                            onBlur={handleBlur}
+                            onChange={handleImage}
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          />
+                          {errors.image && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.image}</p>
+                          )}
+                        </div>
 
-        <div>
-        <label className="letas font-bold" htmlFor="stock">
-          Stock
-        </label>
+                        <div>
+                        <label className="letas font-bold" htmlFor="stock">
+                          Stock
+                        </label>
 
-          <input
-            type="number"
-            id="stock"
-            name="stock"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            onChange={handleChange}
-            value={form.stock}
-            onBlur={handleBlur}
-            min="1"
-            pattern="^[0-9]+"
-          />
-          {errors.stock && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.stock}</p>
-          )}
-        </div>
+                          <input
+                            type="number"
+                            id="stock"
+                            name="stock"
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            onChange={handleChange}
+                            value={form.stock}
+                            onBlur={handleBlur}
+                            min="1"
+                            pattern="^[0-9]+"
+                          />
+                          {errors.stock && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.stock}</p>
+                          )}
+                        </div>
 
-        <div>
-        <label className="letas font-bold" htmlFor="year">
-          Year
-        </label>
-          <input
-            type="number"
-            id="year"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            name="year"
-            onChange={handleChange}
-            value={form.year}
-            onBlur={handleBlur}
-            min="1"
-            pattern="^[0-9]+"
-          />
-          {errors.year && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.year}</p>
-          )}
-        </div>
+                        <div>
+                        <label className="letas font-bold" htmlFor="year">
+                          Year
+                        </label>
+                          <input
+                            type="number"
+                            id="year"
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            name="year"
+                            onChange={handleChange}
+                            value={form.year}
+                            onBlur={handleBlur}
+                            min="1"
+                            pattern="^[0-9]+"
+                          />
+                          {errors.year && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.year}</p>
+                          )}
+                        </div>
 
-        <div className="selects-check">
-        <label htmlFor="brand" className="letas font-bold">
-          Brand{" "}
-        </label>
+                        <div className="selects-check">
+                        <label htmlFor="brand" className="letas font-bold">
+                          Brand{" "}
+                        </label>
 
-        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedBrand(e.target.value)}>
-        <option hidden>choose a brand</option>
-          {brands?.map((b) => (
-          
-            <option key={b.id} value={b.id}>{b.name}</option>
-            ))}
-            </select>
-            {errors.brand && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.brand}</p>
-          )}
-        </div>
+                        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedBrand(e.target.value)}>
+                        <option hidden>choose a brand</option>
+                          {brands?.map((b) => (
+                          
+                            <option key={b.id} value={b.id}>{b.name}</option>
+                            ))}
+                            </select>
+                            {errors.brand && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.brand}</p>
+                          )}
+                        </div>
 
-        <div>
-        <label htmlFor="color" className="letas font-bold">
-          Color{" "}
-        </label>
-        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedColor(e.target.value)}>
-        <option hidden>choose a color</option>
-          {colors?.map((c) => (
-          
-            <option key={c.id} value={c.id}>{c.color}</option>
-            ))}
-            </select>
-            {errors.color && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.color}</p>
-          )}
-        </div>
+                        <div>
+                        <label htmlFor="color" className="letas font-bold">
+                          Color{" "}
+                        </label>
+                        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedColor(e.target.value)}>
+                        <option hidden>choose a color</option>
+                          {colors?.map((c) => (
+                          
+                            <option key={c.id} value={c.id}>{c.color}</option>
+                            ))}
+                            </select>
+                            {errors.color && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.color}</p>
+                          )}
+                        </div>
 
-        <div>
-        <label htmlFor="capacity" className="letas font-bold">
-          Capacity{" "}
-        </label>
-        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedCapacity(e.target.value)}>
-          <option hidden>choose a capacity</option>
-          {capacity?.map((c) => (
-          
-            <option key={c.id} value={c.id}>{c.capacity}</option>
-            ))}
-            </select>
-            {errors.capacity && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{errors.capacity}</p>
-          )}
-        </div>
-          { Object.values(errors).length ===0  &&  <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
-          Submit 
-        </button>}
-        </div>
-     </form>
-   </div>
+                        <div>
+                        <label htmlFor="capacity" className="letas font-bold">
+                          Capacity{" "}
+                        </label>
+                        <select className="appearance-none border rounded w-full p-1" onChange={(e) => setSelectedCapacity(e.target.value)}>
+                          <option hidden>choose a capacity</option>
+                          {capacity?.map((c) => (
+                          
+                            <option key={c.id} value={c.id}>{c.capacity}</option>
+                            ))}
+                            </select>
+                            {errors.capacity && (
+                            <p style={{ color: "white", fontWeight: "bold" }}>{errors.capacity}</p>
+                          )}
+                        </div>
+                          { Object.values(errors).length ===0  &&  <button className="bg-gradient-to-r from-red-500 to-blue-900 text-white font-bold py-2 px-4 rounded mt-6" type="submit"  >
+                          Submit 
+                        </button>}
+                        </div>
+                    </form>
+                </div>
+            </div>
       </div>
   );
 };
