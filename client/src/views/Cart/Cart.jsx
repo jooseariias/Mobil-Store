@@ -242,8 +242,9 @@ export default function Cart(){
             }
       </div>
 
-      <div id="summary" class="w-1/4 px-8 py-4 bg-slate-100">
+      <div className="flex flex-col justify-between w-1/4 px-8 py-4 bg-slate-100">
 
+        <div>
         <h1 class="font-semibold text-2xl border-b pb-5 mb-4">Order Summary</h1>
        
           <div>
@@ -258,9 +259,12 @@ export default function Cart(){
             <label class="font-medium inline-block mb-3 text-sm uppercase mt-8">Address</label>
             <input type="text" className="block p-2 w-full text-sm border border-gray-600 text-gray-600" />
           </div>
+
+        </div>
+
         
           <div class="border-t mt-8">
-            <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+            <div class="flex font-semibold justify-between py-4 text-sm uppercase">
               <span>Total cost</span>
               <span>${carrito.priceCart}.00</span>
             </div>

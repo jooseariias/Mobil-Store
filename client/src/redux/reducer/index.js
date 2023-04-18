@@ -29,6 +29,7 @@ import{
 const initialState = {
   Phones: [],
   PhonesCopy: [],
+  ArrayFilters: [],
   User: {},
   Brands: [],
   Capacity:[],
@@ -230,30 +231,90 @@ function rootReducer(state = initialState, action){
   
       case FILTER_BRANDS:
 
-        const Allbran = state.PhonesCopy;
-        console.log("marca: ", action.payload);
-        const TypePhonesFilter =
-          action.payload === "all"
-            ? Allbran
-            : Allbran?.filter((t) => (state.Brands[t.brandId-1]?.name)?.includes(action.payload));
+        let AllBran;
 
-        return {
-          ...state,
-          PhonesCopy: TypePhonesFilter,
-        };
+        if(state.ArrayFilters.length === 0){
+
+          AllBran = state.Phones;
+          state.ArrayFilters.push(action.payload.type);
+
+          const TypePhonesFilter = action.payload.info === "all" ? AllBran : AllBran?.filter((t) => (state.Brands[t.brandId-1]?.name)?.includes(action.payload.info));
+          return {
+            ...state,
+            PhonesCopy: TypePhonesFilter,
+          }
+        }
+
+        else{
+
+          if(state.ArrayFilters.includes(action.payload.type)){
+            AllBran = state.Phones;
+
+            const TypePhonesFilter = action.payload.info === "all" ? AllBran : AllBran?.filter((t) => (state.Brands[t.brandId-1]?.name)?.includes(action.payload.info));
+            return {
+              ...state,
+              PhonesCopy: TypePhonesFilter,
+            }
+          }
+
+          else{
+
+            state.Phones = state.PhonesCopy;
+            state.ArrayFilters.push(action.payload.type);
+
+            AllBran = state.Phones;
+
+            const TypePhonesFilter = action.payload.info === "all" ? AllBran : AllBran?.filter((t) => (state.Brands[t.brandId-1]?.name)?.includes(action.payload.info));
+            return {
+              ...state,
+              PhonesCopy: TypePhonesFilter,
+            }
+          }          
+        }
 
         case FILTER_CAPACITY:
 
-        const AllCap = state.PhonesCopy;
-        const TypePhonesFilterCapacidad =
-        action.payload === "all"
-          ? AllCap
-          : AllCap?.filter((t) => (state.Capacity[t.storageCapacityId-1]?.capacity) == (action.payload))
+          let AllCap;
 
-      return {
-        ...state,
-        PhonesCopy: TypePhonesFilterCapacidad,
-      };
+          if(state.ArrayFilters.length === 0){
+
+            AllCap = state.Phones;
+            state.ArrayFilters.push(action.payload.type);
+  
+            const TypePhonesFilterCapacidad = action.payload === "all" ? AllCap : AllCap?.filter((t) => (state.Capacity[t.storageCapacityId-1]?.capacity) == (action.payload.info))
+            return {
+              ...state,
+              PhonesCopy: TypePhonesFilterCapacidad,
+            }
+          }
+  
+          else{
+  
+            if(state.ArrayFilters.includes(action.payload.type)){
+              AllCap = state.Phones;
+  
+              const TypePhonesFilterCapacidad = action.payload === "all" ? AllCap : AllCap?.filter((t) => (state.Capacity[t.storageCapacityId-1]?.capacity) == (action.payload.info))
+              return {
+                ...state,
+                PhonesCopy: TypePhonesFilterCapacidad,
+              }
+            }
+  
+            else{
+  
+              state.Phones = state.PhonesCopy;
+              state.ArrayFilters.push(action.payload.type);
+  
+              AllCap = state.Phones;
+  
+              const TypePhonesFilterCapacidad = action.payload === "all" ? AllCap : AllCap?.filter((t) => (state.Capacity[t.storageCapacityId-1]?.capacity) == (action.payload.info))
+                return {
+                ...state,
+                PhonesCopy: TypePhonesFilterCapacidad,
+            }
+            }          
+          }
+
 
       case GET_REVIEWS:
         return{
