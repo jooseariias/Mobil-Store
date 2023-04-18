@@ -137,6 +137,7 @@ router.get("/:id", async (req, res) => {
 // });
 
 router.put('/:id', async (req, res) => {
+  try{
   const selectedProduct = await Product.findOne({
     where: {
       id: req.params.id
@@ -158,6 +159,8 @@ router.put('/:id', async (req, res) => {
     res.status(200).send(selectedProduct)
   } else {
     res.status(404)
+  }}catch(error){
+    res.status(400).json({error: error.message})
   }
 })
 
