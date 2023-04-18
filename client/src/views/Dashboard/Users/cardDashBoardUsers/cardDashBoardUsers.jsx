@@ -50,9 +50,9 @@ export default function CardDashBoard(){
     }
 
     return(
-        <div className="min-h-full flex flex-col">
+        <div className="min-h-full flex flex-col ">
 
-                    <div class=' justify-center my-2'>
+                    <div class=' justify-center item-center'>
     
                             <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px] '>
 
@@ -86,7 +86,7 @@ export default function CardDashBoard(){
 
                     </div> 
 
-                    <div class=' justify-center mb-auto'>
+                    <div class=' justify-center item-center'>
                      {usersDisplayed?.map((e) => {
                             return(
                             <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px]'>
@@ -124,7 +124,7 @@ export default function CardDashBoard(){
 
 
 
-                    <div className="my-auto ">
+                    <div className=" ">
                     <PaginationUsers
                         quantity={quantity}
                         start={start}
