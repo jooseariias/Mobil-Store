@@ -27,6 +27,8 @@ export const GET_REVIEWS=" GET_REVIEWS"
 //estadisticas
 export const GET_TOTAL_ORDERS = "GET_TOTAL_ORDERS";
 export const GET_TOTAL_PARAMETROS = "GET_TOTAL_PARAMETROS";
+export const GET_USERS_STATISTICS = "GET_USERS_STATISTICS";
+
 export const GET_ALL_ORDERS="GET_ALL_ORDERS"
 export const SEND_ORDER="SEND_ORDER"
 // const { URL_BACK } = process.env;
@@ -74,6 +76,16 @@ export const POST_REVIEW="POST_REVIEW"
       let Json = await axios.get(`${URL_BACK}/statistics/order`);
       dispatch({
         type: GET_TOTAL_ORDERS,
+        payload: Json.data,
+      });
+    }
+  }
+
+  export function getUsersStatistics(){
+    return async function (dispatch) {
+      let Json = await axios.get(`${URL_BACK}/statistics/user`);
+      dispatch({
+        type: GET_USERS_STATISTICS,
         payload: Json.data,
       });
     }

@@ -2,7 +2,7 @@ import React from "react";
 import SideBar from "./SideBar/SideBar";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {getTotalOrders} from "../../redux/actions/index"
+import {getTotalOrders, getUsersStatistics} from "../../redux/actions/index"
 
 
 
@@ -10,9 +10,12 @@ export default function Dashboard(){
 
     const dispatch = useDispatch();
     const allStatisticsTotal = useSelector((state) => state.StatisticsTotal);
+    const allStatisticsUsers = useSelector((state) => state.StatisticsUsers);
+
 
     useEffect(() => {
         dispatch(getTotalOrders());
+        dispatch(getUsersStatistics());
       }, [dispatch]); 
 
 
