@@ -369,51 +369,49 @@ router.get("/orders/:idUser", async (req, res) => {
   }
 });
 
-// router.get('/', async (req, res) => {
-//   try{
-//   const order = await Orders.findAll({
-//     include: {
-//       model: User,
-//     },
-//     include: {
-//       model: Product,
-//     },
-//   });
-//   if (order.length) {
-//     const status = await OrderStatus.findAll();
-//     // const detail = await Detail.findAll({
-//     //   where: {
-//     //     orderId: order[0].id,
-//     //   },
-//     // });
+router.get('/', async (req, res) => {
+  try{
+  const order = await Orders.findAll({
+    include: {
+      model: User,
+    },
+    include: {
+      model: Product,
+    },
+  });
+  if (order.length) {
+    const status = await OrderStatus.findAll();
 
-//     const data = await order?.map((p) => {
-//       return {
-//         Nro: p.id,
-//         date: p.date,
-//         address: p.address,
-//         status: p.orderStatus,
-//         image: p.products.map((e) => e.image),
-//         nameAndQuantity: p.products.map((e) => {
-//           return e.name
-//             .concat(" (", e.detail.quantity, ") unit/s ")
-//             .concat(" Unit Price: $", e.detail.price);
-//         }),
-//         total: p.total,
-//         status: status
-//           .filter((s) => s.orderId == p.id)
-//           .map((e) => e.status),
-//       };
-//     });
-//     data.length
-//       ? res.status(200).send(data)
-//       : res.status(400).send("This user has no associated purchases");
-//   } else {
-//     res.status(400).send("This user has no associated purchases");
-//   }
 
-// } catch (error) {
-// res.status(400).json({ msg: error.message });
-// }
-// })
+    const data = await order?.map((p) => {
+      return {
+        Nro: p.id,
+        date: p.date,
+        address: p.address,
+        status: p.orderStatus,
+        image: p.products.map((e) => e.image),
+        nameAndQuantity: p.products.map((e) => {
+          return e.name +" "
+            .concat(" (", e.detail.quantity, ") unit/s ")
+            .concat(" Unit Price: ", "($",e.detail.price,")");
+        }),
+        total: p.total,
+        status: status
+          .filter((s) => s.orderId == p.id)
+          .map((e) => e.status),
+      };
+    });
+    data.length
+      ? res.status(200).send(data)
+      : res.status(400).send("This user has no associated purchases");
+  } else {
+    res.status(400).send("This user has no associated purchases");
+  }
+
+} catch (error) {
+res.status(400).json({ msg: error.message });
+}
+})
+
+
 module.exports = router;
