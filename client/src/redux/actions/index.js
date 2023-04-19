@@ -125,6 +125,23 @@ export const POST_REVIEW="POST_REVIEW"
     };
   };
 
+  export function GetAuth() {
+    
+    return async function () {
+       await axios.get(`${URL_BACK}/auth/`).then(response => {
+        const { userData, redirectUrl } = response.data;
+        // guardar los datos del usuario en el estado o contexto de la aplicación
+        // redirigir al usuario a la ruta de la aplicación
+        window.location.href = redirectUrl;
+        console.log(userData)
+      })
+      .catch(error => {
+        // manejar el error
+      });
+       
+  }
+}
+
   export function getBrands() {
     return async function (dispatch) {
       let json = await axios.get(`${URL_BACK}/brand`)
@@ -143,6 +160,8 @@ export const POST_REVIEW="POST_REVIEW"
   export function getColores() {
     return async function (dispatch) {
       let json = await axios.get(`${URL_BACK}/color`);
+
+
   
       dispatch({
         type: GET_COLORES,

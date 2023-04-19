@@ -1,12 +1,13 @@
+const Sequelize = require('sequelize');
 const { Router } = require('express');
-const {Product,Review, Orders, Detail} = require("../db.js");
-
+const {Product,Review, Orders, Detail, User} = require("../db.js");
 
 const router = Router();
+
 //#region POST
 router.post("/:idProduct", async (req,res)=>{
     try {
-        const  { idUser, comment,score }= req.body
+        const  { idUser, comment, score }= req.body
         const idProduct =req.params.idProduct
     
         if(!comment ||!score || !idProduct){
@@ -33,8 +34,11 @@ router.post("/:idProduct", async (req,res)=>{
                 where: { id: idProduct },
             },
             where: { userId: idUser },
-            
           });
+
+          const user = await User.findOne({
+            where: { id: idUser }
+          })
 
         if(productBought){
 
@@ -44,24 +48,62 @@ router.post("/:idProduct", async (req,res)=>{
                     productId: idProduct
                 }
             })
+
             if(!reviewForThatProduct){
                 if(score>5 || score<1){
                     res.status(400).send("Enter a value from 1 to 5")
                 }else{
+
+                    // AQUÍ CREAMOS LA RESEÑA DEL PRODUCTO.
+
                     const newReview= await Review.create({
                         comment,
                         score,
                         date: Date.now(), 
-                        userId: idUser 
+                        userId: idUser,
+                        name: user.name,
+                        lastname: user.surname,
+                        image: user.image,
+                        productId: idProduct,
                     })
-                    const productReview =await Product.findByPk(idProduct);
-                    if (productReview) {
-                        newReview.setProduct([productReview.id]);
-                        res.status(200).send("Successful review!")
-                    }else{
-                        res.status(400).send("The product does not exist")
+
+                    // LE ASIGNAMOS UN VALOR NUEVO A LA CALIFICIÓN DEL PRODUCTO.
+
+                    const product = await Product.findOne({
+                        where: { id: idProduct }
+                    })
+
+                    let CantidadCalificaciones = product.Reviews + 1;
+                    let PromedioCalificaciones = 0;
+
+                    // AUMENTAMOS EN 1 EL NÚMERO DE CALIFICACIONES
+
+                    // OBTENEMOS TODAS LAS CALIFICACIONES DE ESE PRODUCTO
+
+                    const productos = await Review.findAll({
+                        where: { productId: idProduct}
+                    })
+
+                    // OBTENEMOS LA MEDIA DE TODAS LAS CALIFICACIONES DE ESE PRODUCTO
+
+                    var sumaCalificaciones = 0;
+
+                    for(let i=0; i<productos.length; i++){
+                        sumaCalificaciones = sumaCalificaciones + productos[i].dataValues.score;
                     }
 
+                    PromedioCalificaciones = sumaCalificaciones / CantidadCalificaciones;
+                    console.log("PROMEDIO", PromedioCalificaciones);
+
+                    const resultado = Product.update(
+                        {
+                            Reviews: Sequelize.literal('"Reviews" + 1'), // Incrementar el número de reseñas en 1
+                            calification: Sequelize.literal(`${PromedioCalificaciones}`)
+                        },
+                        { where: { id: idProduct } }
+                    )
+                    
+                    res.status(200).send("Successful review!")
                 }
             }else {
                 res.status(400).send(`No se puede calificar el producto mas de una vez`)
@@ -76,6 +118,7 @@ router.post("/:idProduct", async (req,res)=>{
             res.status(400).json({message: error.message})
         }          
 })
+
 //#region GET
 router.get("/",async(req,res)=>{
     const review= await Review.findAll({
@@ -91,15 +134,11 @@ router.get("/",async(req,res)=>{
 
 router.get('/:idProduct', async (req, res) => {
     try {
-        let reviewRes;
         const { idProduct } = req.params;
 
         const review = await Review.findAll({
-          
-            where: {
-                productId: idProduct
-            }
-        }) 
+            where: { productId: idProduct },
+        });
         
         review.length ? res.status(200).json(review) : res.status(400).json("This product has no review ")
         // let Promedio = review.reduce((prev, current) => prev + current.score, 0) / review.length;
