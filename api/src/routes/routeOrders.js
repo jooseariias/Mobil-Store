@@ -372,9 +372,53 @@ router.get('/', async (req, res) => {
   try{
 
   const { fechaInicio, fechaFin, status } = req.query
+  let order
+  if(fechaInicio && fechaFin && !status){
+   order = await Orders.findAll({
+   where:{
+    date:{
+     [Op.gte]: fechaInicio,
+     [Op.lte]: fechaFin
+    }
+   }
+   })
+  
+  }
+  if(fechaInicio && !fechaFin && !status){
+     order = await Orders.findAll({
+    where:{
+     date:{
+      [Op.gte]: fechaInicio
+    
+     }
+    }
+    })
+   
+   }
+   if(!fechaInicio && fechaFin && !status){
+     order = await Orders.findAll({
+    where:{
+     date:{
+      [Op.lte]: fechaFin
+     }
+    }
+    })
+   
+   }
+   if(!fechaInicio && !fechaFin && status){
+     order = await Orders.findAll({
+      include:{
+        model:OrderStatus,
+        where:{
+         status:status
+        }
+      }
+    })
+   /*  res.status(200).send(order) */
+   }
   
   if(!fechaInicio && !fechaFin){
-    const order = await Orders.findAll({
+     order = await Orders.findAll({
       include: {
         model: User,
       },
@@ -411,6 +455,7 @@ router.get('/', async (req, res) => {
       res.status(400).send("This user has no associated purchases");
     }
   }
+    res.status(200).send(order) 
 } catch (error) {
     res.status(400).json({ msg: error.message });
 }
