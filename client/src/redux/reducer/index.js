@@ -23,7 +23,10 @@ import{
     LOGIN_SUCCESS,
     LOG_OUT,
     GET_REVIEWS,
-    POST_REVIEW
+    POST_REVIEW,
+    GET_ALL_ORDERS,
+    SEND_ORDER
+
 }from"../actions/index"
 
 const initialState = {
@@ -37,7 +40,8 @@ const initialState = {
   details: [],
   Users: [],
   Reviews:[],
-  message: ""
+  message: "",
+  Orders:[]
 };
 
 function rootReducer(state = initialState, action){
@@ -327,8 +331,17 @@ function rootReducer(state = initialState, action){
           return {
             ...state,
             message: action.payload
+          };  
+          case GET_ALL_ORDERS:
+        
+          return {
+            ...state,
+            Orders: action.payload
           };
-  
+          case SEND_ORDER:
+            return {
+              ...state,
+            };
   
       default: {
         return state;
