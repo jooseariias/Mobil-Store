@@ -31,7 +31,8 @@ export default function Dashboard(){
                 <div className="items-center justify-center px-40">
 
                     <div class='flex text-center mx-[30px] mt-[20px] bg-white mb-[20px] p-[10px  justify-center   w-[1000px] h-[500px]  px-40'>
-                            {allStatisticsTotal !== null ? ( <h1 className="font-bold text-2xl"> The amount of sales in the last year is: <h2 className="font-bold text-green-500 text-2xl">{allStatisticsTotal.count}</h2> </h1>  )   : ( <h1>Las ventas en el ultimo año son 0  </h1>) } 
+                            {allStatisticsTotal !== null ? ( <h1 className="font-bold text-2xl px-10 py-4 border border-gray-600 mx-8 h-[150px] rounded-xl my-8 border-4 bg-blue-100"> The amount of sales in the last year is: <h2 className="font-bold text-green-500 text-2xl ">{allStatisticsTotal.count}</h2> </h1>  )   : ( <h1>indefined count  </h1>) } 
+                            {allStatisticsTotal !== null ? ( <h1 className="font-bold text-2xl px-10 py-4 border border-gray-600 mx-8 h-[150px] rounded-xl my-8 border-4 bg-blue-100"> and the total earned on sales is: <h2 className="font-bold text-green-500 text-2xl">{allStatisticsTotal.total}</h2> </h1>  )   : ( <h1> indefined count total  </h1>) } 
                     </div>
 
                 </div>
