@@ -27,8 +27,8 @@ export const GET_REVIEWS=" GET_REVIEWS"
 //estadisticas
 export const GET_TOTAL_ORDERS = "GET_TOTAL_ORDERS";
 export const GET_TOTAL_PARAMETROS = "GET_TOTAL_PARAMETROS";
-
-
+export const GET_ALL_ORDERS="GET_ALL_ORDERS"
+export const SEND_ORDER="SEND_ORDER"
 // const { URL_BACK } = process.env;
 
 const URL_BACK = `http://localhost:3001`
@@ -259,10 +259,27 @@ export function getUser(payload){
     })
   }
 }
-
+//ordes
 export function getOrders(id){
   return async function(){
     return await axios.get(`${URL_BACK}/orders/${id}`)
+  }
+}
+export function getAllOrders(){
+  return async function(dispatch){
+   let ordes= await axios.get(`${URL_BACK}/orders`)
+   console.log("ordenes:",ordes.data)
+
+   dispatch({
+    type: GET_ALL_ORDERS,
+    payload: ordes.data
+  })
+  }
+}
+export function sendOrder(idOrder){
+  return async function(){
+   const json=await axios.put(`${URL_BACK}/orders/sendOrder/${idOrder}`)
+   return { type: SEND_ORDER, payload: json };
   }
 }
 
