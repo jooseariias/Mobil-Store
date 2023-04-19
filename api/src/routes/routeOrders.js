@@ -370,45 +370,96 @@ router.get("/order/:idUser", async (req, res) => {
 
 router.get('/', async (req, res) => {
   try{
-  const order = await Orders.findAll({
-    include: {
-      model: User,
-    },
-    include: {
-      model: Product,
-    },
-  });
-  if (order.length) {
-    const status = await OrderStatus.findAll();
 
+  const { fechaInicio, fechaFin, status } = req.query
+  
+  let order;
 
-    const data = await order?.map((p) => {
-      return {
-        Nro: p.id,
-        date: p.date,
-        address: p.address,
-        status: p.orderStatus,
-        image: p.products.map((e) => e.image),
-        nameAndQuantity: p.products.map((e) => {
-          return e.name +" "
-            .concat(" (", e.detail.quantity, ") unit/s ")
-            .concat(" Unit Price: ", "($",e.detail.price,")");
-        }),
-        total: p.total,
-        status: status
-          .filter((s) => s.orderId == p.id)
-          .map((e) => e.status),
-      };
-    });
-    data.length
-      ? res.status(200).send(data)
-      : res.status(400).send("This user has no associated purchases");
-  } else {
-    res.status(400).send("This user has no associated purchases");
+  if(fechaInicio && fechaFin && !status){
+   order = await Orders.findAll({
+   where:{
+    date:{
+     [Op.gte]: fechaInicio,
+     [Op.lte]: fechaFin
+    }
+   }
+   })
+   return res.status(200).send(order) 
   }
+  if(fechaInicio && !fechaFin && !status){
+     order = await Orders.findAll({
+    where:{
+     date:{
+      [Op.gte]: fechaInicio
+    
+     }
+    }
+    })
+    return res.status(200).send(order) 
+   }
+   if(!fechaInicio && fechaFin && !status){
+     order = await Orders.findAll({
+    where:{
+     date:{
+      [Op.lte]: fechaFin
+     }
+    }
+    })
+    return res.status(200).send(order) 
+   }
+   if(!fechaInicio && !fechaFin && status){
+     order = await Orders.findAll({
+      include:{
+        model:OrderStatus,
+        where:{
+         status:status
+        }
+      }
+    })
+    return res.status(200).send(order) 
+   }
+  
+  if(!fechaInicio && !fechaFin){
+     order = await Orders.findAll({
+      include: {
+        model: User,
+      },
+      include: {
+        model: Product,
+      },
+    });
+    if (order.length) {
+      const status = await OrderStatus.findAll();
 
+
+      const data = await order?.map((p) => {
+        return {
+          Nro: p.id,
+          date: p.date,
+          address: p.address,
+          status: p.orderStatus,
+          image: p.products.map((e) => e.image),
+          nameAndQuantity: p.products.map((e) => {
+            return e.name +" "
+              .concat(" (", e.detail.quantity, ") unit/s ")
+              .concat(" Unit Price: ", "($",e.detail.price,")");
+          }),
+          total: p.total,
+          status: status
+            .filter((s) => s.orderId == p.id)
+            .map((e) => e.status),
+        };
+      });
+      data.length
+        ? res.status(200).send(data)
+        : res.status(400).send("This user has no associated purchases");
+    } else {
+      res.status(400).send("This user has no associated purchases");
+    }
+  }
+  //  return res.status(200).send(order) 
 } catch (error) {
-res.status(400).json({ msg: error.message });
+    res.status(400).json({ msg: error.message });
 }
 })
 
