@@ -379,8 +379,7 @@ router.get('/', async (req, res) => {
    order = await Orders.findAll({
    where:{
     date:{
-     [Op.gte]: fechaInicio,
-     [Op.lte]: fechaFin
+      [Op.between]: [fechaInicio, fechaFin]
     }
    }
    })
@@ -418,6 +417,54 @@ router.get('/', async (req, res) => {
     })
     return res.status(200).send(order) 
    }
+   if(fechaInicio && fechaFin && status) {
+    const orders = await Orders.findAll({
+      where: {
+        date: {
+          [Op.between]: [fechaInicio, fechaFin]
+        }
+      },
+      include: {
+        model: OrderStatus,
+        where: {
+          status: status
+        }
+      }
+    });
+    return res.status(200).send(orders);
+  }
+  if(fechaInicio && !fechaFin && status) {
+    const orders = await Orders.findAll({
+      where: {
+        date: {
+          [Op.gte]: fechaInicio
+        }
+      },
+      include: {
+        model: OrderStatus,
+        where: {
+          status: status
+        }
+      }
+    });
+    return res.status(200).send(orders);
+  }
+  if(!fechaInicio && fechaFin && status) {
+    const orders = await Orders.findAll({
+      where: {
+        date: {
+          [Op.lte]: fechaFin
+        }
+      },
+      include: {
+        model: OrderStatus,
+        where: {
+          status: status
+        }
+      }
+    });
+    return res.status(200).send(orders);
+  }
   
   if(!fechaInicio && !fechaFin){
      order = await Orders.findAll({
