@@ -25,6 +25,7 @@ import{
     GET_REVIEWS,
     POST_REVIEW,
     GET_ALL_ORDERS,
+    GET_ORDERS_DATE,
     SEND_ORDER,
 
     GET_TOTAL_ORDERS,
@@ -355,13 +356,20 @@ function rootReducer(state = initialState, action){
           return {
             ...state,
             message: action.payload
-          };  
+          }; 
+
           case GET_ALL_ORDERS:
-        
           return {
             ...state,
             Orders: action.payload
           };
+
+          case GET_ORDERS_DATE:
+            return{
+              ...state,
+              Orders: action.payload
+            };
+
           case SEND_ORDER:
             return {
               ...state,

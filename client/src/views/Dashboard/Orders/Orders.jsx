@@ -3,6 +3,7 @@ import SideBar from "../SideBar/SideBar";
 import { useDispatch,useSelector } from "react-redux";
 import { getAllOrders } from "../../../redux/actions";
 import CardOrders from "./CardOrders/CardOrders";
+import SearchBarOrders from "./SearchBarOrders/SearchBarOrders";
 
 export default function Orders(){
     const dispatch = useDispatch()
@@ -22,6 +23,8 @@ export default function Orders(){
 
                  <div class='mx-[30px] mt-[20px] bg-white mb-[20px] p-[10px] rounded flex items-center'>
                     <h1 class='font-bold ml-[10px] text-[25px]'>Orders</h1> 
+
+                    <div className="flex items-center justify-center m-4 px-20 w-2/5 mx-80"> <SearchBarOrders/> </div>  
                 </div>
 
                 <div class='flex text-center bg-white items-center justify-center mx-20  w-[1200px]   h-full px-40'>

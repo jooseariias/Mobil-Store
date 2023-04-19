@@ -2,20 +2,20 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { PostOrdersDate } from "../../../../redux/actions/index";
 
-export default function SearchBarUsers() {
+export default function SearchBarOrders() {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [date, setdate] = useState("");
 
   const handleInputChange = (event) => {
-    const name = event.target.value;
-    setName(name);
-    dispatch(getUser(name));
-    // setName(e.target.value);
+    const date = event.target.value;
+    setdate(date);
+    dispatch(PostOrdersDate(date));
+
   };
 
   const handleClick = () => {
     dispatch(PostOrdersDate(""));
-    setName("");
+    setdate("");
   };
 
   return (
@@ -25,7 +25,7 @@ export default function SearchBarUsers() {
         dark:bg-slate-700 dark:text-gray-50 dark:border-slate-700 dark:focus:border-blue-700" 
         type="date"
         placeholder="Search..."
-        value={name}
+        value={date}
         onChange={handleInputChange}
         autoComplete="off"
       />
