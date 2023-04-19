@@ -31,6 +31,7 @@ import ProductDashBoard from "./views/Dashboard/Product/Products";
 import Profile from "./views/Profile/Profile";
 import QA from './views/QA/QA'
 import Contact from './views/Contact/Contact'
+import Orders from "./views/Dashboard/Orders/Orders";
 
 export default function App(){
 
@@ -74,11 +75,12 @@ export default function App(){
         <Route path="/Profile" element={<Profile />} />
         <Route path="/QA" element={<QA />} />
         <Route path="/Contact" element={<Contact />} />
-        
+        <Route path="/Orders" element={<Orders />} />
 
 
         <Route element={<RutePrivade />}>
           <Route path="/DashBoard" element={<Dashboard />} />
+        
           <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
           <Route path="/ProductsDash" element={<ProductDashBoard />} />
           <Route exact path="/form-product" element={<CreateProduct />} />
