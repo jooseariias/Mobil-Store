@@ -20,11 +20,12 @@ export default function Store() {
   const phones = useSelector((state) => state.PhonesCopy);
   const Allbrand = useSelector((state) => state.Brands);
   const AllCap = useSelector((state) => state.Capacity);
+  const logicErase = phones.filter(phone => phone.enabled)
 
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const quantity = 10;
-  const phonesDisplayed = phones.slice(start, start + quantity + 2);
+  const phonesDisplayed = logicErase.slice(start, start + quantity + 2);
 
   const handleFilterTidy = (e) => {
     dispatch(TidyAlphabetically(e.target.value));
