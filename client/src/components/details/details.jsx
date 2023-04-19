@@ -75,6 +75,8 @@ function Details(){
   </div>
 </section>
 
+      <Reviews />
+
       <Footer />
 
     </div>

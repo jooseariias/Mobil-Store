@@ -273,7 +273,7 @@ router.get('/status', async (req, res) => {
   }
 })
 
-router.get("/orders/:idUser", async (req, res) => {
+router.get("/order/:idUser", async (req, res) => {
 
   try {
     const { idUser } = req.params;

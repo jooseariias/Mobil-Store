@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { LogOut } from '../../redux/actions/index.js'
 import { useNavigate } from 'react-router-dom'
-import { GetAuth } from '../../redux/actions/index.js'
+import { LoginSuccess } from '../../redux/actions/index.js'
 import useThemeSwitcher from '../hooks/useThemeSwitcher.js'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -22,23 +22,7 @@ export default function Header(){
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [mode, setMode] = useThemeSwitcher();
-	const [info, infoUser] = useState(null);
-	  
-	/*const getUser = async () => {
-		try {
-			const url = `http://localhost:3001/auth/login/success`;
-			const { data } = await axios.get(url, { withCredentials: true });
-			infoUser(data.user._json);
-
-			console.log("INFO", data);
-		} catch (err) {
-			console.log("ERROR", err)
-		}
-	};
-
-	useEffect(() => {
-		getUser();
-	}, []);*/
+	const [info, infoUser] = useState({});
 
 	  const handleFavorites = () => {
 
