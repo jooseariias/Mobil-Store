@@ -29,12 +29,11 @@ export default function UsersDashBoard(){
                    <div className="items-center justify-center m-4 px-60 w-full"> <SearchBarUsers/> </div>   
                 </div>
 
-                <div class='flex text-center bg-white items-center justify-center mx-80  w-[1000px]   h-full px-40'>
+                <div class='flex text-center bg-white items-center justify-center mx-40  w-[1000px]   h-full px-40'>
              
                     <CardDashBoard/>
 
                 </div>
-
 
             </div>
 

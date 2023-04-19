@@ -14,7 +14,7 @@ export const GET_COLORES = "GET_COLORES";
 export const GET_CAPACITY = "GET_CAPACITY";
 
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
-export const CLEAN_PHONES = "CLEAN_PHONES";
+export const CLEAN_BROAD = "CLEAN_BROAD";
 export const FILTER_CAPACITY = "FILTER_CAPACITY";
 export const POST_USER = "POST_USER";
 export const GET_USERS = "GET_USERS";
@@ -24,10 +24,18 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
 export const GET_REVIEWS=" GET_REVIEWS"
 
+//estadisticas
+export const GET_TOTAL_ORDERS = "GET_TOTAL_ORDERS";
+export const GET_TOTAL_PARAMETROS = "GET_TOTAL_PARAMETROS";
+export const GET_USERS_STATISTICS = "GET_USERS_STATISTICS";
 
+export const GET_ALL_ORDERS="GET_ALL_ORDERS"
+export const SEND_ORDER="SEND_ORDER"
 // const { URL_BACK } = process.env;
 
 const URL_BACK = `http://localhost:3001`
+
+// const URL_BACK = 'phonezoneback-production.up.railway.app'
 
 export const POST_REVIEW="POST_REVIEW"
 
@@ -50,6 +58,36 @@ export const POST_REVIEW="POST_REVIEW"
         type: 'GET_PHONE',
         payload: json.data
       })
+    }
+  }
+
+  export function getTotalDesdeHasta(payload, payloadDos){
+    return async function(dispatch){
+      let json = await axios.get(`${URL_BACK}/statistics/order?fechaInicio=${payload}&fechaFin=${payloadDos}`)
+      return dispatch({
+        type: GET_TOTAL_PARAMETROS,
+        payload: json.data
+      })
+    }
+  }
+
+  export function getTotalOrders(){
+    return async function (dispatch) {
+      let Json = await axios.get(`${URL_BACK}/statistics/order`);
+      dispatch({
+        type: GET_TOTAL_ORDERS,
+        payload: Json.data,
+      });
+    }
+  }
+
+  export function getUsersStatistics(){
+    return async function (dispatch) {
+      let Json = await axios.get(`${URL_BACK}/statistics/user`);
+      dispatch({
+        type: GET_USERS_STATISTICS,
+        payload: Json.data,
+      });
     }
   }
 
@@ -154,13 +192,12 @@ export const POST_REVIEW="POST_REVIEW"
     };
   }
 
-  export function CleanPhones(){
+  export function CleanBroad(){
 
     return{
-        type: CLEAN_PHONES,
-        payload: [],
+        type: CLEAN_BROAD,
     }
-}
+  }
 
 // - - - RUTAS PARA EL CARRITO DE LA BASE DE DATOS - - - //
 
@@ -234,10 +271,27 @@ export function getUser(payload){
     })
   }
 }
-
+//ordes
 export function getOrders(id){
   return async function(){
     return await axios.get(`${URL_BACK}/orders/${id}`)
+  }
+}
+export function getAllOrders(){
+  return async function(dispatch){
+   let ordes= await axios.get(`${URL_BACK}/orders`)
+   console.log("ordenes:",ordes.data)
+
+   dispatch({
+    type: GET_ALL_ORDERS,
+    payload: ordes.data
+  })
+  }
+}
+export function sendOrder(idOrder){
+  return async function(){
+   const json=await axios.put(`${URL_BACK}/orders/sendOrder/${idOrder}`)
+   return { type: SEND_ORDER, payload: json };
   }
 }
 
@@ -255,6 +309,12 @@ export function LogOut(){
     dispatch({
       type: LOG_OUT,
     })
+  }
+}
+
+export function postSupport(data){
+  return async function(){
+    return await axios.post(`${URL_BACK}/Support`, data);
   }
 }
 
@@ -289,6 +349,8 @@ export const postReviews =  (id,payload) => {
     console.log(error.message)
   }
 }
+
+
 
 
 

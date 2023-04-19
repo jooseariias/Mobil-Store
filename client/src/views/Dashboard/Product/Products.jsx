@@ -21,7 +21,7 @@ function ProductDashBoard() {
   const quantity = 9;
   const phonesDisplayed = phones.slice(start, start + quantity);
 
-  console.log(phones);
+  // console.log(phones);
 
   const update = async (id, boolean) => {
     const enabled = { enabled: !boolean };
@@ -42,11 +42,12 @@ function ProductDashBoard() {
           <div className="items-center justify-center m-2 px-80 w-full">
             <SearchBar />
           </div>
-          <Link to="/form-product" className="text-center">
+          <Link to="/form-product" className="text-center rounded-xl rounded-xl border-4 bg-blue-100 border-2 bg-blue-100 hover:bg-blue-300 hover:text-white font-bold">
             Create a new phone
           </Link>
         </div>
-        <div class="flex text-center bg-white items-center justify-center mx-80 flex-wrap w-[1000px] px-40">
+        
+        <div class="flex text-center bg-white items-center justify-center mx-40 flex-wrap w-[1000px] px-40">
           <div class=" justify-center">
             <div class="flex bg-white justify-evenly py-[10px] pr-3 w-[1000px]">
               <div class="w-[200px] bg-white items-center justify-center ">

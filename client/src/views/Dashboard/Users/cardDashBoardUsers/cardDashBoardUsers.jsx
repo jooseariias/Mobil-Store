@@ -50,33 +50,33 @@ export default function CardDashBoard(){
     }
 
     return(
-        <div className="min-h-full flex flex-col">
+        <div className="min-h-full flex flex-col ">
 
-                    <div class=' justify-center my-2'>
+                    <div class=' justify-center item-center'>
     
                             <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px] '>
 
-                            <div class='w-[200px] bg-white items-center justify-center '>
+                            <div class='w-[200px] bg-white items-center justify-center m-2'>
                             <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>Name</h5>
                             </div>
                             
-                            <div class='w-[200px] bg-white justify-center items-center'>
+                            <div class='w-[200px] bg-white justify-center items-center m-2'>
                             <h5 class='mr-[100px] text-[15px] w-[200px] text-black font-bold'>Email</h5>
                             </div>
 
-                            <div class='w-[150px] bg-white justify-center items-center'>
+                            <div class='w-[150px] bg-white justify-center items-center m-2'>
                             <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>Rol</h5>
                             </div>
 
-                            <div class='w-[150px] bg-white justify-center items-center '>
+                            <div class='w-[150px] bg-white justify-center items-center m-2'>
                             <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'> Qualification</h5>
                             </div>
 
-                            <div class='w-[80px] bg-white justify-center items-center '>
+                            <div class='w-[80px] bg-white justify-center items-center m-2'>
                             <h5 class='mr-[80px] text-[15px] w-[20px]  font-bold'> Assign Role</h5>
                             </div>
 
-                            <div class='w-[80px] bg-white justify-center items-center px-0'>
+                            <div class='w-[80px] bg-white justify-center items-center px-0 m-2'>
                             <h5 class='mr-[80px] text-[15px] w-[20px] font-bold'> assign enablement</h5>
                             </div>
 
@@ -86,32 +86,32 @@ export default function CardDashBoard(){
 
                     </div> 
 
-                    <div class=' justify-center mb-auto'>
+                    <div class=' justify-center item-center py-[10px] pt-[10px] w-[1000px]'>
                      {usersDisplayed?.map((e) => {
                             return(
-                            <div class='flex text-center bg-white items-center justify-around py-[10px] pt-[10px] w-[1000px]'>
-                            <div class='w-[200px] bg-white justify-center items-center'>
+                            <div class='flex text-center bg-white items-center justify-around '>
+                            <div class='w-[200px] bg-white justify-center items-center m-2'>
                             <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'>{e.name}</h5>
                             <h5 class='text-[12px] font-bold'>{e.surname}</h5>
                             </div>
                             
-                            <div class='w-[200px] bg-white justify-center items-center'>
+                            <div class='w-[200px] bg-white justify-center items-center m-2'>
                             <h5 class='mr-[100px] text-[15px] w-[200px] text-black font-bold'>{e.email}</h5>
                             </div>
 
-                            <div class='w-[150px] bg-white justify-center items-center'>
+                            <div class='w-[150px] bg-white justify-center items-center m-2'>
                             <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>{e.rol}</h5>
                             </div>
 
-                            <div class='w-[150px] bg-white justify-center items-center '>
-                            {e.enabled === true ? <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>enabled</h5> : <h5 class='mr-[100px] text-[15px] w-[200px] font-bold'> disabled</h5>}
+                            <div class='w-[150px] bg-white justify-center items-center m-2'>
+                            {e.enabled === true ? <h5 class='mr-[100px] text-[15px] w-[150px] font-bold'>enabled</h5> : <h5 class='mr-[100px] text-[15px] w-[150px] font-bold text-red-600'> disabled</h5>}
                             </div>
 
-                            <button className="item-center justify-center items-center flex " onClick={() => AdminUser(e.id)} >
+                            <button className="item-center justify-center items-center flex m-2 " onClick={() => AdminUser(e.id)} >
                             <img  class= " z-9  my-auto h-8 m-7 text-center item-center justify-center"src = {admin}/>
                             </button>
 
-                            <button className="justify-center items-center flex" onClick={() => BanUser(e.id)} >
+                            <button className="justify-center items-center flex m-2" onClick={() => BanUser(e.id)} >
                             <img  class= " z-9  my-auto h-8 m-7 text-center item-center justify-center"src = {ban}/>
                             </button>
 
@@ -124,7 +124,7 @@ export default function CardDashBoard(){
 
 
 
-                    <div className="my-auto ">
+                    <div className="">
                     <PaginationUsers
                         quantity={quantity}
                         start={start}

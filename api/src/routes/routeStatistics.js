@@ -30,7 +30,7 @@ router.get('/user', async(req, res) => {
                 }
             })
             
-            res.status(200).json({msg: `Hay ${usuariosActivos.count} usuario/s activos y hay ${usuariosInactivos.count} baneados en la base de datos`})
+            res.status(200).json({enabled: usuariosActivos.count, disabled: usuariosInactivos.count } )
         }
         
         if(fechaInicio && fechaFin && !enabled){
@@ -65,7 +65,7 @@ router.get('/user', async(req, res) => {
                     enabled: false
                 }
             })
-            res.status(200).json({msg: `Desde el ${fechaInicio.count} hay ${usuariosActivos.count} usuarios activos y ${usuariosInactivos.count} usuarios inactivos`})
+            res.status(200).json({msg: `Desde el ${fechaInicio} hay ${usuariosActivos.count} usuarios activos y ${usuariosInactivos.count} usuarios inactivos`})
         }
         
         if(!fechaInicio && fechaFin ){
@@ -111,7 +111,7 @@ router.get('/order', async (req, res) => {
                     }
                 }
             })
-            res.status(200).json(order)
+            res.status(200).json({count: order.count, total: parseFloat(order.rows[0].total)})
         }
         if(!fechaInicio && !fechaFin){
             const order = await Orders.findAndCountAll({
@@ -119,9 +119,37 @@ router.get('/order', async (req, res) => {
                     [Sequelize.fn('SUM', Sequelize.col('total')), 'total']
                 ]
             })
-            res.status(200).json(order)
+            // console.log("order es:", order)
+            res.status(200).json({count: order.count, total: parseFloat(order.rows[0].total)})
         }
-
+        if(fechaInicio && !fechaFin){
+            const order = await Orders.findAndCountAll({
+                attributes: [
+                    [Sequelize.fn('SUM', Sequelize.col('total')), 'total']
+                ],
+                where: {
+                    date: {
+                        [Op.gte]: fechaInicio
+                       
+                    }
+                }
+            })
+            res.status(200).json({count: order.count, total: parseFloat(order.rows[0].total)})
+        }
+        if(!fechaInicio && fechaFin){
+            const order = await Orders.findAndCountAll({
+                attributes: [
+                    [Sequelize.fn('SUM', Sequelize.col('total')), 'total']
+                ],
+                where: {
+                    date: {
+                        [Op.lte]: fechaFin
+                       
+                    }
+                }
+            })
+            res.status(200).json({count: order.count, total: parseFloat(order.rows[0].total)})
+        }
         // console.log(order)
     } catch (error) {
         res.status(400).json({error: error.message})

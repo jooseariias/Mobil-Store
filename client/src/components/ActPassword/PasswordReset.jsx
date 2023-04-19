@@ -7,7 +7,8 @@ import Footer from '../Footer/Footer';
 const PasswordReset = () => {
 
   const navigate = useNavigate();
-  
+
+
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -19,7 +20,8 @@ const PasswordReset = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-     axios
+    
+      axios
       .post('http://localhost:3001/user/passwordCode', { email })
       .then((res) => {
          setMessage(res.data.message); 
@@ -27,12 +29,13 @@ const PasswordReset = () => {
           navigate("/reset")
         }, 5000);
         
-      })
-      .catch((err) => {
+      }).catch((err) => {
         setError(err.response.data.message);
       });
       
+      
   };
+  
 
   return (
 
@@ -50,11 +53,11 @@ const PasswordReset = () => {
             Reset password
             </h1>
 
-              <div className="w-4/5 px-60 items-center">
+              <div className="w-4/5 px-40 items-center">
               <label htmlFor="email" className="font-bold text-slate-900 dark:text-slate-100">Enter your email address:</label>
               </div>
 
-              <div className="w-4/5 my-2 flex items-center relative  mb-12 px-60">
+              <div className="w-4/5 my-2 flex items-center relative  mb-12 px-40">
                   <input
                   type="email"
                   id="email"

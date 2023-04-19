@@ -31,6 +31,7 @@ import ProductDashBoard from "./views/Dashboard/Product/Products";
 import Profile from "./views/Profile/Profile";
 import QA from './views/QA/QA'
 import Contact from './views/Contact/Contact'
+import Orders from "./views/Dashboard/Orders/Orders";
 
 export default function App(){
 
@@ -56,7 +57,8 @@ export default function App(){
   return (
     <div className="App">
       <Routes>
-        //Routas Users
+
+
         <Route exact path="/" element={<Home />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/Store" element={<Store />} />
@@ -73,17 +75,18 @@ export default function App(){
         <Route path="/Profile" element={<Profile />} />
         <Route path="/QA" element={<QA />} />
         <Route path="/Contact" element={<Contact />} />
-        
+   
 
-        //Rutas admin
 
-        {/* <Route element={<RutePrivade />}> */}
+        <Route element={<RutePrivade />}>
           <Route path="/DashBoard" element={<Dashboard />} />
+        
           <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
           <Route path="/ProductsDash" element={<ProductDashBoard />} />
           <Route exact path="/form-product" element={<CreateProduct />} />
           <Route exact path="/update-product/:id" element={<UpdateProduct />} />
-        {/* </Route> */}
+          <Route path="/Orders" element={<Orders />} />
+        </Route>
        
       </Routes>
     </div>

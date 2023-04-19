@@ -1,7 +1,9 @@
+import { useState } from "react"
 import Header from "../../components/Header/Header"
 import Carrucel from "../../components/Carrucel/Carrucel"
 import Footer from '../../components/Footer/Footer'
 import Slider from '../../components/Carrucel/Slider'
+import icons from '../../assets/icons-header/icons'
 
 export default function Home(){
 
@@ -223,14 +225,59 @@ export default function Home(){
       storageCapacityId: 3
     },
 
-
-
-
-
   ];
+
+  const [permissions, setPermissions] = useState(window.localStorage.getItem("permissions"));
+
+  const renderPermissionConsent = () => (
+   
+    <div class="relative flex justify-center items-center z-10">
+    <button onclick="showMenu(true)" class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 focus:outline-none absolute z-0 top-48 py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black">Open</button>
+
+    <div id="menu" className="w-full h-full bg-gray-900 bg-opacity-90 top-0 fixed sticky-0">
+        <div class="2xl:container 2xl:mx-auto py-32 px-4 md:px-28 flex justify-center items-center">
+            <div class="w-96 md:w-auto dark:bg-gray-800 relative flex flex-col justify-center items-center bg-white py-16 px-4 md:px-5 xl:py-20 xl:px-20">
+                <div role="banner">
+                    <img class="w-20 md:w-24 lg:w-48" src={icons.logo} alt="icon" ></img>
+                </div>
+                <div class="mt-8">
+                    <h1 role="main" class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-center text-gray-800">Before continuing on our website</h1>
+                </div>
+
+                <div class="mt">
+                    <p class="mt-6 sm:w-2/3 text-bold dark:text-white text-center leading-7 mx-auto text-gray-900">
+                      This website uses cookies to ensure you get the best experience on your website
+                    </p>
+                </div>
+
+                <button onClick={(e) => handleCookies(e)}class="w-full dark:text-gray-800 dark:hover:bg-gray-100 dark:bg-white sm:w-auto mt-14 text-base leading-4 text-center
+                 text-white py-6 px-16 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800 hover:bg-black">Accept Cookies
+                </button>
+
+                <a href="javascript:void(0)" class="mt-6 dark:text-white dark:hover:border-white text-base leading-none focus:outline-none hover:border-gray-800 focus:border-gray-800 border-b border-transparent text-center text-gray-800">Nope.. I am on a diet</a>
+                <button onclick="showMenu(true)" class="text-gray-800 dark:text-gray-400 absolute top-8 right-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" aria-label="close">
+                    <img class="dark:hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/cookies-1-svg2.svg" alt="close" ></img>
+                    <img class="dark:block hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/cookies-1-svg2dark.svg" alt="close" ></img>
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
+  )
+
+  const handleCookies = (e) => {
+
+    e.preventDefault();
+
+    window.localStorage.setItem("permissions", true);
+    setPermissions(true);        
+  }
 
   return (
     <div className="bg-gray-100 dark:bg-gray-800">
+
+      {(permissions === null) && renderPermissionConsent()}
+
       <Header />
       <Carrucel />
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const useThemeSwitcher = () => {
 
     const preferDarkQuery = "(prefer-color-scheme: dark)";
-    const [mode, setMode] = useState(localStorage.getItem('theme') ? localStorage.getItem("theme") : "dark");
+    const [mode, setMode] = useState(localStorage.getItem('theme') ? localStorage.getItem("theme") : "light");
 
     useEffect(() => {
         

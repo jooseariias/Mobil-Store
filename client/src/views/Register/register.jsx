@@ -10,6 +10,7 @@ import seePassword from "../../assets/icons-register/seePassword.png"
 import { useNavigate } from 'react-router-dom';
 import { BsEyeSlash } from "react-icons/bs";
 import Swal from 'sweetalert2';
+import Styles from "./form.module.css"
 
 export default function Register() {
     const dispatch = useDispatch()
@@ -58,7 +59,7 @@ export default function Register() {
 
 
     return (
-        <div className="bg-gray-100  dark:bg-slate-900 h-min-screen ">
+        <div className="bg-gray-100 dark:bg-gray-800 h-min-screen ">
 
             <Header/>
 
@@ -78,13 +79,17 @@ export default function Register() {
                 onSubmit={handleRegister}
                 validate={validation}
             >
-                <Form className='flex flex-col  px-20 '>
+                <Form className='flex flex-col  px-20 ' >
 
                   <div className='m-1'>                      
                     <label className="font-bold px-20 dark:text-white">Name</label>
                     <div className='item-center justify-center flex flex-col px-20'>
-                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border  dark:bg-blue-300"/>
+                    <Field name='name' type='text' placeholder='Firstname' className=" rounded-lg p-1 my-2 focus:outline-none  focus:shadow-outline border  dark:bg-blue-300"/>
+
+                    <div className='text-red-600'>
                     <ErrorMessage name='name'/>
+                    </div>
+                   
                     </div> 
                   </div>
 
@@ -92,7 +97,11 @@ export default function Register() {
                   <label className="font-bold px-20 dark:text-white">Surname</label>
                    <div className='item-center justify-center flex flex-col px-20'>
                    <Field name='surname' type='text'  placeholder='Surname' className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border dark:text-white dark:bg-blue-300"/>
-                    <ErrorMessage name='surname'/>
+
+                   <div className='text-red-600'>
+                     <ErrorMessage name='surname'/>
+                   </div>
+                    
                    </div>
                   </div>
 
@@ -100,7 +109,9 @@ export default function Register() {
                     <label className="font-bold px-20 dark:text-white">Email</label>
                     <div className='item-center justify-center flex flex-col px-20'>
                     <Field name='email' type='email' placeholder='Email' className=" rounded-lg p-1 my-2 focus:outline-none dark:text-white focus:shadow-outline border dark:bg-blue-300"/>
-                      <ErrorMessage name='email'  />
+                        <div className='text-red-600'>
+                        <ErrorMessage name='email'  />
+                        </div>
                     </div>
                   </div>
 
@@ -118,7 +129,10 @@ export default function Register() {
                   </span>
       
                     </div>
-                    <ErrorMessage name='password'/>
+               
+                      <div className='text-red-600 px-20'>
+                       <ErrorMessage name='password'/>
+                      </div>
                   </div>
                     
                     <div className='m-1'>
@@ -126,7 +140,10 @@ export default function Register() {
                       <div className='item-center justify-center flex flex-col px-20'>
                           <div  style={{ backgroundImage: `url(${picture})` }}></div>                    
                           <Field name='image' type='file' placeholder='image'  className=" rounded-lg p-1 my-2 focus:outline-none focus:shadow-outline border dark:bg-blue-400 dark:text-white" onChange={handleImage}/>  
-                          <ErrorMessage name='image'/>                     
+
+                         <div className='text-red-600'>
+                         <ErrorMessage name='image'/> 
+                          </div>                    
                       </div>
                     </div>
 

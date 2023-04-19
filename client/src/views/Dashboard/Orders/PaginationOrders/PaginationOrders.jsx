@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import style from "../../../Pagination/pagination.module.css";
 
-function PaginationUsers({
+function PaginationOrders({
   quantity,
   start,
   setStart,
@@ -10,9 +10,9 @@ function PaginationUsers({
   setCurrentPage,
 }) {
   const [pageButtons, setPageButtons] = useState([]);
-  const Alluser = useSelector((state) => state.Users);
+  const orders = useSelector((state) => state.Orders);
 
-  const total = Math.ceil(Alluser.length / quantity);
+  const total = Math.ceil(orders.length / quantity);
   const pages = [];
 
   for (let index = 1; index <= total; index++) {
@@ -129,4 +129,4 @@ function PaginationUsers({
   );
 }
 
-export default PaginationUsers;
+export default PaginationOrders;

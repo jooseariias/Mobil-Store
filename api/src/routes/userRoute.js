@@ -118,7 +118,7 @@ router.post('/passwordCode', async (req, res) => {
   const { email } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({where:{ email }});
 
     if (!user) {
       return res.status(404).json({ message: 'No se encontró ningún usuario con ese correo electrónico.' });
@@ -169,6 +169,21 @@ router.post('/resetPassword', async (req, res) => {
     console.error(err);
     res.status(500).json({ message: 'Ocurrió un error al procesar su solicitud.' });
   }
+});
+
+router.put('/resetPassword',  async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    console.log(email, password)
+    const passwordHash = await bcrypt.hash(password, 10)
+
+    await User.update({ password: passwordHash }, { where: { email: email } })
+
+    res.json({ msg: "Password successfully changed!" })
+  } catch (err) {
+    return res.status(500).json({ msg: err.message })
+  }
+
 });
 
 
@@ -277,20 +292,6 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.put('/resetPassword',  async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    console.log(email, password)
-    const passwordHash = await bcrypt.hash(password, 10)
-
-    await User.update({ password: passwordHash }, { where: { email: email } })
-
-    res.json({ msg: "Password successfully changed!" })
-  } catch (err) {
-    return res.status(500).json({ msg: err.message })
-  }
-
-});
 
 
 

@@ -6,9 +6,11 @@ import Footer from "../../components/Footer/Footer";
 import { getProductCart, deleteProductCart, UpdateStockDB, PostMercadoPago } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2"
+import { useForm } from 'react-hook-form';
 
 export default function Cart(){
 
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const user = useSelector((state) => state.User)
   const Phones = useSelector((state) => state.Phones)
   const dispatch = useDispatch();
@@ -132,7 +134,7 @@ export default function Cart(){
     }
   }
 
-  const handleSubmit = () => {
+  const onSubmit = (data) => {
 
     if(Object.keys(user).length === 0){
       return Swal.fire({
@@ -144,12 +146,12 @@ export default function Cart(){
 
     else{
 
-      const data = {
+      const info = {
         userId: user.data_user.id,
-        address: "LA CALIFORNIA"
+        address: data.address,
       }
 
-      dispatch(PostMercadoPago(data)).then((response) => {
+      dispatch(PostMercadoPago(info)).then((response) => {
         window.open(response.data.init_point, '_blank');
       })
     }
@@ -183,7 +185,7 @@ export default function Cart(){
         {
           Object.keys(carrito).length === 0  ? <RenderEmptyCart /> :
 
-        <div class="flex shadow-md py-5">
+        <div class="flex shadow-md py-5 mr-2">
           <div class="w-3/4 h-[calc(100vh-10rem)] px-10 py-4 overflow-auto border dark:bg-gray-900 dark:border-gray-800 text-slate-900 dark:text-slate-100 ">
 
             <div class="flex justify-between border-b pb-5 dark:border-gray-700">
@@ -242,35 +244,37 @@ export default function Cart(){
             }
       </div>
 
-      <div id="summary" class="w-1/4 px-8 py-4 bg-slate-100">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between w-1/4 px-8 py-4 bg-slate-100">
 
+        <div>
         <h1 class="font-semibold text-2xl border-b pb-5 mb-4">Order Summary</h1>
        
-          <div>
-            <label class="font-medium inline-block mb-3 text-sm uppercase">Payment method</label>
-              <select class="block p-2 text-gray-600 w-full text-sm">
-                <option>MercadoPago</option>
-                <option>PayPal</option>
-              </select>
-          </div>
+       <div>
+          <label class="font-medium inline-block mb-3 text-sm uppercase mt-4">PAYMENT METHOD</label>
+        <select {...register("paymentMethod", { required: true })} className="block p-2 text-gray-600 w-full text-sm">
+          <option value="">Select payment method</option>
+          <option value="MercadoPago">MercadoPago</option>
+        </select>
+        {errors.paymentMethod && <span className="text-red-500">This field is required</span>}
+       </div>
 
           <div>
             <label class="font-medium inline-block mb-3 text-sm uppercase mt-8">Address</label>
-            <input type="text" className="block p-2 w-full text-sm border border-gray-600 text-gray-600" />
+            <input {...register("address", { required: true })} type="text" className="block p-2 w-full text-sm border border-gray-600 text-gray-600" />
+            {errors.address && <span className="text-red-500">This field is required</span>}    
           </div>
+        </div>
+
         
           <div class="border-t mt-8">
-            <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+            <div class="flex font-semibold justify-between py-4 text-sm uppercase">
               <span>Total cost</span>
               <span>${carrito.priceCart}.00</span>
             </div>
 
-            <button
-              onClick={() => handleSubmit()}
-              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout
-            </button>
+            <button type="submit" className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</button>
           </div>
-      </div>
+      </form>
     </div>
   }
   </div>
