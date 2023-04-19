@@ -28,15 +28,14 @@ export default function Dashboard(){
                         <h1 class='font-bold ml-[10px] text-[25px]'>Statistics</h1> 
                 </div>
 
-                <div class='flex text-center bg-white items-center justify-center mx-40  w-[1000px]   h-full px-40'>
-                        {allStatisticsTotal.data?.map((e) => {
-                            return(
-                             <div>
-                                <h1>Las ventas en el ultimo año son {e.count} </h1>
-                            </div>
-                                )
-                         })} 
+                <div className="items-center justify-center px-40">
+
+                    <div class='flex text-center mx-[30px] mt-[20px] bg-white mb-[20px] p-[10px  justify-center   w-[1000px] h-[500px]  px-40'>
+                            {allStatisticsTotal !== null ? ( <h1 className="font-bold text-2xl"> The amount of sales in the last year is: <h2 className="font-bold text-green-500 text-2xl">{allStatisticsTotal.count}</h2> </h1>  )   : ( <h1>Las ventas en el ultimo año son 0  </h1>) } 
+                    </div>
+
                 </div>
+
             </div>
         </div>
     )
