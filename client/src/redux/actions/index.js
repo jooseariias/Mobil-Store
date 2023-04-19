@@ -93,7 +93,7 @@ export const POST_REVIEW="POST_REVIEW"
 
   export function PostOrdersDate(payload) {
     return async function(dispatch){
-      await axios.post(`${URL_BACK}/user`, payload);
+      await axios.post(`${URL_BACK}/statistics/order?fechaInicio=${payload}`);
     }
   }
 
