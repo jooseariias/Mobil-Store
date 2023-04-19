@@ -24,6 +24,10 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOG_OUT = "LOGOUT";
 export const GET_REVIEWS=" GET_REVIEWS"
 
+//estadisticas
+export const GET_TOTAL_ORDERS = "GET_TOTAL_ORDERS";
+export const GET_TOTAL_PARAMETROS = "GET_TOTAL_PARAMETROS";
+
 
 // const { URL_BACK } = process.env;
 
@@ -52,6 +56,26 @@ export const POST_REVIEW="POST_REVIEW"
         type: 'GET_PHONE',
         payload: json.data
       })
+    }
+  }
+
+  export function getTotalDesdeHasta(payload, payloadDos){
+    return async function(dispatch){
+      let json = await axios.get(`${URL_BACK}/statistics/order?fechaInicio=${payload}&fechaFin=${payloadDos}`)
+      return dispatch({
+        type: GET_TOTAL_PARAMETROS,
+        payload: json.data
+      })
+    }
+  }
+
+  export function getTotalOrders(){
+    return async function (dispatch) {
+      let Json = await axios.get(`${URL_BACK}/statistics/order`);
+      dispatch({
+        type: GET_TOTAL_ORDERS,
+        payload: Json.data,
+      });
     }
   }
 
@@ -296,6 +320,8 @@ export const postReviews =  (id,payload) => {
     console.log(error.message)
   }
 }
+
+
 
 
 
