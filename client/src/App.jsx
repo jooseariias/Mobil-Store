@@ -75,7 +75,7 @@ export default function App(){
         <Route path="/Profile" element={<Profile />} />
         <Route path="/QA" element={<QA />} />
         <Route path="/Contact" element={<Contact />} />
-        <Route path="/Orders" element={<Orders />} />
+   
 
 
         <Route element={<RutePrivade />}>
@@ -85,6 +85,7 @@ export default function App(){
           <Route path="/ProductsDash" element={<ProductDashBoard />} />
           <Route exact path="/form-product" element={<CreateProduct />} />
           <Route exact path="/update-product/:id" element={<UpdateProduct />} />
+          <Route path="/Orders" element={<Orders />} />
         </Route>
        
       </Routes>

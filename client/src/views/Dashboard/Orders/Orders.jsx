@@ -13,16 +13,16 @@ export default function Orders(){
 
     return(
 
-        <div class='grid grid-cols-6 min-h-screen overflow-y-hidden'>
+        <div class='grid grid-cols-6 min-h-screen overflow-y-hidden bg-gray-100'>
             <div class='col-span-1 bg-slate-400 text-center w-full'>
                  <SideBar/>
             </div>  
 
-            <div class='flex text-center bg-white items-center justify-center mx-20  w-[1000px]   h-full px-40'>
+            <div class='flex text-center bg-white items-center justify-center mx-20  w-[1200px]   h-full px-40'>
              
-             <CardOrders/>
+                <CardOrders/>
 
-         </div>  
+             </div>  
         </div>
     )
 
