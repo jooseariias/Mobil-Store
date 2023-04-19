@@ -372,7 +372,9 @@ router.get('/', async (req, res) => {
   try{
 
   const { fechaInicio, fechaFin, status } = req.query
-  let order
+  
+  let order;
+
   if(fechaInicio && fechaFin && !status){
    order = await Orders.findAll({
    where:{
@@ -382,7 +384,7 @@ router.get('/', async (req, res) => {
     }
    }
    })
-  
+   return res.status(200).send(order) 
   }
   if(fechaInicio && !fechaFin && !status){
      order = await Orders.findAll({
@@ -393,7 +395,7 @@ router.get('/', async (req, res) => {
      }
     }
     })
-   
+    return res.status(200).send(order) 
    }
    if(!fechaInicio && fechaFin && !status){
      order = await Orders.findAll({
@@ -403,7 +405,7 @@ router.get('/', async (req, res) => {
      }
     }
     })
-   
+    return res.status(200).send(order) 
    }
    if(!fechaInicio && !fechaFin && status){
      order = await Orders.findAll({
@@ -414,7 +416,7 @@ router.get('/', async (req, res) => {
         }
       }
     })
-   /*  res.status(200).send(order) */
+    return res.status(200).send(order) 
    }
   
   if(!fechaInicio && !fechaFin){
@@ -455,7 +457,7 @@ router.get('/', async (req, res) => {
       res.status(400).send("This user has no associated purchases");
     }
   }
-    res.status(200).send(order) 
+  //  return res.status(200).send(order) 
 } catch (error) {
     res.status(400).json({ msg: error.message });
 }
