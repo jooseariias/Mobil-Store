@@ -269,6 +269,7 @@ export const UpdateProduct = () => {
                     </label>
 
                     <input
+                    
                       type="file"
                       name="file"
                       // onBlur={handleBlur}
