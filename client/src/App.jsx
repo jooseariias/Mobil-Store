@@ -32,6 +32,7 @@ import Profile from "./views/Profile/Profile";
 import QA from './views/QA/QA'
 import Contact from './views/Contact/Contact'
 import Orders from "./views/Dashboard/Orders/Orders";
+import axios from "axios";
 
 export default function App(){
 
@@ -51,8 +52,39 @@ export default function App(){
     dispatch(getPhones());
     dispatch(getBrands());
     dispatch(getCapacity());
-    LoginSuccess();
   }, []);
+
+  useEffect(() => {
+    if(Object.keys(data).length === 0){
+        getUser();
+    }
+  }, [])
+
+    const getUser = async () => {
+      try {
+        const url = `http://localhost:3001/auth/login/success`;
+        const data = await axios.get(url, { withCredentials: true });
+    
+        console.log("DATA", data);
+    
+        const info = {
+          data_user: {
+            id: data.data.id,
+            name: data.data.name,
+            surname: data.data.surname,
+            email: data.data.email,
+            image: data.data.image,
+          },
+          token: null,
+        }
+    
+        dispatch(LoginSuccess(info));
+      } catch (err) {
+        console.log("ERROR", err)
+      }
+    };
+
+
 
   return (
     <div className="App">
