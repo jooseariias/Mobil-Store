@@ -489,46 +489,58 @@ router.get("/", async (req, res) => {
       return res.status(200).send(orders);
     }
 
-    if (!fechaInicio && !fechaFin) {
-      order = await Orders.findAll({
+    if(!fechaInicio && !fechaFin && !status){
+      const orders = await Orders.findAll({
         include: {
-          model: User,
+          model: OrderStatus,
         },
         include: {
-          model: Product,
+          model: User
         },
+        
       });
-      if (order.length) {
-        const status = await OrderStatus.findAll();
-
-        const data = await order?.map((p) => {
-          return {
-            Nro: p.id,
-            date: p.date,
-            address: p.address,
-            status: p.orderStatus,
-            image: p.products.map((e) => e.image),
-            nameAndQuantity: p.products.map((e) => {
-              return (
-                e.name +
-                " "
-                  .concat(" (", e.detail.quantity, ") unit/s ")
-                  .concat(" Unit Price: ", "($", e.detail.price, ")")
-              );
-            }),
-            total: p.total,
-            status: status
-              .filter((s) => s.orderId == p.id)
-              .map((e) => e.status),
-          };
-        });
-        data.length
-          ? res.status(200).send(data)
-          : res.status(400).send("This user has no associated purchases");
-      } else {
-        res.status(400).send("This user has no associated purchases");
-      }
+      return res.status(200).send(orders);
     }
+    // if (!fechaInicio && !fechaFin) {
+    //   order = await Orders.findAll({
+    //     include: {
+    //       model: User,
+    //     },
+    //     include: {
+    //       model: Product,
+    //     },
+    //   });
+    //   if (order.length) {
+    //     const status = await OrderStatus.findAll();
+
+    //     const data = await order?.map((p) => {
+    //       return {
+    //         Nro: p.id,
+    //         date: p.date,
+    //         address: p.address,
+    //         status: p.orderStatus,
+    //         image: p.products.map((e) => e.image),
+    //         nameAndQuantity: p.products.map((e) => {
+    //           return (
+    //             e.name +
+    //             " "
+    //               .concat(" (", e.detail.quantity, ") unit/s ")
+    //               .concat(" Unit Price: ", "($", e.detail.price, ")")
+    //           );
+    //         }),
+    //         total: p.total,
+    //         status: status
+    //           .filter((s) => s.orderId == p.id)
+    //           .map((e) => e.status),
+    //       };
+    //     });
+    //     data.length
+    //       ? res.status(200).send(data)
+    //       : res.status(400).send("This user has no associated purchases");
+    //   } else {
+    //     res.status(400).send("This user has no associated purchases");
+    //   }
+    // }
     //  return res.status(200).send(order)
   } catch (error) {
     res.status(400).json({ msg: error.message });
