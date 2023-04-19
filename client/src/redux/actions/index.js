@@ -91,6 +91,12 @@ export const POST_REVIEW="POST_REVIEW"
     }
   }
 
+  export function PostOrdersDate(payload) {
+    return async function(dispatch){
+      await axios.post(`${URL_BACK}/user`, payload);
+    }
+  }
+
   export function GetWishList(id){
     return async function(dispatch){
       return await axios.get(`${URL_BACK}/wishlist/${id}`)
