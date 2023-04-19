@@ -42,7 +42,7 @@ function ProductDashBoard() {
           <div className="items-center justify-center m-2 px-80 w-full">
             <SearchBar />
           </div>
-          <Link to="/form-product" className="text-center">
+          <Link to="/form-product" className="text-center rounded-xl rounded-xl border-4 bg-blue-100 border-2 bg-blue-100 hover:bg-blue-300 hover:text-white font-bold">
             Create a new phone
           </Link>
         </div>

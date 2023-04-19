@@ -18,11 +18,16 @@ export default function Orders(){
                  <SideBar/>
             </div>  
 
-            <div class='flex text-center bg-white items-center justify-center mx-20  w-[1200px]   h-full px-40'>
-             
-                <CardOrders/>
+            <div class='col-span-5 items-center relative'>
 
-             </div>  
+                 <div class='mx-[30px] mt-[20px] bg-white mb-[20px] p-[10px] rounded flex items-center'>
+                    <h1 class='font-bold ml-[10px] text-[25px]'>Orders</h1> 
+                </div>
+
+                <div class='flex text-center bg-white items-center justify-center mx-20  w-[1200px]   h-full px-40'>
+                <CardOrders/>
+              </div>  
+            </div>
         </div>
     )
 
