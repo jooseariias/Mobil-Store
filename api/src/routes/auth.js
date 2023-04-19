@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const passport = require("passport");
-const { User } = require("../db");
 const CLIENT = process.env.CLIENT;
 require("../utils/passport");
 function isLoggedIn(req, res, next) {
@@ -9,78 +8,40 @@ function isLoggedIn(req, res, next) {
 
 const router = Router();
 
-router.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["email", "profile"] })
-);
+router.get('/login/success', (req, res) => {
 
-router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/auth/google/failure",
-  }),
-  async (req, res) => {
-    const datos = await User.findOne({
-      where: { email: req.user.email },
-    });
-  
-    if (datos) {
-      const data = {
-        id: datos.dataValues.id,
-        name: req.user.given_name,
-        last_name: req.user.family_name,
-        email: req.user.email,
-        rol: datos.dataValues.rol,
-        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
-      };
-  
-      res.cookie('user_data', JSON.stringify(data));
-      res.redirect(CLIENT);
-    } else {
-      const userCreate = await User.create({
-        name: req.user.displayName,
-        surname: req.user.displayName,
-        email: req.user.email,
-        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
-      });
-      const data = {
-        id: userCreate.dataValues.id,
-        name: req.user.displayName,
-        last_name: req.user.displayName,
-        email: req.user.email,
-        rol: userCreate.dataValues.rol,
-        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
-      };
-      res.cookie('user_data', JSON.stringify(data));
-      res.redirect(CLIENT);
-    }
-  })
-
-router.get("/login/success", (req, res) => {
-  if (req.user) {
+  if(req.user) {
     res.status(200).json({
       success: true,
-      message: "successfull",
+      message: 'Succesy!',
       user: req.user,
-      //   cookies: req.cookies
-    });
+    })  
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
   }
 });
 
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
-    success: false,
-    message: "failure",
+    error: true,
+    message: "ERROR, PA",
   });
 });
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  req.session.destroy();
-});
+router.get("/google", passport.authenticate("google", ["profile", "email"] ));
+  
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: CLIENT,
+    failureRedirect: "/login/failed",
+  })
+  );
+  
 
-router.get("/auth/google/failure", (req, res) => {
-  res.send("Failed to authenticate..");
+router.get("/logout", (req, res) => {
+	req.logout();
+	res.redirect(process.env.CLIENT);
 });
 
 module.exports = router;

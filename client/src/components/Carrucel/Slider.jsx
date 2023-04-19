@@ -45,12 +45,18 @@ export default function Slider2({data, tittle}){
             
       
             <Slider {...settings}>
-                {data.map((e,index) => <Card key={index} id={e.id} image={e.image} name={e.name} price={e.price} brand={e.brand} stock={e.stock}/>)}
+                {data.map((e,index) => <Card 
+                                            key={index}
+                                            id={e.id}
+                                            image={e.image}
+                                            name={e.name}
+                                            price={e.price}
+                                            brand={e.brand}
+                                            stock={e.stock}
+                                            calification={e.calification}
+                                        />)}
             </Slider>
          </div>
-
-
-
-        </div>
+    </div>
   )
 }

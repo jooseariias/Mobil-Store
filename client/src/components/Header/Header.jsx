@@ -4,62 +4,41 @@ import icons from '../../assets/icons-header/icons.js'
 import { BsSun, BsMoon, BsFillCartCheckFill, BsFillHeartFill, BsFillPersonFill, BsMoonStarsFill} from "react-icons/bs"
 import { RiLogoutCircleRFill } from 'react-icons/ri';
 import { FaUserCircle } from 'react-icons/fa'
-import { BiLogOutCircle } from "react-icons/bi"
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { LogOut } from '../../redux/actions/index.js'
 import { useNavigate } from 'react-router-dom'
-import { LoginSuccess } from '../../redux/actions/index.js'
+import { GetAuth } from '../../redux/actions/index.js'
 import useThemeSwitcher from '../hooks/useThemeSwitcher.js'
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function Header(){
 	
-	const [user, setUser] = useState({})
+	const user = useSelector((state) => state.User)
 	const [Actualizar, setActualizar] = useState(false)
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [mode, setMode] = useThemeSwitcher();
-
-	const getCookieValue = (cookieName) => {
-		const cookieString = document.cookie;
-		const cookies = cookieString.split("% ");
-		for (let i = 0; i < cookies.length; i++) {
-		  const cookie = cookies[i].split("=");
-		  if (cookie[0] === cookieName) {
-			return cookie[1];
-		  }
-		}
-		return null;
-	};
+	const [info, infoUser] = useState(null);
 	  
+	/*const getUser = async () => {
+		try {
+			const url = `http://localhost:3001/auth/login/success`;
+			const { data } = await axios.get(url, { withCredentials: true });
+			infoUser(data.user._json);
+
+			console.log("INFO", data);
+		} catch (err) {
+			console.log("ERROR", err)
+		}
+	};
+
 	useEffect(() => {
-
-		const userDataCookie = getCookieValue("user_data");
-		
-		if(userDataCookie){
-			const decodedUserDataCookie = decodeURIComponent(userDataCookie);
-  			const userData = JSON.parse(decodedUserDataCookie);
-
-			  const data = {
-				data_user: userData,
-				token: null,
-			  }
-
-			dispatch(LoginSuccess(data));
-			window.localStorage.setItem('user-log', JSON.stringify(data));
-			setUser(JSON.parse(window.localStorage.getItem('user-log')));
-		}
-
-		if(window.localStorage.getItem('user-log')){
-			setUser(JSON.parse(window.localStorage.getItem('user-log')));
-		}
-
-		else{
-			setUser({});
-		}
-	  }, [Actualizar])
+		getUser();
+	}, []);*/
 
 	  const handleFavorites = () => {
 

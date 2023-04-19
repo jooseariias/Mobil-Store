@@ -86,6 +86,7 @@ export default function Login(){
             navigate("/");
           }
         }).catch((response) => {
+          console.log(response)
           return Swal.fire({
             icon: 'error',
             title: 'Something went wrong',
