@@ -6,12 +6,9 @@ module.exports = (sequelize) => {
   sequelize.define('product', {
     id: {
       type: DataTypes.INTEGER,
-    //  allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-   
-
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -30,6 +27,16 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     }, 
+
+    calification: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+
+    Reviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
 
     stock: {
         type: DataTypes.INTEGER,

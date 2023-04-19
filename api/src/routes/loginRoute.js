@@ -16,11 +16,16 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post("/", async (req, res) => {
+
   const { email, password } = req.body;
 
   const user = await User.findOne({
     where: { email: email },
   });
+
+  if(!user){
+    return res.status(401).send({ message: 'Email or Password is invalid'})
+  }
 
   if(!user.enabled){
     return res.status(401).send({message: 'You are banned, please contact us for support.'})
