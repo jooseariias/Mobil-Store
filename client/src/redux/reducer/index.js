@@ -23,7 +23,10 @@ import{
     LOGIN_SUCCESS,
     LOG_OUT,
     GET_REVIEWS,
-    POST_REVIEW
+    POST_REVIEW,
+    GET_TOTAL_ORDERS,
+    GET_TOTAL_PARAMETROS
+
 }from"../actions/index"
 
 const initialState = {
@@ -36,6 +39,7 @@ const initialState = {
   Color:[],
   details: [],
   Users: [],
+  StatisticsTotal: [],
   Reviews:[],
   message: ""
 };
@@ -74,6 +78,18 @@ function rootReducer(state = initialState, action){
         return{
           ...state,
           Users: action.payload
+        }
+
+      case GET_TOTAL_ORDERS:
+        return{
+          ...state,
+          StatisticsTotal: action.payload
+        }
+
+      case GET_TOTAL_PARAMETROS:
+        return{
+          ...state,
+          StatisticsTotal: action.payload
         }
 
       case CLEAN_DETAIL:
