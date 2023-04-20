@@ -115,7 +115,7 @@ export default function Header(){
             ) : (
               <Link to={"/Profile"}>
                 <img
-                  src={user.data_user.image}
+                  src={user?.data_user.image}
                   alt=""
                   className="hover:transform hover:scale-110 w-7 h-7 rounded-full mt-1"
                 />
