@@ -8,8 +8,8 @@ export default function Auth() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.User);
 
-    const handleClick =  () => {
-        window.open('http://localhost:3001/auth/google/callback', '_self');
+    const handleClick = () => {
+      window.open('http://localhost:3001/auth/google/callback', '_blank');
     };
 
       return (
