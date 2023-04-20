@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const passport = require("passport");
 const { User } = require("../db");
+const passport = require("passport");
 const CLIENT = process.env.CLIENT;
 require("../utils/passport");
 function isLoggedIn(req, res, next) {
@@ -9,78 +9,118 @@ function isLoggedIn(req, res, next) {
 
 const router = Router();
 
-router.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["email", "profile"] })
-);
+router.get("/login/success", async (req, res) => {
 
-router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/auth/google/failure",
-  }),
-  async (req, res) => {
-    const datos = await User.findOne({
-      where: { email: req.user.email },
-    });
-  
-    if (datos) {
-      const data = {
-        id: datos.dataValues.id,
-        name: req.user.given_name,
-        last_name: req.user.family_name,
-        email: req.user.email,
-        rol: datos.dataValues.rol,
-        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
-      };
-  
-      res.cookie('user_data', JSON.stringify(data));
-      res.redirect(CLIENT);
-    } else {
-      const userCreate = await User.create({
-        name: req.user.displayName,
-        surname: req.user.displayName,
-        email: req.user.email,
-        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
-      });
-      const data = {
-        id: userCreate.dataValues.id,
-        name: req.user.displayName,
-        last_name: req.user.displayName,
-        email: req.user.email,
-        rol: userCreate.dataValues.rol,
-        image: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null,
-      };
-      res.cookie('user_data', JSON.stringify(data));
-      res.redirect(CLIENT);
-    }
-  })
+  try {
+  console.log("REQ", req.user);
 
-router.get("/login/success", (req, res) => {
+///
+
+
+///
   if (req.user) {
-    res.status(200).json({
-      success: true,
-      message: "successfull",
-      user: req.user,
-      //   cookies: req.cookies
+    const EMAIL = req.user.emails[0].value;
+
+    let user = await User.findOne({
+      where: { email: EMAIL },
     });
-  }
+
+    let lastUserId = await User.findOne({
+      order: [["createdAt", "DESC"]], // Ordena por la fecha de creación de manera descendente para obtener el último usuario creado
+    });
+    let lastId;
+    if(lastUserId){ 
+     lastId = lastUserId.id + 1;
+    }else{ 
+      lastId = 1
+    }
+    // console.log("lastUserId es: ", lastUserId)
+    
+
+    if (!user) {
+      user = await User.create({
+        id:lastId,
+        email: EMAIL,
+        name: req.user.given_name,
+        surname: req.user.family_name,
+        image:
+          req.user.photos && req.user.photos.length > 0
+            ? req.user.photos[0].value
+            : null,
+
+        rol: "user",
+      });
+    }
+
+    const data_user = {
+      name: user.name,
+      surname: user.surname,
+      image: user.image,
+      email: user.email,
+      rol: user.rol,
+    };
+
+    return res.status(200).json(data_user);
+  } else {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+}catch(error){
+  return res.status(400).json({error: error.message})
+}
 });
+// router.get('/login/success', async (req, res) => {
+
+//   console.log("REQ", req.user)
+
+//   if(req.user){
+
+//     const EMAIL = req.user.emails[0].value;
+
+//     const user = await new Promise((resolve, reject) => {
+//       User.findOne({
+//         where: { email: EMAIL }
+//       })
+//       .then(user => resolve(user))
+//       .catch(error => reject(error));
+//     });
+
+//     const data_user = {
+//         id: user.dataValues.id,
+//         name: req.user.given_name,
+//         surname: req.user.family_name,
+//         image: user.dataValues.image,
+//         email: EMAIL,
+//         //rol: user.dataValues.rol,
+//     }
+
+//     return res.status(200).json(data_user);
+//   } else{
+//     return res.status(401).json({ message: 'Unauthorized' });
+//   }
+// });
+
 
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
-    success: false,
-    message: "failure",
+    error: true,
+    message: "ERROR, PA",
   });
 });
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  req.session.destroy();
-});
+router.get("/google", passport.authenticate("google", ["profile", "email"] ));
+  
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: CLIENT,
+    failureRedirect: "/login/failed",
+  })
+  );
+  
 
-router.get("/auth/google/failure", (req, res) => {
-  res.send("Failed to authenticate..");
+router.get("/logout", (req, res) => {
+	req.logout();
+	res.redirect(process.env.CLIENT);
 });
 
 module.exports = router;

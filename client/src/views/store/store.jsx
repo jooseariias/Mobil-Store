@@ -250,15 +250,11 @@ export default function Store(){
                     brand={e.brand}
                     color={e.color}
                     stock={e.stock}
+                    calification={e.calification}
                   />
                 )})
             }
-          </div>
-
-            :
-
-            <EmptyCart />
-
+          </div> : <EmptyCart />
       }
 
       {

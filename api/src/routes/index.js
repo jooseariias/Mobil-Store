@@ -42,7 +42,6 @@ const getCart = require('./cartsRoutes/get')
 const addCart = require('./cartsRoutes/post')
 const deleteCart = require('./cartsRoutes/delete')
 const updateProduct = require('./cartsRoutes/update')
-
 const postSupport = require('./support')
 
 // Configurar los routers
@@ -65,9 +64,9 @@ router.use('/reviews', reviewsRoute);
 router.use('/wishlist', wishlistRoute);
 router.use('/Support', postSupport);
 
-router.use("/", routerAuth)
+router.use("/auth", routerAuth)
 router.use('/login', loginRoute)
 router.use('/orders', orderRouter)
 router.use('/statistics', statisticsRoute);
-//
+
 module.exports = router;
