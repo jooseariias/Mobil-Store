@@ -128,7 +128,7 @@ const CardOrders = () => {
 
               <div class="w-[80px] h-[120px] bg-white justify-center items-center m-2">
                 <h5 class="mr-[10px] text-[15px] w-[80px] ">
-                  {e.status}
+                  {e.orderStatus.status}
                 </h5>
               </div>
 
