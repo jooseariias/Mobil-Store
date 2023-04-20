@@ -27,7 +27,7 @@ export default function Profile(){
 
     const EmptyOrder = () => {
         return(
-            <section className="flex items-center p-16 dark:bg-gray-900 dark:text-gray-100 h-[calc(100vh-10rem)]">
+            <section className="flex items-center p-16 dark:bg-gray-800 dark:text-gray-100 h-[calc(100vh-10rem)]">
 	            <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
 		            <div className="max-w-md text-center">
 			            <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
@@ -43,12 +43,13 @@ export default function Profile(){
     }
 
   return(
-    <div>
+    <div className='dark:bg-gray-800'>
 
         <Header />
 
-            <div className="max-w-md p-8 sm:flex sm:space-x-6 dark:bg-gray-900 dark:text-gray-100">
-	            <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
+            <div className="max-w-md p-8 ml-4 sm:flex sm:space-x-6 dark:bg-gray-900 dark:text-gray-100">
+
+	            <div className="flex-shrink-0 w-full h-44 sm:h-32 sm:w-32 sm:mb-0">
 		            <img src={user.data_user?.image} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
 	            </div>
 
@@ -79,7 +80,7 @@ export default function Profile(){
 
 
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-10 mt-5 mb-10">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-10 mt-5 mb-10 h-[calc(100vh-8rem)]">
 
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

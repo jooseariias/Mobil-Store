@@ -350,30 +350,21 @@ export function postSupport(data){
 }
 
 //////*REVIEWS///////
-export function getReviews(id) {
-  return (dispatch) => {
-      axios.get(`${URL_BACK}/reviews/${id}`)
-          .then(response => dispatch(
-              {
-                  type:GET_REVIEWS ,
-                  payload: response.data
-              },
-              console.log("reviews:",response.data)
-          ))
-          .catch(err => console.log(err))
+export function getReviews(id){
+  return async function(){
+    return await axios.get(`${URL_BACK}/reviews/${id}`);
   }
 }
 
 export const postReviews =  (id,payload) => {
   try {
-    return async (dispatch) => {
-    const resultado = await axios.post(`${URL_BACK}/reviews/${id}`,payload)
-    // dispatch({
-    //   type:POST_REVIEW, 
-    //   payload:resultado.data
-    // })
-    // console.log("resultado.data es:", resultado.data)
-    return resultado
+    return async function(){
+      return await axios.post(`${URL_BACK}/reviews/${id}`,payload)
+        // dispatch({
+        //   type:POST_REVIEW, 
+        //   payload:resultado.data
+        // })
+        // console.log("resultado.data es:", resultado.data)
     }
   
   } catch (error) {
