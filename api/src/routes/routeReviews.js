@@ -103,14 +103,14 @@ router.post("/:idProduct", async (req,res)=>{
                         { where: { id: idProduct } }
                     )
                     
-                    res.status(200).send("Successful review!")
+                    res.status(200).send("The review was successful")
                 }
             }else {
-                res.status(400).send(`No se puede calificar el producto mas de una vez`)
+                res.status(400).send(`The product cannot be rated more than once.`)
             }
             
         }else{
-            res.status(400).send(`Ud no puede hacer una review de un producto que no compro`)
+            res.status(400).send(`You cannot review or rate a product that you have not purchased`)
         }
 
         
