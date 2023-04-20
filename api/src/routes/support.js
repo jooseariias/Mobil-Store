@@ -37,7 +37,7 @@ router.post("/", async(req,res)=>{
        await transporter.sendMail({
           from: email, // sender address
           to: "phonezonestoreapp@gmail.com" , // list of receivers
-          subject: `Mensaje de ${name}`, // Subject line
+          subject: `Mensaje!`, // Subject line
           html: `<!DOCTYPE html>
           <html>
           <body>
