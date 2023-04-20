@@ -152,18 +152,15 @@ export const UpdateProduct = () => {
     //     buttons: "Ok",
     //   });
     // } else {
-      
       const updatedFormData = {
         ...form,
-        brandId: parseInt(selectedBrand),
-        colorId: parseInt(selectedColor),
-        storageCapacityId: parseInt(selectedCapacity),
-        // image: image,
+        brandid: selectedBrand,
+        colorId: selectedColor,
+        storageCapacityId: selectedCapacity,
+        image: image,
       };
-      if(image !== ''){
-        updatedFormData.image = image
-      }
-      // console.log("updatedFormData es: ", updatedFormData);
+
+      console.log(updatedFormData);
       await axios.put(`http://localhost:3001/product/${phone.id}`, updatedFormData);
       setForm({
         name: "",
@@ -272,6 +269,7 @@ export const UpdateProduct = () => {
                     </label>
 
                     <input
+                    
                       type="file"
                       name="file"
                       // onBlur={handleBlur}
