@@ -1,4 +1,3 @@
-
 import React ,{useState,useEffect} from 'react'
 import "./reviews.css"
 import { FaStar, FaRegStar } from 'react-icons/fa';
@@ -6,8 +5,8 @@ import { postReviews } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
 import swal from "sweetalert2";
-// import { response } from '../../../../api/src/app';
-
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 export const CreateReviews = () => {
   const User= useSelector(state=>state.User)
   const msg= useSelector(state=>state.message)
@@ -113,8 +112,15 @@ export const CreateReviews = () => {
 
 
   return (
-    <div className='contenedorReview'>
-      <div className='Product'>
+
+    <div className='bg-gray-100 dark:bg-gray-800 w-full'>
+
+      <Header />
+
+
+      <div className='contenedorReview bg-gray-100 dark:bg-gray-800 h-[calc(100vh-12rem)}'>
+
+        <div className='bg-gray-100 mb-4 mt-10'>
        {
         product?.map(p=>{
          return(
@@ -127,7 +133,7 @@ export const CreateReviews = () => {
        }
       </div>
      
-      <form className='form-review'  onSubmit={handleSubmit}>
+      <form className='form-review mb-10'  onSubmit={handleSubmit}>
         <label htmlFor="" className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name'>Score</label>
         <div className="rating">
         <input type="radio" id="star5" name="rating" value="5" onChange={handleRatingChange} />
@@ -148,6 +154,9 @@ export const CreateReviews = () => {
         {error.comment && <p style={{ color: "red",  }}>{error.comment}</p>}
         <button className='send' >Send</button>
       </form>
+    </div>
+
+       <Footer />
     </div>
   )
 }
