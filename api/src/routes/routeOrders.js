@@ -397,6 +397,9 @@ router.get("/", async (req, res) => {
         include: {
           model: User
         },
+        include: {
+          model: OrderStatus
+        },
         where: {
           date: {
             [Op.gte]: fechaInicio,
@@ -490,6 +493,19 @@ router.get("/", async (req, res) => {
       return res.status(200).send(orders);
     }
 
+    // if(!fechaInicio && !fechaFin && !status){
+    //   // console.log('entra a esta ruta')
+    //   const orders = await Orders.findAll({
+    //     include: {
+    //       model: OrderStatus,
+    //     },
+    //     include: {
+    //       model: User
+    //     },
+        
+    //   });
+    //   return res.status(200).send(orders);
+    // }
     if (!fechaInicio && !fechaFin) {
       order = await Orders.findAll({
         include: {
@@ -498,6 +514,9 @@ router.get("/", async (req, res) => {
         include: {
           model: Product,
         },
+        // include: {
+        //   model: OrderStatus
+        // }
       });
       if (order.length) {
         const status = await OrderStatus.findAll();
