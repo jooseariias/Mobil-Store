@@ -9,52 +9,75 @@ import { useState } from 'react'
 export default function Profile(){
 
     const user = useSelector((state) => state.User);
-const [orders, setorders] = useState([]);
-const dispatch = useDispatch();
+    const [orders, setorders] = useState([]);
+    const dispatch = useDispatch();
     
-useEffect(() => {
+    useEffect(() => {
 
-  if(Object.keys(user).length !== 0){
-    dispatch(getOrders(user.data_user.id))
-      .then((response) => {
-        console.log("datos", response);
-        setorders(response.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching orders:", error);
-      });
-  }          
-}, [user]);
+        if(Object.keys(user).length !== 0){
+            dispatch(getOrders(user.data_user.id))
+            .then((response) => {
+                    console.log(response.data);
+                    setorders(response.data);
+                }).catch((error) => {
+                    console.log("Error fetching orders:", error);
+                });
+        }               
+    }, [user]);
+
+    const EmptyOrder = () => {
+        return(
+            <section className="flex items-center p-16 dark:bg-gray-900 dark:text-gray-100 h-[calc(100vh-10rem)]">
+	            <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
+		            <div className="max-w-md text-center">
+			            <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
+				            <span className="sr-only">Error</span>🤐
+			            </h2>
+			            
+                        <p className="text-2xl font-semibold md:text-3xl">You have not bought a product</p>
+			            <p className="mt-4 mb-8 dark:text-gray-400">But dont worry, you can find plenty of other things on our homepage.</p>
+		            </div>
+	            </div>
+            </section>
+        )
+    }
 
   return(
     <div>
 
         <Header />
 
-        <div className="max-w-md p-8 sm:flex sm:space-x-6 dark:bg-gray-900 dark:text-gray-100">
-	        <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
-		        <img src={user.data_user?.image} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
-	        </div>
+            <div className="max-w-md p-8 sm:flex sm:space-x-6 dark:bg-gray-900 dark:text-gray-100">
+	            <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
+		            <img src={user.data_user?.image} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
+	            </div>
 
-	        <div className="flex flex-col space-y-4 justify-between">
-		        <div>
-			        <h2 className="text-2xl font-semibold">{user.data_user?.name} {user.data_user?.surname}</h2>
-			        <span className="text-sm dark:text-gray-400">{user.data_user?.rol}</span>
-		        </div>
+	            <div className="flex flex-col space-y-4 justify-between">
+		            <div>
+			            <h2 className="text-2xl font-semibold">{user.data_user?.name} {user.data_user?.surname}</h2>
+			            <span className="text-sm dark:text-gray-400">{user.data_user?.rol}</span>
+		            </div>
 		    
-                <div className="space-y-1">
-			        <span className="flex items-center space-x-2">
-				        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="Email address" className="w-4 h-4">
-					        <path fill="currentColor" d="M274.6,25.623a32.006,32.006,0,0,0-37.2,0L16,183.766V496H496V183.766ZM464,402.693,339.97
-                            ,322.96,464,226.492ZM256,51.662,454.429,193.4,311.434,304.615,256,268.979l-55.434,35.636L57.571,193.4ZM48,226.492,
-                            172.03,322.96,48,402.693ZM464,464H48V440.735L256,307.021,464,440.735Z"></path>
-				        </svg>
+                    <div className="space-y-1">
+			            <span className="flex items-center space-x-2">
+				            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="Email address" className="w-4 h-4">
+					            <path fill="currentColor" d="M274.6,25.623a32.006,32.006,0,0,0-37.2,0L16,183.766V496H496V183.766ZM464,402.693,339.97
+                                ,322.96,464,226.492ZM256,51.662,454.429,193.4,311.434,304.615,256,268.979l-55.434,35.636L57.571,193.4ZM48,226.492,
+                                172.03,322.96,48,402.693ZM464,464H48V440.735L256,307.021,464,440.735Z"></path>
+				            </svg>
 
 				        <span className="dark:text-gray-400">{user.data_user?.email}</span>
-			        </span>
-		        </div>
-	        </div>
-        </div>
+			            </span>
+		            </div>
+	            </div>
+            </div>
+
+        {
+            orders.length === 0 ? <EmptyOrder /> :
+
+            <div>
+
+
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-10 mt-5 mb-10">
 
@@ -93,9 +116,11 @@ useEffect(() => {
                         )
                     })
                 }    
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+        </div>
+        </div>
+        }
 
         
 			

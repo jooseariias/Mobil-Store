@@ -22,7 +22,6 @@ export default function Auth() {
             <div></div>
           </button>
 
-          <a href="auth/google/callback" class="button">Sign in with Google</a>
         </div>
       );
 }
