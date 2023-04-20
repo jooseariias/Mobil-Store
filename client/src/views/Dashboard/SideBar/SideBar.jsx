@@ -102,6 +102,19 @@ export default function SideBar() {
               src={home}
             />
           </Link>
+
+          <Link
+           to='/'
+           className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl my-auto">
+
+            LOGOUT
+            <img
+              class=" z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"
+              src={home}
+            />
+          </Link>
+
+
         </nav>
       </div>
 
