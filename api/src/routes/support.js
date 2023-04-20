@@ -43,7 +43,6 @@ router.post("/", async(req,res)=>{
           <body>
           <h1>¡Hola! Somos PHONEZONE, ya leímos tu consulta
           y te daremos una respuesta prontamente! ¡Saludos! </h1>
-          <h3>Este es su mensaje: ${description}</h3>
           </body>
           </html>`, // html body
         });
