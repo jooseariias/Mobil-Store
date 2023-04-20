@@ -52,8 +52,7 @@ export default function SideBar() {
           <Link
            to='/dashboard'
            className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl">
-
-            statistics
+            Overview
             <img
               class=" z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"
               src={statistics}
