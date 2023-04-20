@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCapacity, getDetail, cleanDetail } from "../../redux/actions";
@@ -8,14 +8,129 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import atras from "../../assets/atras.png"
 import { Reviews } from "../Reviews/Reviews";
-function Details(){
+import { CreateReviews } from "../Reviews/CreateReviews";
+import { FaStar, FaRegStar } from 'react-icons/fa';
+import { postReviews } from '../../redux/actions';
+import swal from "sweetalert2";
 
+import '../Reviews/reviews.css'
+
+
+
+
+function Details(){
 
   const [details] = useSelector((state) => state.details);
   console.log(details);
 
+  const User= useSelector(state=>state.User)
+  const msg= useSelector(state=>state.message)
+  const [rating, setRating] = useState('');
+  const [comment, setComment] = useState('');
+  const { productId } = useParams();
+  const product= useSelector(state=>state.Phones).filter(p=>p.id==productId)
+
+  const [error, setError] = useState({});
+
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
+
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const handleBlurComment = () => {
+    if (!comment.trim()) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        comment: 'Comment is required',
+      }));
+    } else {
+      setError((prevErrors) => ({ ...prevErrors, comment: null }));
+    }
+  };
+
+const handleSubmit = async (event) => {
+event.preventDefault();
+if (!rating || !comment) {
+  swal.fire({
+    title: "Error",
+    text: "You must complete all fields",
+    icon: "warning",
+    buttons: "Ok",
+  });
+} else {
+  const FormData = {
+    score: parseInt(rating),
+    comment: comment,
+    idUser: User.data_user.id,
+  };
+
+  dispatch(postReviews(productId, FormData)).then((response) => {
+    console.log("response es: ", response)
+    swal.fire({
+      title: "Message",
+      text: response.data,
+      icon: "success",
+      buttons: "Ok",
+    })
+  } )
+  .catch((error) => {
+    // console.log("error es: ", error)
+    swal.fire({
+      title: "Message",
+      text: error.response.data,
+      icon: "error",
+      buttons: "Ok",
+    })
+  })      
+  
+  setRating("");
+  setComment("");
+  
+}
+};
+
+const handleSubmit2 = (event) => {
+  event.preventDefault();
+ if( !rating || !comment){
+  swal.fire({
+    title: "Error",
+    text: "You must complete all fields",
+    icon: "warning",
+    buttons: "Ok",
+  });
+ }
+ else{
+   const FormData = {
+     score: parseInt(rating),
+     comment:comment,
+     idUser: User.data_user.id
+   };
+  dispatch(postReviews(productId,FormData)) 
+  console.log("msg es:", msg)
+  swal.fire({
+    title: "Message",
+    text: "Review",
+    icon: "success", 
+    buttons: "Ok",
+  });
+  
+  setRating("");
+  setComment("");
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  // });
+}
+};
+
+
+
+
+
+
+
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -26,56 +141,89 @@ function Details(){
 
   return(
 
-    <div>
+    <div className="bg-gray-100 dark:bg-gray-800">
 
       <Header />
 
-    <section class="text-gray-700 body-font overflow-hidden bg-white">
+    <section class="text-gray-700 body-font overflow-hidden bg-gray-100 dark:bg-gray-800">
 
     <div class="container px-5 py-24 mx-auto">
       <div class="lg:w-4/5 mx-auto flex flex-wrap">
-        <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src={details?.image} />
+        <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-400" src={details?.image} />
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <h2 class="text-sm title-font text-gray-500 tracking-widest uppercase">{details?.brand.name}</h2>
-          <h1 class="text-gray-900 text-3xl title-font font-medium mb-1 uppercase">{details?.name}</h1>
-          <div class="flex mb-4">
+          <h1 class="text-gray-900 dark:text-slate-100 text-3xl title-font font-medium mb-1 mt-3 uppercase">{details?.name}</h1>
+          <div class="flex mb-4 mt-4">
           <span class="flex items-center">
             <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
             </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
             </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
             </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
             </svg>
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
             </svg>
-            <span class="text-gray-600 ml-3">12 Reviews</span>
+            <span class="text-gray-60 dark:text-gray-300 ml-3">12 Reviews</span>
           </span>
           
         </div>
-        <p class="leading-relaxed">{details?.description}</p>
+        <p class="leading-relaxed dark:text-slate-100 mt-4">{details?.description}</p>
       
         <div class="flex">
-          <span class="title-font font-medium text-2xl text-gray-900">${details?.price}.00</span>
-          <button class="flex ml-auto text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Button</button>
-          <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-            </svg>
-          </button>
+          <span class="title-font font-medium text-4xl mt-48 text-gray-900 dark:text-slate-100">${details?.price}.00</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-      <Reviews />
+      <div className="flex flex-col gap-y-4 mb-8">
+        <Reviews />
+        
+        <div className='contenedorReview'>
+      <div className='Product'>
+       {
+        product?.map(p=>{
+         return(
+          <>
+          <img className='imgProduct' src={p.image} />
+           < p key={p.id} className='productName'>{p.name}</p>
+          </>
+         )
+        })
+       }
+      </div>
+     
+      <form className='form-review'  onSubmit={handleSubmit}>
+        <label htmlFor="" className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name'>Score</label>
+        <div className="rating">
+        <input type="radio" id="star5" name="rating" value="5" onChange={handleRatingChange} />
+        <label htmlFor="star5"><FaStar /></label>
+        <input type="radio" id="star4" name="rating" value="4" onChange={handleRatingChange}/>
+        <label htmlFor="star4"><FaStar /></label>
+        <input type="radio" id="star3" name="rating" value="3" onChange={handleRatingChange} />
+        <label htmlFor="star3"><FaStar /></label>
+        <input type="radio" id="star2" name="rating" value="2" onChange={handleRatingChange}/>
+        <label htmlFor="star2"><FaStar /></label>
+        <input type="radio" id="star1" name="rating" value="1" onChange={handleRatingChange} />
+        <label htmlFor="star1"><FaStar /></label>
+       </div>
+      
+       {error.rating && <p className="error">{error.rating}</p>}
+        <label htmlFor="" className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name'>Comment</label>
+        <textarea onBlur={handleBlurComment} className='rounded text-pink-500'  cols="30" rows="10" value={comment}  onChange={(event) => setComment(event.target.value)}></textarea>
+        {error.comment && <p style={{ color: "red",  }}>{error.comment}</p>}
+        <button className='send' >Send</button>
+      </form>
+    </div>
+      </div>
 
       <Footer />
 

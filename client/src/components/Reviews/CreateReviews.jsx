@@ -51,8 +51,8 @@ export const CreateReviews = () => {
       comment: comment,
       idUser: User.data_user.id,
     };
-    dispatch(postReviews(productId, FormData))
-    .then((response) => {
+
+    dispatch(postReviews(productId, FormData)).then((response) => {
       console.log("response es: ", response)
       swal.fire({
         title: "Message",

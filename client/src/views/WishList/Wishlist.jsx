@@ -55,7 +55,7 @@ export default function Wishlist(){
     }
     
   return (
-    <div>
+    <div className="bg-gray-100 dark:bg-gray-800">
 
         <Header class='bg-gray-100' />
 
@@ -63,16 +63,16 @@ export default function Wishlist(){
                 Wishlist.length == 0 ? <RenderEmptyWishlist /> :
                 
         <div class="flex flex-col justify-center items-center mt-4 mb-5">
-                <h1 class="text-3xl font-bold mb-8">Wishlist</h1>
+                <h1 class="text-3xl font-bold mb-8 dark:text-slate-100">Wishlist</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-screen-xl">
                 {
 
                     Wishlist?.map((element) => {
                         return(
-                            <div className="rounded-lg shadow-md overflow-hidden">
+                            <div className="rounded-lg shadow-md overflow-hidden dark:bg-gray-900">
                             <img src={element.image} alt="Artículo 1" className="w-full h-[300px] object-cover" />
                             <div className="p-4">
-                                <h2 class="text-lg font-bold mb-2">{element.name}</h2>
+                                <h2 class="text-lg font-bold mb-2 dark:text-slate-100">{element.name}</h2>
                                     <button 
                                         onClick={() => handleDelete(user.data_user.id, element.id)}
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Remove
