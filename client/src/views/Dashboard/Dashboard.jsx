@@ -38,7 +38,7 @@ export default function Dashboard() {
 
       <div class="col-span-5 items-center relative">
         <div class="mx-[30px] mt-[20px] bg-white mb-[20px] p-[10px] rounded flex items-center">
-          <h1 class="font-bold ml-[10px] text-[25px]">Statistics</h1>
+          <h1 class="font-bold ml-[10px] text-[25px]">Overview</h1>
         </div>
 
         <div className="items-center justify-center px-40 ">
