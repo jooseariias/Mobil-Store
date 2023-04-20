@@ -78,7 +78,7 @@ export default function App(){
    
 
 
-        <Route element={<RutePrivade />}>
+        {/* <Route element={<RutePrivade />}> */}
           <Route path="/DashBoard" element={<Dashboard />} />
         
           <Route path="/UsersDashBoard" element={<UsersDashBoard />} />
@@ -86,7 +86,7 @@ export default function App(){
           <Route exact path="/form-product" element={<CreateProduct />} />
           <Route exact path="/update-product/:id" element={<UpdateProduct />} />
           <Route path="/Orders" element={<Orders />} />
-        </Route>
+        {/* </Route> */}
        
       </Routes>
     </div>
