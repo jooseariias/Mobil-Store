@@ -1006,7 +1006,18 @@ router.post('/users', async (req, res)=> {
   }
 ]
 try{
-for (let i = 11; i < 130; i++) {
+  
+  let lastUserId = await User.findOne({
+    order: [["createdAt", "DESC"]], // Ordena por la fecha de creación de manera descendente para obtener el último usuario creado
+  });
+  let lastId;
+  if(lastUserId){ 
+   lastId = lastUserId.id + 1;
+  }else{ 
+    lastId = 1
+  }
+let i = lastId
+for (i ; i < 150; i++) {
   let randomUser
   if( i % 2 === 0){
      randomUser = {
