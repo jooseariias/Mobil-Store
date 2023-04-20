@@ -44,6 +44,7 @@ const initialState = {
   details: [],
   Users: [],
   StatisticsTotal: [],
+  Range: {},
   StatisticsUsers: [],
   Reviews:[],
   message: "",
@@ -95,7 +96,7 @@ function rootReducer(state = initialState, action){
       case GET_TOTAL_PARAMETROS:
         return{
           ...state,
-          StatisticsTotal: action.payload
+          Range: action.payload
         }
 
       case GET_USERS_STATISTICS:
