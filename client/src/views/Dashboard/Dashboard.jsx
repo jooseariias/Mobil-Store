@@ -80,7 +80,7 @@ export default function Dashboard() {
                   </h2>{" "}
                 </h1>
               ) : (
-                <h1>indefined users enabled </h1>
+                <h1>indefined users enabled</h1>
               )}
               {allStatisticsUsers !== null ? (
                 <h1 className=" w-[400px] font-bold text-2xl px-10 py-4  border-gray-600 mx-8 h-[170px] rounded-xl my-8 border-4 bg-red-100 pt-8">
