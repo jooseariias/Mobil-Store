@@ -134,12 +134,12 @@ const CardOrders = () => {
 
 
               <div className="justify-center pb-16 items-center item-center text-center ">     
-               {e.status == "sent" ? 
+               {e.orderStatus.status == "sent" ? 
                <img class=" w-20  h-16 flex m-2  pb-2  text-white   px-14 py-2 rounded-xl  text-lg"
                 src={enviado} /> :
                  <button
                 className="w-[100px]  flex m-2  bg-blue-500 hover:bg-blue-300 text-white  border border-gray-300 px-8 py-2 rounded-xl  text-lg "
-                onClick={() => send(e.Nro)}
+                onClick={() => send(e.id)}
               >
                 Send
               </button>}

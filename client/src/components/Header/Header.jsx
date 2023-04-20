@@ -125,7 +125,7 @@ export default function Header(){
             {Object.keys(user).length === 0 ? (
               <></>
             ) : (
-              < RiLogoutCircleRFill
+				< RiLogoutCircleRFill
                 onClick={() => handleLogOut()}
                 alt=""
                 className="hover:transform hover:scale-110 w-7 h-7 rounded-full"

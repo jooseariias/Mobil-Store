@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import home from "../../../assets/icons-user-dashboard/home.png";
 import phones from "../../../assets/icons-user-dashboard/phones.png";
 import users from "../../../assets/icons-user-dashboard/users.png";
@@ -7,9 +7,35 @@ import userphoto from "../../../assets/icons-user-dashboard/user.png";
 import statistics from "../../../assets/icons-user-dashboard/statistics.png";
 import ordersIcon from "../../../assets/icons-user-dashboard/orders.png";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { LogOut } from "../../../redux/actions";
+import { RiLogoutCircleRFill } from 'react-icons/ri'
 
 export default function SideBar() {
+
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.User);
+
+  const handleLogOut = () => {
+
+		Swal.fire({
+			icon: 'warning',
+			title: 'Do you want to log out?',
+			confirmButtonText: 'Yes',
+			showDenyButton: true,
+		}).then((result) => {
+			if(result.isConfirmed){
+
+				dispatch(LogOut());
+				navigate('/')
+
+				Swal.fire({
+					icon: 'success',
+					title: 'The session has been closed'
+				})
+				
+			}})
+	  }
 
   return (
     <div className="bg-gray-900 h-full  fixed  lg:static w-[100%] top-0 left-0 ">
@@ -94,7 +120,7 @@ export default function SideBar() {
 
           <Link
            to='/'
-           className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl my-auto">
+           className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl">
 
             Home
             <img
@@ -103,16 +129,15 @@ export default function SideBar() {
             />
           </Link>
 
-          <Link
-           to='/'
-           className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl my-auto">
+          <div className="text-white text-xl font-bolt flex item-center justify-center gap-4 py-2 px-4 hover:bg-gray-600 rounded-xl">
 
-            LOGOUT
-            <img
-              class=" z-10 inset-y-0 my-auto h-10  hover:bg-gray-600  p-1"
-              src={home}
-            />
-          </Link>
+            LogOut
+            < RiLogoutCircleRFill
+                onClick={() => handleLogOut()}
+                alt=""
+                className="hover:transform hover:scale-110 w-7 h-7 rounded-full"
+              />
+          </div>
 
 
         </nav>
