@@ -34,19 +34,19 @@ router.post("/", async(req,res)=>{
     }); 
 
 
-       /* await transporter.sendMail({
+       await transporter.sendMail({
           from: email, // sender address
-          to: "koalaxygames@gmail.com" , // list of receivers
+          to: "phonezonestoreapp@gmail.com" , // list of receivers
           subject: `Mensaje de ${name}`, // Subject line
           html: `<!DOCTYPE html>
           <html>
           <body>
-          <h1>Hola Koalaxy, tienes una consulta de ${name} </h1>
-          <h1>Responde a su mensaje!</h1>
+          <h1>¡Hola! Somos PHONEZONE, ya leímos tu consulta
+          y te daremos una respuesta prontamente! ¡Saludos! </h1>
           <h3>Este es su mensaje: ${description}</h3>
           </body>
           </html>`, // html body
-        }); */
+        });
 
 
       res.status(201).send({message: 'The email was sent successfully'});
