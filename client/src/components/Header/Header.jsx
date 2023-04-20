@@ -42,8 +42,6 @@ export default function Header(){
 
 	  const handleLogOut = () => {
 
-		document.cookie = "user_data=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
 		Swal.fire({
 			icon: 'warning',
 			title: 'Do you want to log out?',

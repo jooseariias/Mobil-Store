@@ -293,7 +293,7 @@ export function getUser(payload){
 //ordes
 export function getOrders(id){
   return async function(){
-    return await axios.get(`${URL_BACK}/orders/${id}`)
+    return await axios.get(`${URL_BACK}/orders/order/${id}`)
   }
 }
 export function getAllOrders(){

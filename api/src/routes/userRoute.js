@@ -69,7 +69,7 @@ router.post("/", async (req, res, next) => {
       order: [["createdAt", "DESC"]], // Ordena por la fecha de creación de manera descendente para obtener el último usuario creado
     });
     let lastId = lastUserId.id + 1;
-    // console.log("lastUserId es: ", lastUserId)
+     console.log("lastUserId es: ", lastUserId)
     const newUser = await User.create({
       id: lastId,
       name,

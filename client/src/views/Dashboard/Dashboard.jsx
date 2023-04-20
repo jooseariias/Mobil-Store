@@ -2,7 +2,7 @@ import React from "react";
 import SideBar from "./SideBar/SideBar";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {getTotalOrders, getUsersStatistics} from "../../redux/actions/index"
+import {getTotalOrders, getUsersStatistics, LogOut} from "../../redux/actions/index"
 
 
 
@@ -17,6 +17,29 @@ export default function Dashboard(){
         dispatch(getTotalOrders());
         dispatch(getUsersStatistics());
       }, [dispatch]); 
+
+      const handleLogOut = () => {
+
+		Swal.fire({
+			icon: 'warning',
+			title: 'Do you want to log out?',
+			confirmButtonText: 'Yes',
+			showDenyButton: true,
+		}).then((result) => {
+			if(result.isConfirmed){
+
+				dispatch(LogOut());
+				navigate('/')
+
+				Swal.fire({
+					icon: 'success',
+					title: 'The session has been closed'
+				})
+
+				setActualizar(!Actualizar);
+				
+			}})
+	  }
 
 
     return(

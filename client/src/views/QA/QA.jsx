@@ -17,38 +17,39 @@ export default function QA(){
 		      <div className="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
 
 			      <div>
-				      <h3 className="font-semibold">¿Qué ventajas tengo al crearme una cuenta?</h3>
-				      <p className="mt-1 dark:text-gray-400">Al crear una cuenta en <span className='text-blue-500'>PHONEZONE</span>, se tendrá acceso a una lista de favoritos personal, así como la acción de poder hacer compras.</p>
+				      <h3 className="font-semibold">What advantages do I get by creating an account?</h3>
+				      <p className="mt-1 dark:text-gray-400">Creating an account in PHONEZONE will allow you to have access to a personal favorites list, as well as to be able
+					   to make purchases..</p>
 			      </div>
 
 			      <div>
-				      <h3 className="font-semibold">¿Cómo ingreso a mi cuenta?</h3>
-				      <p className="mt-1 dark:text-gray-400">Siempre que ingreses a <span className='text-blue-500'>PHONEZONE</span>, puedes acceder a tu cuenta haciendo click en "Iniciar sesión".
-              Ingresa tu correo y contraseña o, si lo prefieres, conéctate con nosotros a través de Google+.</p>
+				      <h3 className="font-semibold">What are reviews? And what are they for?</h3>
+				      <p className="mt-1 dark:text-gray-400">They are comments that users share about the products they have purchased. They are totally reliable,
+					   since each one represents real shopping experiences in PHONEZONE. Qualifying the quality of the products allows us to have effective feedback and more security
+					    when buying.</p>
 			      </div>
 
 			      <div>
-				      <h3 className="font-semibold">¿Qué es y para qué sirven las reseñas?</h3>
-				      <p className="mt-1 dark:text-gray-400">Son comentarios que los usuarios han realizado sobre los productos que han comprado. Son totalmente confiables,
-              ya que cada usuario expresa libremente su experiencia de compra en <span className='text-blue-500'>PHONEZONE</span>.
-              Calificar la calidad de los productos nos permite tener una retroalimentación efectiva.</p>
+				      <h3 className="font-semibold">How do I access to my account?</h3>
+				      <p className="mt-1 dark:text-gray-400">Whenever you want to log in to PHONEZONE, you can access your account by clicking "Login".
+						Add your email address and password, or if you prefer, connect with us through Google+!</p>
+			      </div>
+
+           			 <div>
+				      <h3 className="font-semibold">What payment methods do I have to buy?</h3>
+				      <p className="mt-1 dark:text-gray-400">At the moment, PHONEZONE only handles payments through MercadoPago, through test accounts.</p>
 			      </div>
 
 			      <div>
-				      <h3 className="font-semibold">¿Quién puede escribir las reseñas?</h3>
-				      <p className="mt-1 dark:text-gray-400">Solo los usuarios validados y que previamente hayan comprado el producto podrán hacer una reseña del mismo.</p>
+				      <h3 className="font-semibold">Who can write the reviews?</h3>
+				      <p className="mt-1 dark:text-gray-400">Only validated users who have previously purchased the product will be able to review it.</p>
 			      </div>
 
-            <div>
-				      <h3 className="font-semibold">¿Qué métodos de pago maneja la página?</h3>
-				      <p className="mt-1 dark:text-gray-400">De momento, <span className='text-blue-500'>PHONEZONE</span> solo maneja pagos a través de MercadoPago a través de cuentas de prueba.</p>
-			      </div>
-
-            <div>
-				      <h3 className="font-semibold">¿Para qué sirve la ruta de Contacto?</h3>
-				      <p className="mt-1 dark:text-gray-400">A través de la ruta de Contacto nos podrás informar sobre un problema que tengas con el funcionamiento de la página: ya sea un problema con pagos, BUGS, fallas
-              visuales y demás.</p>
-			      </div>
+           		 	<div>
+				      <h3 className="font-semibold">What is the Contact route for?</h3>
+				      <p className="mt-1 dark:text-gray-400">Through the Contact route you can inform us about any problem you have with the operation of the page,
+					   whether it is a problem with payment, BUGS, visual failures and others.</p>
+			      	</div>
 
 
 
