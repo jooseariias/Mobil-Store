@@ -38,7 +38,7 @@ const CardOrders = () => {
             <h5 class=" text-[15px] w-[100px] font-bold">Nro:</h5>
           </div>
 
-          {/* <div class="w-[100px] bg-white items-center justify-center m-2 px-8">
+          <div class="w-[100px] bg-white items-center justify-center m-2 px-8">
                 <h5 class="text-[15px] w-[100px] font-bold">
                   Name
                 </h5>
@@ -48,7 +48,7 @@ const CardOrders = () => {
                 <h5 class="text-[15px] w-[100px] font-bold">
                   Email
                 </h5>
-          </div> */}
+          </div>
 
           <div class="w-[80px] bg-white justify-center items-center m-2 px-8">
             <h5 class=" text-[15px] w-[80px] text-black font-bold">
@@ -56,11 +56,11 @@ const CardOrders = () => {
             </h5>
           </div>
 
-          <div class="w-[250px] bg-white justify-center items-center m-2 px-8">
+          {/* <div class="w-[250px] bg-white justify-center items-center m-2 px-8">
             <h5 class=" text-[15px] w-[200px] font-bold ">
               Product Detail
             </h5>
-          </div>
+          </div> */}
 
           <div class="w-[100px] bg-white justify-center items-center m-2 px-8">
             <h5 class="mr-[80px] text-[15px] w-[150px] font-bold"> Address</h5>
@@ -87,10 +87,10 @@ const CardOrders = () => {
             <div class="flex text-center bg-white items-center justify-around ">
 
                <div class='w-[150px] h-[120px] bg-white justify-center items-center m-4'>
-              <h5 class='mr-[100px] text-[15px] w-[150px] '>{e.Nro}</h5> 
+              <h5 class='mr-[100px] text-[15px] w-[150px] '>{e.id}</h5> 
               </div>
 
-              {/* <div class="w-[100px] h-[120px] bg-white justify-center items-center m-2">
+              <div class="w-[100px] h-[120px] bg-white justify-center items-center m-2">
                 <h5 class="mr-[20px] text-[15px] w-[100px] text-left">
                   {e.user.name}
                 </h5>
@@ -100,7 +100,7 @@ const CardOrders = () => {
                 <h5 class="mr-[20px] text-[15px] w-[200px] text-left">
                   {e.user.email}
                 </h5>
-              </div> */}
+              </div>
 
               <div class="w-[80px] h-[120px] bg-white justify-center items-center m-4 ">
                 <h5  class="mr-[20px] text-[15px] w-[80px] text-black ">
@@ -108,11 +108,11 @@ const CardOrders = () => {
                 </h5>
               </div>
 
-              <div class="w-[300px] h-[120px] bg-white justify-center items-center m-2">
+              {/* <div class="w-[300px] h-[120px] bg-white justify-center items-center m-2">
                 <h5 class="mr-[50px] text-[15px] w-[300px] text-black  text-left">
                   {e.nameAndQuantity + " "}
                 </h5>
-              </div>
+              </div> */}
 
               <div class="w-[100px] h-[120px] bg-white justify-center items-center m-2">
                 <h5 class="mr-[20px] text-[15px] w-[100px] text-left">
